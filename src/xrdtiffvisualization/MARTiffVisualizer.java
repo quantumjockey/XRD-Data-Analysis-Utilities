@@ -28,10 +28,20 @@ public class MARTiffVisualizer {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public Image RenderImageInGrayScale() throws IOException{
+    public Image RenderDataAsImage(boolean grayScale) throws IOException {
         WritableImage displayed = new WritableImage(data.intensityMap[0].length, data.intensityMap.length);
         PixelWriter writer = displayed.getPixelWriter();
         short maxValue = data.GetMaxValue();
+        if(grayScale){
+            RenderImageInGrayScale(writer, maxValue);
+        }
+        else{
+            RenderImageViaColorRamp(writer, maxValue);
+        }
+        return displayed;
+    }
+
+    private void RenderImageInGrayScale(PixelWriter writer, short maxValue) throws IOException{
         for (int x = 0; x < data.intensityMap[0].length; x++) {
             for (int y = 0; y < data.intensityMap.length; y++) {
                 short value = data.intensityMap[y][x];
@@ -44,17 +54,11 @@ public class MARTiffVisualizer {
                 }
             }
         }
-        return displayed;
     }
 
-    public Image RenderImageViaColorRamp() throws IOException{
-        WritableImage displayed = new WritableImage(data.intensityMap[0].length, data.intensityMap.length);
-        PixelWriter writer = displayed.getPixelWriter();
-        short maxValue = data.GetMaxValue();
-
+    private void RenderImageViaColorRamp(PixelWriter writer, short maxValue) throws IOException{
         Color[] ramp_colors = { Color.BLACK, Color.BLUE, Color.GREEN};
         GradientRamp colorRamp = new GradientRamp(ramp_colors);
-
         for (int x = 0; x < data.intensityMap[0].length; x++) {
             for (int y = 0; y < data.intensityMap.length; y++) {
                 short value = data.intensityMap[y][x];
@@ -67,7 +71,6 @@ public class MARTiffVisualizer {
                 }
             }
         }
-        return displayed;
     }
 
 }

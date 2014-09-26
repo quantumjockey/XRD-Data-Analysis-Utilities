@@ -74,7 +74,7 @@ public class Controller extends WindowControllerBase{
         TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
         marImageReader.ReadFileData(false);
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(marImageReader.GetImageData());
-        selectedImageViewPort.setImage(marImageGraph.RenderImageInGrayScale());
+        selectedImageViewPort.setImage(marImageGraph.RenderDataAsImage(true));
     }
 
     private void SetTableViewChangeListeners(){
