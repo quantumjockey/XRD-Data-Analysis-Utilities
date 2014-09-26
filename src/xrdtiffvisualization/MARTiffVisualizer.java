@@ -14,15 +14,11 @@ import java.io.IOException;
  */
 public class MARTiffVisualizer {
 
-    public int height;
-    public int width;
     private MARTiffImage data;
 
     /////////// Constructor(s) ////////////////////////////////////////////////////////////////
 
     public MARTiffVisualizer(MARTiffImage imageData){
-        height = imageData.ifdListing.get(0).GetTagValue((short)257);
-        width = imageData.ifdListing.get(0).GetTagValue((short)256);
         data = imageData;
     }
 
@@ -30,16 +26,16 @@ public class MARTiffVisualizer {
 
     public Image RenderDataAsImage(boolean grayScale) throws IOException {
         WritableImage displayed = new WritableImage(data.intensityMap[0].length, data.intensityMap.length);
-        PixelWriter writer = displayed.getPixelWriter();
-        short maxValue = data.GetMaxValue();
         if(grayScale){
-            RenderImageInGrayScale(writer, maxValue);
+            RenderImageInGrayScale(displayed.getPixelWriter(), data.GetMaxValue());
         }
         else{
-            RenderImageViaColorRamp(writer, maxValue);
+            RenderImageViaColorRamp(displayed.getPixelWriter(), data.GetMaxValue());
         }
         return displayed;
     }
+
+    /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private void RenderImageInGrayScale(PixelWriter writer, short maxValue) throws IOException{
         for (int x = 0; x < data.intensityMap[0].length; x++) {
@@ -67,7 +63,7 @@ public class MARTiffVisualizer {
                 }
                 else {
                     int coefficient = value / maxValue;
-                    writer.setColor(x, y, colorRamp.getRampColorValue(coefficient));
+                    writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
                 }
             }
         }
