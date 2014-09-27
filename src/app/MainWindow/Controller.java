@@ -46,7 +46,9 @@ public class Controller extends WindowControllerBase{
     public void GetDirectoryToDisplay() throws IOException{
         DirectoryChooserWrapper dialog = new DirectoryChooserWrapper("Select Directory for Images");
         selectedDirectory = dialog.GetSelectedDirectory();
-        ParseSelectedDirectory();
+        if (selectedDirectory != null) {
+            ParseSelectedDirectory();
+        }
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
@@ -61,20 +63,24 @@ public class Controller extends WindowControllerBase{
             PathWrapper wrapper = new PathWrapper(item.getPath());
             imagesPaths.add(wrapper);
         }
-
-        path.setCellValueFactory(new PropertyValueFactory<>("pathTail"));
-
         availableImages.setItems(FXCollections.observableList(imagesPaths));
+        availableImages.getSelectionModel().select(0);
+        RenderImage(availableImages.getSelectionModel().selectedItemProperty().get());
+        PrepareTableView();
+    }
 
+    private void PrepareTableView(){
+        path.setCellValueFactory(new PropertyValueFactory<>("pathTail"));
         SetTableViewChangeListeners();
     }
 
-    private void RenderImage() throws IOException{
-        PathWrapper imagePath = availableImages.getSelectionModel().selectedItemProperty().get();
-        TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
-        marImageReader.ReadFileData(false);
-        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(marImageReader.GetImageData());
-        selectedImageViewPort.setImage(marImageGraph.RenderDataAsImage(true));
+    private void RenderImage(PathWrapper imagePath) throws IOException{
+        if (imagePath != null) {
+            TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
+            marImageReader.ReadFileData(false);
+            MARTiffVisualizer marImageGraph = new MARTiffVisualizer(marImageReader.GetImageData());
+            selectedImageViewPort.setImage(marImageGraph.RenderDataAsImage(true));
+        }
     }
 
     private void SetTableViewChangeListeners(){
@@ -85,7 +91,7 @@ public class Controller extends WindowControllerBase{
             public void onChanged(Change<? extends Integer> change)
             {
                 try {
-                    RenderImage();
+                    RenderImage(availableImages.getSelectionModel().selectedItemProperty().get());
                 }
                 catch (IOException ex){
                     System.out.println("Image file could not be read!");
