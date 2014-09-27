@@ -4,6 +4,8 @@ import xrdtiffoperations.readers.bytewrappers.IntWrapper;
 import xrdtiffoperations.readers.bytewrappers.ShortWrapper;
 
 import java.nio.ByteOrder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by quantumjockey on 9/17/14.
@@ -59,71 +61,29 @@ public class FieldInformation {
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private String GetFieldType(short _typeId){
-        String typeId;
-        switch (_typeId){
-            case 1:
-                typeId = "8-bit unsigned int (byte)";
-                break;
-            case 2:
-                typeId = "ASCII";
-                break;
-            case 3:
-                typeId = "16-bit unsigned int (short)";
-                break;
-            case 4:
-                typeId = "32-bit unsigned int (long)";
-                break;
-            case 5:
-                typeId = "Rational";
-                break;
-            default:
-                typeId = "(type indeterminable)";
-        }
-        return typeId;
+        Map<Integer, String> typeIds = new HashMap<>();
+        typeIds.put(1, "8-bit unsigned int (byte)");
+        typeIds.put(2, "ASCII");
+        typeIds.put(3, "16-bit unsigned int (short)");
+        typeIds.put(4, "32-bit unsigned int (long)");
+        typeIds.put(5, "Rational");
+        return (typeIds.containsKey(_typeId)) ? typeIds.get(_typeId) : "(type indeterminable)";
     }
 
     private String GetTagDescription(short _tagData){
-        String tagId;
-        switch (_tagData){
-            case 256:
-                tagId = "Image Width";
-                break;
-            case 257:
-                tagId = "Image Height";
-                break;
-            case 258:
-                tagId = "Bits Per Sample";
-                break;
-            case 259:
-                tagId = "Compression";
-                break;
-            case 262:
-                tagId = "Photometric Interpretation";
-                break;
-            case 273:
-                tagId = "Strip-Offsets (Location of image data in file)";
-                break;
-            case 274:
-                tagId = "Orientation";
-                break;
-            case 278:
-                tagId = "Rows Per Strip";
-                break;
-            case 279:
-                tagId = "Strip Byte Counts (Total number of image data bytes)";
-                break;
-            case 282:
-                tagId = "X-Resolution";
-                break;
-            case 283:
-                tagId = "Y-Resolution";
-                break;
-            case 296:
-                tagId = "Resolution Unit";
-                break;
-            default:
-                tagId = "(tag code unrecognized)";
-        }
-        return tagId;
+        Map<Integer, String> tags = new HashMap<>();
+        tags.put(256, "Image Width");
+        tags.put(257, "Image Height");
+        tags.put(258, "Bits Per Sample");
+        tags.put(259, "Compression");
+        tags.put(262, "Photometric Interpretation");
+        tags.put(273, "Strip-Offsets (Location of image data in file)");
+        tags.put(274, "Orientation");
+        tags.put(278, "Rows Per Strip");
+        tags.put(279, "Strip Byte Counts (Total number of image data bytes)");
+        tags.put(282, "X-Resolution");
+        tags.put(283, "Y-Resolution");
+        tags.put(296, "Resolution Unit");
+        return (tags.containsKey(_tagData)) ? tags.get(_tagData) : "(tag code unrecognized)";
     }
 }
