@@ -9,22 +9,23 @@ import java.util.ArrayList;
  */
 public class GradientRamp {
 
+    // Fields
     public ArrayList<RampStop> ramp;
+
+    /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public GradientRamp(Color[] colors) {
         int count = colors.length;
         ramp = new ArrayList<>();
-
         double unit = 1.0 / ((double)(count - 1));
-
         for (int i = 0; i < colors.length; i++) {
             ramp.add(new RampStop(colors[i], i * unit));
         }
     }
 
-    public Color getRampColorValue(double scaleVal){
-        double startBoundaryOffset = 0.0;
-        double finishBoundaryOffset = 1.0;
+    /////////// Public Methods ////////////////////////////////////////////////////////////////
+
+    public Color getRampColorValue(double scaleVal, double startBoundaryOffset, double finishBoundaryOffset){
         int maxByteValue = 255;
         RampStop firstStop = ramp.get(0);
         RampStop secondStop = ramp.get(ramp.size() - 1);
@@ -47,6 +48,7 @@ public class GradientRamp {
         );
     }
 
+    /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private float CalculateChannelValue(RampStop _before, RampStop _after, char _colorComponent, double _offset, int _maxValue) {
         double afterOffset = _after.offset;
