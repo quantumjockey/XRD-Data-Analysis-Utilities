@@ -42,15 +42,15 @@ public class GradientRamp {
             }
         }
         return Color.rgb(
-                (int)CalculateChannelValue(firstStop, secondStop, 'R', scaleVal, maxByteValue),
-                (int)CalculateChannelValue(firstStop, secondStop, 'G', scaleVal, maxByteValue),
-                (int)CalculateChannelValue(firstStop, secondStop, 'B', scaleVal, maxByteValue)
+                CalculateChannelValue(firstStop, secondStop, 'R', scaleVal, maxByteValue),
+                CalculateChannelValue(firstStop, secondStop, 'G', scaleVal, maxByteValue),
+                CalculateChannelValue(firstStop, secondStop, 'B', scaleVal, maxByteValue)
         );
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private float CalculateChannelValue(RampStop _before, RampStop _after, char _colorComponent, double _offset, int _maxValue) {
+    private int CalculateChannelValue(RampStop _before, RampStop _after, char _colorComponent, double _offset, int _maxValue) {
         double afterOffset = _after.offset;
         double beforeOffset = _before.offset;
         float max = (float)_maxValue / (float)255;
@@ -60,7 +60,7 @@ public class GradientRamp {
         double channelRange = afterColorChannelValue - beforeColorChannelValue;
         float newChannel = (float)(scaleFactor * channelRange);
         float result = (float)(newChannel + beforeColorChannelValue);
-        return (result < max) ? result : max;
+        return (int)(((result < max) ? result : max) * 255);
     }
 
     private double GetRgbChannelValue(Color _color, char _component){
