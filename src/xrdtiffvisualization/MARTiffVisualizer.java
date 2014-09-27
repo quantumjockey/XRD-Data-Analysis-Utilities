@@ -62,7 +62,7 @@ public class MARTiffVisualizer {
                     writer.setColor(x, y, Color.RED);
                 }
                 else {
-                    int coefficient = value / maxValue;
+                    double coefficient = (double)value / (double)maxValue;
                     writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
                 }
             }
