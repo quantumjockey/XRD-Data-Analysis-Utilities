@@ -2,7 +2,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="app.MainWindow.Controller">
     <top>
         <MenuBar>
@@ -14,9 +14,20 @@
         </MenuBar>
     </top>
     <center>
-        <VBox>
-            <ImageView fx:id="selectedImageViewPort" fitHeight="600" fitWidth="600"/>
-        </VBox>
+        <GridPane>
+            <NumberAxis fx:id="yAxis" side="LEFT">
+                <GridPane.columnIndex>0</GridPane.columnIndex>
+                <GridPane.rowIndex>0</GridPane.rowIndex>
+            </NumberAxis>
+            <ImageView fx:id="selectedImageViewPort" fitHeight="600" fitWidth="600">
+                <GridPane.columnIndex>1</GridPane.columnIndex>
+                <GridPane.rowIndex>0</GridPane.rowIndex>
+            </ImageView>
+            <NumberAxis fx:id="xAxis" side="BOTTOM">
+                <GridPane.columnIndex>1</GridPane.columnIndex>
+                <GridPane.rowIndex>1</GridPane.rowIndex>
+            </NumberAxis>
+        </GridPane>
     </center>
     <right>
         <TableView fx:id="availableImages">

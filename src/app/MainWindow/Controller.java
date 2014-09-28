@@ -5,6 +5,7 @@ import MvvmBase.window.WindowControllerBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,6 +26,8 @@ public class Controller extends WindowControllerBase{
     @FXML private ImageView selectedImageViewPort;
     @FXML private TableView<PathWrapper> availableImages;
     @FXML private TableColumn<PathWrapper, String> path;
+    @FXML private NumberAxis xAxis;
+    @FXML private NumberAxis yAxis;
 
     // Fields
     private File selectedDirectory;
@@ -81,6 +84,8 @@ public class Controller extends WindowControllerBase{
             MARTiffVisualizer marImageGraph = new MARTiffVisualizer(marImageReader.GetImageData());
             selectedImageViewPort.setImage(marImageGraph.RenderDataAsImage(false));
         }
+        SetNumberAxisDefaults(20.0, xAxis);
+        SetNumberAxisDefaults(20.0, yAxis);
     }
 
     private void SetTableViewChangeListeners(){
@@ -98,6 +103,13 @@ public class Controller extends WindowControllerBase{
                 }
             }
         });
+    }
+
+    private void SetNumberAxisDefaults(double tickUnits, NumberAxis axisContainer){
+        axisContainer.setAutoRanging(true);
+        axisContainer.setForceZeroInRange(true);
+        axisContainer.setMinorTickCount(10);
+        axisContainer.setTickUnit(tickUnits);
     }
 
 }
