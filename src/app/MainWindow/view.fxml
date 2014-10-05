@@ -68,13 +68,13 @@
          <children>
               <TableView fx:id="availableImages" VBox.vgrow="ALWAYS">
                   <columns>
-                      <TableColumn fx:id="path" prefWidth="400" text="Available Data Files">
+                      <TableColumn fx:id="selectedPath" prefWidth="400" text="Available Data Files">
                 </TableColumn>
                   </columns>
               </TableView>
-            <TableView prefHeight="250.0">
+            <TableView prefHeight="250.0" fx:id="subtractedImages">
               <columns>
-                  <TableColumn fx:id="subtractedImages" prefWidth="400.0" resizable="false" text="Subtracted Image" />
+                  <TableColumn fx:id="subtractedPath" prefWidth="400.0" resizable="false" text="Subtracted Image" />
               </columns>
             </TableView>
          </children>
