@@ -22,12 +22,12 @@ import java.util.*;
 
 public class Controller extends WindowControllerBase{
 
-    // Controls
+    // Main Viewer
     @FXML private ImageView selectedImageViewPort;
+
+    // File Listing
     @FXML private TableView<PathWrapper> availableImages;
     @FXML private TableColumn<PathWrapper, String> path;
-    @FXML private NumberAxis xAxis;
-    @FXML private NumberAxis yAxis;
 
     // Fields
     private File selectedDirectory;
@@ -84,8 +84,6 @@ public class Controller extends WindowControllerBase{
             MARTiffVisualizer marImageGraph = new MARTiffVisualizer(marImageReader.GetImageData());
             selectedImageViewPort.setImage(marImageGraph.RenderDataAsImage(false));
         }
-        SetNumberAxisDefaults(20.0, xAxis);
-        SetNumberAxisDefaults(20.0, yAxis);
     }
 
     private void SetTableViewChangeListeners(){
@@ -103,13 +101,6 @@ public class Controller extends WindowControllerBase{
                 }
             }
         });
-    }
-
-    private void SetNumberAxisDefaults(double tickUnits, NumberAxis axisContainer){
-        axisContainer.setAutoRanging(true);
-        axisContainer.setForceZeroInRange(true);
-        axisContainer.setMinorTickCount(10);
-        axisContainer.setTickUnit(tickUnits);
     }
 
 }
