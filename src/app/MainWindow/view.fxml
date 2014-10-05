@@ -1,40 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.layout.GridPane?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="app.MainWindow.Controller">
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.MainWindow.Controller">
     <top>
-        <MenuBar>
-            <Menu text="File">
-                <MenuItem text="Open Folder..." onAction="#GetDirectoryToDisplay"/>
-                <SeparatorMenuItem/>
-                <MenuItem text="Exit" onAction="#ExitApplication"/>
-            </Menu>
+        <MenuBar BorderPane.alignment="CENTER">
+           <menus>
+               <Menu text="File">
+                  <items>
+                      <MenuItem onAction="#GetDirectoryToDisplay" text="Open Folder..." />
+                      <SeparatorMenuItem />
+                      <MenuItem onAction="#ExitApplication" text="Exit" />
+                  </items>
+               </Menu>
+           </menus>
         </MenuBar>
     </top>
     <center>
-        <GridPane>
-            <NumberAxis fx:id="yAxis" side="LEFT">
-                <GridPane.columnIndex>0</GridPane.columnIndex>
-                <GridPane.rowIndex>0</GridPane.rowIndex>
-            </NumberAxis>
-            <ImageView fx:id="selectedImageViewPort" fitHeight="600" fitWidth="600">
-                <GridPane.columnIndex>1</GridPane.columnIndex>
-                <GridPane.rowIndex>0</GridPane.rowIndex>
-            </ImageView>
-            <NumberAxis fx:id="xAxis" side="BOTTOM">
-                <GridPane.columnIndex>1</GridPane.columnIndex>
-                <GridPane.rowIndex>1</GridPane.rowIndex>
-            </NumberAxis>
-        </GridPane>
+      <VBox>
+         <children>
+            <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Selected Image" VBox.vgrow="ALWAYS">
+               <content>
+                    <GridPane>
+                       <children>
+                           <NumberAxis fx:id="yAxis" side="LEFT">
+                               <GridPane.columnIndex>0</GridPane.columnIndex>
+                               <GridPane.rowIndex>0</GridPane.rowIndex>
+                           </NumberAxis>
+                           <ImageView fx:id="selectedImageViewPort" fitHeight="400.0" fitWidth="400.0">
+                               <GridPane.columnIndex>1</GridPane.columnIndex>
+                               <GridPane.rowIndex>0</GridPane.rowIndex>
+                           </ImageView>
+                           <NumberAxis side="BOTTOM" fx:id="xAxis">
+                               <GridPane.columnIndex>1</GridPane.columnIndex>
+                               <GridPane.rowIndex>1</GridPane.rowIndex>
+                           </NumberAxis>
+                       </children>
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+                    </GridPane>
+               </content>
+            </TitledPane>
+            <HBox>
+               <children>
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Subtracted Image">
+                     <content>
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ImageView fx:id="subtractedImageViewport" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </GridPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Subtraction Result">
+                     <content>
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ImageView fx:id="subtractionResultViewport" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </GridPane>
+                     </content>
+                  </TitledPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
     </center>
     <right>
-        <TableView fx:id="availableImages">
-            <columns>
-                <TableColumn fx:id="path" text="File" prefWidth="400">
+      <VBox>
+         <children>
+              <TableView fx:id="availableImages" VBox.vgrow="ALWAYS">
+                  <columns>
+                      <TableColumn fx:id="path" prefWidth="400" text="Available Data Files">
                 </TableColumn>
-            </columns>
-        </TableView>
+                  </columns>
+              </TableView>
+            <TableView prefHeight="250.0">
+              <columns>
+                  <TableColumn fx:id="subtractedImages" prefWidth="400.0" resizable="false" text="Subtracted Image" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
     </right>
 </BorderPane>
