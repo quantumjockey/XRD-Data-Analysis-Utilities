@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
@@ -24,35 +23,11 @@
          <children>
             <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Selected Image" VBox.vgrow="ALWAYS">
                <content>
-                    <GridPane>
-                       <children>
-                           <NumberAxis fx:id="yAxis" side="LEFT">
-                               <GridPane.columnIndex>0</GridPane.columnIndex>
-                               <GridPane.rowIndex>0</GridPane.rowIndex>
-                           </NumberAxis>
-                           <ImageView fx:id="selectedImageViewPort" fitHeight="400.0" fitWidth="400.0">
-                               <GridPane.columnIndex>1</GridPane.columnIndex>
-                               <GridPane.rowIndex>0</GridPane.rowIndex>
-                           </ImageView>
-                           <NumberAxis side="BOTTOM" fx:id="xAxis">
-                               <GridPane.columnIndex>1</GridPane.columnIndex>
-                               <GridPane.rowIndex>1</GridPane.rowIndex>
-                           </NumberAxis>
-                       </children>
-                     <columnConstraints>
-                        <ColumnConstraints />
-                        <ColumnConstraints />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints />
-                        <RowConstraints />
-                     </rowConstraints>
-                    </GridPane>
+                     <ImageView fx:id="selectedImageViewPort" fitHeight="400.0" fitWidth="400.0" />
                </content>
             </TitledPane>
             <HBox>
                <children>
-                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Subtracted Image">
                      <content>
                         <GridPane>
