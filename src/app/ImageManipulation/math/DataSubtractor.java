@@ -10,6 +10,7 @@ public class DataSubtractor {
 
         MARTiffImage temp = new MARTiffImage(filename);
         temp.ifdListing = firstImage.ifdListing;
+        temp.byteOrder = firstImage.byteOrder;
         int height, width;
 
         height = (firstImage.intensityMap.length < secondImage.intensityMap.length) ? firstImage.intensityMap.length : secondImage.intensityMap.length;
