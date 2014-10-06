@@ -38,7 +38,7 @@ public class TiffReader {
     public void ReadFileData(boolean printInfoToConsole){
         GetFileHeader(fileBytesRaw);
         GetIFDByteGroups(fileBytesRaw, marImageData.firstIfdOffset);
-        GetImageData(RetrieveImageStartingByte(), RetrieveImageHeight(), RetrieveImageWidth());
+        RetrieveImageData(RetrieveImageStartingByte(), RetrieveImageHeight(), RetrieveImageWidth());
         if (printInfoToConsole) {
             PrintFileInfo();
         }
@@ -121,7 +121,7 @@ public class TiffReader {
         marImageData.ifdListing.add(directory);
     }
 
-    private void GetImageData(int startingByte, int imageHeight, int imageWidth){
+    private void RetrieveImageData(int startingByte, int imageHeight, int imageWidth){
         short[] linearImageArray = new short[imageHeight * imageWidth];
         byte[] pixelTemp = new byte[2];
         int z = 0;
