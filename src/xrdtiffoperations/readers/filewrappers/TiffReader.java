@@ -1,5 +1,6 @@
 package xrdtiffoperations.readers.filewrappers;
 
+import pathoperations.PathWrapper;
 import xrdtiffoperations.imagemodel.ifd.ImageFileDirectory;
 import xrdtiffoperations.imagemodel.ifd.fields.FieldInformation;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
@@ -18,7 +19,7 @@ public class TiffReader {
 
     // File Data
     private byte[] fileBytesRaw;
-    private String fileName;
+    private String fullFilePath;
 
     // Image data
     private MARTiffImage marImageData;
@@ -27,9 +28,9 @@ public class TiffReader {
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public TiffReader(String filePath) throws IOException{
-        fileName = filePath;
+        fullFilePath = filePath;
         fileBytesRaw = Files.readAllBytes(FileSystems.getDefault().getPath(filePath));
-        marImageData = new MARTiffImage(filePath);
+        marImageData = new MARTiffImage((new PathWrapper(filePath)).getPathTail());
         fileHasBeenRead = false;
     }
 
@@ -38,7 +39,7 @@ public class TiffReader {
     public void ReadFileData(boolean printInfoToConsole){
         GetFileHeader(fileBytesRaw);
         GetIFDByteGroups(fileBytesRaw, marImageData.firstIfdOffset);
-        GetImageData(RetrieveImageStartingByte(), RetrieveImageHeight(), RetrieveImageWidth());
+        RetrieveImageData(RetrieveImageStartingByte(), RetrieveImageHeight(), RetrieveImageWidth());
         if (printInfoToConsole) {
             PrintFileInfo();
         }
@@ -121,7 +122,7 @@ public class TiffReader {
         marImageData.ifdListing.add(directory);
     }
 
-    private void GetImageData(int startingByte, int imageHeight, int imageWidth){
+    private void RetrieveImageData(int startingByte, int imageHeight, int imageWidth){
         short[] linearImageArray = new short[imageHeight * imageWidth];
         byte[] pixelTemp = new byte[2];
         int z = 0;
@@ -178,7 +179,7 @@ public class TiffReader {
     }
 
     private void PrintFileName(){
-        System.out.println("File name (full path): " + fileName);
+        System.out.println("File name (full path): " + fullFilePath);
     }
 
     private void PrintFileHeader(){
