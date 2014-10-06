@@ -74,9 +74,11 @@ public class Controller extends WindowControllerBase{
     public void ExportSubtractedImage(){
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
         dialog.SetInitialFileName(subtractionResult.getFilename());
-        String destination = dialog.GetSaveDirectory().getPath();
-        TiffWriter writer = new TiffWriter(subtractionResult);
-        writer.Write(destination);
+        File destination = dialog.GetSaveDirectory();
+        if (destination != null) {
+            TiffWriter writer = new TiffWriter(subtractionResult);
+            writer.Write(destination.getPath());
+        }
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
