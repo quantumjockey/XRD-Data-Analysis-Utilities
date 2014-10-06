@@ -6,7 +6,8 @@ public class DataSubtractor {
 
     public static MARTiffImage SubtractImages(MARTiffImage firstImage, MARTiffImage secondImage, boolean isAbsolute){
 
-        String filename = firstImage.getFilename().replace('.', '-') + "_minus_" + secondImage.getFilename().replace('.', '-') + ".tiff";
+        String filename = firstImage.getFilename().replace('.', '-') + "_minus_" + secondImage.getFilename().replace('.', '-') + ".tif";
+
         MARTiffImage temp = new MARTiffImage(filename);
         temp.ifdListing = firstImage.ifdListing;
         int height, width;
