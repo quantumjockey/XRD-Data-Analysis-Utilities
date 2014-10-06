@@ -2,6 +2,7 @@ package app.MainWindow;
 
 import DialogInitialization.DirectoryChooserWrapper;
 import MvvmBase.window.WindowControllerBase;
+import app.ImageManipulation.math.DataSubtractor;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import pathoperations.PathWrapper;
 import pathoperations.filters.FilterWrapper;
+import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.readers.filewrappers.TiffReader;
 import xrdtiffvisualization.MARTiffVisualizer;
 
@@ -40,6 +42,8 @@ public class Controller extends WindowControllerBase{
 
     // Fields
     private File selectedDirectory;
+    private MARTiffImage selectedImage;
+    private MARTiffImage subtractedImage;
 
     /////////// Constructor(s) ////////////////////////////////////////////////////////////////
 
@@ -65,6 +69,15 @@ public class Controller extends WindowControllerBase{
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
+    private void CacheImage(TableView<PathWrapper> tableObject, MARTiffImage image){
+        if (tableObject == availableImages && image != null){
+            selectedImage = image;
+        }
+        else{
+            subtractedImage = image;
+        }
+    }
+
     private void ParseSelectedDirectory() throws IOException{
 
         FilterWrapper tiffFilter = new FilterWrapper(new String[]{".tif", ".tiff"});
@@ -76,20 +89,25 @@ public class Controller extends WindowControllerBase{
             imagesPaths.add(wrapper);
         }
 
-        PopulateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport);
-        PopulateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport);
+        PopulateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport, selectedImage);
+        PopulateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport, subtractedImage);
+        try{
+            selectedImage = ReadImageData(availableImages.getSelectionModel().selectedItemProperty().get());
+            RenderImage(selectedImage, selectedImageViewport);
+            subtractedImage = ReadImageData(subtractedImages.getSelectionModel().selectedItemProperty().get());
+            RenderImage(subtractedImage, subtractedImageViewport);
+        }
+        catch (IOException ex){
+            System.out.println("Image file could not be rendered!");
+        }
+        SubtractImages();
     }
 
-    private void PopulateTableView(TableView<PathWrapper> tableControl, TableColumn<PathWrapper, String> columnControl, ArrayList<PathWrapper> paths, ImageView imageViewport){
+    private void PopulateTableView(TableView<PathWrapper> tableControl, TableColumn<PathWrapper, String> columnControl, ArrayList<PathWrapper> paths, ImageView imageViewport, MARTiffImage image){
         tableControl.setItems(FXCollections.observableList(paths));
         tableControl.getSelectionModel().select(0);
         PrepareTableView(tableControl, columnControl, imageViewport);
-        try {
-            RenderImage(tableControl.getSelectionModel().selectedItemProperty().get(), imageViewport);
-        }
-        catch (IOException ex){
-            System.out.println("Image file could not be read!");
-        }
+        CacheImage(tableControl, image);
     }
 
     private void PrepareTableView(TableView<PathWrapper> tableContainer, TableColumn<PathWrapper, String> selectableColumn, ImageView imageViewport){
@@ -97,13 +115,19 @@ public class Controller extends WindowControllerBase{
         SetTableViewChangeListeners(tableContainer, imageViewport);
     }
 
-    private void RenderImage(PathWrapper imagePath, ImageView viewport) throws IOException{
+    private MARTiffImage ReadImageData(PathWrapper imagePath) throws IOException {
+        MARTiffImage temp = null;
         if (imagePath != null) {
             TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
             marImageReader.ReadFileData(false);
-            MARTiffVisualizer marImageGraph = new MARTiffVisualizer(marImageReader.GetImageData());
-            viewport.setImage(marImageGraph.RenderDataAsImage(false));
+            temp = marImageReader.GetImageData();
         }
+        return temp;
+    }
+
+    private void RenderImage(MARTiffImage image, ImageView viewport) throws IOException{
+            MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
+            viewport.setImage(marImageGraph.RenderDataAsImage(false));
     }
 
     private void SetTableViewChangeListeners(TableView<PathWrapper> tableObject, ImageView imageViewport){
@@ -114,7 +138,10 @@ public class Controller extends WindowControllerBase{
             public void onChanged(Change<? extends Integer> change)
             {
                 try {
-                    RenderImage(tableObject.getSelectionModel().selectedItemProperty().get(), imageViewport);
+                    MARTiffImage image = ReadImageData(tableObject.getSelectionModel().selectedItemProperty().get());
+                    CacheImage(tableObject, image);
+                    RenderImage(image, imageViewport);
+                    SubtractImages();
                 }
                 catch (IOException ex){
                     System.out.println("Image file could not be read!");
@@ -123,4 +150,9 @@ public class Controller extends WindowControllerBase{
         });
     }
 
+    private void SubtractImages() throws IOException{
+        MARTiffImage img = DataSubtractor.SubtractImages(selectedImage, subtractedImage, true);
+        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(img);
+        subtractionResultViewport.setImage(marImageGraph.RenderDataAsImage(false));
+    }
 }
