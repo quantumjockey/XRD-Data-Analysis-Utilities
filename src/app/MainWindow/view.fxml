@@ -9,11 +9,16 @@
         <MenuBar BorderPane.alignment="CENTER">
            <menus>
                <Menu text="File">
-                  <items>
-                      <MenuItem onAction="#GetDirectoryToDisplay" text="Open Folder..." />
-                      <SeparatorMenuItem />
-                      <MenuItem onAction="#ExitApplication" text="Exit" />
-                  </items>
+                   <items>
+                       <MenuItem onAction="#GetDirectoryToDisplay" text="Open Folder..." />
+                       <SeparatorMenuItem />
+                       <MenuItem onAction="#ExitApplication" text="Exit" />
+                    </items>
+               </Menu>
+               <Menu text="Export">
+                   <items>
+                       <MenuItem onAction="#ExportSubtractedImage" text="Subtraction Result"/>
+                   </items>
                </Menu>
            </menus>
         </MenuBar>

@@ -67,6 +67,11 @@ public class Controller extends WindowControllerBase{
         }
     }
 
+    @FXML
+    public void ExportSubtractedImage(){
+
+    }
+
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private void CacheImage(TableView<PathWrapper> tableObject, MARTiffImage image){
