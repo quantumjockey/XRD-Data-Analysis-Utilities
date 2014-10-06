@@ -3,10 +3,7 @@ package app.ImageManipulation.math;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-/**
- * Created by quantumjockey on 9/9/14.
- */
-public class ImageSubtractor extends ImageMathBase {
+public class ImageSubtractor {
 
 
     public BufferedImage SubtractImages(BufferedImage firstImage, BufferedImage secondImage) {
