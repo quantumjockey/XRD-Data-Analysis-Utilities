@@ -5,7 +5,6 @@ import MvvmBase.window.WindowControllerBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,9 +24,19 @@ public class Controller extends WindowControllerBase{
     // Main Viewer
     @FXML private ImageView selectedImageViewPort;
 
+    // Subtracted Viewer
+    @FXML private ImageView subtractedImageViewport;
+
+    // Result Viewer
+    @FXML private ImageView subtractionResultViewport;
+
     // File Listing
     @FXML private TableView<PathWrapper> availableImages;
-    @FXML private TableColumn<PathWrapper, String> path;
+    @FXML private TableColumn<PathWrapper, String> selectedPath;
+
+    // Subtracted Listing
+    @FXML private TableView<PathWrapper> subtractedImages;
+    @FXML private TableColumn<PathWrapper, String> subtractedPath;
 
     // Fields
     private File selectedDirectory;
@@ -73,7 +82,7 @@ public class Controller extends WindowControllerBase{
     }
 
     private void PrepareTableView(){
-        path.setCellValueFactory(new PropertyValueFactory<>("pathTail"));
+        selectedPath.setCellValueFactory(new PropertyValueFactory<>("pathTail"));
         SetTableViewChangeListeners();
     }
 
