@@ -1,6 +1,7 @@
 package app.MainWindow;
 
 import DialogInitialization.DirectoryChooserWrapper;
+import DialogInitialization.FileSaveChooserWrapper;
 import MvvmBase.window.WindowControllerBase;
 import app.ImageManipulation.math.DataSubtractor;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import pathoperations.PathWrapper;
 import pathoperations.filters.FilterWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.readers.filewrappers.TiffReader;
+import xrdtiffoperations.readers.filewrappers.TiffWriter;
 import xrdtiffvisualization.MARTiffVisualizer;
 
 import java.io.*;
@@ -44,6 +46,7 @@ public class Controller extends WindowControllerBase{
     private File selectedDirectory;
     private MARTiffImage selectedImage;
     private MARTiffImage subtractedImage;
+    private MARTiffImage subtractionResult;
 
     /////////// Constructor(s) ////////////////////////////////////////////////////////////////
 
@@ -69,7 +72,11 @@ public class Controller extends WindowControllerBase{
 
     @FXML
     public void ExportSubtractedImage(){
-
+        FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
+        dialog.SetInitialFileName(subtractionResult.getFilename());
+        String destination = dialog.GetSaveDirectory().getPath();
+        TiffWriter writer = new TiffWriter(subtractionResult);
+        writer.Write(destination);
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
@@ -156,8 +163,8 @@ public class Controller extends WindowControllerBase{
     }
 
     private void SubtractImages() throws IOException{
-        MARTiffImage img = DataSubtractor.SubtractImages(selectedImage, subtractedImage, true);
-        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(img);
+        subtractionResult = DataSubtractor.SubtractImages(selectedImage, subtractedImage, true);
+        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(subtractionResult);
         subtractionResultViewport.setImage(marImageGraph.RenderDataAsImage(false));
     }
 }
