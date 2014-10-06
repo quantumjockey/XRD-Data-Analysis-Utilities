@@ -22,7 +22,7 @@ import java.util.*;
 public class Controller extends WindowControllerBase{
 
     // Main Viewer
-    @FXML private ImageView selectedImageViewPort;
+    @FXML private ImageView selectedImageViewport;
 
     // Subtracted Viewer
     @FXML private ImageView subtractedImageViewport;
@@ -75,35 +75,46 @@ public class Controller extends WindowControllerBase{
             PathWrapper wrapper = new PathWrapper(item.getPath());
             imagesPaths.add(wrapper);
         }
-        availableImages.setItems(FXCollections.observableList(imagesPaths));
-        availableImages.getSelectionModel().select(0);
-        RenderImage(availableImages.getSelectionModel().selectedItemProperty().get());
-        PrepareTableView();
+
+        PopulateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport);
+        PopulateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport);
     }
 
-    private void PrepareTableView(){
-        selectedPath.setCellValueFactory(new PropertyValueFactory<>("pathTail"));
-        SetTableViewChangeListeners();
+    private void PopulateTableView(TableView<PathWrapper> tableControl, TableColumn<PathWrapper, String> columnControl, ArrayList<PathWrapper> paths, ImageView imageViewport){
+        tableControl.setItems(FXCollections.observableList(paths));
+        tableControl.getSelectionModel().select(0);
+        PrepareTableView(tableControl, columnControl, imageViewport);
+        try {
+            RenderImage(tableControl.getSelectionModel().selectedItemProperty().get(), imageViewport);
+        }
+        catch (IOException ex){
+            System.out.println("Image file could not be read!");
+        }
     }
 
-    private void RenderImage(PathWrapper imagePath) throws IOException{
+    private void PrepareTableView(TableView<PathWrapper> tableContainer, TableColumn<PathWrapper, String> selectableColumn, ImageView imageViewport){
+        selectableColumn.setCellValueFactory(new PropertyValueFactory<>("pathTail"));
+        SetTableViewChangeListeners(tableContainer, imageViewport);
+    }
+
+    private void RenderImage(PathWrapper imagePath, ImageView viewport) throws IOException{
         if (imagePath != null) {
             TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
             marImageReader.ReadFileData(false);
             MARTiffVisualizer marImageGraph = new MARTiffVisualizer(marImageReader.GetImageData());
-            selectedImageViewPort.setImage(marImageGraph.RenderDataAsImage(false));
+            viewport.setImage(marImageGraph.RenderDataAsImage(false));
         }
     }
 
-    private void SetTableViewChangeListeners(){
-        availableImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        availableImages.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
+    private void SetTableViewChangeListeners(TableView<PathWrapper> tableObject, ImageView imageViewport){
+        tableObject.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableObject.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
         {
             @Override
             public void onChanged(Change<? extends Integer> change)
             {
                 try {
-                    RenderImage(availableImages.getSelectionModel().selectedItemProperty().get());
+                    RenderImage(tableObject.getSelectionModel().selectedItemProperty().get(), imageViewport);
                 }
                 catch (IOException ex){
                     System.out.println("Image file could not be read!");
