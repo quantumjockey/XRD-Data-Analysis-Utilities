@@ -1,4 +1,4 @@
-package xrdtiffoperations.readers.bytewrappers;
+package xrdtiffoperations.wrappers.bytewrappers;
 
 import java.nio.ByteOrder;
 

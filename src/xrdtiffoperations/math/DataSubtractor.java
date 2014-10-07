@@ -1,4 +1,4 @@
-package app.ImageManipulation.math;
+package xrdtiffoperations.math;
 
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 
