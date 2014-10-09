@@ -2,7 +2,7 @@ package xrdtiffoperations.math;
 
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 
-public class DataSubtractor {
+public class DataSubtraction {
 
     public static MARTiffImage SubtractImages(MARTiffImage firstImage, MARTiffImage secondImage, boolean isAbsolute){
 

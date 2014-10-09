@@ -3,7 +3,7 @@ package app.MainWindow;
 import DialogInitialization.DirectoryChooserWrapper;
 import DialogInitialization.FileSaveChooserWrapper;
 import MvvmBase.window.WindowControllerBase;
-import xrdtiffoperations.math.DataSubtractor;
+import xrdtiffoperations.math.DataSubtraction;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -165,7 +165,7 @@ public class Controller extends WindowControllerBase{
     }
 
     private void SubtractImages() throws IOException{
-        subtractionResult = DataSubtractor.SubtractImages(selectedImage, subtractedImage, true);
+        subtractionResult = DataSubtraction.SubtractImages(selectedImage, subtractedImage, true);
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(subtractionResult);
         subtractionResultViewport.setImage(marImageGraph.RenderDataAsImage(false));
     }
