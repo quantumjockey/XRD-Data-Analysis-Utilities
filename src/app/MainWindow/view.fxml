@@ -93,7 +93,7 @@
                            <children>
                               <Label prefWidth="70.0" text="Minimum:" />
                               <Button mnemonicParsing="false" text="+" />
-                              <TextField HBox.hgrow="ALWAYS" />
+                              <TextField fx:id="maskMinBound" HBox.hgrow="ALWAYS" />
                               <Button mnemonicParsing="false" text="-" />
                            </children>
                         </HBox>
@@ -101,7 +101,7 @@
                            <children>
                               <Label prefWidth="70.0" text="Maximum:" />
                               <Button mnemonicParsing="false" text="+" />
-                              <TextField HBox.hgrow="ALWAYS" />
+                              <TextField fx:id="maskMaxBound" HBox.hgrow="ALWAYS" />
                               <Button mnemonicParsing="false" text="-" />
                            </children>
                            <padding>

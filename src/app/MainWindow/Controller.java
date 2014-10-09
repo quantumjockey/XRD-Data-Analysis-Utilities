@@ -3,6 +3,7 @@ package app.MainWindow;
 import DialogInitialization.DirectoryChooserWrapper;
 import DialogInitialization.FileSaveChooserWrapper;
 import MvvmBase.window.WindowControllerBase;
+import javafx.scene.control.TextField;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -41,6 +42,10 @@ public class Controller extends WindowControllerBase{
     // Subtracted Listing
     @FXML private TableView<PathWrapper> subtractedImages;
     @FXML private TableColumn<PathWrapper, String> subtractedPath;
+
+    // Image Masking
+    @FXML private TextField maskMaxBound;
+    @FXML private TextField maskMinBound;
 
     // Fields
     private File selectedDirectory;
