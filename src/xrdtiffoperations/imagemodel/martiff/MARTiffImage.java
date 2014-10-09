@@ -16,16 +16,38 @@ public class MARTiffImage extends TiffBase{
         super(_filename);
     }
 
+    /////////// Public Methods //////////////////////////////////////////////////////////////
+
     public short GetMaxValue(){
         short maxVal = 0;
-        for (int i = 0; i < intensityMap[0].length; i++){
-            for (int j = 0; j < intensityMap.length; j++){
-                if (intensityMap[i][j] > maxVal){
-                    maxVal = intensityMap[i][j];
+        for (int y = 0; y < GetHeight(); y++){
+            for (int x = 0; x < GetWidth(); x++){
+                if (intensityMap[y][x] > maxVal){
+                    maxVal = intensityMap[y][x];
                 }
             }
         }
         return maxVal;
+    }
+
+    public short GetMinValue(){
+        short minVal = 0;
+        for (int y = 0; y < GetHeight(); y++){
+            for (int x = 0; x < GetWidth(); x++){
+                if (intensityMap[y][x] < minVal){
+                    minVal = intensityMap[y][x];
+                }
+            }
+        }
+        return minVal;
+    }
+
+    public int GetHeight(){
+        return intensityMap.length;
+    }
+
+    public int GetWidth(){
+        return intensityMap[0].length;
     }
 
 }
