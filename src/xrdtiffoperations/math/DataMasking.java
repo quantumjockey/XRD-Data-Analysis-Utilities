@@ -8,19 +8,23 @@ public class DataMasking {
         MARTiffImage temp = image;
         String name = temp.getFilename().replace('.', '-') + "_mask_" + minVal + "_to_" + maxVal + ".tif";
         temp.setFilename(name);
-        for(int y = 0; y < temp.intensityMap.length; y++){
-            for (int x = 0; x < temp.intensityMap[y].length; x++){
-                short value = temp.intensityMap[x][y];
-                if (value < minVal){
-                    value = (short)minVal;
-                }
-                if (value > maxVal){
-                    value = (short)maxVal;
-                }
-                temp.intensityMap[x][y] = value;
+        for(int y = 0; y < temp.GetHeight(); y++){
+            for (int x = 0; x < temp.GetWidth(); x++){
+                temp.intensityMap[y][x] = MaskValue(temp.intensityMap[y][x], (short)maxVal, (short)minVal);
             }
         }
         return temp;
+    }
+
+    private static short MaskValue(short _value, short _max, short _min){
+        short value = _value;
+        if (value < _min){
+            value = _min;
+        }
+        else if (value > _max){
+            value = _max;
+        }
+        return value;
     }
 
 }
