@@ -48,10 +48,10 @@ public class Controller extends WindowControllerBase{
     @FXML private TextField maskMinBound;
 
     // Fields
+    private MARTiffImage resultantImage;
     private File selectedDirectory;
     private MARTiffImage selectedImage;
     private MARTiffImage subtractedImage;
-    private MARTiffImage subtractionResult;
 
     /////////// Constructor(s) ////////////////////////////////////////////////////////////////
 
@@ -78,10 +78,10 @@ public class Controller extends WindowControllerBase{
     @FXML
     public void ExportSubtractedImage(){
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
-        dialog.SetInitialFileName(subtractionResult.getFilename());
+        dialog.SetInitialFileName(resultantImage.getFilename());
         File destination = dialog.GetSaveDirectory();
         if (destination != null) {
-            TiffWriter writer = new TiffWriter(subtractionResult);
+            TiffWriter writer = new TiffWriter(resultantImage);
             writer.Write(destination.getPath());
         }
     }
@@ -169,6 +169,11 @@ public class Controller extends WindowControllerBase{
             viewport.setImage(marImageGraph.RenderDataAsImage(false));
     }
 
+    private void SetDefaultMaskExtrema(MARTiffImage image){
+        maskMaxBound.setText(Short.toString(image.GetMaxValue()));
+        maskMinBound.setText(Short.toString(image.GetMinValue()));
+    }
+
     private void SetTableViewChangeListeners(TableView<PathWrapper> tableObject, ImageView imageViewport){
         tableObject.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tableObject.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
@@ -190,8 +195,9 @@ public class Controller extends WindowControllerBase{
     }
 
     private void SubtractImages() throws IOException{
-        subtractionResult = DataSubtraction.SubtractImages(selectedImage, subtractedImage, true);
-        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(subtractionResult);
+        resultantImage = DataSubtraction.SubtractImages(selectedImage, subtractedImage, true);
+        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(resultantImage);
         resultantImageViewport.setImage(marImageGraph.RenderDataAsImage(false));
+        SetDefaultMaskExtrema(resultantImage);
     }
 }

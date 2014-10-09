@@ -85,7 +85,7 @@
                   <TableColumn fx:id="subtractedPath" prefWidth="400.0" resizable="false" text="Subtracted Image" />
               </columns>
             </TableView>
-            <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Masking" textAlignment="CENTER">
+            <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Result Masking" textAlignment="CENTER">
                <content>
                   <VBox alignment="CENTER_RIGHT">
                      <children>
