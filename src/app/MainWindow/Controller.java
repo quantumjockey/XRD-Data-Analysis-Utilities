@@ -32,7 +32,7 @@ public class Controller extends WindowControllerBase{
     @FXML private ImageView subtractedImageViewport;
 
     // Result Viewer
-    @FXML private ImageView subtractionResultViewport;
+    @FXML private ImageView resultantImageViewport;
 
     // File Listing
     @FXML private TableView<PathWrapper> availableImages;
@@ -167,6 +167,6 @@ public class Controller extends WindowControllerBase{
     private void SubtractImages() throws IOException{
         subtractionResult = DataSubtraction.SubtractImages(selectedImage, subtractedImage, true);
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(subtractionResult);
-        subtractionResultViewport.setImage(marImageGraph.RenderDataAsImage(false));
+        resultantImageViewport.setImage(marImageGraph.RenderDataAsImage(false));
     }
 }

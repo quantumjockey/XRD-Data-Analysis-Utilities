@@ -61,7 +61,7 @@
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ImageView fx:id="subtractionResultViewport" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="resultantImageViewport" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </GridPane>
                      </content>
