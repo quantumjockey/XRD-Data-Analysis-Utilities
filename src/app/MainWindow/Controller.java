@@ -86,6 +86,26 @@ public class Controller extends WindowControllerBase{
         }
     }
 
+    @FXML
+    public void DecrementMaskMaximum(){
+
+    }
+
+    @FXML
+    public void DecrementMaskMinimum(){
+
+    }
+
+    @FXML
+    public void IncrementMaskMaximum(){
+
+    }
+
+    @FXML
+    public void IncrementMaskMinimum(){
+
+    }
+
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private void CacheImage(TableView<PathWrapper> tableObject, MARTiffImage image){

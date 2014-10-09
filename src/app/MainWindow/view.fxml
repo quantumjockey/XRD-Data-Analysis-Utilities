@@ -92,17 +92,17 @@
                         <HBox alignment="CENTER_RIGHT" spacing="5.0">
                            <children>
                               <Label prefWidth="70.0" text="Minimum:" />
-                              <Button mnemonicParsing="false" text="+" />
+                              <Button mnemonicParsing="false" onAction="#IncrementMaskMinimum" text="+" />
                               <TextField fx:id="maskMinBound" HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" text="-" />
+                              <Button mnemonicParsing="false" onAction="#DecrementMaskMinimum" text="-" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0">
                            <children>
                               <Label prefWidth="70.0" text="Maximum:" />
-                              <Button mnemonicParsing="false" text="+" />
+                              <Button mnemonicParsing="false" onAction="#IncrementMaskMaximum" text="+" />
                               <TextField fx:id="maskMaxBound" HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" text="-" />
+                              <Button mnemonicParsing="false" onAction="#DecrementMaskMaximum" text="-" />
                            </children>
                            <padding>
                               <Insets top="5.0" />
