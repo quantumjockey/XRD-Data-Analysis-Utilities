@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
@@ -17,7 +20,7 @@
                </Menu>
                <Menu text="Export">
                    <items>
-                       <MenuItem onAction="#ExportSubtractedImage" text="Subtraction Result"/>
+                       <MenuItem onAction="#ExportSubtractedImage" text="Subtraction Result" />
                    </items>
                </Menu>
            </menus>
@@ -48,7 +51,7 @@
                         </GridPane>
                      </content>
                   </TitledPane>
-                  <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Subtraction Result">
+                  <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Resultant Image">
                      <content>
                         <GridPane>
                            <columnConstraints>
@@ -77,11 +80,41 @@
                 </TableColumn>
                   </columns>
               </TableView>
-            <TableView prefHeight="250.0" fx:id="subtractedImages">
+            <TableView fx:id="subtractedImages" prefHeight="250.0">
               <columns>
                   <TableColumn fx:id="subtractedPath" prefWidth="400.0" resizable="false" text="Subtracted Image" />
               </columns>
             </TableView>
+            <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Masking" textAlignment="CENTER">
+               <content>
+                  <VBox alignment="CENTER_RIGHT">
+                     <children>
+                        <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                           <children>
+                              <Label prefWidth="70.0" text="Minimum:" />
+                              <Button mnemonicParsing="false" text="+" />
+                              <TextField HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" text="-" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                           <children>
+                              <Label prefWidth="70.0" text="Maximum:" />
+                              <Button mnemonicParsing="false" text="+" />
+                              <TextField HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" text="-" />
+                           </children>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </TitledPane>
          </children>
       </VBox>
     </right>
