@@ -18,20 +18,20 @@ public class MARTiffViewportModel {
     public final void setFilename(String filename){ this.filename.set(filename); }
     public StringProperty filenameProperty(){ return this.filename; }
 
-    private StringProperty operationTag = new SimpleStringProperty();
-    public final String getOperationTag(){ return this.operationTag.get(); }
-    public final void setOperationTag(String operationTag){ this.operationTag.set(operationTag); }
-    public StringProperty operationTagProperty(){ return this.operationTag; }
+    private IntegerProperty viewportHeight = new SimpleIntegerProperty();
+    public final int getViewportHeight(){ return this.viewportHeight.get(); }
+    public final void setViewportHeight(int viewportHeight){ this.viewportHeight.set(viewportHeight); }
+    public IntegerProperty viewportHeightProperty(){ return this.viewportHeight; }
 
-    private IntegerProperty renderedHeight = new SimpleIntegerProperty();
-    public final int getRenderedHeight(){ return this.renderedHeight.get(); }
-    public final void setRenderedHeight(int renderedHeight){ this.renderedHeight.set(renderedHeight); }
-    public IntegerProperty renderedHeightProperty(){ return this.renderedHeight; }
+    private StringProperty viewportMode = new SimpleStringProperty();
+    public final String getViewportMode(){ return this.viewportMode.get(); }
+    public final void setViewportMode(String viewportMode){ this.viewportMode.set(viewportMode); }
+    public StringProperty viewportModeProperty(){ return this.viewportMode; }
 
-    private IntegerProperty renderedWidth = new SimpleIntegerProperty();
-    public final int getRenderedWidth(){ return this.renderedWidth.get(); }
-    public final void setRenderedWidth(int renderedWidth){ this.renderedWidth.set(renderedWidth); }
-    public IntegerProperty renderedWidthProperty(){ return this.renderedWidth; }
+    private IntegerProperty viewportWidth = new SimpleIntegerProperty();
+    public final int getViewportWidth(){ return this.viewportWidth.get(); }
+    public final void setViewportWidth(int viewportWidth){ this.viewportWidth.set(viewportWidth); }
+    public IntegerProperty viewportWidthProperty(){ return this.viewportWidth; }
 
     private DoubleProperty zoom = new SimpleDoubleProperty();
     public final double getZoom(){ return this.zoom.get(); }
@@ -47,10 +47,10 @@ public class MARTiffViewportModel {
     public MARTiffViewportModel(MARTiffImage _image, String _operation, int _renderedSize, double _zoom){
         this.setCachedImage(_image);
         this.setFilename(_image.filename);
-        this.setOperationTag(_operation);
+        this.setViewportMode(_operation);
         this.setZoom(_zoom);
-        Bindings.bindBidirectional(renderedHeightProperty(),renderedWidthProperty());
-        this.setRenderedHeight(_renderedSize);
+        Bindings.bindBidirectional(viewportHeight, viewportWidth);
+        this.setViewportHeight(_renderedSize);
     }
 
 }
