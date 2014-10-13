@@ -7,9 +7,6 @@ import xrdtiffoperations.wrappers.bytewrappers.ShortWrapper;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 
-/**
- * Created by quantumjockey on 9/17/14.
- */
 public class ImageFileDirectory {
 
     // Constants

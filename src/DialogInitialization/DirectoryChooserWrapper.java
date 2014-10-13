@@ -6,9 +6,6 @@ import pathoperations.SystemAttributes;
 
 import java.io.File;
 
-/**
- * Created by quantumjockey on 9/9/14.
- */
 public class DirectoryChooserWrapper {
 
     private DirectoryChooser chooser;

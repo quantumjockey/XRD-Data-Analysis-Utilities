@@ -1,8 +1,5 @@
 package app.martiffviewport;
 
-/**
- * Created by quantumjockey on 10/12/14.
- */
 public class ViewportModes {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////

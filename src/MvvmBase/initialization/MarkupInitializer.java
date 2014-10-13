@@ -3,13 +3,9 @@ package MvvmBase.initialization;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Node;
-
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * Created by quantumjockey on 10/12/14.
- */
 public class MarkupInitializer {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////

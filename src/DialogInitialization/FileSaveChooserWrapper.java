@@ -6,7 +6,6 @@ import pathoperations.SystemAttributes;
 
 import java.io.File;
 
-
 public class FileSaveChooserWrapper {
 
     private FileChooser chooser;

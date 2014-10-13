@@ -4,9 +4,6 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
-/**
- * Created by quantumjockey on 9/23/14.
- */
 public class GradientRamp {
 
     // Fields

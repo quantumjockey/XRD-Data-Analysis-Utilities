@@ -4,9 +4,6 @@ package pathoperations;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/**
- * Created by quantumjockey on 9/21/14.
- */
 public class PathWrapper {
 
 

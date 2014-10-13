@@ -9,9 +9,6 @@ import xrdtiffvisualization.colorramps.GradientRamp;
 
 import java.io.IOException;
 
-/**
- * Created by quantumjockey on 9/22/14.
- */
 public class MARTiffVisualizer {
 
     private MARTiffImage data;

@@ -4,9 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-/**
- * Created by quantumjockey on 8/21/14.
- */
 public class WindowInitializer {
 
     // Private fields

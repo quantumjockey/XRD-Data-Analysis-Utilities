@@ -1,8 +1,5 @@
 package pathoperations;
 
-/**
- * Created by quantumjockey on 9/21/14.
- */
 public class SystemAttributes {
 
     /////////// Public Fields ////////////////////////////////////////////////////////////////

@@ -25,7 +25,6 @@ import xrdtiffvisualization.MARTiffVisualizer;
 import java.io.*;
 import java.util.*;
 
-
 public class Controller extends WindowControllerBase{
 
     // Main Viewer

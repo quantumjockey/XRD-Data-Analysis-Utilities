@@ -2,9 +2,6 @@ package xrdtiffoperations.imagemodel.martiff;
 
 import xrdtiffoperations.imagemodel.TiffBase;
 
-/**
- * Created by quantumjockey on 9/18/14.
- */
 public class MARTiffImage extends TiffBase{
 
     // Image data

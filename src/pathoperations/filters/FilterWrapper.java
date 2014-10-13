@@ -3,9 +3,6 @@ package pathoperations.filters;
 import java.io.File;
 import java.io.FilenameFilter;
 
-/**
- * Created by quantumjockey on 9/22/14.
- */
 public class FilterWrapper {
 
     /////////////////////////////////////////////////////////////////
