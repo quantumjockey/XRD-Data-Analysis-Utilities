@@ -33,6 +33,7 @@ public class MarkupInitializer {
     public void load(){
         try {
             fxmlLoader.load(location.openStream());
+            controller = fxmlLoader.getController();
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
