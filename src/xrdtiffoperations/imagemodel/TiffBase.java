@@ -18,16 +18,7 @@ public class TiffBase {
     public int firstIfdOffset;
 
     // File Meta
-    protected StringProperty filename = new SimpleStringProperty();
-    public final String getFilename() {
-        return filename.get();
-    }
-    public final void setFilename(String value){
-        filename.set(value);
-    }
-    public StringProperty filenameProperty() {
-        return filename;
-    }
+    public String filename;
 
 
     // IFD Meta
@@ -37,6 +28,6 @@ public class TiffBase {
 
     public TiffBase(String _filename) {
         ifdListing = new ArrayList<>();
-        filename.set(_filename);
+        filename = _filename;
     }
 }
