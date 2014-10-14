@@ -7,9 +7,6 @@ import java.nio.ByteOrder;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by quantumjockey on 9/17/14.
- */
 public class FieldInformation {
 
     // Attributes

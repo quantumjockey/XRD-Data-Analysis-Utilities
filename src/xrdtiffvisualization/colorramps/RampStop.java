@@ -2,9 +2,6 @@ package xrdtiffvisualization.colorramps;
 
 import javafx.scene.paint.Color;
 
-/**
- * Created by quantumjockey on 9/23/14.
- */
 public class RampStop {
 
     public Color color;

@@ -2,9 +2,6 @@ package xrdtiffoperations.wrappers.bytewrappers;
 
 import java.nio.ByteOrder;
 
-/**
- * Created by quantumjockey on 9/17/14.
- */
 public class LongWrapper extends WrapperBase{
 
     public LongWrapper(byte[] bytes, ByteOrder order){

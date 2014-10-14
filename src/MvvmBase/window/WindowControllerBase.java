@@ -1,13 +1,15 @@
 package MvvmBase.window;
 
-/**
- * Created by quantumjockey on 9/9/14.
- */
 public class WindowControllerBase {
 
+    /////////// Fields ////////////////////////////////////////////////////////////////////////
+
     protected boolean isActive;
+
+    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
 
     public WindowControllerBase(){
         this.isActive = true;
     }
+
 }

@@ -3,6 +3,9 @@ package app.MainWindow;
 import DialogInitialization.DirectoryChooserWrapper;
 import DialogInitialization.FileSaveChooserWrapper;
 import MvvmBase.window.WindowControllerBase;
+import app.martiffviewport.MARTiffViewport;
+import app.martiffviewport.MARTiffViewportController;
+import app.valueadjuster.ValueAdjuster;
 import javafx.scene.control.TextField;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.collections.FXCollections;
@@ -23,17 +26,16 @@ import xrdtiffvisualization.MARTiffVisualizer;
 import java.io.*;
 import java.util.*;
 
-
 public class Controller extends WindowControllerBase{
 
     // Main Viewer
-    @FXML private ImageView selectedImageViewport;
+    @FXML private MARTiffViewport selectedImageViewport;
 
     // Subtracted Viewer
-    @FXML private ImageView subtractedImageViewport;
+    @FXML private MARTiffViewport subtractedImageViewport;
 
     // Result Viewer
-    @FXML private ImageView resultantImageViewport;
+    @FXML private MARTiffViewport resultantImageViewport;
 
     // File Listing
     @FXML private TableView<PathWrapper> availableImages;
@@ -42,10 +44,6 @@ public class Controller extends WindowControllerBase{
     // Subtracted Listing
     @FXML private TableView<PathWrapper> subtractedImages;
     @FXML private TableColumn<PathWrapper, String> subtractedPath;
-
-    // Image Masking
-    @FXML private TextField maskMaxBound;
-    @FXML private TextField maskMinBound;
 
     // Fields
     private MARTiffImage resultantImage;
@@ -57,6 +55,9 @@ public class Controller extends WindowControllerBase{
 
     public Controller() {
         super();
+        selectedImageViewport = new MARTiffViewport();
+        subtractedImageViewport = new MARTiffViewport();
+        resultantImageViewport = new MARTiffViewport();
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
@@ -78,32 +79,12 @@ public class Controller extends WindowControllerBase{
     @FXML
     public void ExportSubtractedImage(){
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
-        dialog.SetInitialFileName(resultantImage.getFilename());
+        dialog.SetInitialFileName(resultantImage.filename);
         File destination = dialog.GetSaveDirectory();
         if (destination != null) {
             TiffWriter writer = new TiffWriter(resultantImage);
             writer.Write(destination.getPath());
         }
-    }
-
-    @FXML
-    public void DecrementMaskMaximum(){
-
-    }
-
-    @FXML
-    public void DecrementMaskMinimum(){
-
-    }
-
-    @FXML
-    public void IncrementMaskMaximum(){
-
-    }
-
-    @FXML
-    public void IncrementMaskMinimum(){
-
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
@@ -128,13 +109,14 @@ public class Controller extends WindowControllerBase{
             imagesPaths.add(wrapper);
         }
 
-        PopulateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport, selectedImage);
-        PopulateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport, subtractedImage);
+        PopulateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport.getController().getViewport(), selectedImage);
+        PopulateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport.getController().getViewport(), subtractedImage);
         try{
             selectedImage = ReadImageData(availableImages.getSelectionModel().selectedItemProperty().get());
-            RenderImage(selectedImage, selectedImageViewport);
+            RenderImage(selectedImage, selectedImageViewport.getController().getViewport());
+            selectedImageViewport.RenderImage(selectedImage);
             subtractedImage = ReadImageData(subtractedImages.getSelectionModel().selectedItemProperty().get());
-            RenderImage(subtractedImage, subtractedImageViewport);
+            subtractedImageViewport.RenderImage(subtractedImage);
         }
         catch (IOException ex){
             System.out.println("Image file could not be rendered!");
@@ -170,8 +152,8 @@ public class Controller extends WindowControllerBase{
     }
 
     private void SetDefaultMaskExtrema(MARTiffImage image){
-        maskMaxBound.setText(Short.toString(image.GetMaxValue()));
-        maskMinBound.setText(Short.toString(image.GetMinValue()));
+//        maskMaxBound.setText(Short.toString(image.GetMaxValue()));
+//        maskMinBound.setText(Short.toString(image.GetMinValue()));
     }
 
     private void SetTableViewChangeListeners(TableView<PathWrapper> tableObject, ImageView imageViewport){
@@ -196,8 +178,7 @@ public class Controller extends WindowControllerBase{
 
     private void SubtractImages() throws IOException{
         resultantImage = DataSubtraction.SubtractImages(selectedImage, subtractedImage, true);
-        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(resultantImage);
-        resultantImageViewport.setImage(marImageGraph.RenderDataAsImage(false));
+        resultantImageViewport.RenderImage(resultantImage);
         SetDefaultMaskExtrema(resultantImage);
     }
 }

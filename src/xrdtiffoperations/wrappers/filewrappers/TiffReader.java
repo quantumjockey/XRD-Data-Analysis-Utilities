@@ -12,9 +12,6 @@ import java.nio.ByteOrder;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 
-/**
- * Created by quantumjockey on 9/15/14.
- */
 public class TiffReader {
 
     // File Data
