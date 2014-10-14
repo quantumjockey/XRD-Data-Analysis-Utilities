@@ -1,6 +1,7 @@
 package app.martiffviewport;
 
 import MvvmBase.initialization.MarkupInitializer;
+import app.martiffviewport.components.MARTiffViewportController;
 import javafx.scene.control.TitledPane;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 

@@ -1,7 +1,9 @@
-package app.martiffviewport;
+package app.martiffviewport.components;
 
 import MvvmBase.markup.MarkupControllerBase;
 import java.io.IOException;
+
+import app.valueadjuster.ValueAdjuster;
 import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
@@ -16,12 +18,19 @@ public class MARTiffViewportController extends MarkupControllerBase {
     private ImageView imageViewport;
 
     @FXML
+    private ValueAdjuster maxBound;
+
+    @FXML
+    private ValueAdjuster minBound;
+
+    @FXML
     private TitledPane viewportTitle;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public MARTiffViewportController(){
-
+        maxBound = new ValueAdjuster();
+        minBound = new ValueAdjuster();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
