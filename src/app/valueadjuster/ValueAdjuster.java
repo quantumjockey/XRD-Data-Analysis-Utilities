@@ -1,9 +1,9 @@
 package app.valueadjuster;
 
 import MvvmBase.initialization.MarkupInitializer;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-public class ValueAdjuster extends HBox {
+public class ValueAdjuster extends VBox {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 

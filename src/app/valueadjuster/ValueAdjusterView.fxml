@@ -3,14 +3,20 @@
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<fx:root spacing="5.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.valueadjuster.ValueAdjusterController">
-    <children>
-        <Button mnemonicParsing="false" onAction="#Increment" text="+" />
-        <TextField fx:id="value" prefWidth="100.0" />
-        <Button mnemonicParsing="false" onAction="#Decrement" text="-" />
-    </children>
-   <padding>
-      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-   </padding>
+<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.valueadjuster.ValueAdjusterController">
+   <children>
+      <javafx.scene.layout.HBox spacing="5.0">
+          <children>
+              <Button mnemonicParsing="false" onAction="#Decrement" text="-" />
+              <TextField fx:id="value" prefWidth="100.0" />
+              <Button mnemonicParsing="false" onAction="#Increment" text="+" />
+          </children>
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </padding>
+      </javafx.scene.layout.HBox>
+      <Slider fx:id="adjustment" />
+   </children>
 </fx:root>

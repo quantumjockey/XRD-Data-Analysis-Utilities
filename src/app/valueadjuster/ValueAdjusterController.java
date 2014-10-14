@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
 import java.text.NumberFormat;
@@ -16,6 +17,9 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     @FXML
     private TextField value;
+
+    @FXML
+    private Slider adjustment;
 
     /////////// Properties //////////////////////////////////////////////////////////////////
 
@@ -80,6 +84,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     private void setBindings(){
         value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
+        adjustment.valueProperty().bindBidirectional(displayedValueProperty());
     }
 
     private void setDefaults(){
