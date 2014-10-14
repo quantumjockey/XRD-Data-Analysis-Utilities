@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<?import app.valueadjuster.ValueAdjuster?>
+<fx:root fx:id="viewportTitle" alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.martiffviewport.components.MARTiffViewportController">
+    <content>
+      <HBox>
+         <children>
+            <GridPane>
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+              <children>
+                  <ImageView fx:id="imageViewport" fitHeight="550.0" fitWidth="550.0" pickOnBounds="true" preserveRatio="true" />
+              </children>
+            </GridPane>
+            <VBox alignment="CENTER" spacing="5.0">
+               <children>
+                   <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Masking">
+                       <VBox>
+                           <children>
+                               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" layoutX="150.0" layoutY="10.0" text="Minimum">
+                                   <content>
+                                       <ValueAdjuster fx:id="minBound" />
+                                   </content>
+                               </TitledPane>
+                               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Maximum">
+                                   <content>
+                                       <ValueAdjuster fx:id="maxBound" />
+                                   </content>
+                               </TitledPane>
+                               <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                                   <children>
+                                       <Label text="Overlay Hue:" />
+                                       <ColorPicker />
+                                   </children>
+                               </HBox>
+                               <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                                   <children>
+                                       <Label text="Negative Vals:" />
+                                       <ColorPicker />
+                                   </children>
+                               </HBox>
+                               <HBox alignment="CENTER" spacing="5.0">
+                                   <children>
+                                       <Label text="Negative-to-Zero:" />
+                                       <CheckBox />
+                                   </children>
+                               </HBox>
+                           </children>
+                       </VBox>
+                   </TitledPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+    </content>
+</fx:root>
