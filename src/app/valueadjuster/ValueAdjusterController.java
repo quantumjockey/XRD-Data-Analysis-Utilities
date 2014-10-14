@@ -1,18 +1,16 @@
 package app.valueadjuster;
 
+import MvvmBase.markup.MarkupControllerBase;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
-import java.net.URL;
 import java.text.NumberFormat;
-import java.util.ResourceBundle;
 
-public class ValueAdjusterController implements Initializable{
+public class ValueAdjusterController extends MarkupControllerBase {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -63,7 +61,7 @@ public class ValueAdjusterController implements Initializable{
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    protected void performInitializationTasks(){
         setDefaults();
         setBindings();
         setListeners();

@@ -4,9 +4,6 @@ import DialogInitialization.DirectoryChooserWrapper;
 import DialogInitialization.FileSaveChooserWrapper;
 import MvvmBase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
-import app.martiffviewport.MARTiffViewportController;
-import app.valueadjuster.ValueAdjuster;
-import javafx.scene.control.TextField;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -26,7 +23,7 @@ import xrdtiffvisualization.MARTiffVisualizer;
 import java.io.*;
 import java.util.*;
 
-public class Controller extends WindowControllerBase{
+public class Controller extends WindowControllerBase {
 
     // Main Viewer
     @FXML private MARTiffViewport selectedImageViewport;
@@ -85,6 +82,13 @@ public class Controller extends WindowControllerBase{
             TiffWriter writer = new TiffWriter(resultantImage);
             writer.Write(destination.getPath());
         }
+    }
+
+    @Override
+    protected void performInitializationTasks(){
+        selectedImageViewport.getController().setViewportTitle("Selected Image");
+        subtractedImageViewport.getController().setViewportTitle("Subtracted Image");
+        resultantImageViewport.getController().setViewportTitle("Resultant Image");
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////

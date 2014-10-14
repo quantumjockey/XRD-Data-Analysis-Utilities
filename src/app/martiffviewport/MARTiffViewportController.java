@@ -3,6 +3,7 @@ package app.martiffviewport;
 import MvvmBase.markup.MarkupControllerBase;
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffvisualization.MARTiffVisualizer;
@@ -13,6 +14,9 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @FXML
     private ImageView imageViewport;
+
+    @FXML
+    private TitledPane viewportTitle;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
@@ -29,6 +33,17 @@ public class MARTiffViewportController extends MarkupControllerBase {
     public void RenderImage(MARTiffImage image) throws IOException {
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
         imageViewport.setImage(marImageGraph.RenderDataAsImage(false));
+    }
+
+    public void setViewportTitle(String title){
+        viewportTitle.setText(title);
+    }
+
+    /////////// Private Methods /////////////////////////////////////////////////////////////
+
+    @Override
+    protected void performInitializationTasks() {
+
     }
 
 }
