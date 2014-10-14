@@ -6,18 +6,21 @@ import javafx.scene.Scene;
 
 public class WindowInitializer {
 
-    // Private fields
+    /////////// Fields ///////////////////////////////////////////////////////////////////////
+
     private FXMLLoader windowLoader;
     private Parent windowRoot;
 
-    // Class constructor
+    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
+
     public WindowInitializer(String markupFileName, Object controllerInstance, Class callingObject) throws Exception {
         windowLoader = new FXMLLoader();
         windowLoader.setController(controllerInstance);
         windowRoot = windowLoader.load(callingObject.getResource(markupFileName));
     }
 
-    // Public methods
+    /////////// Public Methods ////////////////////////////////////////////////////////////////
+
     public Parent GetParent(){
         return windowRoot;
     }

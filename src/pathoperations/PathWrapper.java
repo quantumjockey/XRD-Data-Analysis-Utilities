@@ -6,6 +6,7 @@ import javafx.beans.property.StringProperty;
 
 public class PathWrapper {
 
+    /////////// Properties //////////////////////////////////////////////////////////////////
 
     protected StringProperty injectedPath = new SimpleStringProperty();
     public final String getInjectedPath() {
@@ -40,11 +41,14 @@ public class PathWrapper {
         return pathTail;
     }
 
+    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
 
     public PathWrapper(String _injectedPath){
         this.setInjectedPath(_injectedPath);
         ParsePath(_injectedPath);
     }
+
+    /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private void ParsePath(String path){
         String[] pathTemp = path.split(SystemAttributes.FILE_SEPARATOR);

@@ -2,9 +2,14 @@ package MvvmBase.window;
 
 public class WindowControllerBase {
 
+    /////////// Fields ////////////////////////////////////////////////////////////////////////
+
     protected boolean isActive;
+
+    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
 
     public WindowControllerBase(){
         this.isActive = true;
     }
+
 }

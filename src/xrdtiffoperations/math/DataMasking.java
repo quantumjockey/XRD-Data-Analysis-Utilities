@@ -4,6 +4,8 @@ import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 
 public class DataMasking {
 
+    /////////// Public Methods ////////////////////////////////////////////////////////////////
+
     public static MARTiffImage MaskImage(MARTiffImage image, int maxVal, int minVal){
         MARTiffImage temp = image;
         String name = temp.filename.replace('.', '-') + "_mask_" + minVal + "_to_" + maxVal + ".tif";
@@ -15,6 +17,8 @@ public class DataMasking {
         }
         return temp;
     }
+
+    /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private static short MaskValue(short _value, short _max, short _min){
         short value = _value;

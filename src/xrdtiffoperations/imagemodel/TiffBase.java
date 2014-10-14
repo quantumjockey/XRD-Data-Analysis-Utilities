@@ -15,7 +15,6 @@ public class TiffBase {
     // File Meta
     public String filename;
 
-
     // IFD Meta
     public ArrayList<ImageFileDirectory> ifdListing;
 

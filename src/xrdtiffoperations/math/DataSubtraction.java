@@ -4,6 +4,8 @@ import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 
 public class DataSubtraction {
 
+    /////////// Public Methods ////////////////////////////////////////////////////////////////
+
     public static MARTiffImage SubtractImages(MARTiffImage firstImage, MARTiffImage secondImage, boolean isAbsolute){
 
         String filename = firstImage.filename.replace('.', '-') + "_minus_" + secondImage.filename.replace('.', '-') + ".tif";
@@ -26,6 +28,8 @@ public class DataSubtraction {
         }
         return temp;
     }
+
+    /////////// Private Methods /////////////////////////////////////////////////////////////////
 
     private static short SubtractIntensity(short firstValue, short secondValue, boolean absolute){
         short value;
