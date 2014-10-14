@@ -8,6 +8,7 @@
 
         <?import app.martiffviewport.MARTiffViewport?>
 
+<?import app.valueadjuster.ValueAdjuster?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.MainWindow.Controller">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
@@ -52,36 +53,6 @@
                   <TableColumn fx:id="subtractedPath" prefWidth="400.0" resizable="false" text="Subtracted Image" />
               </columns>
             </TableView>
-            <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Result Masking" textAlignment="CENTER">
-               <content>
-                  <VBox alignment="CENTER_RIGHT">
-                     <children>
-                        <HBox alignment="CENTER_RIGHT" spacing="5.0">
-                           <children>
-                              <Label prefWidth="70.0" text="Minimum:" />
-                              <Button mnemonicParsing="false" onAction="#IncrementMaskMinimum" text="+" />
-                              <TextField fx:id="maskMinBound" HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" onAction="#DecrementMaskMinimum" text="-" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_RIGHT" spacing="5.0">
-                           <children>
-                              <Label prefWidth="70.0" text="Maximum:" />
-                              <Button mnemonicParsing="false" onAction="#IncrementMaskMaximum" text="+" />
-                              <TextField fx:id="maskMaxBound" HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" onAction="#DecrementMaskMaximum" text="-" />
-                           </children>
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </content>
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </TitledPane>
          </children>
       </VBox>
     </right>

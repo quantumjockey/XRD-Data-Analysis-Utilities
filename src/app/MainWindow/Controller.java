@@ -5,6 +5,7 @@ import DialogInitialization.FileSaveChooserWrapper;
 import MvvmBase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
 import app.martiffviewport.MARTiffViewportController;
+import app.valueadjuster.ValueAdjuster;
 import javafx.scene.control.TextField;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.collections.FXCollections;
@@ -43,10 +44,6 @@ public class Controller extends WindowControllerBase{
     // Subtracted Listing
     @FXML private TableView<PathWrapper> subtractedImages;
     @FXML private TableColumn<PathWrapper, String> subtractedPath;
-
-    // Image Masking
-    @FXML private TextField maskMaxBound;
-    @FXML private TextField maskMinBound;
 
     // Fields
     private MARTiffImage resultantImage;
@@ -88,26 +85,6 @@ public class Controller extends WindowControllerBase{
             TiffWriter writer = new TiffWriter(resultantImage);
             writer.Write(destination.getPath());
         }
-    }
-
-    @FXML
-    public void DecrementMaskMaximum(){
-
-    }
-
-    @FXML
-    public void DecrementMaskMinimum(){
-
-    }
-
-    @FXML
-    public void IncrementMaskMaximum(){
-
-    }
-
-    @FXML
-    public void IncrementMaskMinimum(){
-
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
@@ -175,8 +152,8 @@ public class Controller extends WindowControllerBase{
     }
 
     private void SetDefaultMaskExtrema(MARTiffImage image){
-        maskMaxBound.setText(Short.toString(image.GetMaxValue()));
-        maskMinBound.setText(Short.toString(image.GetMinValue()));
+//        maskMaxBound.setText(Short.toString(image.GetMaxValue()));
+//        maskMinBound.setText(Short.toString(image.GetMinValue()));
     }
 
     private void SetTableViewChangeListeners(TableView<PathWrapper> tableObject, ImageView imageViewport){
