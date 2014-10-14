@@ -1,4 +1,4 @@
-package app.valueadjuster;
+package app.valueadjuster.components;
 
 import MvvmBase.markup.MarkupControllerBase;
 import javafx.beans.property.IntegerProperty;
