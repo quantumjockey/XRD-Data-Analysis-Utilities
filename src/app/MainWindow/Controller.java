@@ -12,13 +12,11 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import pathoperations.PathWrapper;
 import pathoperations.filters.FilterWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.wrappers.filewrappers.TiffReader;
 import xrdtiffoperations.wrappers.filewrappers.TiffWriter;
-import xrdtiffvisualization.MARTiffVisualizer;
 
 import java.io.*;
 import java.util.*;
@@ -113,11 +111,10 @@ public class Controller extends WindowControllerBase {
             imagesPaths.add(wrapper);
         }
 
-        PopulateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport.getController().getViewport(), selectedImage);
-        PopulateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport.getController().getViewport(), subtractedImage);
+        PopulateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport, selectedImage);
+        PopulateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport, subtractedImage);
         try{
             selectedImage = ReadImageData(availableImages.getSelectionModel().selectedItemProperty().get());
-            RenderImage(selectedImage, selectedImageViewport.getController().getViewport());
             selectedImageViewport.RenderImage(selectedImage);
             subtractedImage = ReadImageData(subtractedImages.getSelectionModel().selectedItemProperty().get());
             subtractedImageViewport.RenderImage(subtractedImage);
@@ -128,14 +125,14 @@ public class Controller extends WindowControllerBase {
         SubtractImages();
     }
 
-    private void PopulateTableView(TableView<PathWrapper> tableControl, TableColumn<PathWrapper, String> columnControl, ArrayList<PathWrapper> paths, ImageView imageViewport, MARTiffImage image){
+    private void PopulateTableView(TableView<PathWrapper> tableControl, TableColumn<PathWrapper, String> columnControl, ArrayList<PathWrapper> paths, MARTiffViewport imageViewport, MARTiffImage image){
         tableControl.setItems(FXCollections.observableList(paths));
         tableControl.getSelectionModel().select(0);
         PrepareTableView(tableControl, columnControl, imageViewport);
         CacheImage(tableControl, image);
     }
 
-    private void PrepareTableView(TableView<PathWrapper> tableContainer, TableColumn<PathWrapper, String> selectableColumn, ImageView imageViewport){
+    private void PrepareTableView(TableView<PathWrapper> tableContainer, TableColumn<PathWrapper, String> selectableColumn, MARTiffViewport imageViewport){
         selectableColumn.setCellValueFactory(new PropertyValueFactory<>("pathTail"));
         SetTableViewChangeListeners(tableContainer, imageViewport);
     }
@@ -150,17 +147,7 @@ public class Controller extends WindowControllerBase {
         return temp;
     }
 
-    private void RenderImage(MARTiffImage image, ImageView viewport) throws IOException{
-            MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
-            viewport.setImage(marImageGraph.RenderDataAsImage(false));
-    }
-
-    private void SetDefaultMaskExtrema(MARTiffImage image){
-//        maskMaxBound.setText(Short.toString(image.GetMaxValue()));
-//        maskMinBound.setText(Short.toString(image.GetMinValue()));
-    }
-
-    private void SetTableViewChangeListeners(TableView<PathWrapper> tableObject, ImageView imageViewport){
+    private void SetTableViewChangeListeners(TableView<PathWrapper> tableObject, MARTiffViewport imageViewport){
         tableObject.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tableObject.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
         {
@@ -170,7 +157,7 @@ public class Controller extends WindowControllerBase {
                 try {
                     MARTiffImage image = ReadImageData(tableObject.getSelectionModel().selectedItemProperty().get());
                     CacheImage(tableObject, image);
-                    RenderImage(image, imageViewport);
+                    imageViewport.RenderImage(image);
                     SubtractImages();
                 }
                 catch (IOException ex){
@@ -183,6 +170,5 @@ public class Controller extends WindowControllerBase {
     private void SubtractImages() throws IOException{
         resultantImage = DataSubtraction.SubtractImages(selectedImage, subtractedImage, true);
         resultantImageViewport.RenderImage(resultantImage);
-        SetDefaultMaskExtrema(resultantImage);
     }
 }
