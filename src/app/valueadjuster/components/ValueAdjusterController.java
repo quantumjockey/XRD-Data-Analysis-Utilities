@@ -76,10 +76,6 @@ public class ValueAdjusterController extends MarkupControllerBase {
         setMinValue(min);
     }
 
-    public void setValue(int value){
-        setDisplayedValue(value);
-    }
-
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void setBindings(){
