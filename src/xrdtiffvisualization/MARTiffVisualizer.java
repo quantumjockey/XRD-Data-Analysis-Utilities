@@ -11,6 +11,8 @@ import java.io.IOException;
 
 public class MARTiffVisualizer {
 
+    private final int VALUE_OFFSET = 32768;
+
     private MARTiffImage data;
 
     /////////// Constructor(s) ////////////////////////////////////////////////////////////////
@@ -37,12 +39,12 @@ public class MARTiffVisualizer {
     private void RenderImageInGrayScale(PixelWriter writer, short maxValue) throws IOException{
         for (int x = 0; x < data.intensityMap[0].length; x++) {
             for (int y = 0; y < data.intensityMap.length; y++) {
-                short value = data.intensityMap[y][x];
+                int value = data.intensityMap[y][x] + VALUE_OFFSET;
                 if (value < 0) {
                     writer.setColor(x, y, Color.RED);
                 }
                 else {
-                    int byteVal = (255 * value) / maxValue;
+                    int byteVal = (255 * value) / (maxValue + VALUE_OFFSET);
                     writer.setColor(x, y, Color.rgb(byteVal, byteVal, byteVal));
                 }
             }
@@ -54,12 +56,12 @@ public class MARTiffVisualizer {
         GradientRamp colorRamp = new GradientRamp(ramp_colors);
         for (int x = 0; x < data.intensityMap[0].length; x++) {
             for (int y = 0; y < data.intensityMap.length; y++) {
-                short value = data.intensityMap[y][x];
+                int value = data.intensityMap[y][x] + VALUE_OFFSET;
                 if (value < 0) {
                     writer.setColor(x, y, Color.RED);
                 }
                 else {
-                    double coefficient = (double)value / (double)maxValue;
+                    double coefficient = (double)value / (double)(maxValue + VALUE_OFFSET);
                     writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
                 }
             }
