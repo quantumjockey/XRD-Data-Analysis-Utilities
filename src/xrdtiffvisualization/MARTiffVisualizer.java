@@ -23,37 +23,23 @@ public class MARTiffVisualizer {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public Image RenderDataAsImage(boolean grayScale) throws IOException {
+    public Image RenderDataAsImage(GradientRamp _ramp) throws IOException {
         WritableImage displayed = new WritableImage(data.intensityMap[0].length, data.intensityMap.length);
-        if(grayScale){
-            RenderImageInGrayScale(displayed.getPixelWriter(), data.GetMaxValue());
-        }
-        else{
-            RenderImageViaColorRamp(displayed.getPixelWriter(), data.GetMaxValue());
-        }
+        RenderImageViaColorRamp(displayed.getPixelWriter(), data.GetMaxValue(), _ramp);
         return displayed;
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private void RenderImageInGrayScale(PixelWriter writer, short maxValue) throws IOException{
-        for (int x = 0; x < data.intensityMap[0].length; x++) {
-            for (int y = 0; y < data.intensityMap.length; y++) {
-                int value = data.intensityMap[y][x] + VALUE_OFFSET;
-                if (value < 0) {
-                    writer.setColor(x, y, Color.RED);
-                }
-                else {
-                    int byteVal = (255 * value) / (maxValue + VALUE_OFFSET);
-                    writer.setColor(x, y, Color.rgb(byteVal, byteVal, byteVal));
-                }
-            }
+    private void RenderImageViaColorRamp(PixelWriter writer, short maxValue, GradientRamp ramp) throws IOException{
+        GradientRamp colorRamp;
+        if (ramp == null) {
+            Color[] ramp_colors = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}; // "Spectrum" Ramp
+            colorRamp = new GradientRamp(ramp_colors);
         }
-    }
-
-    private void RenderImageViaColorRamp(PixelWriter writer, short maxValue) throws IOException{
-        Color[] ramp_colors = { Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE};
-        GradientRamp colorRamp = new GradientRamp(ramp_colors);
+        else{
+            colorRamp = ramp;
+        }
         for (int x = 0; x < data.intensityMap[0].length; x++) {
             for (int y = 0; y < data.intensityMap.length; y++) {
                 int value = data.intensityMap[y][x] + VALUE_OFFSET;
