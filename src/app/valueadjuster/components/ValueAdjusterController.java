@@ -3,8 +3,6 @@ package app.valueadjuster.components;
 import MvvmBase.markup.MarkupControllerBase;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -12,6 +10,11 @@ import javafx.util.converter.NumberStringConverter;
 import java.text.NumberFormat;
 
 public class ValueAdjusterController extends MarkupControllerBase {
+
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
+    private final double SLIDER_MAX = 100.0;
+    private final double SLIDER_MIN = 0.0;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -64,55 +67,44 @@ public class ValueAdjusterController extends MarkupControllerBase {
         }
     }
 
-    @Override
-    protected void performInitializationTasks(){
-        setDefaults();
-        setBindings();
-        setListeners();
-    }
-
     public void setLimiters(int min, int max){
-        setMaxValue(max);
-        setMinValue(min);
+        if (min > max){
+            setMaxValue(min);
+            setMinValue(max);
+            setTickUnits(min);
+        }
+        else {
+            setMaxValue(max);
+            setMinValue(min);
+            setTickUnits(max);
+        }
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
+    @Override
+    protected void performInitializationTasks(){
+        setDefaults();
+        setBindings();
+    }
+
     private void setBindings(){
         value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
+        adjustment.maxProperty().bindBidirectional(maxValueProperty());
+        adjustment.minProperty().bindBidirectional(minValueProperty());
         adjustment.valueProperty().bindBidirectional(displayedValueProperty());
     }
 
     private void setDefaults(){
-        setMaxValue(0);
-        setMinValue(0);
+        setLimiters(0, 5000);
         setDisplayedValue(0);
+        adjustment.setShowTickMarks(true);
+        adjustment.setShowTickLabels(true);
     }
 
-    private void setListeners(){
-        value.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                try {
-                    int temp = Integer.parseInt(newValue);
-                    if (temp <= getMaxValue() && temp >= getMinValue()) {
-                        value.setText(Integer.toString(temp));
-                    } else {
-                        if (temp > getMaxValue()) {
-                            temp = getMaxValue();
-                        }
-                        if (temp < getMinValue()) {
-                            temp = getMinValue();
-                        }
-                        value.setText(Integer.toString(temp));
-                    }
-                } catch (NumberFormatException e) {
-                    value.setText(oldValue);
-                } catch (NullPointerException e){
-                    value.setText(oldValue);
-                }
-            }
-        });
+    private void setTickUnits(int maxVal){
+        int tickUnit = maxVal / 3;
+        adjustment.setMajorTickUnit(tickUnit);
     }
 
 }
