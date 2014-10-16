@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import app.martiffviewport.MARTiffViewport?>
 
-        <?import app.martiffviewport.MARTiffViewport?>
-
-<?import app.valueadjuster.ValueAdjuster?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.MainWindow.Controller">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
@@ -19,11 +15,6 @@
                        <SeparatorMenuItem />
                        <MenuItem onAction="#ExitApplication" text="Exit" />
                     </items>
-               </Menu>
-               <Menu text="Export">
-                   <items>
-                       <MenuItem onAction="#ExportSubtractedImage" text="Subtraction Result" />
-                   </items>
                </Menu>
            </menus>
         </MenuBar>
