@@ -2,10 +2,12 @@ package xrdtiffoperations.imagemodel.martiff;
 
 import xrdtiffoperations.imagemodel.TiffBase;
 
-/**
- * Created by quantumjockey on 9/18/14.
- */
 public class MARTiffImage extends TiffBase{
+
+    // Constants
+    private final int RAW_VALUE_OFFSET = 32768;
+    private final int INTENSITY_MAXIMUM = 65536;
+    private final int INTENSITY_MINIMUM = 0;
 
     // Image data
     public short[][] intensityMap;
@@ -16,16 +18,62 @@ public class MARTiffImage extends TiffBase{
         super(_filename);
     }
 
-    public short GetMaxValue(){
-        short maxVal = 0;
-        for (int i = 0; i < intensityMap[0].length; i++){
-            for (int j = 0; j < intensityMap.length; j++){
-                if (intensityMap[i][j] > maxVal){
-                    maxVal = intensityMap[i][j];
+    /////////// Public Methods //////////////////////////////////////////////////////////////
+
+    public int GetOffsetMaxValue(){
+        int maxVal = INTENSITY_MINIMUM;
+        for (int y = 0; y < GetHeight(); y++){
+            for (int x = 0; x < GetWidth(); x++){
+                if (intensityMap[y][x] + RAW_VALUE_OFFSET > maxVal){
+                    maxVal = intensityMap[y][x] + RAW_VALUE_OFFSET;
                 }
             }
         }
         return maxVal;
+    }
+
+    public int GetOffsetMinValue(){
+        int minVal = INTENSITY_MAXIMUM;
+        for (int y = 0; y < GetHeight(); y++){
+            for (int x = 0; x < GetWidth(); x++){
+                if (intensityMap[y][x] + RAW_VALUE_OFFSET < minVal){
+                    minVal = intensityMap[y][x] + RAW_VALUE_OFFSET;
+                }
+            }
+        }
+        return minVal;
+    }
+
+    public short GetMaxValue(){
+        short maxVal = 0;
+        for (int y = 0; y < GetHeight(); y++){
+            for (int x = 0; x < GetWidth(); x++){
+                if (intensityMap[y][x] > maxVal){
+                    maxVal = intensityMap[y][x];
+                }
+            }
+        }
+        return maxVal;
+    }
+
+    public short GetMinValue(){
+        short minVal = 0;
+        for (int y = 0; y < GetHeight(); y++){
+            for (int x = 0; x < GetWidth(); x++){
+                if (intensityMap[y][x] < minVal){
+                    minVal = intensityMap[y][x];
+                }
+            }
+        }
+        return minVal;
+    }
+
+    public int GetHeight(){
+        return intensityMap.length;
+    }
+
+    public int GetWidth(){
+        return intensityMap[0].length;
     }
 
 }

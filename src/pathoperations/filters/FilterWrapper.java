@@ -3,16 +3,17 @@ package pathoperations.filters;
 import java.io.File;
 import java.io.FilenameFilter;
 
-/**
- * Created by quantumjockey on 9/22/14.
- */
 public class FilterWrapper {
 
     /////////////////////////////////////////////////////////////////
     ////////////// REQUIRES EDITING FOR GENERALIZATION //////////////
     /////////////////////////////////////////////////////////////////
 
+    /////////// Fields ////////////////////////////////////////////////////////////////////////
+
     public FilenameFilter filter;
+
+    /////////// Public Methods ////////////////////////////////////////////////////////////////
 
     public FilterWrapper(final String[] filterStrings){
         filter = new FilenameFilter(){
@@ -26,4 +27,5 @@ public class FilterWrapper {
             }
         };
     }
+
 }

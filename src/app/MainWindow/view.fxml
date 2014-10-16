@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
+<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import app.martiffviewport.MARTiffViewport?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.MainWindow.Controller">
     <top>
@@ -15,58 +16,19 @@
                        <MenuItem onAction="#ExitApplication" text="Exit" />
                     </items>
                </Menu>
-               <Menu text="Export">
-                   <items>
-                       <MenuItem onAction="#ExportSubtractedImage" text="Subtraction Result"/>
-                   </items>
-               </Menu>
            </menus>
         </MenuBar>
     </top>
     <center>
-      <VBox>
-         <children>
-            <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Selected Image" VBox.vgrow="ALWAYS">
-               <content>
-                     <ImageView fx:id="selectedImageViewport" fitHeight="400.0" fitWidth="400.0" />
-               </content>
-            </TitledPane>
-            <HBox>
-               <children>
-                  <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Subtracted Image">
-                     <content>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <ImageView fx:id="subtractedImageViewport" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </GridPane>
-                     </content>
-                  </TitledPane>
-                  <TitledPane alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Subtraction Result">
-                     <content>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <ImageView fx:id="subtractionResultViewport" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </GridPane>
-                     </content>
-                  </TitledPane>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
+        <ScrollPane vbarPolicy="ALWAYS" hbarPolicy="NEVER">
+            <VBox>
+              <children>
+                  <MARTiffViewport fx:id="selectedImageViewport" />
+                  <MARTiffViewport fx:id="subtractedImageViewport" />
+                  <MARTiffViewport fx:id="resultantImageViewport" />
+              </children>
+            </VBox>
+        </ScrollPane>
     </center>
     <right>
       <VBox>
@@ -77,7 +39,7 @@
                 </TableColumn>
                   </columns>
               </TableView>
-            <TableView prefHeight="250.0" fx:id="subtractedImages">
+            <TableView fx:id="subtractedImages" prefHeight="250.0">
               <columns>
                   <TableColumn fx:id="subtractedPath" prefWidth="400.0" resizable="false" text="Subtracted Image" />
               </columns>

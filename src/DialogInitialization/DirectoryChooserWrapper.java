@@ -6,24 +6,27 @@ import pathoperations.SystemAttributes;
 
 import java.io.File;
 
-/**
- * Created by quantumjockey on 9/9/14.
- */
 public class DirectoryChooserWrapper {
+
+    /////////// Fields ////////////////////////////////////////////////////////////////////////
 
     private DirectoryChooser chooser;
     private Stage chooserWindow;
 
+    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
 
     public DirectoryChooserWrapper(String title){
         InitializeChooserComponents();
         InitializeChooserAttributes(title);
     }
 
+    /////////// Public Methods ////////////////////////////////////////////////////////////////
 
     public File GetSelectedDirectory(){
         return chooser.showDialog(chooserWindow);
     }
+
+    /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private void InitializeChooserComponents(){
         chooserWindow = new Stage();

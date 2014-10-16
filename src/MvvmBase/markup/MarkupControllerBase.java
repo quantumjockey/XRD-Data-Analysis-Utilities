@@ -1,20 +1,10 @@
-package MvvmBase.window;
+package MvvmBase.markup;
 
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public abstract class WindowControllerBase implements Initializable {
-
-    /////////// Fields ////////////////////////////////////////////////////////////////////////
-
-    protected boolean isActive;
-
-    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
-
-    public WindowControllerBase(){
-        this.isActive = true;
-    }
+public abstract class MarkupControllerBase implements Initializable {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
