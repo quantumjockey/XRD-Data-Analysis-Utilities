@@ -51,20 +51,7 @@
                            <children>
                                <HBox alignment="CENTER_RIGHT" spacing="5.0">
                                    <children>
-                                       <ChoiceBox>
-                                           <items>
-                                               <FXCollections fx:factory="observableArrayList">
-                                                   <String fx:value="Spectrum Ramp" />
-                                                   <String fx:value="Autumn Ramp" />
-                                                   <String fx:value="High Contrast Ramp" />
-                                                   <String fx:value="Grayscale Ramp" />
-                                                   <String fx:value="Inverse Grayscale Ramp" />
-                                               </FXCollections>
-                                           </items>
-                                           <value>
-                                               <String fx:value="Spectrum Ramp" />
-                                           </value>
-                                       </ChoiceBox>
+                                       <ChoiceBox fx:id="availableRamps" />
                                    </children>
                                </HBox>
                                <HBox alignment="CENTER_RIGHT" spacing="5.0">
