@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -20,6 +21,7 @@ import xrdtiffoperations.wrappers.filewrappers.TiffReader;
 import xrdtiffoperations.wrappers.filewrappers.TiffWriter;
 import xrdtiffvisualization.MARTiffVisualizer;
 import xrdtiffvisualization.colorramps.GradientRamp;
+import xrdtiffvisualization.masking.BoundedMask;
 
 public class MARTiffViewportController extends MarkupControllerBase {
 
@@ -40,17 +42,20 @@ public class MARTiffViewportController extends MarkupControllerBase {
     @FXML
     private TitledPane viewportTitle;
 
-    private MARTiffImage cachedImage;
+    @FXML
+    private ColorPicker overlayHue;
 
+    private MARTiffImage cachedImage;
     private ArrayList<GradientRamp> ramps;
     private GradientRamp selectedRamp;
+    private BoundedMask mask;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public MARTiffViewportController(){
-        maxBound = new ValueAdjuster();
-        minBound = new ValueAdjuster();
+        CreateCustomControlInstances();
         CreateRamps();
+        CreateMasks();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
@@ -84,13 +89,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
         imageViewport.setImage(marImageGraph.RenderDataAsImage(selectedRamp));
         cachedImage = image;
-
-        int max = image.GetMaxValue();
-        int min = image.GetMinValue();
-        maxBound.getController().setLimiters(min, max);
-        maxBound.getController().setDisplayedValue(max);
-        minBound.getController().setLimiters(min, max);
-        minBound.getController().setDisplayedValue(min);
+        updateMaskLimiters(image);
     }
 
     public void RenderImageFromFile(PathWrapper filePath) throws IOException {
@@ -98,11 +97,26 @@ public class MARTiffViewportController extends MarkupControllerBase {
         RenderImage(cachedImage);
     }
 
+    public void RenderImageWithMask(MARTiffImage image) throws IOException {
+        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
+        imageViewport.setImage(marImageGraph.RenderDataAsImage(selectedRamp, mask));
+        cachedImage = image;
+    }
+
     public void setViewportTitle(String title){
         viewportTitle.setText(title);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
+
+    private void CreateCustomControlInstances() {
+        maxBound = new ValueAdjuster();
+        minBound = new ValueAdjuster();
+    }
+
+    private void CreateMasks() {
+        mask = new BoundedMask(minBound.getController().getMinValue(), maxBound.getController().getMaxValue(), Color.WHITE);
+    }
 
     private void CreateRamps() {
         ramps = new ArrayList<>();
@@ -112,6 +126,47 @@ public class MARTiffViewportController extends MarkupControllerBase {
         ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.WHITE}, "Grayscale Ramp"));
         ramps.add(new GradientRamp(new Color[]{Color.WHITE, Color.BLACK}, "Inverse Grayscale Ramp"));
         selectedRamp = ramps.get(0);
+    }
+
+    private void InitializeListeners(){
+        maxBound.getController().displayedValueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                mask.upperBound = newValue.intValue();
+                try {
+                    RenderImageWithMask(cachedImage);
+                } catch (IOException ex) {
+                    System.out.println("Image render error!");
+                }
+            }
+        });
+        minBound.getController().displayedValueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                mask.lowerBound = newValue.intValue();
+                try {
+                    RenderImageWithMask(cachedImage);
+                } catch (IOException ex) {
+                    System.out.println("Image render error!");
+                }
+            }
+        });
+        overlayHue.valueProperty().addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+                if (newValue != null){
+                    mask.maskHue = newValue;
+                }
+                else {
+                    mask.maskHue = oldValue;
+                }
+                try {
+                    RenderImageWithMask(cachedImage);
+                } catch (IOException ex) {
+                    System.out.println("Image render error!");
+                }
+            }
+        });
     }
 
     private void InitializeRamps() {
@@ -127,7 +182,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
             public void changed(ObservableValue ov, Number value, Number new_value) {
                 try {
                     selectedRamp = ramps.get(new_value.intValue());
-                    RenderImage(cachedImage);
+                    RenderImageWithMask(cachedImage);
                 } catch (IOException ex) {
                     System.out.println("Image render error!");
                 }
@@ -138,6 +193,16 @@ public class MARTiffViewportController extends MarkupControllerBase {
     @Override
     protected void performInitializationTasks() {
         InitializeRamps();
+        InitializeListeners();
+    }
+
+    private void updateMaskLimiters(MARTiffImage image){
+        int max = image.GetOffsetMaxValue();
+        int min = image.GetOffsetMinValue();
+        minBound.getController().setLimiters(min, max);
+        minBound.getController().setDisplayedValue(min);
+        maxBound.getController().setLimiters(min, max);
+        maxBound.getController().setDisplayedValue(max);
     }
 
 }
