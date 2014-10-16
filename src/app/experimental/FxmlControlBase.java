@@ -1,4 +1,4 @@
-package MvvmBase.markup;
+package app.experimental;
 
 import MvvmBase.initialization.MarkupInitializer;
 import javafx.scene.Node;
