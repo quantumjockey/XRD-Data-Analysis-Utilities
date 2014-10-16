@@ -1,13 +1,13 @@
 package xrdtiffvisualization.colorramps;
 
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 
 public class GradientRamp {
 
     // Fields
     public ArrayList<RampStop> ramp;
+    public String tag;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
@@ -18,6 +18,11 @@ public class GradientRamp {
         for (int i = 0; i < colors.length; i++) {
             ramp.add(new RampStop(colors[i], i * unit));
         }
+    }
+
+    public GradientRamp(Color[] _colors, String _tag) {
+        this(_colors);
+        tag = _tag;
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
