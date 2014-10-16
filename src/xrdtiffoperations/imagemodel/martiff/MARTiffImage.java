@@ -4,6 +4,11 @@ import xrdtiffoperations.imagemodel.TiffBase;
 
 public class MARTiffImage extends TiffBase{
 
+    // Constants
+    private final int RAW_VALUE_OFFSET = 32768;
+    private final int INTENSITY_MAXIMUM = 65536;
+    private final int INTENSITY_MINIMUM = 0;
+
     // Image data
     public short[][] intensityMap;
 
@@ -14,6 +19,30 @@ public class MARTiffImage extends TiffBase{
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
+
+    public int GetOffsetMaxValue(){
+        int maxVal = INTENSITY_MINIMUM;
+        for (int y = 0; y < GetHeight(); y++){
+            for (int x = 0; x < GetWidth(); x++){
+                if (intensityMap[y][x] + RAW_VALUE_OFFSET > maxVal){
+                    maxVal = intensityMap[y][x] + RAW_VALUE_OFFSET;
+                }
+            }
+        }
+        return maxVal;
+    }
+
+    public int GetOffsetMinValue(){
+        int minVal = INTENSITY_MAXIMUM;
+        for (int y = 0; y < GetHeight(); y++){
+            for (int x = 0; x < GetWidth(); x++){
+                if (intensityMap[y][x] + RAW_VALUE_OFFSET < minVal){
+                    minVal = intensityMap[y][x] + RAW_VALUE_OFFSET;
+                }
+            }
+        }
+        return minVal;
+    }
 
     public short GetMaxValue(){
         short maxVal = 0;
