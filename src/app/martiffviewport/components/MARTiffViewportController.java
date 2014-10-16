@@ -5,13 +5,13 @@ import MvvmBase.markup.MarkupControllerBase;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import app.valueadjuster.ValueAdjuster;
+
+import app.maskoptionscontrol.MaskOptionsControl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -34,28 +34,20 @@ public class MARTiffViewportController extends MarkupControllerBase {
     private ImageView imageViewport;
 
     @FXML
-    private ValueAdjuster maxBound;
-
-    @FXML
-    private ValueAdjuster minBound;
-
-    @FXML
     private TitledPane viewportTitle;
 
     @FXML
-    private ColorPicker overlayHue;
+    private MaskOptionsControl maskOptions;
 
     private MARTiffImage cachedImage;
     private ArrayList<GradientRamp> ramps;
     private GradientRamp selectedRamp;
-    private BoundedMask mask;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public MARTiffViewportController(){
         CreateCustomControlInstances();
         CreateRamps();
-        CreateMasks();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
@@ -99,7 +91,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     public void RenderImageWithMask(MARTiffImage image) throws IOException {
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
-        imageViewport.setImage(marImageGraph.RenderDataAsImage(selectedRamp, mask));
+        imageViewport.setImage(marImageGraph.RenderDataAsImage(selectedRamp, new BoundedMask(maskOptions.getController().getLowerBound(), maskOptions.getController().getUpperBound(), maskOptions.getController().getMaskHue())));
         cachedImage = image;
     }
 
@@ -110,12 +102,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void CreateCustomControlInstances() {
-        maxBound = new ValueAdjuster();
-        minBound = new ValueAdjuster();
-    }
-
-    private void CreateMasks() {
-        mask = new BoundedMask(minBound.getController().getMinValue(), maxBound.getController().getMaxValue(), Color.WHITE);
+        maskOptions = new MaskOptionsControl();
     }
 
     private void CreateRamps() {
@@ -129,10 +116,9 @@ public class MARTiffViewportController extends MarkupControllerBase {
     }
 
     private void InitializeListeners(){
-        maxBound.getController().displayedValueProperty().addListener(new ChangeListener<Number>() {
+        maskOptions.getController().lowerBoundProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                mask.upperBound = newValue.intValue();
                 try {
                     RenderImageWithMask(cachedImage);
                 } catch (IOException ex) {
@@ -140,10 +126,9 @@ public class MARTiffViewportController extends MarkupControllerBase {
                 }
             }
         });
-        minBound.getController().displayedValueProperty().addListener(new ChangeListener<Number>() {
+        maskOptions.getController().upperBoundProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                mask.lowerBound = newValue.intValue();
                 try {
                     RenderImageWithMask(cachedImage);
                 } catch (IOException ex) {
@@ -151,15 +136,9 @@ public class MARTiffViewportController extends MarkupControllerBase {
                 }
             }
         });
-        overlayHue.valueProperty().addListener(new ChangeListener<Color>() {
+        maskOptions.getController().maskHueProperty().addListener(new ChangeListener<Color>() {
             @Override
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-                if (newValue != null){
-                    mask.maskHue = newValue;
-                }
-                else {
-                    mask.maskHue = oldValue;
-                }
                 try {
                     RenderImageWithMask(cachedImage);
                 } catch (IOException ex) {
@@ -199,10 +178,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
     private void updateMaskLimiters(MARTiffImage image){
         int max = image.GetOffsetMaxValue();
         int min = image.GetOffsetMinValue();
-        minBound.getController().setLimiters(min, max);
-        minBound.getController().setDisplayedValue(min);
-        maxBound.getController().setLimiters(min, max);
-        maxBound.getController().setDisplayedValue(max);
+        maskOptions.getController().setLimiters(min, max);
     }
 
 }

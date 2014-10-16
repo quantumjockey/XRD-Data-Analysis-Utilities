@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import app.valueadjuster.ValueAdjuster?>
 
+<?import app.maskoptionscontrol.MaskOptionsControl?>
+<?import javafx.geometry.Insets?>
 <fx:root fx:id="viewportTitle" alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.martiffviewport.components.MARTiffViewportController">
     <content>
       <HBox>
@@ -24,26 +26,7 @@
             <VBox alignment="CENTER" spacing="5.0">
                <children>
                    <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Masking">
-                       <VBox>
-                           <children>
-                               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" layoutX="150.0" layoutY="10.0" text="Lower Bound">
-                                   <content>
-                                       <ValueAdjuster fx:id="minBound" />
-                                   </content>
-                               </TitledPane>
-                               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Upper Bound">
-                                   <content>
-                                       <ValueAdjuster fx:id="maxBound" />
-                                   </content>
-                               </TitledPane>
-                               <HBox alignment="CENTER_RIGHT" spacing="5.0">
-                                   <children>
-                                       <Label text="Overlay Hue:" />
-                                       <ColorPicker fx:id="overlayHue" />
-                                   </children>
-                               </HBox>
-                           </children>
-                       </VBox>
+                       <MaskOptionsControl fx:id="maskOptions" />
                    </TitledPane>
                    <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Rendering">
                        <VBox>
@@ -60,6 +43,9 @@
                        <Button mnemonicParsing="false" onAction="#ExportImage" text="Export Image Data" />
                    </GridPane>
                </children>
+                <padding>
+                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                </padding>
             </VBox>
          </children>
       </HBox>
