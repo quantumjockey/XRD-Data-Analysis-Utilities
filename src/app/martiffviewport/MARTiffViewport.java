@@ -3,8 +3,8 @@ package app.martiffviewport;
 import MvvmBase.initialization.MarkupInitializer;
 import app.martiffviewport.components.MARTiffViewportController;
 import javafx.scene.control.TitledPane;
+import pathoperations.PathWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
-
 import java.io.IOException;
 
 public class MARTiffViewport extends TitledPane {
@@ -31,6 +31,10 @@ public class MARTiffViewport extends TitledPane {
 
     public void RenderImage(MARTiffImage image) throws IOException{
         getController().RenderImage(image);
+    }
+
+    public void RenderImageFromFile(PathWrapper filePath) throws IOException{
+        getController().RenderImageFromFile(filePath);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
