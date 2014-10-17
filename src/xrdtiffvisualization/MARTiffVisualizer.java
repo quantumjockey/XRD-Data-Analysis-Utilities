@@ -12,33 +12,37 @@ import java.io.IOException;
 
 public class MARTiffVisualizer {
 
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
     private final int VALUE_OFFSET = 32768;
+
+    /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MARTiffImage data;
 
-    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
+    /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public MARTiffVisualizer(MARTiffImage imageData){
         data = imageData;
     }
 
-    /////////// Public Methods ////////////////////////////////////////////////////////////////
+    /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public Image RenderDataAsImage(GradientRamp _ramp) throws IOException {
+    public Image renderDataAsImage(GradientRamp _ramp) throws IOException {
         WritableImage displayed = new WritableImage(data.intensityMap[0].length, data.intensityMap.length);
-        RenderImageViaColorRamp(displayed.getPixelWriter(), data.GetMaxValue(), _ramp);
+        renderImageViaColorRamp(displayed.getPixelWriter(), data.getMaxValue(), _ramp);
         return displayed;
     }
 
-    public Image RenderDataAsImage(GradientRamp _ramp, BoundedMask mask) throws IOException {
+    public Image renderDataAsImage(GradientRamp _ramp, BoundedMask mask) throws IOException {
         WritableImage displayed = new WritableImage(data.intensityMap[0].length, data.intensityMap.length);
-        RenderImageWithMask(displayed.getPixelWriter(), data.GetMaxValue(), _ramp, mask);
+        renderImageWithMask(displayed.getPixelWriter(), data.getMaxValue(), _ramp, mask);
         return displayed;
     }
 
-    /////////// Private Methods ///////////////////////////////////////////////////////////////
+    /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void RenderImageViaColorRamp(PixelWriter writer, short maxValue, GradientRamp ramp) throws IOException{
+    private void renderImageViaColorRamp(PixelWriter writer, short maxValue, GradientRamp ramp) throws IOException{
         GradientRamp colorRamp;
         if (ramp == null) {
             Color[] ramp_colors = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}; // "Spectrum" Ramp
@@ -61,7 +65,7 @@ public class MARTiffVisualizer {
         }
     }
 
-    private void RenderImageWithMask(PixelWriter writer, short maxValue, GradientRamp ramp, BoundedMask mask) throws IOException{
+    private void renderImageWithMask(PixelWriter writer, short maxValue, GradientRamp ramp, BoundedMask mask) throws IOException{
         GradientRamp colorRamp;
         if (ramp == null) {
             Color[] ramp_colors = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}; // "Spectrum" Ramp

@@ -1,4 +1,4 @@
-package DialogInitialization;
+package dialoginitialization;
 
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -13,27 +13,27 @@ public class DirectoryChooserWrapper {
     private DirectoryChooser chooser;
     private Stage chooserWindow;
 
-    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
+    /////////// Constructors //////////////////////////////////////////////////////////////////
 
     public DirectoryChooserWrapper(String title){
-        InitializeChooserComponents();
-        InitializeChooserAttributes(title);
+        initializeChooserComponents();
+        initializeChooserAttributes(title);
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public File GetSelectedDirectory(){
+    public File getSelectedDirectory(){
         return chooser.showDialog(chooserWindow);
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private void InitializeChooserComponents(){
+    private void initializeChooserComponents(){
         chooserWindow = new Stage();
         chooser = new DirectoryChooser();
     }
 
-    private void InitializeChooserAttributes(String chooserTitle){
+    private void initializeChooserAttributes(String chooserTitle){
         chooser.setInitialDirectory(new File(SystemAttributes.USER_HOME));
         chooser.setTitle(chooserTitle);
     }

@@ -12,13 +12,15 @@ import java.nio.file.Paths;
 
 public class TiffWriter {
 
-    // Constants
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
     private final int HEADER_LENGTH = 8;
     private final int IFD_BUFFER_LENGTH = 4;
     private final int IFD_ENTRY_COUNT_LENGTH = 2;
     private final int IFD_LENGTH = 12;
 
-    // File Data
+    /////////// Fields //////////////////////////////////////////////////////////////////////
+
     private MARTiffImage cachedData;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
@@ -27,10 +29,10 @@ public class TiffWriter {
         cachedData = dataSource;
     }
 
-    /////////// Public Methods ////////////////////////////////////////////////////////////////
+    /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public void Write(String path){
-        byte[] allBytes = GenerateFileBytes();
+    public void write(String path){
+        byte[] allBytes = generateFileBytes();
         Path destination = Paths.get(path);
         try {
             Files.write(destination, allBytes);
@@ -40,9 +42,9 @@ public class TiffWriter {
         }
     }
 
-    /////////// Private Methods ///////////////////////////////////////////////////////////////
+    /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private byte[] CreateHeaderBytes(ByteOrder order){
+    private byte[] createHeaderBytes(ByteOrder order){
         ByteBuffer bytes = ByteBuffer.allocate(HEADER_LENGTH);
         bytes.order(order);
         String id;
@@ -58,7 +60,7 @@ public class TiffWriter {
         return bytes.array();
     }
 
-    private byte[] CreateIFDBuffer(ByteOrder order){
+    private byte[] createIFDBuffer(ByteOrder order){
         ByteBuffer bytes = ByteBuffer.allocate(IFD_BUFFER_LENGTH);
         bytes.order(order);
         for (int i = 0; i < IFD_BUFFER_LENGTH; i++){
@@ -67,20 +69,20 @@ public class TiffWriter {
         return bytes.array();
     }
 
-    private byte[] CreateIFDBytes(ByteOrder order){
-        byte[] count = CreateIFDEntryCountBytes(order);
+    private byte[] createIFDBytes(ByteOrder order){
+        byte[] count = createIFDEntryCountBytes(order);
         int byteCount = IFD_ENTRY_COUNT_LENGTH + (cachedData.ifdListing.get(0).fields.size() * IFD_LENGTH) + IFD_BUFFER_LENGTH;
         ByteBuffer bytes = ByteBuffer.allocate(byteCount);
         bytes.order(order);
         bytes.put(count);
         for (FieldInformation item : cachedData.ifdListing.get(0).fields){
-            bytes.put(CreateIFDEntryBytes(order, item));
+            bytes.put(createIFDEntryBytes(order, item));
         }
-        bytes.put(CreateIFDBuffer(order));
+        bytes.put(createIFDBuffer(order));
         return bytes.array();
     }
 
-    private byte[] CreateIFDEntryBytes(ByteOrder order, FieldInformation info){
+    private byte[] createIFDEntryBytes(ByteOrder order, FieldInformation info){
         ByteBuffer bytes = ByteBuffer.allocate(IFD_LENGTH);
         bytes.order(order);
         bytes.putShort(info.tag);
@@ -90,15 +92,15 @@ public class TiffWriter {
         return bytes.array();
     }
 
-    private byte[] CreateIFDEntryCountBytes(ByteOrder order){
+    private byte[] createIFDEntryCountBytes(ByteOrder order){
         ByteBuffer bytes = ByteBuffer.allocate(IFD_ENTRY_COUNT_LENGTH);
         bytes.order(order);
         bytes.putShort((short)cachedData.ifdListing.get(0).fields.size());
         return bytes.array();
     }
 
-    private byte[] CreateImageBytes(ByteOrder order){
-        int numBytes = cachedData.ifdListing.get(0).GetTagValue((short)279);
+    private byte[] createImageBytes(ByteOrder order){
+        int numBytes = cachedData.ifdListing.get(0).getTagValue((short) 279);
         ByteBuffer bytes = ByteBuffer.allocate(numBytes);
         bytes.order(order);
         int gridHeight = cachedData.intensityMap.length;
@@ -111,8 +113,8 @@ public class TiffWriter {
         return bytes.array();
     }
 
-    private byte[] CreateRegionBeforeImageData(ByteOrder order, int lengthOfHeaderPlusIFD) {
-        int imageOffset = cachedData.ifdListing.get(0).GetTagValue((short)273);
+    private byte[] createRegionBeforeImageData(ByteOrder order, int lengthOfHeaderPlusIFD) {
+        int imageOffset = cachedData.ifdListing.get(0).getTagValue((short) 273);
         int regionLength = imageOffset - lengthOfHeaderPlusIFD;
         ByteBuffer bytes = ByteBuffer.allocate(regionLength);
         bytes.order(order);
@@ -122,13 +124,13 @@ public class TiffWriter {
         return bytes.array();
     }
 
-    private byte[] GenerateFileBytes(){
+    private byte[] generateFileBytes(){
         ByteOrder order = cachedData.byteOrder;
-        byte[] header = CreateHeaderBytes(order);
-        byte[] ifd = CreateIFDBytes(order);
+        byte[] header = createHeaderBytes(order);
+        byte[] ifd = createIFDBytes(order);
         int lengthOfHeadPlusIfd = header.length + ifd.length;
-        byte[] region = CreateRegionBeforeImageData(order, lengthOfHeadPlusIfd);
-        byte[] image = CreateImageBytes(order);
+        byte[] region = createRegionBeforeImageData(order, lengthOfHeadPlusIfd);
+        byte[] image = createImageBytes(order);
         int byteCount = header.length + ifd.length + region.length + image.length;
         ByteBuffer bytes = ByteBuffer.allocate(byteCount);
         bytes.put(header);

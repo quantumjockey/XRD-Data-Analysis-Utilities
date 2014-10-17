@@ -4,12 +4,14 @@ import xrdtiffoperations.imagemodel.TiffBase;
 
 public class MARTiffImage extends TiffBase{
 
-    // Constants
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
     private final int RAW_VALUE_OFFSET = 32768;
     private final int INTENSITY_MAXIMUM = 65536;
     private final int INTENSITY_MINIMUM = 0;
 
-    // Image data
+    /////////// Fields //////////////////////////////////////////////////////////////////////
+
     public short[][] intensityMap;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
@@ -20,10 +22,10 @@ public class MARTiffImage extends TiffBase{
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public int GetOffsetMaxValue(){
+    public int getOffsetMaxValue(){
         int maxVal = INTENSITY_MINIMUM;
-        for (int y = 0; y < GetHeight(); y++){
-            for (int x = 0; x < GetWidth(); x++){
+        for (int y = 0; y < getHeight(); y++){
+            for (int x = 0; x < getWidth(); x++){
                 if (intensityMap[y][x] + RAW_VALUE_OFFSET > maxVal){
                     maxVal = intensityMap[y][x] + RAW_VALUE_OFFSET;
                 }
@@ -32,10 +34,10 @@ public class MARTiffImage extends TiffBase{
         return maxVal;
     }
 
-    public int GetOffsetMinValue(){
+    public int getOffsetMinValue(){
         int minVal = INTENSITY_MAXIMUM;
-        for (int y = 0; y < GetHeight(); y++){
-            for (int x = 0; x < GetWidth(); x++){
+        for (int y = 0; y < getHeight(); y++){
+            for (int x = 0; x < getWidth(); x++){
                 if (intensityMap[y][x] + RAW_VALUE_OFFSET < minVal){
                     minVal = intensityMap[y][x] + RAW_VALUE_OFFSET;
                 }
@@ -44,10 +46,10 @@ public class MARTiffImage extends TiffBase{
         return minVal;
     }
 
-    public short GetMaxValue(){
+    public short getMaxValue(){
         short maxVal = 0;
-        for (int y = 0; y < GetHeight(); y++){
-            for (int x = 0; x < GetWidth(); x++){
+        for (int y = 0; y < getHeight(); y++){
+            for (int x = 0; x < getWidth(); x++){
                 if (intensityMap[y][x] > maxVal){
                     maxVal = intensityMap[y][x];
                 }
@@ -56,10 +58,10 @@ public class MARTiffImage extends TiffBase{
         return maxVal;
     }
 
-    public short GetMinValue(){
+    public short getMinValue(){
         short minVal = 0;
-        for (int y = 0; y < GetHeight(); y++){
-            for (int x = 0; x < GetWidth(); x++){
+        for (int y = 0; y < getHeight(); y++){
+            for (int x = 0; x < getWidth(); x++){
                 if (intensityMap[y][x] < minVal){
                     minVal = intensityMap[y][x];
                 }
@@ -68,11 +70,11 @@ public class MARTiffImage extends TiffBase{
         return minVal;
     }
 
-    public int GetHeight(){
+    public int getHeight(){
         return intensityMap.length;
     }
 
-    public int GetWidth(){
+    public int getWidth(){
         return intensityMap[0].length;
     }
 

@@ -1,6 +1,6 @@
 package app.martiffviewport;
 
-import MvvmBase.initialization.MarkupInitializer;
+import mvvmbase.initialization.MarkupInitializer;
 import app.martiffviewport.components.MARTiffViewportController;
 import javafx.scene.control.TitledPane;
 import pathoperations.PathWrapper;
@@ -29,12 +29,12 @@ public class MARTiffViewport extends TitledPane {
         return (MARTiffViewportController)markupContainer.getController();
     }
 
-    public void RenderImage(MARTiffImage image) throws IOException{
-        getController().RenderImage(image);
+    public void renderImage(MARTiffImage image) throws IOException{
+        getController().renderImage(image);
     }
 
-    public void RenderImageFromFile(PathWrapper filePath) throws IOException{
-        getController().RenderImageFromFile(filePath);
+    public void renderImageFromFile(PathWrapper filePath) throws IOException{
+        getController().renderImageFromFile(filePath);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////

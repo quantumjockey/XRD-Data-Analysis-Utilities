@@ -1,4 +1,4 @@
-package MvvmBase.markup;
+package mvvmbase.markup;
 
 import javafx.fxml.Initializable;
 import java.net.URL;
@@ -13,7 +13,7 @@ public abstract class MarkupControllerBase implements Initializable {
         performInitializationTasks();
     }
 
-    /////////// Private Methods ///////////////////////////////////////////////////////////////
+    /////////// Protected Methods /////////////////////////////////////////////////////////////
 
     protected abstract void performInitializationTasks();
 

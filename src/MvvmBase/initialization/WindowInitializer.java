@@ -1,4 +1,4 @@
-package MvvmBase.initialization;
+package mvvmbase.initialization;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,11 +21,11 @@ public class WindowInitializer {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public Parent GetParent(){
+    public Parent getParent(){
         return windowRoot;
     }
 
-    public Scene GetScene(){
+    public Scene getScene(){
         return new Scene(windowRoot);
     }
 

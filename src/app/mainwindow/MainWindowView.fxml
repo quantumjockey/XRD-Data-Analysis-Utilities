@@ -5,15 +5,15 @@
 <?import javafx.scene.control.*?>
 <?import app.martiffviewport.MARTiffViewport?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.MainWindow.Controller">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.mainwindow.MainWindowController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
            <menus>
                <Menu text="File">
                    <items>
-                       <MenuItem onAction="#GetDirectoryToDisplay" text="Open Folder..." />
+                       <MenuItem onAction="#getDirectoryToDisplay" text="Open Folder..." />
                        <SeparatorMenuItem />
-                       <MenuItem onAction="#ExitApplication" text="Exit" />
+                       <MenuItem onAction="#exitApplication" text="Exit" />
                     </items>
                </Menu>
            </menus>

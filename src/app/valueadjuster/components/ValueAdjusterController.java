@@ -1,6 +1,6 @@
 package app.valueadjuster.components;
 
-import MvvmBase.markup.MarkupControllerBase;
+import mvvmbase.markup.MarkupControllerBase;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
@@ -52,7 +52,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     @FXML
-    public void Decrement(){
+    public void decrement(){
         if (getDisplayedValue() <= getMaxValue() && getDisplayedValue() > getMinValue()){
             int result = getDisplayedValue() - 1;
             setDisplayedValue(result);
@@ -60,7 +60,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
     }
 
     @FXML
-    public void Increment(){
+    public void increment(){
         if (getDisplayedValue() < getMaxValue() && getDisplayedValue() >= getMinValue()){
             int result = getDisplayedValue() + 1;
             setDisplayedValue(result);
@@ -82,12 +82,6 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    @Override
-    protected void performInitializationTasks(){
-        setDefaults();
-        setBindings();
-    }
-
     private void setBindings(){
         value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
         adjustment.maxProperty().bindBidirectional(maxValueProperty());
@@ -105,6 +99,14 @@ public class ValueAdjusterController extends MarkupControllerBase {
     private void setTickUnits(int maxVal){
         int tickUnit = maxVal / 3;
         adjustment.setMajorTickUnit(tickUnit);
+    }
+
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
+
+    @Override
+    protected void performInitializationTasks(){
+        setDefaults();
+        setBindings();
     }
 
 }

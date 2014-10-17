@@ -1,4 +1,4 @@
-package DialogInitialization;
+package dialoginitialization;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -12,31 +12,31 @@ public class FileSaveChooserWrapper {
     private FileChooser chooser;
     private Stage chooserWindow;
 
-    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
+    /////////// Constructors //////////////////////////////////////////////////////////////////
 
     public FileSaveChooserWrapper(String title){
-        InitializeChooserComponents();
-        InitializeChooserAttributes(title);
+        initializeChooserComponents();
+        initializeChooserAttributes(title);
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public File GetSaveDirectory(){
+    public File getSaveDirectory(){
         return chooser.showSaveDialog(chooserWindow);
     }
 
-    public void SetInitialFileName(String filename){
+    public void setInitialFileName(String filename){
         chooser.setInitialFileName(filename);
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private void InitializeChooserComponents(){
+    private void initializeChooserComponents(){
         chooserWindow = new Stage();
         chooser = new FileChooser();
     }
 
-    private void InitializeChooserAttributes(String chooserTitle){
+    private void initializeChooserAttributes(String chooserTitle){
         chooser.setInitialDirectory(new File(SystemAttributes.USER_HOME));
         chooser.setTitle(chooserTitle);
     }

@@ -1,4 +1,4 @@
-package MvvmBase.window;
+package mvvmbase.window;
 
 import javafx.fxml.Initializable;
 import java.net.URL;
@@ -23,7 +23,7 @@ public abstract class WindowControllerBase implements Initializable {
         performInitializationTasks();
     }
 
-    /////////// Private Methods ///////////////////////////////////////////////////////////////
+    /////////// Protected Methods /////////////////////////////////////////////////////////////
 
     protected abstract void performInitializationTasks();
 

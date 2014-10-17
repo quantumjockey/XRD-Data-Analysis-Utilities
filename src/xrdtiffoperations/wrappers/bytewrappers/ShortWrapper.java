@@ -4,11 +4,16 @@ import java.nio.ByteOrder;
 
 public class ShortWrapper extends WrapperBase{
 
+    /////////// Constructors ////////////////////////////////////////////////////////////////
+
     public ShortWrapper(byte[] bytes, ByteOrder order){
         super(bytes, order);
     }
 
-    public short Get(){
+    /////////// Public Methods //////////////////////////////////////////////////////////////
+
+    public short get(){
         return buffer.getShort();
     }
+
 }

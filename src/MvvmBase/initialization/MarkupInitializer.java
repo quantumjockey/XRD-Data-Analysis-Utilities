@@ -1,4 +1,4 @@
-package MvvmBase.initialization;
+package mvvmbase.initialization;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;

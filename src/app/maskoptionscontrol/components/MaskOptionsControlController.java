@@ -1,6 +1,6 @@
 package app.maskoptionscontrol.components;
 
-import MvvmBase.markup.MarkupControllerBase;
+import mvvmbase.markup.MarkupControllerBase;
 import app.valueadjuster.ValueAdjuster;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -45,7 +45,7 @@ public class MaskOptionsControlController extends MarkupControllerBase {
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public MaskOptionsControlController(){
-        CreateCustomControlInstances();
+        createCustomControlInstances();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
@@ -59,20 +59,22 @@ public class MaskOptionsControlController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void CreateCustomControlInstances() {
+    private void createCustomControlInstances() {
         maxBound = new ValueAdjuster();
         minBound = new ValueAdjuster();
-    }
-
-    @Override
-    protected void performInitializationTasks(){
-        setBindings();
     }
 
     private void setBindings(){
         upperBoundProperty().bindBidirectional(maxBound.getController().displayedValueProperty());
         lowerBoundProperty().bindBidirectional(minBound.getController().displayedValueProperty());
         maskHueProperty().bindBidirectional(overlayHue.valueProperty());
+    }
+
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
+
+    @Override
+    protected void performInitializationTasks(){
+        setBindings();
     }
 
 }

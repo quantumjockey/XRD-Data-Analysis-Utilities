@@ -1,6 +1,6 @@
 package app.renderoptionscontrol.components;
 
-import MvvmBase.markup.MarkupControllerBase;
+import mvvmbase.markup.MarkupControllerBase;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -33,17 +33,17 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public RenderOptionsControlController(){
-        CreateCustomControlInstances();
-        CreateRamps();
+        createCustomControlInstances();
+        createRamps();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void CreateCustomControlInstances() {
+    private void createCustomControlInstances() {
 
     }
 
-    private void CreateRamps() {
+    private void createRamps() {
         ramps = new ArrayList<>();
         ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}, "Spectrum Ramp"));
         ramps.add(new GradientRamp(new Color[]{Color.RED, Color.ORANGE, Color.YELLOW}, "Autumn Ramp"));
@@ -53,17 +53,11 @@ public class RenderOptionsControlController extends MarkupControllerBase {
         setActiveRamp(ramps.get(0));
     }
 
-    @Override
-    protected void performInitializationTasks(){
-        InitializeRamps();
-        setBindings();
-    }
-
     private void setBindings(){
 
     }
 
-    private void InitializeRamps() {
+    private void initializeRamps() {
         ArrayList<String> rampList = new ArrayList<>();
         for (GradientRamp item : ramps){
             rampList.add(item.tag);
@@ -78,6 +72,14 @@ public class RenderOptionsControlController extends MarkupControllerBase {
             }
         });
 
+    }
+
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
+
+    @Override
+    protected void performInitializationTasks(){
+        initializeRamps();
+        setBindings();
     }
 
 }

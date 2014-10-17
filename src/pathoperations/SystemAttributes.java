@@ -2,7 +2,7 @@ package pathoperations;
 
 public class SystemAttributes {
 
-    /////////// Public Fields ////////////////////////////////////////////////////////////////
+    /////////// Constants ///////////////////////////////////////////////////////////////////
 
     public static String FILE_SEPARATOR = System.getProperty("file.separator");
     public static String JAVA_CLASS_PATH = System.getProperty("java.class.path");
