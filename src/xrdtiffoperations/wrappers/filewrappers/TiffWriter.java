@@ -12,13 +12,15 @@ import java.nio.file.Paths;
 
 public class TiffWriter {
 
-    // Constants
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
     private final int HEADER_LENGTH = 8;
     private final int IFD_BUFFER_LENGTH = 4;
     private final int IFD_ENTRY_COUNT_LENGTH = 2;
     private final int IFD_LENGTH = 12;
 
-    // File Data
+    /////////// Fields //////////////////////////////////////////////////////////////////////
+
     private MARTiffImage cachedData;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
@@ -27,7 +29,7 @@ public class TiffWriter {
         cachedData = dataSource;
     }
 
-    /////////// Public Methods ////////////////////////////////////////////////////////////////
+    /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public void write(String path){
         byte[] allBytes = generateFileBytes();
@@ -40,7 +42,7 @@ public class TiffWriter {
         }
     }
 
-    /////////// Private Methods ///////////////////////////////////////////////////////////////
+    /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private byte[] createHeaderBytes(ByteOrder order){
         ByteBuffer bytes = ByteBuffer.allocate(HEADER_LENGTH);

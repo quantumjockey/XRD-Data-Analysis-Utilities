@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 public class GradientRamp {
 
-    // Fields
+    /////////// Fields //////////////////////////////////////////////////////////////////////
+
     public ArrayList<RampStop> ramp;
     public String tag;
 

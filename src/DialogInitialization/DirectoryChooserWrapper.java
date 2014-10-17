@@ -13,7 +13,7 @@ public class DirectoryChooserWrapper {
     private DirectoryChooser chooser;
     private Stage chooserWindow;
 
-    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
+    /////////// Constructors //////////////////////////////////////////////////////////////////
 
     public DirectoryChooserWrapper(String title){
         initializeChooserComponents();

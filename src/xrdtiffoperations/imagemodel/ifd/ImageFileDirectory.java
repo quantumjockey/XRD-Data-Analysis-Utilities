@@ -9,18 +9,18 @@ import java.util.ArrayList;
 
 public class ImageFileDirectory {
 
-    // Constants
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
     int fieldEntryLength = 12;
 
-    // Attributes
-    private int numFields;
+    /////////// Fields //////////////////////////////////////////////////////////////////////
 
-    // Public members
+    private int numFields;
     public ArrayList<FieldInformation> fields;
     public int nextOffset;
     public int offset;
 
-    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
+    /////////// Constructors //////////////////////////////////////////////////////////////////
 
     public ImageFileDirectory(byte[] directoryBytes, int _offset, ByteOrder order){
         offset = _offset;

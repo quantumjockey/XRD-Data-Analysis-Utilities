@@ -62,16 +62,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
         return cachedImage;
     }
 
-    private MARTiffImage readImageData(PathWrapper imagePath) throws IOException {
-        MARTiffImage temp = null;
-        if (imagePath != null) {
-            TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
-            marImageReader.readFileData(false);
-            temp = marImageReader.getImageData();
-        }
-        return temp;
-    }
-
     public void renderImage(MARTiffImage image) throws IOException {
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
         imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp));
@@ -145,15 +135,27 @@ public class MARTiffViewportController extends MarkupControllerBase {
         });
     }
 
-    @Override
-    protected void performInitializationTasks() {
-        initializeListeners();
+    private MARTiffImage readImageData(PathWrapper imagePath) throws IOException {
+        MARTiffImage temp = null;
+        if (imagePath != null) {
+            TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
+            marImageReader.readFileData(false);
+            temp = marImageReader.getImageData();
+        }
+        return temp;
     }
 
     private void updateMaskLimiters(MARTiffImage image){
         int max = image.getOffsetMaxValue();
         int min = image.getOffsetMinValue();
         maskOptions.getController().setLimiters(min, max);
+    }
+
+    /////////// Protected Methods /////////////////////////////////////////////////////////////
+
+    @Override
+    protected void performInitializationTasks() {
+        initializeListeners();
     }
 
 }

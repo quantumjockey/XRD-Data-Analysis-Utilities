@@ -23,7 +23,7 @@ public abstract class WindowControllerBase implements Initializable {
         performInitializationTasks();
     }
 
-    /////////// Private Methods ///////////////////////////////////////////////////////////////
+    /////////// Protected Methods /////////////////////////////////////////////////////////////
 
     protected abstract void performInitializationTasks();
 

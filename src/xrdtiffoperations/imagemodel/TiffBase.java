@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class TiffBase {
 
+    /////////// Fields //////////////////////////////////////////////////////////////////////
+
     // File Header
     public ByteOrder byteOrder;
     public int identifier;

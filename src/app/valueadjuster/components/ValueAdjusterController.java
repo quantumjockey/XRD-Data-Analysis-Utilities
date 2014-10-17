@@ -82,12 +82,6 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    @Override
-    protected void performInitializationTasks(){
-        setDefaults();
-        setBindings();
-    }
-
     private void setBindings(){
         value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
         adjustment.maxProperty().bindBidirectional(maxValueProperty());
@@ -105,6 +99,14 @@ public class ValueAdjusterController extends MarkupControllerBase {
     private void setTickUnits(int maxVal){
         int tickUnit = maxVal / 3;
         adjustment.setMajorTickUnit(tickUnit);
+    }
+
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
+
+    @Override
+    protected void performInitializationTasks(){
+        setDefaults();
+        setBindings();
     }
 
 }

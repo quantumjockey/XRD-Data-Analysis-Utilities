@@ -4,12 +4,14 @@ import xrdtiffoperations.imagemodel.TiffBase;
 
 public class MARTiffImage extends TiffBase{
 
-    // Constants
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
     private final int RAW_VALUE_OFFSET = 32768;
     private final int INTENSITY_MAXIMUM = 65536;
     private final int INTENSITY_MINIMUM = 0;
 
-    // Image data
+    /////////// Fields //////////////////////////////////////////////////////////////////////
+
     public short[][] intensityMap;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////

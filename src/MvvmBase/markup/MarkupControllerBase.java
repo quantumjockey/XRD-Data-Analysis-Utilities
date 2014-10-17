@@ -13,7 +13,7 @@ public abstract class MarkupControllerBase implements Initializable {
         performInitializationTasks();
     }
 
-    /////////// Private Methods ///////////////////////////////////////////////////////////////
+    /////////// Protected Methods /////////////////////////////////////////////////////////////
 
     protected abstract void performInitializationTasks();
 

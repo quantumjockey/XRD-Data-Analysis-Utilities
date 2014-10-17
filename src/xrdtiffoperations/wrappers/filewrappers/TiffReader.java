@@ -14,6 +14,8 @@ import java.nio.file.Files;
 
 public class TiffReader {
 
+    /////////// Fields //////////////////////////////////////////////////////////////////////
+
     // File Data
     private byte[] fileBytesRaw;
     private String fullFilePath;

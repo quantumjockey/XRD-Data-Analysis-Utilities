@@ -19,27 +19,32 @@ import java.util.*;
 
 public class Controller extends WindowControllerBase {
 
-    // Main Viewer
-    @FXML private MARTiffViewport selectedImageViewport;
+    /////////// Fields ////////////////////////////////////////////////////////////////////////
 
-    // Subtracted Viewer
-    @FXML private MARTiffViewport subtractedImageViewport;
+    @FXML
+    private MARTiffViewport selectedImageViewport;
 
-    // Result Viewer
-    @FXML private MARTiffViewport resultantImageViewport;
+    @FXML
+    private MARTiffViewport subtractedImageViewport;
 
-    // File Listing
-    @FXML private TableView<PathWrapper> availableImages;
-    @FXML private TableColumn<PathWrapper, String> selectedPath;
+    @FXML
+    private MARTiffViewport resultantImageViewport;
 
-    // Subtracted Listing
-    @FXML private TableView<PathWrapper> subtractedImages;
-    @FXML private TableColumn<PathWrapper, String> subtractedPath;
+    @FXML
+    private TableView<PathWrapper> availableImages;
 
-    // Fields
+    @FXML
+    private TableColumn<PathWrapper, String> selectedPath;
+
+    @FXML
+    private TableView<PathWrapper> subtractedImages;
+
+    @FXML
+    private TableColumn<PathWrapper, String> subtractedPath;
+
     private File selectedDirectory;
 
-    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
+    /////////// Constructors //////////////////////////////////////////////////////////////////
 
     public Controller() {
         super();
@@ -62,13 +67,6 @@ public class Controller extends WindowControllerBase {
         if (selectedDirectory != null) {
             parseSelectedDirectory();
         }
-    }
-
-    @Override
-    protected void performInitializationTasks(){
-        selectedImageViewport.getController().setViewportTitle("Selected Image");
-        subtractedImageViewport.getController().setViewportTitle("Subtracted Image");
-        resultantImageViewport.getController().setViewportTitle("Resultant Image");
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
@@ -126,4 +124,14 @@ public class Controller extends WindowControllerBase {
         MARTiffImage resultantImage = DataSubtraction.SubtractImages(selectedImageViewport.getController().getCachedImage(), subtractedImageViewport.getController().getCachedImage(), true);
         resultantImageViewport.renderImage(resultantImage);
     }
+
+    /////////// Protected Methods /////////////////////////////////////////////////////////////
+
+    @Override
+    protected void performInitializationTasks(){
+        selectedImageViewport.getController().setViewportTitle("Selected Image");
+        subtractedImageViewport.getController().setViewportTitle("Subtracted Image");
+        resultantImageViewport.getController().setViewportTitle("Resultant Image");
+    }
+
 }

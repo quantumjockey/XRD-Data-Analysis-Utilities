@@ -53,12 +53,6 @@ public class RenderOptionsControlController extends MarkupControllerBase {
         setActiveRamp(ramps.get(0));
     }
 
-    @Override
-    protected void performInitializationTasks(){
-        initializeRamps();
-        setBindings();
-    }
-
     private void setBindings(){
 
     }
@@ -78,6 +72,14 @@ public class RenderOptionsControlController extends MarkupControllerBase {
             }
         });
 
+    }
+
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
+
+    @Override
+    protected void performInitializationTasks(){
+        initializeRamps();
+        setBindings();
     }
 
 }

@@ -9,7 +9,8 @@ import java.util.Map;
 
 public class FieldInformation {
 
-    // Attributes
+    /////////// Fields //////////////////////////////////////////////////////////////////////
+
     public short tag;
     public short type;
     public int count;

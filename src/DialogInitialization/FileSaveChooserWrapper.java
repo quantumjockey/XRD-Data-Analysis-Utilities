@@ -12,7 +12,7 @@ public class FileSaveChooserWrapper {
     private FileChooser chooser;
     private Stage chooserWindow;
 
-    /////////// Constructor(s) ////////////////////////////////////////////////////////////////
+    /////////// Constructors //////////////////////////////////////////////////////////////////
 
     public FileSaveChooserWrapper(String title){
         initializeChooserComponents();

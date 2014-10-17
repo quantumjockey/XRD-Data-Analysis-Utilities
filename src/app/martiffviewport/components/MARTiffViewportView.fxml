@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -6,6 +7,7 @@
 <?import app.maskoptionscontrol.MaskOptionsControl?>
 <?import javafx.geometry.Insets?>
 <?import app.renderoptionscontrol.RenderOptionsControl?>
+
 <fx:root fx:id="viewportTitle" alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.martiffviewport.components.MARTiffViewportController">
     <content>
       <HBox>

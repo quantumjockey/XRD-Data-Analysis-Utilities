@@ -64,15 +64,17 @@ public class MaskOptionsControlController extends MarkupControllerBase {
         minBound = new ValueAdjuster();
     }
 
-    @Override
-    protected void performInitializationTasks(){
-        setBindings();
-    }
-
     private void setBindings(){
         upperBoundProperty().bindBidirectional(maxBound.getController().displayedValueProperty());
         lowerBoundProperty().bindBidirectional(minBound.getController().displayedValueProperty());
         maskHueProperty().bindBidirectional(overlayHue.valueProperty());
+    }
+
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
+
+    @Override
+    protected void performInitializationTasks(){
+        setBindings();
     }
 
 }
