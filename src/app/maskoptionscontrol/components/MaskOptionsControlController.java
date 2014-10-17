@@ -1,6 +1,6 @@
 package app.maskoptionscontrol.components;
 
-import MvvmBase.markup.MarkupControllerBase;
+import mvvmbase.markup.MarkupControllerBase;
 import app.valueadjuster.ValueAdjuster;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;

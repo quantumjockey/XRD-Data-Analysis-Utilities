@@ -1,4 +1,4 @@
-package DialogInitialization;
+package dialoginitialization;
 
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;

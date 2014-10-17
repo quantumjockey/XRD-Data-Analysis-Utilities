@@ -1,7 +1,7 @@
-package app.MainWindow;
+package app.mainwindow;
 
-import DialogInitialization.DirectoryChooserWrapper;
-import MvvmBase.window.WindowControllerBase;
+import dialoginitialization.DirectoryChooserWrapper;
+import mvvmbase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.collections.FXCollections;

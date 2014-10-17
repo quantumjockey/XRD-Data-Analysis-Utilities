@@ -1,4 +1,4 @@
-package MvvmBase.window;
+package mvvmbase.window;
 
 import javafx.fxml.Initializable;
 import java.net.URL;

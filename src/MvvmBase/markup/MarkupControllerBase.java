@@ -1,4 +1,4 @@
-package MvvmBase.markup;
+package mvvmbase.markup;
 
 import javafx.fxml.Initializable;
 import java.net.URL;

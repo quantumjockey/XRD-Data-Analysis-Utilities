@@ -1,4 +1,4 @@
-package DialogInitialization;
+package dialoginitialization;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;

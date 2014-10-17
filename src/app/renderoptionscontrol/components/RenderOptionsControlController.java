@@ -1,6 +1,6 @@
 package app.renderoptionscontrol.components;
 
-import MvvmBase.markup.MarkupControllerBase;
+import mvvmbase.markup.MarkupControllerBase;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;

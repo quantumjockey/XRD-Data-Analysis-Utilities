@@ -1,6 +1,6 @@
 package app.martiffviewport;
 
-import MvvmBase.initialization.MarkupInitializer;
+import mvvmbase.initialization.MarkupInitializer;
 import app.martiffviewport.components.MARTiffViewportController;
 import javafx.scene.control.TitledPane;
 import pathoperations.PathWrapper;

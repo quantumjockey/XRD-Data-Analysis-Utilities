@@ -1,7 +1,7 @@
 package app.martiffviewport.components;
 
-import DialogInitialization.FileSaveChooserWrapper;
-import MvvmBase.markup.MarkupControllerBase;
+import dialoginitialization.FileSaveChooserWrapper;
+import mvvmbase.markup.MarkupControllerBase;
 import java.io.File;
 import java.io.IOException;
 import app.maskoptionscontrol.MaskOptionsControl;
