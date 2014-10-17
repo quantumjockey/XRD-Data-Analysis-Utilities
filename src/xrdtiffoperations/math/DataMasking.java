@@ -6,7 +6,7 @@ public class DataMasking {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public static MARTiffImage MaskImage(MARTiffImage image, int maxVal, int minVal){
+    public static MARTiffImage maskImage(MARTiffImage image, int maxVal, int minVal){
         MARTiffImage temp = image;
         String name = temp.filename.replace('.', '-') + "_mask_" + minVal + "_to_" + maxVal + ".tif";
         temp.filename = name;

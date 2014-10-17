@@ -17,7 +17,7 @@ import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import java.io.*;
 import java.util.*;
 
-public class Controller extends WindowControllerBase {
+public class MainWindowController extends WindowControllerBase {
 
     /////////// Fields ////////////////////////////////////////////////////////////////////////
 
@@ -46,7 +46,7 @@ public class Controller extends WindowControllerBase {
 
     /////////// Constructors //////////////////////////////////////////////////////////////////
 
-    public Controller() {
+    public MainWindowController() {
         super();
         selectedImageViewport = new MARTiffViewport();
         subtractedImageViewport = new MARTiffViewport();
@@ -121,7 +121,7 @@ public class Controller extends WindowControllerBase {
     }
 
     private void subtractImages() throws IOException{
-        MARTiffImage resultantImage = DataSubtraction.SubtractImages(selectedImageViewport.getController().getCachedImage(), subtractedImageViewport.getController().getCachedImage(), true);
+        MARTiffImage resultantImage = DataSubtraction.subtractImages(selectedImageViewport.getController().getCachedImage(), subtractedImageViewport.getController().getCachedImage(), true);
         resultantImageViewport.renderImage(resultantImage);
     }
 

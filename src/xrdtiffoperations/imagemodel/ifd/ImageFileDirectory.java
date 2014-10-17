@@ -11,7 +11,7 @@ public class ImageFileDirectory {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
-    int fieldEntryLength = 12;
+    private static int FIELD_ENTRY_LENGTH = 12;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -26,7 +26,7 @@ public class ImageFileDirectory {
         offset = _offset;
         numFields = getFieldsCount(directoryBytes, order);
         nextOffset = getNextOffset(directoryBytes, order);
-        fields = new ArrayList<FieldInformation>();
+        fields = new ArrayList<>();
         getFields(directoryBytes, order);
     }
 
@@ -57,12 +57,12 @@ public class ImageFileDirectory {
     private void getFields(byte[] bytes, ByteOrder byteOrder){
         int cursor = 2;
         for (int i = 0; i < numFields; i++){
-            byte[] fieldBytes = new byte[fieldEntryLength];
-            for (int j = 0; j < fieldEntryLength; j++){
+            byte[] fieldBytes = new byte[FIELD_ENTRY_LENGTH];
+            for (int j = 0; j < FIELD_ENTRY_LENGTH; j++){
                 fieldBytes[j] = bytes[cursor + j];
             }
             fields.add(new FieldInformation(fieldBytes, byteOrder));
-            cursor += fieldEntryLength;
+            cursor += FIELD_ENTRY_LENGTH;
         }
     }
 
@@ -75,7 +75,7 @@ public class ImageFileDirectory {
     }
 
     private int getNextOffset(byte[] bytes, ByteOrder byteOrder){
-        int cursor = 2 + numFields * fieldEntryLength;
+        int cursor = 2 + numFields * FIELD_ENTRY_LENGTH;
         byte[] _nextOffset = new byte[4];
         for (int i = 0; i < 4; i++) {
             _nextOffset[i] = bytes[cursor + i];
