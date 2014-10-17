@@ -45,7 +45,7 @@ public class MaskOptionsControlController extends MarkupControllerBase {
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public MaskOptionsControlController(){
-        CreateCustomControlInstances();
+        createCustomControlInstances();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ public class MaskOptionsControlController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void CreateCustomControlInstances() {
+    private void createCustomControlInstances() {
         maxBound = new ValueAdjuster();
         minBound = new ValueAdjuster();
     }

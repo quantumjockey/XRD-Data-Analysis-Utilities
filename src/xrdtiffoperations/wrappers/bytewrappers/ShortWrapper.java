@@ -8,7 +8,7 @@ public class ShortWrapper extends WrapperBase{
         super(bytes, order);
     }
 
-    public short Get(){
+    public short get(){
         return buffer.getShort();
     }
 }

@@ -52,7 +52,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     @FXML
-    public void Decrement(){
+    public void decrement(){
         if (getDisplayedValue() <= getMaxValue() && getDisplayedValue() > getMinValue()){
             int result = getDisplayedValue() - 1;
             setDisplayedValue(result);
@@ -60,7 +60,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
     }
 
     @FXML
-    public void Increment(){
+    public void increment(){
         if (getDisplayedValue() < getMaxValue() && getDisplayedValue() >= getMinValue()){
             int result = getDisplayedValue() + 1;
             setDisplayedValue(result);

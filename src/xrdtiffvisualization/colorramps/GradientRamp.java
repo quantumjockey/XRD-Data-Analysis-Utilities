@@ -44,20 +44,20 @@ public class GradientRamp {
             }
         }
         return Color.rgb(
-                CalculateChannelValue(firstStop, secondStop, 'R', scaleVal, maxByteValue),
-                CalculateChannelValue(firstStop, secondStop, 'G', scaleVal, maxByteValue),
-                CalculateChannelValue(firstStop, secondStop, 'B', scaleVal, maxByteValue)
+                calculateChannelValue(firstStop, secondStop, 'R', scaleVal, maxByteValue),
+                calculateChannelValue(firstStop, secondStop, 'G', scaleVal, maxByteValue),
+                calculateChannelValue(firstStop, secondStop, 'B', scaleVal, maxByteValue)
         );
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private int CalculateChannelValue(RampStop _before, RampStop _after, char _colorComponent, double _offset, int _maxValue) {
+    private int calculateChannelValue(RampStop _before, RampStop _after, char _colorComponent, double _offset, int _maxValue) {
         double afterOffset = _after.offset;
         double beforeOffset = _before.offset;
         float max = (float)_maxValue / (float)255;
-        double afterColorChannelValue = GetRgbChannelValue(_after.color, _colorComponent);
-        double beforeColorChannelValue = GetRgbChannelValue(_before.color, _colorComponent);
+        double afterColorChannelValue = getRgbChannelValue(_after.color, _colorComponent);
+        double beforeColorChannelValue = getRgbChannelValue(_before.color, _colorComponent);
         double scaleFactor = (_offset - beforeOffset) / (afterOffset - beforeOffset);
         double channelRange = afterColorChannelValue - beforeColorChannelValue;
         float newChannel = (float)(scaleFactor * channelRange);
@@ -65,7 +65,7 @@ public class GradientRamp {
         return (int)(((result < max) ? result : max) * 255);
     }
 
-    private double GetRgbChannelValue(Color _color, char _component){
+    private double getRgbChannelValue(Color _color, char _component){
         double value;
         switch (_component){
             case 'R':

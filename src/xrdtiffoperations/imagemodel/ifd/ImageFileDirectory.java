@@ -24,15 +24,15 @@ public class ImageFileDirectory {
 
     public ImageFileDirectory(byte[] directoryBytes, int _offset, ByteOrder order){
         offset = _offset;
-        numFields = GetFieldsCount(directoryBytes, order);
-        nextOffset = GetNextOffset(directoryBytes, order);
+        numFields = getFieldsCount(directoryBytes, order);
+        nextOffset = getNextOffset(directoryBytes, order);
         fields = new ArrayList<FieldInformation>();
-        GetFields(directoryBytes, order);
+        getFields(directoryBytes, order);
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public int GetTagValue(short specifiedTag){
+    public int getTagValue(short specifiedTag){
         int value = -1;
         for (FieldInformation item : fields){
             if (item.tag == specifiedTag) {
@@ -42,19 +42,19 @@ public class ImageFileDirectory {
         return value;
     }
 
-    public void PrintDirectory(){
+    public void printDirectory(){
         System.out.println("-----------IFD-------------");
         System.out.println("Number of fields: " + numFields);
         System.out.println("Offset: " + offset);
         System.out.println("Next Directory Offset: " + nextOffset + ((nextOffset == 0) ? " (No Additional Directories)" : ""));
         for (FieldInformation item : fields){
-            item.Print();
+            item.print();
         }
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private void GetFields(byte[] bytes, ByteOrder byteOrder){
+    private void getFields(byte[] bytes, ByteOrder byteOrder){
         int cursor = 2;
         for (int i = 0; i < numFields; i++){
             byte[] fieldBytes = new byte[fieldEntryLength];
@@ -66,21 +66,21 @@ public class ImageFileDirectory {
         }
     }
 
-    private int GetFieldsCount(byte[] bytes, ByteOrder byteOrder){
+    private int getFieldsCount(byte[] bytes, ByteOrder byteOrder){
         byte[] _fieldsCount = new byte[2];
         for (int i = 0; i < 2; i++) {
              _fieldsCount[i] = bytes[i];
         }
-        return (new ShortWrapper(_fieldsCount, byteOrder)).Get();
+        return (new ShortWrapper(_fieldsCount, byteOrder)).get();
     }
 
-    private int GetNextOffset(byte[] bytes, ByteOrder byteOrder){
+    private int getNextOffset(byte[] bytes, ByteOrder byteOrder){
         int cursor = 2 + numFields * fieldEntryLength;
         byte[] _nextOffset = new byte[4];
         for (int i = 0; i < 4; i++) {
             _nextOffset[i] = bytes[cursor + i];
         }
-        return (new IntWrapper(_nextOffset, byteOrder)).Get();
+        return (new IntWrapper(_nextOffset, byteOrder)).get();
     }
 
 }

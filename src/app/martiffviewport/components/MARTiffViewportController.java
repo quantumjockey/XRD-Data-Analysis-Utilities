@@ -42,19 +42,19 @@ public class MARTiffViewportController extends MarkupControllerBase {
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public MARTiffViewportController(){
-        CreateCustomControlInstances();
+        createCustomControlInstances();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     @FXML
-    public void ExportImage(){
+    public void exportImage(){
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
-        dialog.SetInitialFileName(cachedImage.filename);
-        File destination = dialog.GetSaveDirectory();
+        dialog.setInitialFileName(cachedImage.filename);
+        File destination = dialog.getSaveDirectory();
         if (destination != null) {
             TiffWriter writer = new TiffWriter(cachedImage);
-            writer.Write(destination.getPath());
+            writer.write(destination.getPath());
         }
     }
 
@@ -62,31 +62,31 @@ public class MARTiffViewportController extends MarkupControllerBase {
         return cachedImage;
     }
 
-    private MARTiffImage ReadImageData(PathWrapper imagePath) throws IOException {
+    private MARTiffImage readImageData(PathWrapper imagePath) throws IOException {
         MARTiffImage temp = null;
         if (imagePath != null) {
             TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
-            marImageReader.ReadFileData(false);
-            temp = marImageReader.GetImageData();
+            marImageReader.readFileData(false);
+            temp = marImageReader.getImageData();
         }
         return temp;
     }
 
-    public void RenderImage(MARTiffImage image) throws IOException {
+    public void renderImage(MARTiffImage image) throws IOException {
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
-        imageViewport.setImage(marImageGraph.RenderDataAsImage(selectedRamp));
+        imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp));
         cachedImage = image;
         updateMaskLimiters(image);
     }
 
-    public void RenderImageFromFile(PathWrapper filePath) throws IOException {
-        cachedImage = ReadImageData(filePath);
-        RenderImage(cachedImage);
+    public void renderImageFromFile(PathWrapper filePath) throws IOException {
+        cachedImage = readImageData(filePath);
+        renderImage(cachedImage);
     }
 
-    public void RenderImageWithMask(MARTiffImage image) throws IOException {
+    public void renderImageWithMask(MARTiffImage image) throws IOException {
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
-        imageViewport.setImage(marImageGraph.RenderDataAsImage(selectedRamp, new BoundedMask(maskOptions.getController().getLowerBound(), maskOptions.getController().getUpperBound(), maskOptions.getController().getMaskHue())));
+        imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp, new BoundedMask(maskOptions.getController().getLowerBound(), maskOptions.getController().getUpperBound(), maskOptions.getController().getMaskHue())));
         cachedImage = image;
     }
 
@@ -96,18 +96,18 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void CreateCustomControlInstances() {
+    private void createCustomControlInstances() {
         maskOptions = new MaskOptionsControl();
         renderOptions = new RenderOptionsControl();
     }
 
-    private void InitializeListeners(){
+    private void initializeListeners(){
         renderOptions.getController().activeRampProperty().addListener(new ChangeListener<GradientRamp>() {
             @Override
             public void changed(ObservableValue<? extends GradientRamp> observable, GradientRamp oldValue, GradientRamp newValue) {
                 try {
                     selectedRamp = newValue;
-                    RenderImageWithMask(cachedImage);
+                    renderImageWithMask(cachedImage);
                 } catch (IOException ex) {
                     System.out.println("Image render error!");
                 }
@@ -117,7 +117,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 try {
-                    RenderImageWithMask(cachedImage);
+                    renderImageWithMask(cachedImage);
                 } catch (IOException ex) {
                     System.out.println("Image render error!");
                 }
@@ -127,7 +127,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 try {
-                    RenderImageWithMask(cachedImage);
+                    renderImageWithMask(cachedImage);
                 } catch (IOException ex) {
                     System.out.println("Image render error!");
                 }
@@ -137,7 +137,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
             @Override
             public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
                 try {
-                    RenderImageWithMask(cachedImage);
+                    renderImageWithMask(cachedImage);
                 } catch (IOException ex) {
                     System.out.println("Image render error!");
                 }
@@ -147,12 +147,12 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @Override
     protected void performInitializationTasks() {
-        InitializeListeners();
+        initializeListeners();
     }
 
     private void updateMaskLimiters(MARTiffImage image){
-        int max = image.GetOffsetMaxValue();
-        int min = image.GetOffsetMinValue();
+        int max = image.getOffsetMaxValue();
+        int min = image.getOffsetMinValue();
         maskOptions.getController().setLimiters(min, max);
     }
 

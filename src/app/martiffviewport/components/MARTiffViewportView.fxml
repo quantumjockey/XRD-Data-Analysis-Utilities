@@ -30,7 +30,7 @@
                        <RenderOptionsControl fx:id="renderOptions" />
                    </TitledPane>
                    <GridPane alignment="CENTER">
-                       <Button mnemonicParsing="false" onAction="#ExportImage" text="Export Image Data" />
+                       <Button mnemonicParsing="false" onAction="#exportImage" text="Export Image Data" />
                    </GridPane>
                </children>
                 <padding>

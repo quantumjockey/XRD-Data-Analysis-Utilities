@@ -11,9 +11,9 @@
            <menus>
                <Menu text="File">
                    <items>
-                       <MenuItem onAction="#GetDirectoryToDisplay" text="Open Folder..." />
+                       <MenuItem onAction="#getDirectoryToDisplay" text="Open Folder..." />
                        <SeparatorMenuItem />
-                       <MenuItem onAction="#ExitApplication" text="Exit" />
+                       <MenuItem onAction="#exitApplication" text="Exit" />
                     </items>
                </Menu>
            </menus>

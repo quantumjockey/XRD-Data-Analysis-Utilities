@@ -51,16 +51,16 @@ public class Controller extends WindowControllerBase {
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
     @FXML
-    public void ExitApplication(){
+    public void exitApplication(){
         System.exit(0);
     }
 
     @FXML
-    public void GetDirectoryToDisplay() throws IOException{
+    public void getDirectoryToDisplay() throws IOException{
         DirectoryChooserWrapper dialog = new DirectoryChooserWrapper("Select Directory for Images");
-        selectedDirectory = dialog.GetSelectedDirectory();
+        selectedDirectory = dialog.getSelectedDirectory();
         if (selectedDirectory != null) {
-            ParseSelectedDirectory();
+            parseSelectedDirectory();
         }
     }
 
@@ -73,7 +73,7 @@ public class Controller extends WindowControllerBase {
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private void ParseSelectedDirectory() throws IOException{
+    private void parseSelectedDirectory() throws IOException{
         FilterWrapper tiffFilter = new FilterWrapper(new String[]{".tif", ".tiff"});
         File[] images = selectedDirectory.listFiles(tiffFilter.filter);
         ArrayList<PathWrapper> imagesPaths = new ArrayList<>();
@@ -81,30 +81,30 @@ public class Controller extends WindowControllerBase {
             PathWrapper wrapper = new PathWrapper(item.getPath());
             imagesPaths.add(wrapper);
         }
-        PopulateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport);
-        PopulateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport);
+        populateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport);
+        populateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport);
         try{
-            selectedImageViewport.RenderImageFromFile(availableImages.getSelectionModel().selectedItemProperty().get());
-            subtractedImageViewport.RenderImageFromFile(subtractedImages.getSelectionModel().selectedItemProperty().get());
+            selectedImageViewport.renderImageFromFile(availableImages.getSelectionModel().selectedItemProperty().get());
+            subtractedImageViewport.renderImageFromFile(subtractedImages.getSelectionModel().selectedItemProperty().get());
         }
         catch (IOException ex){
             System.out.println("Image file could not be rendered!");
         }
-        SubtractImages();
+        subtractImages();
     }
 
-    private void PopulateTableView(TableView<PathWrapper> tableControl, TableColumn<PathWrapper, String> columnControl, ArrayList<PathWrapper> paths, MARTiffViewport imageViewport){
+    private void populateTableView(TableView<PathWrapper> tableControl, TableColumn<PathWrapper, String> columnControl, ArrayList<PathWrapper> paths, MARTiffViewport imageViewport){
         tableControl.setItems(FXCollections.observableList(paths));
         tableControl.getSelectionModel().select(0);
-        PrepareTableView(tableControl, columnControl, imageViewport);
+        prepareTableView(tableControl, columnControl, imageViewport);
     }
 
-    private void PrepareTableView(TableView<PathWrapper> tableContainer, TableColumn<PathWrapper, String> selectableColumn, MARTiffViewport imageViewport){
+    private void prepareTableView(TableView<PathWrapper> tableContainer, TableColumn<PathWrapper, String> selectableColumn, MARTiffViewport imageViewport){
         selectableColumn.setCellValueFactory(new PropertyValueFactory<>("pathTail"));
-        SetTableViewChangeListeners(tableContainer, imageViewport);
+        setTableViewChangeListeners(tableContainer, imageViewport);
     }
 
-    private void SetTableViewChangeListeners(TableView<PathWrapper> tableObject, MARTiffViewport imageViewport){
+    private void setTableViewChangeListeners(TableView<PathWrapper> tableObject, MARTiffViewport imageViewport){
         tableObject.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tableObject.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
         {
@@ -112,8 +112,8 @@ public class Controller extends WindowControllerBase {
             public void onChanged(Change<? extends Integer> change)
             {
                 try {
-                    imageViewport.RenderImageFromFile(tableObject.getSelectionModel().selectedItemProperty().get());
-                    SubtractImages();
+                    imageViewport.renderImageFromFile(tableObject.getSelectionModel().selectedItemProperty().get());
+                    subtractImages();
                 }
                 catch (IOException ex){
                     System.out.println("Image file could not be read!");
@@ -122,8 +122,8 @@ public class Controller extends WindowControllerBase {
         });
     }
 
-    private void SubtractImages() throws IOException{
+    private void subtractImages() throws IOException{
         MARTiffImage resultantImage = DataSubtraction.SubtractImages(selectedImageViewport.getController().getCachedImage(), subtractedImageViewport.getController().getCachedImage(), true);
-        resultantImageViewport.RenderImage(resultantImage);
+        resultantImageViewport.renderImage(resultantImage);
     }
 }

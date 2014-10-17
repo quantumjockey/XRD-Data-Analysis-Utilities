@@ -8,7 +8,7 @@ public class IntWrapper extends WrapperBase{
         super(bytes ,order);
     }
 
-    public int Get(){
+    public int get(){
         return buffer.getInt();
     }
 }

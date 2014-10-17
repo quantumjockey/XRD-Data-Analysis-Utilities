@@ -45,12 +45,12 @@ public class PathWrapper {
 
     public PathWrapper(String _injectedPath){
         this.setInjectedPath(_injectedPath);
-        ParsePath(_injectedPath);
+        parsePath(_injectedPath);
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private void ParsePath(String path){
+    private void parsePath(String path){
         String[] pathTemp = path.split(SystemAttributes.FILE_SEPARATOR);
         int numComponents = pathTemp.length;
         this.setPathTail(pathTemp[numComponents - 1]);

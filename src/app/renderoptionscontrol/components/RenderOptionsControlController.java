@@ -33,17 +33,17 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public RenderOptionsControlController(){
-        CreateCustomControlInstances();
-        CreateRamps();
+        createCustomControlInstances();
+        createRamps();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void CreateCustomControlInstances() {
+    private void createCustomControlInstances() {
 
     }
 
-    private void CreateRamps() {
+    private void createRamps() {
         ramps = new ArrayList<>();
         ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}, "Spectrum Ramp"));
         ramps.add(new GradientRamp(new Color[]{Color.RED, Color.ORANGE, Color.YELLOW}, "Autumn Ramp"));
@@ -55,7 +55,7 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void performInitializationTasks(){
-        InitializeRamps();
+        initializeRamps();
         setBindings();
     }
 
@@ -63,7 +63,7 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     }
 
-    private void InitializeRamps() {
+    private void initializeRamps() {
         ArrayList<String> rampList = new ArrayList<>();
         for (GradientRamp item : ramps){
             rampList.add(item.tag);

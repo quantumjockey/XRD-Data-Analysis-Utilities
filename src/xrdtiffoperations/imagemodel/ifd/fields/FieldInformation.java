@@ -39,25 +39,25 @@ public class FieldInformation {
             }
         }
 
-        tag = (new ShortWrapper(_fieldTag, order)).Get();
-        type = (new ShortWrapper(_fieldType, order)).Get();
-        count = (new ShortWrapper(_typeCount, order)).Get();
-        value = (new IntWrapper(_fieldValue, order)).Get();
+        tag = (new ShortWrapper(_fieldTag, order)).get();
+        type = (new ShortWrapper(_fieldType, order)).get();
+        count = (new ShortWrapper(_typeCount, order)).get();
+        value = (new IntWrapper(_fieldValue, order)).get();
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public void Print(){
+    public void print(){
         System.out.println("------ Field Entry ------");
-        System.out.println("Tag: " + tag + " - " + GetTagDescription(tag));
-        System.out.println("Type: " + type + " - " + GetFieldType(type));
+        System.out.println("Tag: " + tag + " - " + getTagDescription(tag));
+        System.out.println("Type: " + type + " - " + getFieldType(type));
         System.out.println("Instance Count: " + count);
         System.out.println("Value: " + value);
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private String GetFieldType(short _typeId){
+    private String getFieldType(short _typeId){
         Map<Integer, String> typeIds = new HashMap<>();
         typeIds.put(1, "8-bit unsigned int (byte)");
         typeIds.put(2, "ASCII");
@@ -67,7 +67,7 @@ public class FieldInformation {
         return (typeIds.containsKey(_typeId)) ? typeIds.get(_typeId) : "(type indeterminable)";
     }
 
-    private String GetTagDescription(short _tagData){
+    private String getTagDescription(short _tagData){
         Map<Integer, String> tags = new HashMap<>();
         tags.put(256, "Image Width");
         tags.put(257, "Image Height");

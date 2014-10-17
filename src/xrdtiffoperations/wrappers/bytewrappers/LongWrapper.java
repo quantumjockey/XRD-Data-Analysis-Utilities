@@ -8,7 +8,7 @@ public class LongWrapper extends WrapperBase{
         super(bytes, order);
     }
 
-    public long Get(){
+    public long get(){
         return buffer.getLong();
     }
 }

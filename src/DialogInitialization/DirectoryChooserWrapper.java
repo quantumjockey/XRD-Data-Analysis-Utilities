@@ -16,24 +16,24 @@ public class DirectoryChooserWrapper {
     /////////// Constructor(s) ////////////////////////////////////////////////////////////////
 
     public DirectoryChooserWrapper(String title){
-        InitializeChooserComponents();
-        InitializeChooserAttributes(title);
+        initializeChooserComponents();
+        initializeChooserAttributes(title);
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public File GetSelectedDirectory(){
+    public File getSelectedDirectory(){
         return chooser.showDialog(chooserWindow);
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private void InitializeChooserComponents(){
+    private void initializeChooserComponents(){
         chooserWindow = new Stage();
         chooser = new DirectoryChooser();
     }
 
-    private void InitializeChooserAttributes(String chooserTitle){
+    private void initializeChooserAttributes(String chooserTitle){
         chooser.setInitialDirectory(new File(SystemAttributes.USER_HOME));
         chooser.setTitle(chooserTitle);
     }

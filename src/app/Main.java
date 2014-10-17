@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         WindowInitializer init = new WindowInitializer("mainwindow/view.fxml", new Controller(), this.getClass());
         primaryStage.setTitle("XRD Data Analysis Utilities - " + SystemAttributes.OS_NAME);
-        primaryStage.setScene(init.GetScene());
+        primaryStage.setScene(init.getScene());
         primaryStage.show();
     }
 
