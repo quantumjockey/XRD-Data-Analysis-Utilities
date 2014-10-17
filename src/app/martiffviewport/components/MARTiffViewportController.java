@@ -4,14 +4,11 @@ import DialogInitialization.FileSaveChooserWrapper;
 import MvvmBase.markup.MarkupControllerBase;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import app.maskoptionscontrol.MaskOptionsControl;
+import app.renderoptionscontrol.RenderOptionsControl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -28,9 +25,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     @FXML
-    private ChoiceBox<String> availableRamps;
-
-    @FXML
     private ImageView imageViewport;
 
     @FXML
@@ -39,15 +33,16 @@ public class MARTiffViewportController extends MarkupControllerBase {
     @FXML
     private MaskOptionsControl maskOptions;
 
+    @FXML
+    private RenderOptionsControl renderOptions;
+
     private MARTiffImage cachedImage;
-    private ArrayList<GradientRamp> ramps;
     private GradientRamp selectedRamp;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public MARTiffViewportController(){
         CreateCustomControlInstances();
-        CreateRamps();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
@@ -103,19 +98,21 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     private void CreateCustomControlInstances() {
         maskOptions = new MaskOptionsControl();
-    }
-
-    private void CreateRamps() {
-        ramps = new ArrayList<>();
-        ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}, "Spectrum Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.RED, Color.ORANGE, Color.YELLOW}, "Autumn Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.YELLOW, Color.WHITE}, "High Contrast Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.WHITE}, "Grayscale Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.WHITE, Color.BLACK}, "Inverse Grayscale Ramp"));
-        selectedRamp = ramps.get(0);
+        renderOptions = new RenderOptionsControl();
     }
 
     private void InitializeListeners(){
+        renderOptions.getController().activeRampProperty().addListener(new ChangeListener<GradientRamp>() {
+            @Override
+            public void changed(ObservableValue<? extends GradientRamp> observable, GradientRamp oldValue, GradientRamp newValue) {
+                try {
+                    selectedRamp = newValue;
+                    RenderImageWithMask(cachedImage);
+                } catch (IOException ex) {
+                    System.out.println("Image render error!");
+                }
+            }
+        });
         maskOptions.getController().lowerBoundProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -148,30 +145,8 @@ public class MARTiffViewportController extends MarkupControllerBase {
         });
     }
 
-    private void InitializeRamps() {
-        ArrayList<String> rampList = new ArrayList<>();
-        for (GradientRamp item : ramps){
-            rampList.add(item.tag);
-        }
-        availableRamps.getItems().clear();
-        availableRamps.setItems(FXCollections.observableList(rampList));
-        availableRamps.getSelectionModel().select(0);
-        availableRamps.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue ov, Number value, Number new_value) {
-                try {
-                    selectedRamp = ramps.get(new_value.intValue());
-                    RenderImageWithMask(cachedImage);
-                } catch (IOException ex) {
-                    System.out.println("Image render error!");
-                }
-            }
-        });
-    }
-
     @Override
     protected void performInitializationTasks() {
-        InitializeRamps();
         InitializeListeners();
     }
 
