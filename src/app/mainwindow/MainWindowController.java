@@ -121,7 +121,7 @@ public class MainWindowController extends WindowControllerBase {
     }
 
     private void subtractImages() throws IOException{
-        MARTiffImage resultantImage = DataSubtraction.subtractImages(selectedImageViewport.getController().getCachedImage(), subtractedImageViewport.getController().getCachedImage(), true);
+        MARTiffImage resultantImage = DataSubtraction.subtractImages(selectedImageViewport.getController().getCachedImage(), subtractedImageViewport.getController().getCachedImage());
         resultantImageViewport.renderImage(resultantImage);
     }
 

@@ -6,7 +6,7 @@ public class DataSubtraction {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public static MARTiffImage subtractImages(MARTiffImage firstImage, MARTiffImage secondImage, boolean isAbsolute){
+    public static MARTiffImage subtractImages(MARTiffImage firstImage, MARTiffImage secondImage){
 
         String filename = firstImage.filename.replace('.', '-') + "_minus_" + secondImage.filename.replace('.', '-') + ".tif";
 
@@ -23,7 +23,7 @@ public class DataSubtraction {
         for (int x = 0; x < width; x++) {
             temp.intensityMap[x] = new short[width];
             for (int y = 0; y < height; y++) {
-                temp.intensityMap[x][y] = subtractIntensity(firstImage.intensityMap[x][y], secondImage.intensityMap[x][y], isAbsolute);
+                temp.intensityMap[x][y] = subtractIntensity(firstImage.intensityMap[x][y], secondImage.intensityMap[x][y]);
             }
         }
         return temp;
@@ -31,14 +31,8 @@ public class DataSubtraction {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////////
 
-    private static short subtractIntensity(short firstValue, short secondValue, boolean absolute){
-        short value;
-        if (absolute){
-            value = (short) Math.abs(firstValue - secondValue);
-        } else {
-            value = (short)(firstValue - secondValue);
-        }
-        return value;
+    private static short subtractIntensity(short firstValue, short secondValue){
+        return (short)(firstValue - secondValue);
     }
 
 }
