@@ -42,12 +42,6 @@ public class MaskOptionsControlController extends MarkupControllerBase {
     public final void setUpperBound(int upperBound){ this.upperBound.set(upperBound); }
     public IntegerProperty upperBoundProperty(){ return this.upperBound; }
 
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public MaskOptionsControlController(){
-        createCustomControlInstances();
-    }
-
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public void setLimiters(int min, int max){
@@ -57,24 +51,29 @@ public class MaskOptionsControlController extends MarkupControllerBase {
         maxBound.getController().setDisplayedValue(max);
     }
 
-    /////////// Private Methods /////////////////////////////////////////////////////////////
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
 
-    private void createCustomControlInstances() {
+    @Override
+    protected void createCustomControls() {
         maxBound = new ValueAdjuster();
         minBound = new ValueAdjuster();
     }
 
-    private void setBindings(){
+    @Override
+    protected void setBindings(){
         upperBoundProperty().bindBidirectional(maxBound.getController().displayedValueProperty());
         lowerBoundProperty().bindBidirectional(minBound.getController().displayedValueProperty());
         maskHueProperty().bindBidirectional(overlayHue.valueProperty());
     }
 
-    /////////// Protected Methods ///////////////////////////////////////////////////////////
+    @Override
+    protected void setDefaults(){
+
+    }
 
     @Override
-    protected void performInitializationTasks(){
-        setBindings();
+    protected void setListeners(){
+
     }
 
 }

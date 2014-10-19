@@ -30,18 +30,7 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     }
     public ObjectProperty<GradientRamp> activeRampProperty(){ return this.activeRamp; }
 
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public RenderOptionsControlController(){
-        createCustomControlInstances();
-        createRamps();
-    }
-
     /////////// Private Methods /////////////////////////////////////////////////////////////
-
-    private void createCustomControlInstances() {
-
-    }
 
     private void createRamps() {
         ramps = new ArrayList<>();
@@ -53,26 +42,36 @@ public class RenderOptionsControlController extends MarkupControllerBase {
         setActiveRamp(ramps.get(0));
     }
 
-    private void setBindings(){
-
-    }
-
     private void initializeRamps() {
         ArrayList<String> rampList = new ArrayList<>();
-        ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> setActiveRamp(ramps.get(newValue.intValue()));
         ramps.forEach((item) -> rampList.add(item.tag));
         availableRamps.getItems().clear();
         availableRamps.setItems(FXCollections.observableList(rampList));
         availableRamps.getSelectionModel().select(0);
-        availableRamps.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void performInitializationTasks(){
+    protected void createCustomControls() {
+
+    }
+
+    @Override
+    protected void setBindings(){
+
+    }
+
+    @Override
+    protected void setDefaults(){
+        createRamps();
         initializeRamps();
-        setBindings();
+    }
+
+    @Override
+    protected void setListeners(){
+        ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> setActiveRamp(ramps.get(newValue.intValue()));
+        availableRamps.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);
     }
 
 }

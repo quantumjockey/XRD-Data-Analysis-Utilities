@@ -30,7 +30,7 @@ public class MaskOptionsControl extends VBox {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents(){
-        markupContainer = MarkupInitializerMacro.createInitializer(this, new MaskOptionsControlController(), MARKUP_FILE);
+        markupContainer = MarkupInitializerMacro.createInitializer(this, MaskOptionsControlController.class, MARKUP_FILE);
         markupContainer.load();
     }
 

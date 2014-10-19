@@ -41,7 +41,7 @@ public class MARTiffViewport extends TitledPane {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents(){
-        markupContainer = MarkupInitializerMacro.createInitializer(this, new MARTiffViewportController(), MARKUP_FILE);
+        markupContainer = MarkupInitializerMacro.createInitializer(this, MARTiffViewportController.class, MARKUP_FILE);
         markupContainer.load();
     }
 
