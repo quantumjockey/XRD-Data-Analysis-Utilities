@@ -1,6 +1,6 @@
 package app.maskoptionscontrol;
 
-import mvvmbase.initialization.MarkupInitializer;
+import mvvmbase.markup.initialization.MarkupInitializer;
 import app.maskoptionscontrol.components.MaskOptionsControlController;
 import javafx.scene.layout.VBox;
 

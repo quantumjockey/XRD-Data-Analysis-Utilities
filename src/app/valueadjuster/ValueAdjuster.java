@@ -1,6 +1,6 @@
 package app.valueadjuster;
 
-import mvvmbase.initialization.MarkupInitializer;
+import mvvmbase.markup.initialization.MarkupInitializer;
 import app.valueadjuster.components.ValueAdjusterController;
 import javafx.scene.layout.VBox;
 

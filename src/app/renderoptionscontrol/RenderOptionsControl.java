@@ -1,6 +1,6 @@
 package app.renderoptionscontrol;
 
-import mvvmbase.initialization.MarkupInitializer;
+import mvvmbase.markup.initialization.MarkupInitializer;
 import app.renderoptionscontrol.components.RenderOptionsControlController;
 import javafx.scene.layout.VBox;
 

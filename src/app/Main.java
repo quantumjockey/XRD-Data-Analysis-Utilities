@@ -1,7 +1,7 @@
 package app;
 
 import app.mainwindow.MainWindowController;
-import mvvmbase.initialization.WindowInitializer;
+import mvvmbase.window.initialization.WindowInitializer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import pathoperations.SystemAttributes;

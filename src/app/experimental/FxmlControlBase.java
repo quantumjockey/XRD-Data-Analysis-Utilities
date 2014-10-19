@@ -1,6 +1,6 @@
 package app.experimental;
 
-import mvvmbase.initialization.MarkupInitializer;
+import mvvmbase.markup.initialization.MarkupInitializer;
 import javafx.scene.Node;
 
 public class FxmlControlBase {

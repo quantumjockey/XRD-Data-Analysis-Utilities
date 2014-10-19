@@ -1,4 +1,4 @@
-package mvvmbase.initialization;
+package mvvmbase.window.initialization;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
