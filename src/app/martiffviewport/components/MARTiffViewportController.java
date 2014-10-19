@@ -1,5 +1,6 @@
 package app.martiffviewport.components;
 
+import app.dataexportcontrol.DataExportControl;
 import dialoginitialization.FileSaveChooserWrapper;
 import mvvmbase.markup.MarkupControllerBase;
 import java.io.File;
@@ -7,7 +8,6 @@ import java.io.IOException;
 import app.maskoptionscontrol.MaskOptionsControl;
 import app.renderoptionscontrol.RenderOptionsControl;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
@@ -35,6 +35,9 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @FXML
     private RenderOptionsControl renderOptions;
+
+    @FXML
+    private DataExportControl exportOptions;
 
     private MARTiffImage cachedImage;
     private GradientRamp selectedRamp;
@@ -100,6 +103,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @Override
     protected void createCustomControls() {
+        exportOptions = new DataExportControl();
         maskOptions = new MaskOptionsControl();
         renderOptions = new RenderOptionsControl();
     }
