@@ -49,39 +49,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    private void exportImage(boolean withMask){
-        FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
-        int maskLb = maskOptions.getController().getLowerBound() - renderOptions.getController().getScaleOffset();
-        int maskUb = maskOptions.getController().getUpperBound() - renderOptions.getController().getScaleOffset();
-        if(withMask){
-            dialog.setInitialFileName(cachedImage.filename.replace('.', '-') + "_mask_lb" + maskLb + "_ub" + maskUb + ".tif");
-        }
-        else {
-            dialog.setInitialFileName(cachedImage.filename);
-        }
-        File destination = dialog.getSaveDirectory();
-        if (destination != null) {
-            TiffWriter writer;
-            if (withMask) {
-                writer = new TiffWriter(DataMasking.maskImage(cachedImage, maskLb, maskUb));
-            }
-            else{
-                writer = new TiffWriter(cachedImage);
-            }
-            writer.write(destination.getPath());
-        }
-    }
-
-    private Void exportMaskedImage(){
-        exportImage(true);
-        return null;
-    }
-
-    private Void exportRawImage(){
-        exportImage(false);
-        return null;
-    }
-
     public MARTiffImage getCachedImage() {
         return cachedImage;
     }
@@ -110,6 +77,32 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
+    private void exportImage(boolean withMask){
+        FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
+        MARTiffImage masked = null;
+        int maskLb = maskOptions.getController().getLowerBound() - renderOptions.getController().getScaleOffset();
+        int maskUb = maskOptions.getController().getUpperBound() - renderOptions.getController().getScaleOffset();
+        if(withMask){
+            masked = DataMasking.maskImage(cachedImage, maskLb, maskUb);
+            dialog.setInitialFileName(masked.filename);
+        }
+        else {
+            dialog.setInitialFileName(cachedImage.filename);
+        }
+        File destination = dialog.getSaveDirectory();
+        writeImageDataToFile(destination, (withMask) ? masked : cachedImage);
+    }
+
+    private Void exportMaskedImage(){
+        exportImage(true);
+        return null;
+    }
+
+    private Void exportRawImage(){
+        exportImage(false);
+        return null;
+    }
+
     private MARTiffImage readImageData(PathWrapper imagePath) throws IOException {
         MARTiffImage temp = null;
         if (imagePath != null) {
@@ -124,6 +117,13 @@ public class MARTiffViewportController extends MarkupControllerBase {
         int max = image.getOffsetMaxValue();
         int min = image.getOffsetMinValue();
         maskOptions.getController().setLimiters(min, max);
+    }
+
+    private void writeImageDataToFile(File path, MARTiffImage image){
+        if (path != null) {
+            TiffWriter writer = new TiffWriter(image);
+            writer.write(path.getPath());
+        }
     }
 
     /////////// Protected Methods /////////////////////////////////////////////////////////////
