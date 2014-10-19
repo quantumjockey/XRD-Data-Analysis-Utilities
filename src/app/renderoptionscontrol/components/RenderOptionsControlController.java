@@ -59,19 +59,12 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     private void initializeRamps() {
         ArrayList<String> rampList = new ArrayList<>();
-        for (GradientRamp item : ramps){
-            rampList.add(item.tag);
-        }
+        ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> setActiveRamp(ramps.get(newValue.intValue()));
+        ramps.forEach((item) -> rampList.add(item.tag));
         availableRamps.getItems().clear();
         availableRamps.setItems(FXCollections.observableList(rampList));
         availableRamps.getSelectionModel().select(0);
-        availableRamps.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue ov, Number value, Number new_value) {
-                setActiveRamp(ramps.get(new_value.intValue()));
-            }
-        });
-
+        availableRamps.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////

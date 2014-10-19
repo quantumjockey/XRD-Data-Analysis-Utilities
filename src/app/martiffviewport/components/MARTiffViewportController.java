@@ -92,47 +92,32 @@ public class MARTiffViewportController extends MarkupControllerBase {
     }
 
     private void initializeListeners(){
-        renderOptions.getController().activeRampProperty().addListener(new ChangeListener<GradientRamp>() {
-            @Override
-            public void changed(ObservableValue<? extends GradientRamp> observable, GradientRamp oldValue, GradientRamp newValue) {
-                try {
-                    selectedRamp = newValue;
-                    renderImageWithMask(cachedImage);
-                } catch (IOException ex) {
-                    System.out.println("Image render error!");
-                }
+        ChangeListener<Color> onHueChange = (observable, oldValue, newValue) -> {
+            try {
+                renderImageWithMask(cachedImage);
+            } catch (IOException ex) {
+                System.out.println("Image render error!");
             }
-        });
-        maskOptions.getController().lowerBoundProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                try {
-                    renderImageWithMask(cachedImage);
-                } catch (IOException ex) {
-                    System.out.println("Image render error!");
-                }
+        };
+        ChangeListener<GradientRamp> onRampChange = (observable, oldValue, newValue) -> {
+            try {
+                selectedRamp = newValue;
+                renderImageWithMask(cachedImage);
+            } catch (IOException ex) {
+                System.out.println("Image render error!");
             }
-        });
-        maskOptions.getController().upperBoundProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                try {
-                    renderImageWithMask(cachedImage);
-                } catch (IOException ex) {
-                    System.out.println("Image render error!");
-                }
+        };
+        ChangeListener<Number> onScaleChange = (observable, oldValue, newValue) -> {
+            try {
+                renderImageWithMask(cachedImage);
+            } catch (IOException ex) {
+                System.out.println("Image render error!");
             }
-        });
-        maskOptions.getController().maskHueProperty().addListener(new ChangeListener<Color>() {
-            @Override
-            public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-                try {
-                    renderImageWithMask(cachedImage);
-                } catch (IOException ex) {
-                    System.out.println("Image render error!");
-                }
-            }
-        });
+        };
+        renderOptions.getController().activeRampProperty().addListener(onRampChange);
+        maskOptions.getController().lowerBoundProperty().addListener(onScaleChange);
+        maskOptions.getController().upperBoundProperty().addListener(onScaleChange);
+        maskOptions.getController().maskHueProperty().addListener(onHueChange);
     }
 
     private MARTiffImage readImageData(PathWrapper imagePath) throws IOException {

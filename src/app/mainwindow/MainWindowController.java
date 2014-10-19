@@ -103,21 +103,17 @@ public class MainWindowController extends WindowControllerBase {
     }
 
     private void setTableViewChangeListeners(TableView<PathWrapper> tableObject, MARTiffViewport imageViewport){
-        tableObject.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tableObject.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
-        {
-            @Override
-            public void onChanged(Change<? extends Integer> change)
-            {
-                try {
-                    imageViewport.renderImageFromFile(tableObject.getSelectionModel().selectedItemProperty().get());
-                    subtractImages();
-                }
-                catch (IOException ex){
-                    System.out.println("Image file could not be read!");
-                }
+        ListChangeListener<Integer> onSelectionChanged = (change) -> {
+            try {
+                imageViewport.renderImageFromFile(tableObject.getSelectionModel().selectedItemProperty().get());
+                subtractImages();
             }
-        });
+            catch (IOException ex){
+                System.out.println("Image file could not be read!");
+            }
+        };
+        tableObject.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableObject.getSelectionModel().getSelectedIndices().addListener(onSelectionChanged);
     }
 
     private void subtractImages() throws IOException{
