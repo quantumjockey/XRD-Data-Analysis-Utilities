@@ -46,7 +46,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public ValueAdjusterController(){
-
+        super();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
@@ -82,20 +82,6 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void setBindings(){
-        value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
-        adjustment.maxProperty().bindBidirectional(maxValueProperty());
-        adjustment.minProperty().bindBidirectional(minValueProperty());
-        adjustment.valueProperty().bindBidirectional(displayedValueProperty());
-    }
-
-    private void setDefaults(){
-        setLimiters(0, 5000);
-        setDisplayedValue(0);
-        adjustment.setShowTickMarks(true);
-        adjustment.setShowTickLabels(true);
-    }
-
     private void setTickUnits(int maxVal){
         int tickUnit = maxVal / 3;
         adjustment.setMajorTickUnit(tickUnit);
@@ -104,9 +90,29 @@ public class ValueAdjusterController extends MarkupControllerBase {
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void performInitializationTasks(){
-        setDefaults();
-        setBindings();
+    protected void createCustomControls(){
+
+    }
+
+    @Override
+    protected void setBindings(){
+        value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
+        adjustment.maxProperty().bindBidirectional(maxValueProperty());
+        adjustment.minProperty().bindBidirectional(minValueProperty());
+        adjustment.valueProperty().bindBidirectional(displayedValueProperty());
+    }
+
+    @Override
+    protected void setDefaults(){
+        setLimiters(0, 5000);
+        setDisplayedValue(0);
+        adjustment.setShowTickMarks(true);
+        adjustment.setShowTickLabels(true);
+    }
+
+    @Override
+    protected void setListeners(){
+
     }
 
 }

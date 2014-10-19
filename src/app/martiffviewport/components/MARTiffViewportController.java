@@ -42,7 +42,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public MARTiffViewportController(){
-        createCustomControlInstances();
+        super();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
@@ -86,12 +86,42 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void createCustomControlInstances() {
+    private MARTiffImage readImageData(PathWrapper imagePath) throws IOException {
+        MARTiffImage temp = null;
+        if (imagePath != null) {
+            TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
+            marImageReader.readFileData(false);
+            temp = marImageReader.getImageData();
+        }
+        return temp;
+    }
+
+    private void updateMaskLimiters(MARTiffImage image){
+        int max = image.getOffsetMaxValue();
+        int min = image.getOffsetMinValue();
+        maskOptions.getController().setLimiters(min, max);
+    }
+
+    /////////// Protected Methods /////////////////////////////////////////////////////////////
+
+    @Override
+    protected void createCustomControls() {
         maskOptions = new MaskOptionsControl();
         renderOptions = new RenderOptionsControl();
     }
 
-    private void initializeListeners(){
+    @Override
+    protected void setBindings(){
+
+    }
+
+    @Override
+    protected void setDefaults() {
+
+    }
+
+    @Override
+    protected void setListeners(){
         ChangeListener<Color> onHueChange = (observable, oldValue, newValue) -> {
             try {
                 renderImageWithMask(cachedImage);
@@ -118,29 +148,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
         maskOptions.getController().lowerBoundProperty().addListener(onScaleChange);
         maskOptions.getController().upperBoundProperty().addListener(onScaleChange);
         maskOptions.getController().maskHueProperty().addListener(onHueChange);
-    }
-
-    private MARTiffImage readImageData(PathWrapper imagePath) throws IOException {
-        MARTiffImage temp = null;
-        if (imagePath != null) {
-            TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
-            marImageReader.readFileData(false);
-            temp = marImageReader.getImageData();
-        }
-        return temp;
-    }
-
-    private void updateMaskLimiters(MARTiffImage image){
-        int max = image.getOffsetMaxValue();
-        int min = image.getOffsetMinValue();
-        maskOptions.getController().setLimiters(min, max);
-    }
-
-    /////////// Protected Methods /////////////////////////////////////////////////////////////
-
-    @Override
-    protected void performInitializationTasks() {
-        initializeListeners();
     }
 
 }
