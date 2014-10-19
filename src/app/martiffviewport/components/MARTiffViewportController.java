@@ -1,19 +1,23 @@
 package app.martiffviewport.components;
 
+import app.dataexportcontrol.DataExportControl;
 import dialoginitialization.FileSaveChooserWrapper;
+import mvvmbase.action.ActionDelegate;
 import mvvmbase.markup.MarkupControllerBase;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import app.maskoptionscontrol.MaskOptionsControl;
 import app.renderoptionscontrol.RenderOptionsControl;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import pathoperations.PathWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
+import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.wrappers.filewrappers.TiffReader;
 import xrdtiffoperations.wrappers.filewrappers.TiffWriter;
 import xrdtiffvisualization.MARTiffVisualizer;
@@ -21,6 +25,10 @@ import xrdtiffvisualization.colorramps.GradientRamp;
 import xrdtiffvisualization.masking.BoundedMask;
 
 public class MARTiffViewportController extends MarkupControllerBase {
+
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
+    private final int RAW_VALUE_OFFSET = 32768;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -36,20 +44,46 @@ public class MARTiffViewportController extends MarkupControllerBase {
     @FXML
     private RenderOptionsControl renderOptions;
 
+    @FXML
+    private DataExportControl exportOptions;
+
     private MARTiffImage cachedImage;
+    private ArrayList<ActionDelegate<Void>> exportActions;
     private GradientRamp selectedRamp;
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    @FXML
-    public void exportImage(){
+    private void exportImage(boolean withMask){
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
-        dialog.setInitialFileName(cachedImage.filename);
+        int maskLb = maskOptions.getController().getLowerBound() - RAW_VALUE_OFFSET;
+        int maskUb = maskOptions.getController().getUpperBound() - RAW_VALUE_OFFSET;
+        if(withMask){
+            dialog.setInitialFileName(cachedImage.filename.replace('.', '-') + "_mask_lb" + maskLb + "_ub" + maskUb + ".tif");
+        }
+        else {
+            dialog.setInitialFileName(cachedImage.filename);
+        }
         File destination = dialog.getSaveDirectory();
         if (destination != null) {
-            TiffWriter writer = new TiffWriter(cachedImage);
+            TiffWriter writer;
+            if (withMask) {
+                writer = new TiffWriter(DataMasking.maskImage(cachedImage, maskLb, maskUb));
+            }
+            else{
+                writer = new TiffWriter(cachedImage);
+            }
             writer.write(destination.getPath());
         }
+    }
+
+    private Void exportMaskedImage(){
+        exportImage(true);
+        return null;
+    }
+
+    private Void exportRawImage(){
+        exportImage(false);
+        return null;
     }
 
     public MARTiffImage getCachedImage() {
@@ -100,6 +134,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @Override
     protected void createCustomControls() {
+        exportOptions = new DataExportControl();
         maskOptions = new MaskOptionsControl();
         renderOptions = new RenderOptionsControl();
     }
@@ -111,7 +146,10 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @Override
     protected void setDefaults() {
-
+        exportActions = new ArrayList<>();
+        exportActions.add(new ActionDelegate("Raw Data", () -> exportRawImage()));
+        exportActions.add(new ActionDelegate("Masked Data", () -> exportMaskedImage()));
+        exportOptions.getController().updateSelections(exportActions);
     }
 
     @Override
