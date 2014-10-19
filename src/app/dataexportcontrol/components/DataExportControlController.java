@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import mvvmbase.action.ActionDelegate;
 import mvvmbase.markup.MarkupControllerBase;
 
 import java.util.ArrayList;
@@ -17,50 +18,52 @@ public class DataExportControlController extends MarkupControllerBase {
     @FXML
     private ChoiceBox<String> exportOptions;
 
-    private ArrayList<String> options;
+    private ArrayList<ActionDelegate> options;
 
     /////////// Properties //////////////////////////////////////////////////////////////////
 
-    private ObjectProperty<String> selected = new SimpleObjectProperty<>();
-    public final String getSelected(){ return this.selected.get(); }
-    public final void setSelected(String selected) {
+    private ObjectProperty<ActionDelegate> selected = new SimpleObjectProperty<>();
+    public final ActionDelegate getSelected(){ return this.selected.get(); }
+    public final void setSelected(ActionDelegate selected) {
         this.selected.set(selected);
     }
-    public ObjectProperty<String> selectedProperty(){ return this.selected; }
+    public ObjectProperty<ActionDelegate> selectedProperty(){ return this.selected; }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     @FXML
     public void exportImage(){
-//        FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
-//        dialog.setInitialFileName(cachedImage.filename);
-//        File destination = dialog.getSaveDirectory();
-//        if (destination != null) {
-//            TiffWriter writer = new TiffWriter(cachedImage);
-//            writer.write(destination.getPath());
-//        }
+        getSelected().invoke();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void createSelections() {
         options = new ArrayList<>();
-        options.add("Raw Data");
-        options.add("Masked Data");
+        options.add(new ActionDelegate("Raw Data", () -> exportRawImage()));
+        options.add(new ActionDelegate("Masked Data", () -> exportMaskedImage()));
         setSelected(options.get(0));
     }
 
-    private void exportMaskedImage(){
+    private Void exportMaskedImage(){
 
+        return null;
     }
 
-    private void exportRawImage(){
-
+    private Void exportRawImage(){
+        //        FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
+//        dialog.setInitialFileName(cachedImage.filename);
+//        File destination = dialog.getSaveDirectory();
+//        if (destination != null) {
+//            TiffWriter writer = new TiffWriter(cachedImage);
+//            writer.write(destination.getPath());
+//        }
+        return null;
     }
 
     private void initializeSelections() {
         ArrayList<String> rampList = new ArrayList<>();
-        options.forEach((item) -> rampList.add(item));
+        options.forEach((item) -> rampList.add(item.id));
         exportOptions.getItems().clear();
         exportOptions.setItems(FXCollections.observableList(rampList));
         exportOptions.getSelectionModel().select(0);
