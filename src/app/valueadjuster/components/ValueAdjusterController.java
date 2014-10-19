@@ -13,8 +13,8 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
-    private final double SLIDER_MAX = 100.0;
-    private final double SLIDER_MIN = 0.0;
+    private final int SLIDER_MAX_DEFAULT = 1000;
+    private final int SLIDER_MIN_DEFAULT = 0;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -104,8 +104,8 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     @Override
     protected void setDefaults(){
-        setLimiters(0, 5000);
-        setDisplayedValue(0);
+        setLimiters(SLIDER_MIN_DEFAULT, SLIDER_MAX_DEFAULT);
+        setDisplayedValue(SLIDER_MIN_DEFAULT);
         adjustment.setShowTickMarks(true);
         adjustment.setShowTickLabels(true);
     }
