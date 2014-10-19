@@ -4,11 +4,17 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.util.concurrent.Callable;
 
-public class ActionDelegate {
+/*
+ Generic typing syntax interpreted from the tutorial article:
+ http://docs.oracle.com/javase/tutorial/java/generics/types.html
+ as accessed on 10/19/2014.
+ */
+
+public class ActionDelegate<T> {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
-    private Callable<Void> action;
+    private Callable<T> action;
 
     /////////// Properties //////////////////////////////////////////////////////////////////
 
@@ -19,7 +25,7 @@ public class ActionDelegate {
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public ActionDelegate(String _id, Callable<Void> _action){
+    public ActionDelegate(String _id, Callable<T> _action){
         action = _action;
         setIdentifier(_id);
     }

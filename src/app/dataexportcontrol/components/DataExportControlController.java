@@ -18,7 +18,7 @@ public class DataExportControlController extends MarkupControllerBase {
     @FXML
     private ChoiceBox<String> exportOptions;
 
-    private ArrayList<ActionDelegate> options;
+    private ArrayList<ActionDelegate<Void>> options;
 
     /////////// Properties //////////////////////////////////////////////////////////////////
 
@@ -63,7 +63,7 @@ public class DataExportControlController extends MarkupControllerBase {
 
     private void initializeSelections() {
         ArrayList<String> rampList = new ArrayList<>();
-        options.forEach((item) -> rampList.add(item.id));
+        options.forEach((item) -> rampList.add(item.getIdentifier()));
         exportOptions.getItems().clear();
         exportOptions.setItems(FXCollections.observableList(rampList));
         exportOptions.getSelectionModel().select(0);
