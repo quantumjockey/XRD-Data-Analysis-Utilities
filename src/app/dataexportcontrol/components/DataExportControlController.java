@@ -36,37 +36,22 @@ public class DataExportControlController extends MarkupControllerBase {
         getSelected().invoke();
     }
 
+    public void updateSelections(ArrayList<ActionDelegate<Void>> selections){
+        ArrayList<String> temp = new ArrayList<>();
+        options.clear();
+        selections.forEach((item) -> {
+            temp.add(item.getIdentifier());
+            options.add(item);
+        });
+        exportOptions.getItems().clear();
+        exportOptions.setItems(FXCollections.observableList(temp));
+        exportOptions.getSelectionModel().select(0);
+    }
+
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void createSelections() {
         options = new ArrayList<>();
-        options.add(new ActionDelegate("Raw Data", () -> exportRawImage()));
-        options.add(new ActionDelegate("Masked Data", () -> exportMaskedImage()));
-        setSelected(options.get(0));
-    }
-
-    private Void exportMaskedImage(){
-
-        return null;
-    }
-
-    private Void exportRawImage(){
-        //        FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
-//        dialog.setInitialFileName(cachedImage.filename);
-//        File destination = dialog.getSaveDirectory();
-//        if (destination != null) {
-//            TiffWriter writer = new TiffWriter(cachedImage);
-//            writer.write(destination.getPath());
-//        }
-        return null;
-    }
-
-    private void initializeSelections() {
-        ArrayList<String> rampList = new ArrayList<>();
-        options.forEach((item) -> rampList.add(item.getIdentifier()));
-        exportOptions.getItems().clear();
-        exportOptions.setItems(FXCollections.observableList(rampList));
-        exportOptions.getSelectionModel().select(0);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
@@ -84,7 +69,6 @@ public class DataExportControlController extends MarkupControllerBase {
     @Override
     protected void setDefaults(){
         createSelections();
-        initializeSelections();
     }
 
     @Override
