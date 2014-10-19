@@ -3,6 +3,7 @@ package app.valueadjuster;
 import mvvmbase.markup.initialization.MarkupInitializer;
 import app.valueadjuster.components.ValueAdjusterController;
 import javafx.scene.layout.VBox;
+import mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class ValueAdjuster extends VBox {
 
@@ -29,8 +30,7 @@ public class ValueAdjuster extends VBox {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents(){
-        markupContainer = new MarkupInitializer(new ValueAdjusterController(), MARKUP_FILE);
-        markupContainer.setRoot(this);
+        markupContainer = MarkupInitializerMacro.createInitializer(this, new ValueAdjusterController(), MARKUP_FILE);
         markupContainer.load();
     }
 

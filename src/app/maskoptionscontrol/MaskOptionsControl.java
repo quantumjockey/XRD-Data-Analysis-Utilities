@@ -3,6 +3,7 @@ package app.maskoptionscontrol;
 import mvvmbase.markup.initialization.MarkupInitializer;
 import app.maskoptionscontrol.components.MaskOptionsControlController;
 import javafx.scene.layout.VBox;
+import mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class MaskOptionsControl extends VBox {
 
@@ -29,8 +30,7 @@ public class MaskOptionsControl extends VBox {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents(){
-        markupContainer = new MarkupInitializer(new MaskOptionsControlController(), MARKUP_FILE);
-        markupContainer.setRoot(this);
+        markupContainer = MarkupInitializerMacro.createInitializer(this, new MaskOptionsControlController(), MARKUP_FILE);
         markupContainer.load();
     }
 

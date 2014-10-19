@@ -3,6 +3,7 @@ package app.renderoptionscontrol;
 import mvvmbase.markup.initialization.MarkupInitializer;
 import app.renderoptionscontrol.components.RenderOptionsControlController;
 import javafx.scene.layout.VBox;
+import mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class RenderOptionsControl extends VBox {
 
@@ -29,8 +30,7 @@ public class RenderOptionsControl extends VBox {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents(){
-        markupContainer = new MarkupInitializer(new RenderOptionsControlController(), MARKUP_FILE);
-        markupContainer.setRoot(this);
+        markupContainer = MarkupInitializerMacro.createInitializer(this, new RenderOptionsControlController(), MARKUP_FILE);
         markupContainer.load();
     }
 
