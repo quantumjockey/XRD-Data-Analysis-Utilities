@@ -30,12 +30,6 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     }
     public ObjectProperty<GradientRamp> activeRampProperty(){ return this.activeRamp; }
 
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public RenderOptionsControlController(){
-        super();
-    }
-
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void createRamps() {

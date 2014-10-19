@@ -39,12 +39,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
     private MARTiffImage cachedImage;
     private GradientRamp selectedRamp;
 
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public MARTiffViewportController(){
-        super();
-    }
-
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     @FXML

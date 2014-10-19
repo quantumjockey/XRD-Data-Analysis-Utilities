@@ -43,12 +43,6 @@ public class ValueAdjusterController extends MarkupControllerBase {
     public final void setMinValue(int minValue){ this.minValue.set(minValue); }
     public IntegerProperty minValueProperty(){ return this.minValue; }
 
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public ValueAdjusterController(){
-        super();
-    }
-
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     @FXML

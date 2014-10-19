@@ -42,12 +42,6 @@ public class MaskOptionsControlController extends MarkupControllerBase {
     public final void setUpperBound(int upperBound){ this.upperBound.set(upperBound); }
     public IntegerProperty upperBoundProperty(){ return this.upperBound; }
 
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public MaskOptionsControlController(){
-        super();
-    }
-
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public void setLimiters(int min, int max){
