@@ -26,10 +26,6 @@ import xrdtiffvisualization.masking.BoundedMask;
 
 public class MARTiffViewportController extends MarkupControllerBase {
 
-    /////////// Constants ///////////////////////////////////////////////////////////////////
-
-    private final int RAW_VALUE_OFFSET = 32768;
-
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     @FXML
@@ -55,8 +51,8 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     private void exportImage(boolean withMask){
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
-        int maskLb = maskOptions.getController().getLowerBound() - RAW_VALUE_OFFSET;
-        int maskUb = maskOptions.getController().getUpperBound() - RAW_VALUE_OFFSET;
+        int maskLb = maskOptions.getController().getLowerBound() - renderOptions.getController().getScaleOffset();
+        int maskUb = maskOptions.getController().getUpperBound() - renderOptions.getController().getScaleOffset();
         if(withMask){
             dialog.setInitialFileName(cachedImage.filename.replace('.', '-') + "_mask_lb" + maskLb + "_ub" + maskUb + ".tif");
         }
@@ -146,6 +142,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @Override
     protected void setDefaults() {
+        renderOptions.getController().setOffset(32768);
         exportActions = new ArrayList<>();
         exportActions.add(new ActionDelegate("Raw Data", () -> exportRawImage()));
         exportActions.add(new ActionDelegate("Masked Data", () -> exportMaskedImage()));

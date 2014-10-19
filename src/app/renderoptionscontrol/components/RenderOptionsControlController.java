@@ -1,15 +1,20 @@
 package app.renderoptionscontrol.components;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.Label;
+import javafx.util.converter.NumberStringConverter;
 import mvvmbase.markup.MarkupControllerBase;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.paint.Color;
 import xrdtiffvisualization.colorramps.GradientRamp;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class RenderOptionsControlController extends MarkupControllerBase {
@@ -18,6 +23,9 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     @FXML
     private ChoiceBox<String> availableRamps;
+
+    @FXML
+    private Label scaleOffsetDisplay;
 
     private ArrayList<GradientRamp> ramps;
 
@@ -29,6 +37,17 @@ public class RenderOptionsControlController extends MarkupControllerBase {
         this.activeRamp.set(activeRamp);
     }
     public ObjectProperty<GradientRamp> activeRampProperty(){ return this.activeRamp; }
+
+    private IntegerProperty scaleOffset = new SimpleIntegerProperty();
+    public final int getScaleOffset(){ return this.scaleOffset.get(); }
+    public final void setScaleOffset(int scaleOffset){ this.scaleOffset.set(scaleOffset); }
+    public IntegerProperty scaleOffsetProperty(){ return this.scaleOffset; }
+
+    /////////// Public Methods //////////////////////////////////////////////////////////////
+
+    public void setOffset(int value){
+        setScaleOffset(value);
+    }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
@@ -59,7 +78,7 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setBindings(){
-
+        scaleOffsetDisplay.textProperty().bindBidirectional(scaleOffsetProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
     }
 
     @Override
