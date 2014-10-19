@@ -15,15 +15,15 @@ public class DataSubtraction {
         temp.byteOrder = firstImage.byteOrder;
         int height, width;
 
-        height = (firstImage.intensityMap.length < secondImage.intensityMap.length) ? firstImage.intensityMap.length : secondImage.intensityMap.length;
-        width  = (firstImage.intensityMap[0].length < secondImage.intensityMap[0].length) ? firstImage.intensityMap[0].length : secondImage.intensityMap[0].length;
+        height = (firstImage.getHeight() < secondImage.getHeight()) ? firstImage.getHeight() : secondImage.getHeight();
+        width  = (firstImage.getWidth() < secondImage.getWidth()) ? firstImage.getWidth() : secondImage.getWidth();
 
         temp.intensityMap = new short[height][];
 
-        for (int x = 0; x < width; x++) {
-            temp.intensityMap[x] = new short[width];
-            for (int y = 0; y < height; y++) {
-                temp.intensityMap[x][y] = subtractIntensity(firstImage.intensityMap[x][y], secondImage.intensityMap[x][y]);
+        for (int y = 0; y < height; y++) {
+            temp.intensityMap[y] = new short[width];
+            for (int x = 0; x < width; x++) {
+                temp.intensityMap[y][x] = subtractIntensity(firstImage.intensityMap[y][x], secondImage.intensityMap[y][x]);
             }
         }
         return temp;

@@ -103,11 +103,11 @@ public class TiffWriter {
         int numBytes = cachedData.ifdListing.get(0).getTagValue((short) 279);
         ByteBuffer bytes = ByteBuffer.allocate(numBytes);
         bytes.order(order);
-        int gridHeight = cachedData.intensityMap.length;
-        int gridWidth = cachedData.intensityMap[0].length;
-        for (int i = 0; i < gridHeight; i++){
-            for (int j = 0; j < gridWidth; j++){
-                bytes.putShort(cachedData.intensityMap[i][j]);
+        int gridHeight = cachedData.getHeight();
+        int gridWidth = cachedData.getWidth();
+        for (int y = 0; y < gridHeight; y++){
+            for (int x = 0; x < gridWidth; x++){
+                bytes.putShort(cachedData.intensityMap[y][x]);
             }
         }
         return bytes.array();

@@ -29,13 +29,13 @@ public class MARTiffVisualizer {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public Image renderDataAsImage(GradientRamp _ramp) throws IOException {
-        WritableImage displayed = new WritableImage(data.intensityMap[0].length, data.intensityMap.length);
+        WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
         renderImageViaColorRamp(displayed.getPixelWriter(), data.getMaxValue(), _ramp);
         return displayed;
     }
 
     public Image renderDataAsImage(GradientRamp _ramp, BoundedMask mask) throws IOException {
-        WritableImage displayed = new WritableImage(data.intensityMap[0].length, data.intensityMap.length);
+        WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
         renderImageWithMask(displayed.getPixelWriter(), data.getMaxValue(), _ramp, mask);
         return displayed;
     }
@@ -51,8 +51,8 @@ public class MARTiffVisualizer {
         else{
             colorRamp = ramp;
         }
-        for (int x = 0; x < data.intensityMap[0].length; x++) {
-            for (int y = 0; y < data.intensityMap.length; y++) {
+        for (int y = 0; y < data.getHeight(); y++) {
+            for (int x = 0; x < data.getWidth(); x++) {
                 int value = data.intensityMap[y][x] + VALUE_OFFSET;
                 if (value < 0) {
                     writer.setColor(x, y, Color.RED);
@@ -74,8 +74,8 @@ public class MARTiffVisualizer {
         else{
             colorRamp = ramp;
         }
-        for (int x = 0; x < data.intensityMap[0].length; x++) {
-            for (int y = 0; y < data.intensityMap.length; y++) {
+        for (int y = 0; y < data.getHeight(); y++) {
+            for (int x = 0; x < data.getWidth(); x++) {
                 int value = data.intensityMap[y][x] + VALUE_OFFSET;
                 if (value < mask.lowerBound || value > mask.upperBound){
                     writer.setColor(x, y, mask.maskHue);
