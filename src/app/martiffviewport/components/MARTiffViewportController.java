@@ -54,10 +54,11 @@ public class MARTiffViewportController extends MarkupControllerBase {
     }
 
     public void renderImage(MARTiffImage image) throws IOException {
-        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
-        imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp));
         cachedImage = image;
         updateMaskLimiters(image);
+        updatePixelScale(image);
+        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
+        imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp));
     }
 
     public void renderImageFromFile(PathWrapper filePath) throws IOException {
@@ -114,9 +115,18 @@ public class MARTiffViewportController extends MarkupControllerBase {
     }
 
     private void updateMaskLimiters(MARTiffImage image){
-        int max = image.getOffsetMaxValue();
-        int min = image.getOffsetMinValue();
+        int max = image.getMaxValue();
+        int min = image.getMinValue();
         maskOptions.getController().setLimiters(min, max);
+    }
+
+    private void updatePixelScale(MARTiffImage image){
+        if (image == null){
+            renderOptions.getController().setOffset(0);
+        }
+        else {
+            renderOptions.getController().setOffset(Math.abs(image.getMinValue()));
+        }
     }
 
     private void writeImageDataToFile(File path, MARTiffImage image){
@@ -142,7 +152,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @Override
     protected void setDefaults() {
-        renderOptions.getController().setOffset(32768);
+        updatePixelScale(cachedImage);
         exportActions = new ArrayList<>();
         exportActions.add(new ActionDelegate("Raw Data", () -> exportRawImage()));
         exportActions.add(new ActionDelegate("Masked Data", () -> exportMaskedImage()));

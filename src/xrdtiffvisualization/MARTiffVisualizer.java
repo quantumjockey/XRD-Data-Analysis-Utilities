@@ -14,16 +14,18 @@ public class MARTiffVisualizer {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
-    private final int VALUE_OFFSET = 32768;
+    private final Color[] DEFAULT_RAMP = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED}; // "Spectrum" Ramp
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MARTiffImage data;
+    private int valueOffset;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public MARTiffVisualizer(MARTiffImage imageData){
         data = imageData;
+        valueOffset = scaleImageZero();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
@@ -45,22 +47,16 @@ public class MARTiffVisualizer {
     private void renderImageViaColorRamp(PixelWriter writer, short maxValue, GradientRamp ramp) throws IOException{
         GradientRamp colorRamp;
         if (ramp == null) {
-            Color[] ramp_colors = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}; // "Spectrum" Ramp
-            colorRamp = new GradientRamp(ramp_colors);
+            colorRamp = new GradientRamp(DEFAULT_RAMP);
         }
         else{
             colorRamp = ramp;
         }
         for (int y = 0; y < data.getHeight(); y++) {
             for (int x = 0; x < data.getWidth(); x++) {
-                int value = data.intensityMap[y][x] + VALUE_OFFSET;
-                if (value < 0) {
-                    writer.setColor(x, y, Color.RED);
-                }
-                else {
-                    double coefficient = (double)value / (double)(maxValue + VALUE_OFFSET);
-                    writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
-                }
+                int value = data.intensityMap[y][x];
+                double coefficient = (double)(value + valueOffset) / (double)(maxValue + valueOffset);
+                writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
             }
         }
     }
@@ -68,24 +64,27 @@ public class MARTiffVisualizer {
     private void renderImageWithMask(PixelWriter writer, short maxValue, GradientRamp ramp, BoundedMask mask) throws IOException{
         GradientRamp colorRamp;
         if (ramp == null) {
-            Color[] ramp_colors = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}; // "Spectrum" Ramp
-            colorRamp = new GradientRamp(ramp_colors);
+            colorRamp = new GradientRamp(DEFAULT_RAMP);
         }
         else{
             colorRamp = ramp;
         }
         for (int y = 0; y < data.getHeight(); y++) {
             for (int x = 0; x < data.getWidth(); x++) {
-                int value = data.intensityMap[y][x] + VALUE_OFFSET;
+                int value = data.intensityMap[y][x];
                 if (value < mask.lowerBound || value > mask.upperBound){
                     writer.setColor(x, y, mask.maskHue);
                 }
                 else {
-                    double coefficient = (double)value / (double)(maxValue + VALUE_OFFSET);
+                    double coefficient = (double)(value + valueOffset) / (double)(maxValue + valueOffset);
                     writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
                 }
             }
         }
+    }
+
+    private int scaleImageZero(){
+        return Math.abs(data.getMinValue());
     }
 
 }

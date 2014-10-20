@@ -14,7 +14,7 @@
         </HBox>
         <HBox alignment="CENTER" spacing="5.0">
             <children>
-                <Label text="Scale Offset:" />
+                <Label text="Pixel Zero Offset:" />
                 <Label fx:id="scaleOffsetDisplay" />
             </children>
             <padding>
