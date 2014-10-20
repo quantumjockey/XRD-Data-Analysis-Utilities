@@ -43,7 +43,7 @@ public class MARTiffVisualizer {
     private void renderImageViaColorRamp(PixelWriter writer, short maxValue, GradientRamp ramp) throws IOException{
         GradientRamp colorRamp;
         if (ramp == null) {
-            Color[] ramp_colors = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}; // "Spectrum" Ramp
+            Color[] ramp_colors = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED}; // "Spectrum" Ramp
             colorRamp = new GradientRamp(ramp_colors);
         }
         else{
