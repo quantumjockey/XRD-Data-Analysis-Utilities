@@ -3,13 +3,15 @@ package app.martiffviewport.components;
 import app.dataexportcontrol.DataExportControl;
 import app.zoomcontrol.ZoomControl;
 import dialoginitialization.FileSaveChooserWrapper;
+import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import mvvmbase.action.ActionDelegate;
 import mvvmbase.markup.MarkupControllerBase;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import app.maskoptionscontrol.MaskOptionsControl;
 import app.renderoptionscontrol.RenderOptionsControl;
 import javafx.beans.value.ChangeListener;
@@ -31,6 +33,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
     private final double DEFAULT_ZOOM_MAX = 6.0;
+    private final double AUTO_ZOOM_INCREMENT = 0.5;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -186,6 +189,20 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @Override
     protected void setListeners(){
+        EventHandler<MouseEvent> clickEvent = (event) -> {
+            if (event.getClickCount() == 2) {
+                double currentZoom = imageZoom.getController().getZoomLevel();
+                double max = imageZoom.getController().getMaxZoom();
+                double min = imageZoom.getController().getMinZoom();
+                if (event.getButton() == MouseButton.SECONDARY) {
+                    double newValue = currentZoom - AUTO_ZOOM_INCREMENT;
+                    imageZoom.getController().setZoomLevel((newValue < min) ? min : newValue);
+                } else {
+                    double newValue = currentZoom + AUTO_ZOOM_INCREMENT;
+                    imageZoom.getController().setZoomLevel((newValue > max) ? max : newValue);
+                }
+            }
+        };
         ChangeListener<Color> onHueChange = (observable, oldValue, newValue) -> {
             try {
                 renderImageWithMask(cachedImage);
@@ -227,6 +244,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
         maskOptions.getController().upperBoundProperty().addListener(onScaleChange);
         maskOptions.getController().maskHueProperty().addListener(onHueChange);
         imageZoom.getController().zoomLevelProperty().addListener(onZoomChange);
+        imageViewport.setOnMouseClicked(clickEvent);
     }
 
 }
