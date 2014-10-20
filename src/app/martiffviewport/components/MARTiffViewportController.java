@@ -81,8 +81,8 @@ public class MARTiffViewportController extends MarkupControllerBase {
     private void exportImage(boolean withMask){
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
         MARTiffImage masked = null;
-        int maskLb = maskOptions.getController().getLowerBound() - renderOptions.getController().getScaleOffset();
-        int maskUb = maskOptions.getController().getUpperBound() - renderOptions.getController().getScaleOffset();
+        int maskLb = maskOptions.getController().getLowerBound();
+        int maskUb = maskOptions.getController().getUpperBound();
         if(withMask){
             masked = DataMasking.maskImage(cachedImage, maskLb, maskUb);
             dialog.setInitialFileName(masked.filename);
