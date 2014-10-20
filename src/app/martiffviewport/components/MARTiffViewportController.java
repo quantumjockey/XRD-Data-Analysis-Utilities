@@ -1,6 +1,7 @@
 package app.martiffviewport.components;
 
 import app.dataexportcontrol.DataExportControl;
+import app.zoomcontrol.ZoomControl;
 import dialoginitialization.FileSaveChooserWrapper;
 import mvvmbase.action.ActionDelegate;
 import mvvmbase.markup.MarkupControllerBase;
@@ -26,6 +27,11 @@ import xrdtiffvisualization.masking.BoundedMask;
 
 public class MARTiffViewportController extends MarkupControllerBase {
 
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
+    private final double DEFAULT_VIEWPORT_SIZE = 565.0;
+    private final double DEFAULT_ZOOM_MAX = 6.0;
+
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     @FXML
@@ -43,6 +49,9 @@ public class MARTiffViewportController extends MarkupControllerBase {
     @FXML
     private DataExportControl exportOptions;
 
+    @FXML
+    private ZoomControl imageZoom;
+
     private MARTiffImage cachedImage;
     private GradientRamp selectedRamp;
 
@@ -56,6 +65,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
         cachedImage = image;
         updateMaskLimiters(image);
         updatePixelScale(image);
+        updateZoomScale(image);
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
         imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp));
     }
@@ -128,6 +138,15 @@ public class MARTiffViewportController extends MarkupControllerBase {
         }
     }
 
+    private void updateZoomScale(MARTiffImage image){
+        if (image != null) {
+            int size = (image.getHeight() >= image.getWidth()) ? image.getHeight() : image.getWidth();
+            double scale = DEFAULT_VIEWPORT_SIZE / (double) size;
+            imageZoom.getController().setZoomBounds(scale, DEFAULT_ZOOM_MAX);
+            imageZoom.getController().setZoomLevel(scale);
+        }
+    }
+
     private void writeImageDataToFile(File path, MARTiffImage image){
         if (path != null) {
             TiffWriter writer = new TiffWriter(image);
@@ -142,6 +161,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
         exportOptions = new DataExportControl();
         maskOptions = new MaskOptionsControl();
         renderOptions = new RenderOptionsControl();
+        imageZoom = new ZoomControl();
     }
 
     @Override
@@ -183,10 +203,21 @@ public class MARTiffViewportController extends MarkupControllerBase {
                 System.out.println("Image render error!");
             }
         };
+        ChangeListener<Number> onZoomChange = (observable, oldValue, newValue) -> {
+            if (cachedImage != null){
+                int height = cachedImage.getHeight();
+                double heightScaled = newValue.doubleValue() * height;
+                int width = cachedImage.getWidth();
+                double widthScaled = newValue.doubleValue() * width;
+                imageViewport.setFitHeight(heightScaled);
+                imageViewport.setFitWidth(widthScaled);
+            }
+        };
         renderOptions.getController().activeRampProperty().addListener(onRampChange);
         maskOptions.getController().lowerBoundProperty().addListener(onScaleChange);
         maskOptions.getController().upperBoundProperty().addListener(onScaleChange);
         maskOptions.getController().maskHueProperty().addListener(onHueChange);
+        imageZoom.getController().zoomLevelProperty().addListener(onZoomChange);
     }
 
 }
