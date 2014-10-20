@@ -6,9 +6,8 @@ public class MARTiffImage extends TiffBase{
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
-    private final int RAW_VALUE_OFFSET = 32768;
-    private final int INTENSITY_MAXIMUM = 65536;
-    private final int INTENSITY_MINIMUM = 0;
+    private final short INTENSITY_MAXIMUM = 32767;
+    private final short INTENSITY_MINIMUM = -32768;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -22,32 +21,8 @@ public class MARTiffImage extends TiffBase{
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public int getOffsetMaxValue(){
-        int maxVal = INTENSITY_MINIMUM;
-        for (int y = 0; y < getHeight(); y++){
-            for (int x = 0; x < getWidth(); x++){
-                if (intensityMap[y][x] + RAW_VALUE_OFFSET > maxVal){
-                    maxVal = intensityMap[y][x] + RAW_VALUE_OFFSET;
-                }
-            }
-        }
-        return maxVal;
-    }
-
-    public int getOffsetMinValue(){
-        int minVal = INTENSITY_MAXIMUM;
-        for (int y = 0; y < getHeight(); y++){
-            for (int x = 0; x < getWidth(); x++){
-                if (intensityMap[y][x] + RAW_VALUE_OFFSET < minVal){
-                    minVal = intensityMap[y][x] + RAW_VALUE_OFFSET;
-                }
-            }
-        }
-        return minVal;
-    }
-
     public short getMaxValue(){
-        short maxVal = 0;
+        short maxVal = INTENSITY_MINIMUM;
         for (int y = 0; y < getHeight(); y++){
             for (int x = 0; x < getWidth(); x++){
                 if (intensityMap[y][x] > maxVal){
@@ -59,7 +34,7 @@ public class MARTiffImage extends TiffBase{
     }
 
     public short getMinValue(){
-        short minVal = 0;
+        short minVal = INTENSITY_MAXIMUM;
         for (int y = 0; y < getHeight(); y++){
             for (int x = 0; x < getWidth(); x++){
                 if (intensityMap[y][x] < minVal){
