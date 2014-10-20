@@ -9,6 +9,7 @@
 <?import app.renderoptionscontrol.RenderOptionsControl?>
 
 <?import app.dataexportcontrol.DataExportControl?>
+<?import app.zoomcontrol.ZoomControl?>
 <fx:root fx:id="viewportTitle" alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.martiffviewport.components.MARTiffViewportController">
     <content>
       <HBox>
@@ -21,11 +22,16 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
-                  <ImageView fx:id="imageViewport" fitHeight="550.0" fitWidth="550.0" pickOnBounds="true" preserveRatio="true" />
+                  <ScrollPane fx:id="scrollViewport" prefHeight="570.0" prefWidth="570.0" pannable="true">
+                      <ImageView fx:id="imageViewport" pickOnBounds="true" preserveRatio="true" />
+                  </ScrollPane>
               </children>
             </GridPane>
             <VBox alignment="CENTER" spacing="5.0">
                <children>
+                   <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Image Zoom">
+                       <ZoomControl fx:id="imageZoom" />
+                   </TitledPane>
                    <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Masking">
                        <MaskOptionsControl fx:id="maskOptions" />
                    </TitledPane>
