@@ -4,9 +4,12 @@ import app.dataexportcontrol.DataExportControl;
 import app.zoomcontrol.ZoomControl;
 import dialoginitialization.FileSaveChooserWrapper;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import mvvmbase.action.ActionDelegate;
 import mvvmbase.markup.MarkupControllerBase;
 import java.io.File;
@@ -45,6 +48,9 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @FXML
     private ScrollPane scrollViewport;
+
+    @FXML
+    private Label pixelTrack;
 
     @FXML
     private MaskOptionsControl maskOptions;
@@ -189,6 +195,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @Override
     protected void setListeners(){
+
         EventHandler<MouseEvent> clickEvent = (event) -> {
             if (event.getClickCount() == 2) {
                 double currentZoom = imageZoom.getController().getZoomLevel();
@@ -203,6 +210,30 @@ public class MARTiffViewportController extends MarkupControllerBase {
                 }
             }
         };
+
+        EventHandler<MouseEvent> exitEvent = (event) -> pixelTrack.setText("");
+
+        EventHandler<MouseEvent> movedEvent = (event) -> {
+            double imageX = cachedImage.getWidth();
+            double realX = event.getX();
+            double viewportX = imageViewport.getFitWidth();
+            int scaledX = (int)((realX / viewportX) * imageX);
+
+            double imageY = cachedImage.getHeight();
+            double realY = event.getY();
+            double viewportY = imageViewport.getFitHeight();
+            int scaledY = (int)((realY / viewportY) * imageY);
+
+            String message = "";
+            if (imageZoom.getController().getZoomLevel() < 1){
+                message = "[Approximate] ";
+            }
+            message += "Coordinates (x,y): " + scaledX + "," + scaledY + " - Intensity: " + cachedImage.intensityMap[scaledY][scaledX];
+
+            pixelTrack.setFont(Font.font(null, FontWeight.BOLD, 13));
+            pixelTrack.setText(message);
+        };
+
         ChangeListener<Color> onHueChange = (observable, oldValue, newValue) -> {
             try {
                 renderImageWithMask(cachedImage);
@@ -210,6 +241,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
                 System.out.println("Image render error!");
             }
         };
+
         ChangeListener<GradientRamp> onRampChange = (observable, oldValue, newValue) -> {
             try {
                 selectedRamp = newValue;
@@ -218,6 +250,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
                 System.out.println("Image render error!");
             }
         };
+
         ChangeListener<Number> onScaleChange = (observable, oldValue, newValue) -> {
             try {
                 renderImageWithMask(cachedImage);
@@ -225,6 +258,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
                 System.out.println("Image render error!");
             }
         };
+
         ChangeListener<Number> onZoomChange = (observable, oldValue, newValue) -> {
             if (cachedImage != null){
                 double vVal = scrollViewport.getVvalue();
@@ -239,12 +273,15 @@ public class MARTiffViewportController extends MarkupControllerBase {
                 scrollViewport.setHvalue(hVal);
             }
         };
+
         renderOptions.getController().activeRampProperty().addListener(onRampChange);
         maskOptions.getController().lowerBoundProperty().addListener(onScaleChange);
         maskOptions.getController().upperBoundProperty().addListener(onScaleChange);
         maskOptions.getController().maskHueProperty().addListener(onHueChange);
         imageZoom.getController().zoomLevelProperty().addListener(onZoomChange);
         imageViewport.setOnMouseClicked(clickEvent);
+        imageViewport.setOnMouseExited(exitEvent);
+        imageViewport.setOnMouseMoved(movedEvent);
     }
 
 }
