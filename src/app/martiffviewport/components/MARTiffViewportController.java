@@ -3,6 +3,7 @@ package app.martiffviewport.components;
 import app.dataexportcontrol.DataExportControl;
 import app.zoomcontrol.ZoomControl;
 import dialoginitialization.FileSaveChooserWrapper;
+import javafx.scene.control.ScrollPane;
 import mvvmbase.action.ActionDelegate;
 import mvvmbase.markup.MarkupControllerBase;
 import java.io.File;
@@ -29,7 +30,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
-    private final double DEFAULT_VIEWPORT_SIZE = 565.0;
     private final double DEFAULT_ZOOM_MAX = 6.0;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
@@ -39,6 +39,9 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     @FXML
     private TitledPane viewportTitle;
+
+    @FXML
+    private ScrollPane scrollViewport;
 
     @FXML
     private MaskOptionsControl maskOptions;
@@ -141,7 +144,8 @@ public class MARTiffViewportController extends MarkupControllerBase {
     private void updateZoomScale(MARTiffImage image){
         if (image != null) {
             int size = (image.getHeight() >= image.getWidth()) ? image.getHeight() : image.getWidth();
-            double scale = DEFAULT_VIEWPORT_SIZE / (double) size;
+            double viewportSize = scrollViewport.getWidth() - 2;
+            double scale = viewportSize / (double) size;
             imageZoom.getController().setZoomBounds(scale, DEFAULT_ZOOM_MAX);
             imageZoom.getController().setZoomLevel(scale);
         }
@@ -177,6 +181,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
         exportActions.add(new ActionDelegate<>("Raw Data", this::exportRawImage));
         exportActions.add(new ActionDelegate<>("Masked Data", this::exportMaskedImage));
         exportOptions.getController().updateSelections(exportActions);
+
     }
 
     @Override
@@ -205,12 +210,16 @@ public class MARTiffViewportController extends MarkupControllerBase {
         };
         ChangeListener<Number> onZoomChange = (observable, oldValue, newValue) -> {
             if (cachedImage != null){
+                double vVal = scrollViewport.getVvalue();
+                double hVal = scrollViewport.getHvalue();
                 int height = cachedImage.getHeight();
                 double heightScaled = newValue.doubleValue() * height;
                 int width = cachedImage.getWidth();
                 double widthScaled = newValue.doubleValue() * width;
                 imageViewport.setFitHeight(heightScaled);
                 imageViewport.setFitWidth(widthScaled);
+                scrollViewport.setVvalue(vVal);
+                scrollViewport.setHvalue(hVal);
             }
         };
         renderOptions.getController().activeRampProperty().addListener(onRampChange);
