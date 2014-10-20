@@ -44,7 +44,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
     private DataExportControl exportOptions;
 
     private MARTiffImage cachedImage;
-    private ArrayList<ActionDelegate<Void>> exportActions;
     private GradientRamp selectedRamp;
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
@@ -153,6 +152,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
     @Override
     protected void setDefaults() {
         updatePixelScale(cachedImage);
+        ArrayList<ActionDelegate<Void>> exportActions;
         exportActions = new ArrayList<>();
         exportActions.add(new ActionDelegate<>("Raw Data", this::exportRawImage));
         exportActions.add(new ActionDelegate<>("Masked Data", this::exportMaskedImage));
