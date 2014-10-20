@@ -154,8 +154,8 @@ public class MARTiffViewportController extends MarkupControllerBase {
     protected void setDefaults() {
         updatePixelScale(cachedImage);
         exportActions = new ArrayList<>();
-        exportActions.add(new ActionDelegate("Raw Data", () -> exportRawImage()));
-        exportActions.add(new ActionDelegate("Masked Data", () -> exportMaskedImage()));
+        exportActions.add(new ActionDelegate<>("Raw Data", this::exportRawImage));
+        exportActions.add(new ActionDelegate<>("Masked Data", this::exportMaskedImage));
         exportOptions.getController().updateSelections(exportActions);
     }
 
