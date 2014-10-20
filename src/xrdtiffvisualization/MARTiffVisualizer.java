@@ -12,6 +12,10 @@ import java.io.IOException;
 
 public class MARTiffVisualizer {
 
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
+    private final Color[] DEFAULT_RAMP = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED}; // "Spectrum" Ramp
+
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MARTiffImage data;
@@ -43,8 +47,7 @@ public class MARTiffVisualizer {
     private void renderImageViaColorRamp(PixelWriter writer, short maxValue, GradientRamp ramp) throws IOException{
         GradientRamp colorRamp;
         if (ramp == null) {
-            Color[] ramp_colors = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED}; // "Spectrum" Ramp
-            colorRamp = new GradientRamp(ramp_colors);
+            colorRamp = new GradientRamp(DEFAULT_RAMP);
         }
         else{
             colorRamp = ramp;
@@ -66,8 +69,7 @@ public class MARTiffVisualizer {
     private void renderImageWithMask(PixelWriter writer, short maxValue, GradientRamp ramp, BoundedMask mask) throws IOException{
         GradientRamp colorRamp;
         if (ramp == null) {
-            Color[] ramp_colors = {Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED}; // "Spectrum" Ramp
-            colorRamp = new GradientRamp(ramp_colors);
+            colorRamp = new GradientRamp(DEFAULT_RAMP);
         }
         else{
             colorRamp = ramp;
