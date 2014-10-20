@@ -22,10 +22,14 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
-                  <ScrollPane fx:id="scrollViewport" prefHeight="570.0" prefWidth="570.0" pannable="true">
+                  <ScrollPane fx:id="scrollViewport" prefHeight="570.0" prefWidth="570.0" pannable="true" GridPane.rowIndex="0">
                       <ImageView fx:id="imageViewport" pickOnBounds="true" preserveRatio="true" />
                   </ScrollPane>
+                  <Label fx:id="pixelTrack" GridPane.rowIndex="1" />
               </children>
+                <padding>
+                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                </padding>
             </GridPane>
             <VBox alignment="CENTER" spacing="5.0">
                <children>
@@ -43,7 +47,7 @@
                    </TitledPane>
                </children>
                 <padding>
-                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </padding>
             </VBox>
          </children>
