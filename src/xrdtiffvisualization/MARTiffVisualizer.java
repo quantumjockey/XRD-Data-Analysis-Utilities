@@ -54,14 +54,9 @@ public class MARTiffVisualizer {
         }
         for (int y = 0; y < data.getHeight(); y++) {
             for (int x = 0; x < data.getWidth(); x++) {
-                int value = data.intensityMap[y][x] + valueOffset;
-                if (value < 0) {
-                    writer.setColor(x, y, Color.RED);
-                }
-                else {
-                    double coefficient = (double)value / (double)(maxValue + valueOffset);
-                    writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
-                }
+                int value = data.intensityMap[y][x];
+                double coefficient = (double)(value + valueOffset) / (double)(maxValue + valueOffset);
+                writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
             }
         }
     }
@@ -76,12 +71,12 @@ public class MARTiffVisualizer {
         }
         for (int y = 0; y < data.getHeight(); y++) {
             for (int x = 0; x < data.getWidth(); x++) {
-                int value = data.intensityMap[y][x] + valueOffset;
+                int value = data.intensityMap[y][x];
                 if (value < mask.lowerBound || value > mask.upperBound){
                     writer.setColor(x, y, mask.maskHue);
                 }
                 else {
-                    double coefficient = (double)value / (double)(maxValue + valueOffset);
+                    double coefficient = (double)(value + valueOffset) / (double)(maxValue + valueOffset);
                     writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
                 }
             }
