@@ -78,7 +78,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     private void setTickUnits(int maxVal){
         int tickUnit = maxVal / 3;
-        adjustment.setMajorTickUnit(tickUnit);
+        adjustment.setMajorTickUnit((tickUnit != 0) ? Math.abs(tickUnit) : 1);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
