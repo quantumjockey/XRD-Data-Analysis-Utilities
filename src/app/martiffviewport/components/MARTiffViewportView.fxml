@@ -22,7 +22,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
-                  <ScrollPane fx:id="scrollViewport" prefHeight="570.0" prefWidth="570.0">
+                  <ScrollPane fx:id="scrollViewport" prefHeight="570.0" prefWidth="570.0" pannable="true">
                       <ImageView fx:id="imageViewport" pickOnBounds="true" preserveRatio="true" />
                   </ScrollPane>
               </children>
