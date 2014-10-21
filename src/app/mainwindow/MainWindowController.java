@@ -74,7 +74,7 @@ public class MainWindowController extends WindowControllerBase {
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private ChangeListener<String> createListener(ComboBox<String> selector, MARTiffViewport imageViewport) {
-        ChangeListener<String> selectionChanged = (observable, oldValue, newValue) -> {
+        return (observable, oldValue, newValue) -> {
             try {
                 imageViewport.renderImageFromFile(availableFiles.get(selector.getSelectionModel().getSelectedIndex()));
                 subtractImages();
@@ -83,7 +83,6 @@ public class MainWindowController extends WindowControllerBase {
                 System.out.println("Image file could not be read!");
             }
         };
-        return selectionChanged;
     }
 
     private ArrayList<PathWrapper> parseSelectedDirectory(){
