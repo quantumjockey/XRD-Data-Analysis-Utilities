@@ -1,16 +1,13 @@
 package app.mainwindow;
 
 import dialoginitialization.DirectoryChooserWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.control.*;
 import mvvmbase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import pathoperations.PathWrapper;
 import pathoperations.filters.FilterWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
@@ -31,17 +28,18 @@ public class MainWindowController extends WindowControllerBase {
     private MARTiffViewport resultantImageViewport;
 
     @FXML
-    private TableView<PathWrapper> availableImages;
+    private ComboBox<String> selectedPath;
 
     @FXML
-    private TableColumn<PathWrapper, String> selectedPath;
+    private ComboBox<String> subtractedPath;
 
     @FXML
-    private TableView<PathWrapper> subtractedImages;
+    private Label rootPath;
 
     @FXML
-    private TableColumn<PathWrapper, String> subtractedPath;
+    private Accordion toolsContainer;
 
+    private ArrayList<PathWrapper> availableFiles;
     private File selectedDirectory;
 
     /////////// Constructors //////////////////////////////////////////////////////////////////
@@ -61,17 +59,41 @@ public class MainWindowController extends WindowControllerBase {
     }
 
     @FXML
-    public void getDirectoryToDisplay() throws IOException{
+    public void getDirectoryToDisplay(){
         DirectoryChooserWrapper dialog = new DirectoryChooserWrapper("Select Directory for Images");
         selectedDirectory = dialog.getSelectedDirectory();
         if (selectedDirectory != null) {
-            parseSelectedDirectory();
+            availableFiles = parseSelectedDirectory();
+            populateControls();
+            rootPath.setText(selectedDirectory.getPath());
+            rootPath.setTooltip(new Tooltip(selectedDirectory.getPath()));
+            try{
+                selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
+                subtractedImageViewport.renderImageFromFile(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
+                subtractImages();
+            }
+            catch (IOException ex){
+                System.out.println("Image file could not be rendered!");
+            }
         }
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private void parseSelectedDirectory() throws IOException{
+    private ChangeListener<String> createListener(ComboBox<String> selector, MARTiffViewport imageViewport) {
+        return (observable, oldValue, newValue) -> {
+            try {
+                selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
+                imageViewport.renderImageFromFile(availableFiles.get(selector.getSelectionModel().getSelectedIndex()));
+                subtractImages();
+            }
+            catch (IOException ex){
+                System.out.println("Image file could not be read!");
+            }
+        };
+    }
+
+    private ArrayList<PathWrapper> parseSelectedDirectory(){
         FilterWrapper tiffFilter = new FilterWrapper(new String[]{".tif", ".tiff"});
         File[] images = selectedDirectory.listFiles(tiffFilter.filter);
         ArrayList<PathWrapper> imagesPaths = new ArrayList<>();
@@ -79,41 +101,29 @@ public class MainWindowController extends WindowControllerBase {
             PathWrapper wrapper = new PathWrapper(item.getPath());
             imagesPaths.add(wrapper);
         }
-        populateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport);
-        populateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport);
-        try{
-            selectedImageViewport.renderImageFromFile(availableImages.getSelectionModel().selectedItemProperty().get());
-            subtractedImageViewport.renderImageFromFile(subtractedImages.getSelectionModel().selectedItemProperty().get());
-        }
-        catch (IOException ex){
-            System.out.println("Image file could not be rendered!");
-        }
-        subtractImages();
+        return imagesPaths;
     }
 
-    private void populateTableView(TableView<PathWrapper> tableControl, TableColumn<PathWrapper, String> columnControl, ArrayList<PathWrapper> paths, MARTiffViewport imageViewport){
-        tableControl.setItems(FXCollections.observableList(paths));
-        tableControl.getSelectionModel().select(0);
-        prepareTableView(tableControl, columnControl, imageViewport);
+    private void populateControls(){
+        ArrayList<String> temp = new ArrayList<>();
+        availableFiles.forEach((item) -> temp.add(item.getPathTail()));
+        ChangeListener<String> selectedChanged = createListener(selectedPath, selectedImageViewport);
+        populateComboBox(selectedPath, temp, selectedChanged);
+        ChangeListener<String> subtractedChanged = createListener(subtractedPath, subtractedImageViewport);
+        populateComboBox(subtractedPath, temp, subtractedChanged);
     }
 
-    private void prepareTableView(TableView<PathWrapper> tableContainer, TableColumn<PathWrapper, String> selectableColumn, MARTiffViewport imageViewport){
-        selectableColumn.setCellValueFactory(new PropertyValueFactory<>("pathTail"));
-        setTableViewChangeListeners(tableContainer, imageViewport);
+    private void populateComboBox(ComboBox<String> selector, ArrayList<String> temp, ChangeListener<String> onSelectionChanged){
+        selector.getItems().clear();
+        selector.setItems(FXCollections.observableList(temp));
+        selector.getSelectionModel().select(0);
+        selector.setEditable(false);
+        selector.valueProperty().addListener(onSelectionChanged);
+        selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
     }
 
-    private void setTableViewChangeListeners(TableView<PathWrapper> tableObject, MARTiffViewport imageViewport){
-        ListChangeListener<Integer> onSelectionChanged = (change) -> {
-            try {
-                imageViewport.renderImageFromFile(tableObject.getSelectionModel().selectedItemProperty().get());
-                subtractImages();
-            }
-            catch (IOException ex){
-                System.out.println("Image file could not be read!");
-            }
-        };
-        tableObject.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tableObject.getSelectionModel().getSelectedIndices().addListener(onSelectionChanged);
+    private void setDefaultToolAssortment(){
+        toolsContainer.setExpandedPane(toolsContainer.getPanes().get(0));
     }
 
     private void subtractImages() throws IOException{
@@ -128,6 +138,8 @@ public class MainWindowController extends WindowControllerBase {
         selectedImageViewport.getController().setViewportTitle("Selected Image");
         subtractedImageViewport.getController().setViewportTitle("Subtracted Image");
         resultantImageViewport.getController().setViewportTitle("Resultant Image");
+        setDefaultToolAssortment();
+        rootPath.setText("(Unspecified)");
     }
 
 }
