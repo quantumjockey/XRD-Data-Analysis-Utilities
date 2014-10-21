@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import app.martiffviewport.MARTiffViewport?>
 
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.mainwindow.MainWindowController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
@@ -31,20 +32,32 @@
         </ScrollPane>
     </center>
     <right>
-      <VBox>
-         <children>
-              <TableView fx:id="availableImages" VBox.vgrow="ALWAYS">
-                  <columns>
-                      <TableColumn fx:id="selectedPath" prefWidth="400" text="Available Data Files">
-                </TableColumn>
-                  </columns>
-              </TableView>
-            <TableView fx:id="subtractedImages" prefHeight="250.0">
-              <columns>
-                  <TableColumn fx:id="subtractedPath" prefWidth="400.0" resizable="false" text="Subtracted Image" />
-              </columns>
-            </TableView>
-         </children>
-      </VBox>
+        <Accordion maxWidth="450">
+            <panes>
+                <TitledPane text="Single-Image Subtraction">
+                    <content>
+                        <VBox alignment="TOP_CENTER">
+                            <children>
+                                <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                                    <children>
+                                        <Label text="Base Image:" />
+                                        <ChoiceBox fx:id="selectedPath" prefWidth="225"/>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                                    <children>
+                                        <Label text="Subtracted Image:" />
+                                        <ChoiceBox fx:id="subtractedPath" prefWidth="225"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </TitledPane>
+            </panes>
+        </Accordion>
     </right>
 </BorderPane>
