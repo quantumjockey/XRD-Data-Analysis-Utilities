@@ -21,10 +21,6 @@ public class WindowInitializer {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public Parent getParent(){
-        return windowRoot;
-    }
-
     public Scene getScene(){
         return new Scene(windowRoot);
     }

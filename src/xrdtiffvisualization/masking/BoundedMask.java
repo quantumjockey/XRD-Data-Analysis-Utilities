@@ -19,18 +19,4 @@ public class BoundedMask {
         maskHue = hue;
     }
 
-    /////////// Public Methods //////////////////////////////////////////////////////////////
-
-    public void updateLowerBound(int lower){
-        lowerBound = lower;
-    }
-
-    public void updateUpperBound(int upper){
-        upperBound = upper;
-    }
-
-    public void updateMaskHue(Color hue){
-        maskHue = hue;
-    }
-
 }
