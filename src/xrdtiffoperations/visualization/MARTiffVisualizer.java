@@ -1,4 +1,4 @@
-package xrdtiffvisualization;
+package xrdtiffoperations.visualization;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
