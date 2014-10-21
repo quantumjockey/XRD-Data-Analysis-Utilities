@@ -2,7 +2,6 @@ package app.mainwindow;
 
 import dialoginitialization.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import mvvmbase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
@@ -33,6 +32,9 @@ public class MainWindowController extends WindowControllerBase {
 
     @FXML
     private ComboBox<String> subtractedPath;
+
+    @FXML
+    private Accordion toolsContainer;
 
     private ArrayList<PathWrapper> availableFiles;
     private File selectedDirectory;
@@ -113,6 +115,10 @@ public class MainWindowController extends WindowControllerBase {
         selector.valueProperty().addListener(onSelectionChanged);
     }
 
+    private void setDefaultToolAssortment(){
+        toolsContainer.setExpandedPane(toolsContainer.getPanes().get(0));
+    }
+
     private void subtractImages() throws IOException{
         MARTiffImage resultantImage = DataSubtraction.subtractImages(selectedImageViewport.getController().getCachedImage(), subtractedImageViewport.getController().getCachedImage());
         resultantImageViewport.renderImage(resultantImage);
@@ -125,6 +131,7 @@ public class MainWindowController extends WindowControllerBase {
         selectedImageViewport.getController().setViewportTitle("Selected Image");
         subtractedImageViewport.getController().setViewportTitle("Subtracted Image");
         resultantImageViewport.getController().setViewportTitle("Resultant Image");
+        setDefaultToolAssortment();
     }
 
 }

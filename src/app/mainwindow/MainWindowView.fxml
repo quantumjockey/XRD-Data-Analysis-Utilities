@@ -32,7 +32,7 @@
         </ScrollPane>
     </center>
     <right>
-        <Accordion maxWidth="450">
+        <Accordion maxWidth="450" fx:id="toolsContainer">
             <panes>
                 <TitledPane text="Single-Image Subtraction">
                     <content>
