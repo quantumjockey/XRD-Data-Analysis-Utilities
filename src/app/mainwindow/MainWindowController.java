@@ -42,6 +42,7 @@ public class MainWindowController extends WindowControllerBase {
     @FXML
     private TableColumn<PathWrapper, String> subtractedPath;
 
+    private ArrayList<PathWrapper> availableFiles;
     private File selectedDirectory;
 
     /////////// Constructors //////////////////////////////////////////////////////////////////
@@ -65,13 +66,15 @@ public class MainWindowController extends WindowControllerBase {
         DirectoryChooserWrapper dialog = new DirectoryChooserWrapper("Select Directory for Images");
         selectedDirectory = dialog.getSelectedDirectory();
         if (selectedDirectory != null) {
-            parseSelectedDirectory();
+            availableFiles = parseSelectedDirectory();
+            populateControls();
+            subtractImages();
         }
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private void parseSelectedDirectory() throws IOException{
+    private ArrayList<PathWrapper> parseSelectedDirectory(){
         FilterWrapper tiffFilter = new FilterWrapper(new String[]{".tif", ".tiff"});
         File[] images = selectedDirectory.listFiles(tiffFilter.filter);
         ArrayList<PathWrapper> imagesPaths = new ArrayList<>();
@@ -79,8 +82,12 @@ public class MainWindowController extends WindowControllerBase {
             PathWrapper wrapper = new PathWrapper(item.getPath());
             imagesPaths.add(wrapper);
         }
-        populateTableView(availableImages, selectedPath, imagesPaths, selectedImageViewport);
-        populateTableView(subtractedImages, subtractedPath, imagesPaths, subtractedImageViewport);
+        return imagesPaths;
+    }
+
+    private void populateControls() throws IOException{
+        populateTableView(availableImages, selectedPath, availableFiles, selectedImageViewport);
+        populateTableView(subtractedImages, subtractedPath, availableFiles, subtractedImageViewport);
         try{
             selectedImageViewport.renderImageFromFile(availableImages.getSelectionModel().selectedItemProperty().get());
             subtractedImageViewport.renderImageFromFile(subtractedImages.getSelectionModel().selectedItemProperty().get());
@@ -88,7 +95,6 @@ public class MainWindowController extends WindowControllerBase {
         catch (IOException ex){
             System.out.println("Image file could not be rendered!");
         }
-        subtractImages();
     }
 
     private void populateTableView(TableView<PathWrapper> tableControl, TableColumn<PathWrapper, String> columnControl, ArrayList<PathWrapper> paths, MARTiffViewport imageViewport){
