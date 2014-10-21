@@ -66,6 +66,7 @@ public class MainWindowController extends WindowControllerBase {
             availableFiles = parseSelectedDirectory();
             populateControls();
             rootPath.setText(selectedDirectory.getPath());
+            rootPath.setTooltip(new Tooltip(selectedDirectory.getPath()));
             try{
                 selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
                 subtractedImageViewport.renderImageFromFile(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
@@ -82,6 +83,7 @@ public class MainWindowController extends WindowControllerBase {
     private ChangeListener<String> createListener(ComboBox<String> selector, MARTiffViewport imageViewport) {
         return (observable, oldValue, newValue) -> {
             try {
+                selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
                 imageViewport.renderImageFromFile(availableFiles.get(selector.getSelectionModel().getSelectedIndex()));
                 subtractImages();
             }
@@ -117,6 +119,7 @@ public class MainWindowController extends WindowControllerBase {
         selector.getSelectionModel().select(0);
         selector.setEditable(false);
         selector.valueProperty().addListener(onSelectionChanged);
+        selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
     }
 
     private void setDefaultToolAssortment(){
