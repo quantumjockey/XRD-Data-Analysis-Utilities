@@ -34,6 +34,9 @@ public class MainWindowController extends WindowControllerBase {
     private ComboBox<String> subtractedPath;
 
     @FXML
+    private Label rootPath;
+
+    @FXML
     private Accordion toolsContainer;
 
     private ArrayList<PathWrapper> availableFiles;
@@ -62,6 +65,7 @@ public class MainWindowController extends WindowControllerBase {
         if (selectedDirectory != null) {
             availableFiles = parseSelectedDirectory();
             populateControls();
+            rootPath.setText(selectedDirectory.getPath());
             try{
                 selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
                 subtractedImageViewport.renderImageFromFile(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
@@ -132,6 +136,7 @@ public class MainWindowController extends WindowControllerBase {
         subtractedImageViewport.getController().setViewportTitle("Subtracted Image");
         resultantImageViewport.getController().setViewportTitle("Resultant Image");
         setDefaultToolAssortment();
+        rootPath.setText("(Unspecified)");
     }
 
 }
