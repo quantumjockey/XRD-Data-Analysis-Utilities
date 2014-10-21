@@ -1,16 +1,14 @@
 package app.mainwindow;
 
 import dialoginitialization.DirectoryChooserWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.*;
 import mvvmbase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import pathoperations.PathWrapper;
 import pathoperations.filters.FilterWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
@@ -31,16 +29,10 @@ public class MainWindowController extends WindowControllerBase {
     private MARTiffViewport resultantImageViewport;
 
     @FXML
-    private TableView<PathWrapper> availableImages;
+    private ComboBox<String> selectedPath;
 
     @FXML
-    private TableColumn<PathWrapper, String> selectedPath;
-
-    @FXML
-    private TableView<PathWrapper> subtractedImages;
-
-    @FXML
-    private TableColumn<PathWrapper, String> subtractedPath;
+    private ComboBox<String> subtractedPath;
 
     private ArrayList<PathWrapper> availableFiles;
     private File selectedDirectory;
@@ -62,17 +54,37 @@ public class MainWindowController extends WindowControllerBase {
     }
 
     @FXML
-    public void getDirectoryToDisplay() throws IOException{
+    public void getDirectoryToDisplay(){
         DirectoryChooserWrapper dialog = new DirectoryChooserWrapper("Select Directory for Images");
         selectedDirectory = dialog.getSelectedDirectory();
         if (selectedDirectory != null) {
             availableFiles = parseSelectedDirectory();
             populateControls();
-            subtractImages();
+            try{
+                selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
+                subtractedImageViewport.renderImageFromFile(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
+                subtractImages();
+            }
+            catch (IOException ex){
+                System.out.println("Image file could not be rendered!");
+            }
         }
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
+
+    private ChangeListener<String> createListener(ComboBox<String> selector, MARTiffViewport imageViewport) {
+        ChangeListener<String> selectionChanged = (observable, oldValue, newValue) -> {
+            try {
+                imageViewport.renderImageFromFile(availableFiles.get(selector.getSelectionModel().getSelectedIndex()));
+                subtractImages();
+            }
+            catch (IOException ex){
+                System.out.println("Image file could not be read!");
+            }
+        };
+        return selectionChanged;
+    }
 
     private ArrayList<PathWrapper> parseSelectedDirectory(){
         FilterWrapper tiffFilter = new FilterWrapper(new String[]{".tif", ".tiff"});
@@ -85,41 +97,21 @@ public class MainWindowController extends WindowControllerBase {
         return imagesPaths;
     }
 
-    private void populateControls() throws IOException{
-        populateTableView(availableImages, selectedPath, availableFiles, selectedImageViewport);
-        populateTableView(subtractedImages, subtractedPath, availableFiles, subtractedImageViewport);
-        try{
-            selectedImageViewport.renderImageFromFile(availableImages.getSelectionModel().selectedItemProperty().get());
-            subtractedImageViewport.renderImageFromFile(subtractedImages.getSelectionModel().selectedItemProperty().get());
-        }
-        catch (IOException ex){
-            System.out.println("Image file could not be rendered!");
-        }
+    private void populateControls(){
+        ArrayList<String> temp = new ArrayList<>();
+        availableFiles.forEach((item) -> temp.add(item.getPathTail()));
+        ChangeListener<String> selectedChanged = createListener(selectedPath, selectedImageViewport);
+        populateComboBox(selectedPath, temp, selectedChanged);
+        ChangeListener<String> subtractedChanged = createListener(subtractedPath, subtractedImageViewport);
+        populateComboBox(subtractedPath, temp, subtractedChanged);
     }
 
-    private void populateTableView(TableView<PathWrapper> tableControl, TableColumn<PathWrapper, String> columnControl, ArrayList<PathWrapper> paths, MARTiffViewport imageViewport){
-        tableControl.setItems(FXCollections.observableList(paths));
-        tableControl.getSelectionModel().select(0);
-        prepareTableView(tableControl, columnControl, imageViewport);
-    }
-
-    private void prepareTableView(TableView<PathWrapper> tableContainer, TableColumn<PathWrapper, String> selectableColumn, MARTiffViewport imageViewport){
-        selectableColumn.setCellValueFactory(new PropertyValueFactory<>("pathTail"));
-        setTableViewChangeListeners(tableContainer, imageViewport);
-    }
-
-    private void setTableViewChangeListeners(TableView<PathWrapper> tableObject, MARTiffViewport imageViewport){
-        ListChangeListener<Integer> onSelectionChanged = (change) -> {
-            try {
-                imageViewport.renderImageFromFile(tableObject.getSelectionModel().selectedItemProperty().get());
-                subtractImages();
-            }
-            catch (IOException ex){
-                System.out.println("Image file could not be read!");
-            }
-        };
-        tableObject.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tableObject.getSelectionModel().getSelectedIndices().addListener(onSelectionChanged);
+    private void populateComboBox(ComboBox<String> selector, ArrayList<String> temp, ChangeListener<String> onSelectionChanged){
+        selector.getItems().clear();
+        selector.setItems(FXCollections.observableList(temp));
+        selector.getSelectionModel().select(0);
+        selector.setEditable(false);
+        selector.valueProperty().addListener(onSelectionChanged);
     }
 
     private void subtractImages() throws IOException{

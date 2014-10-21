@@ -41,13 +41,13 @@
                                 <HBox alignment="CENTER_RIGHT" spacing="5.0">
                                     <children>
                                         <Label text="Base Image:" />
-                                        <ChoiceBox fx:id="selectedPath" prefWidth="225"/>
+                                        <ComboBox fx:id="selectedPath" prefWidth="225"/>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" spacing="5.0">
                                     <children>
                                         <Label text="Subtracted Image:" />
-                                        <ChoiceBox fx:id="subtractedPath" prefWidth="225"/>
+                                        <ComboBox fx:id="subtractedPath" prefWidth="225"/>
                                     </children>
                                 </HBox>
                             </children>
