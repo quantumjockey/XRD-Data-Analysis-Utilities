@@ -4,8 +4,10 @@ import app.dataexportcontrol.DataExportControl;
 import app.zoomcontrol.ZoomControl;
 import dialoginitialization.FileSaveChooserWrapper;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
@@ -23,6 +25,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import pathoperations.PathWrapper;
+import pathoperations.SystemAttributes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.wrappers.filewrappers.TiffReader;
@@ -190,7 +193,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
         exportActions.add(new ActionDelegate<>("Raw Data", this::exportRawImage));
         exportActions.add(new ActionDelegate<>("Masked Data", this::exportMaskedImage));
         exportOptions.getController().updateSelections(exportActions);
-
     }
 
     @Override
@@ -224,14 +226,18 @@ public class MARTiffViewportController extends MarkupControllerBase {
             double viewportY = imageViewport.getFitHeight();
             int scaledY = (int)((realY / viewportY) * imageY);
 
-            String message = "";
-            if (imageZoom.getController().getZoomLevel() < 1){
-                message = "[Approximate] ";
-            }
-            message += "Coordinates (x,y): " + scaledX + "," + scaledY + " - Intensity: " + cachedImage.intensityMap[scaledY][scaledX];
+            String message = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approximate] " : "")
+                    + "Coordinates (x,y): " + scaledX + "," + scaledY
+                    + " - Intensity: " + cachedImage.intensityMap[scaledY][scaledX];
 
             pixelTrack.setFont(Font.font(null, FontWeight.BOLD, 13));
             pixelTrack.setText(message);
+
+            String tooltip = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approx.] " : "")
+                    + "(x,y): " + scaledX + "," + scaledY + SystemAttributes.LINE_SEPARATOR
+                    + "Intensity: " + cachedImage.intensityMap[scaledY][scaledX];
+
+            scrollViewport.setTooltip(new Tooltip(tooltip));
         };
 
         ChangeListener<Color> onHueChange = (observable, oldValue, newValue) -> {
