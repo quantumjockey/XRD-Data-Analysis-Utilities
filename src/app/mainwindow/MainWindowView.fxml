@@ -63,6 +63,35 @@
                         </VBox>
                     </content>
                 </TitledPane>
+                <TitledPane text="Multiple-Image Subtraction (Automated)">
+                    <content>
+                        <VBox alignment="TOP_CENTER" spacing="5.0">
+                            <children>
+                                <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                                    <children>
+                                        <Label text="Root Path:" />
+                                        <Label fx:id="rootPathMulti" prefWidth="225"/>
+                                    </children>
+                                </HBox>
+                                <TitledPane alignment="CENTER" collapsible="false" text="Base Image(s)">
+                                    <content>
+                                        <ListView fx:id="selectedPathMulti" prefHeight="300" prefWidth="350" />
+                                    </content>
+                                </TitledPane>
+                                <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                                    <children>
+                                        <Label text="Subtracted Image:" />
+                                        <ComboBox fx:id="subtractedPathMulti" prefWidth="225"/>
+                                    </children>
+                                </HBox>
+                                <Button onAction="#subtractImageGroup" text="Subtract Selected Images" />
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </TitledPane>
             </panes>
         </Accordion>
     </right>

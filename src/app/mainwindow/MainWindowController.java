@@ -1,16 +1,22 @@
 package app.mainwindow;
 
 import dialoginitialization.DirectoryChooserWrapper;
+import dialoginitialization.FileSaveChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.*;
 import mvvmbase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
+import pathoperations.SystemAttributes;
+import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import pathoperations.PathWrapper;
 import pathoperations.filters.FilterWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
+import xrdtiffoperations.wrappers.filewrappers.TiffReader;
+import xrdtiffoperations.wrappers.filewrappers.TiffWriter;
+
 import java.io.*;
 import java.util.*;
 
@@ -27,6 +33,8 @@ public class MainWindowController extends WindowControllerBase {
     @FXML
     private MARTiffViewport resultantImageViewport;
 
+    // Single-Image Subtraction
+
     @FXML
     private ComboBox<String> selectedPath;
 
@@ -35,6 +43,19 @@ public class MainWindowController extends WindowControllerBase {
 
     @FXML
     private Label rootPath;
+
+    // Multiple-Image Subtraction
+
+    @FXML
+    private ListView<String> selectedPathMulti;
+
+    @FXML
+    private ComboBox<String> subtractedPathMulti;
+
+    @FXML
+    private Label rootPathMulti;
+
+    // Tools Area
 
     @FXML
     private Accordion toolsContainer;
@@ -67,6 +88,8 @@ public class MainWindowController extends WindowControllerBase {
             populateControls();
             rootPath.setText(selectedDirectory.getPath());
             rootPath.setTooltip(new Tooltip(selectedDirectory.getPath()));
+            rootPathMulti.setText(selectedDirectory.getPath());
+            rootPathMulti.setTooltip(new Tooltip(selectedDirectory.getPath()));
             try{
                 selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
                 subtractedImageViewport.renderImageFromFile(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
@@ -107,10 +130,18 @@ public class MainWindowController extends WindowControllerBase {
     private void populateControls(){
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
+
+        // Single Image Subtraction
         ChangeListener<String> selectedChanged = createListener(selectedPath, selectedImageViewport);
         populateComboBox(selectedPath, temp, selectedChanged);
         ChangeListener<String> subtractedChanged = createListener(subtractedPath, subtractedImageViewport);
         populateComboBox(subtractedPath, temp, subtractedChanged);
+
+        // Multiple Image Subtraction
+        selectedPathMulti.getItems().clear();
+        selectedPathMulti.setItems(FXCollections.observableList(temp));
+        selectedPathMulti.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        populateComboBox(subtractedPathMulti, temp, null);
     }
 
     private void populateComboBox(ComboBox<String> selector, ArrayList<String> temp, ChangeListener<String> onSelectionChanged){
@@ -118,7 +149,9 @@ public class MainWindowController extends WindowControllerBase {
         selector.setItems(FXCollections.observableList(temp));
         selector.getSelectionModel().select(0);
         selector.setEditable(false);
-        selector.valueProperty().addListener(onSelectionChanged);
+        if (onSelectionChanged != null) {
+            selector.valueProperty().addListener(onSelectionChanged);
+        }
         selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
     }
 
@@ -140,6 +173,64 @@ public class MainWindowController extends WindowControllerBase {
         resultantImageViewport.getController().setViewportTitle("Resultant Image");
         setDefaultToolAssortment();
         rootPath.setText("(Unspecified)");
+        rootPathMulti.setText("(Unspecified)");
+    }
+
+
+    ////// Multiple-Image Subtraction //////
+
+    @FXML
+    public void subtractImageGroup() throws IOException{
+
+        // Get destination directory
+        DirectoryChooserWrapper dialog = new DirectoryChooserWrapper("Save to...");
+        File destination = dialog.getSelectedDirectory();
+
+        if (destination != null) {
+
+            // Get Items from ListView
+            ArrayList<PathWrapper> selected = new ArrayList<>();
+            selectedPathMulti.getSelectionModel().getSelectedIndices().forEach((index) -> selected.add(availableFiles.get(index)));
+
+            // Get Subtracted image from ComboBox
+            PathWrapper subtracted = availableFiles.get(subtractedPathMulti.getSelectionModel().getSelectedIndex());
+            MARTiffImage subtractedImage = readImageData(subtracted);
+
+            // Subtract Images & write data to file
+            selected.forEach((path) -> {
+                MARTiffImage firstImage = null;
+                try{
+                    firstImage = readImageData(path);
+                }
+                catch (IOException ex){
+                    ex.printStackTrace();
+                }
+                if (firstImage != null && subtractedImage != null) {
+                    MARTiffImage result = DataSubtraction.subtractImages(firstImage, subtractedImage);
+                    String filePath = destination.getPath() + SystemAttributes.FILE_SEPARATOR + result.filename;
+                    writeImageDataToFile(new File(filePath), result);
+                }
+            });
+
+        }
+
+    }
+
+    private MARTiffImage readImageData(PathWrapper imagePath) throws IOException {
+        MARTiffImage temp = null;
+        if (imagePath != null) {
+            TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
+            marImageReader.readFileData(false);
+            temp = marImageReader.getImageData();
+        }
+        return temp;
+    }
+
+    private void writeImageDataToFile(File path, MARTiffImage image){
+        if (path != null) {
+            TiffWriter writer = new TiffWriter(image);
+            writer.write(path.getPath());
+        }
     }
 
 }
