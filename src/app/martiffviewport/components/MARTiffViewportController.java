@@ -28,8 +28,8 @@ import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.wrappers.filewrappers.TiffReader;
 import xrdtiffoperations.wrappers.filewrappers.TiffWriter;
 import xrdtiffoperations.visualization.MARTiffVisualizer;
-import xrdtiffvisualization.colorramps.GradientRamp;
-import xrdtiffvisualization.masking.BoundedMask;
+import datavisualization.colorramps.GradientRamp;
+import datavisualization.masking.BoundedMask;
 
 public class MARTiffViewportController extends MarkupControllerBase {
 

@@ -5,8 +5,8 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
-import xrdtiffvisualization.colorramps.GradientRamp;
-import xrdtiffvisualization.masking.BoundedMask;
+import datavisualization.colorramps.GradientRamp;
+import datavisualization.masking.BoundedMask;
 
 import java.io.IOException;
 
