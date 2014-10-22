@@ -4,7 +4,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.Tooltip;
 import java.util.ArrayList;
 
 public class ListViewExt {
@@ -25,7 +24,6 @@ public class ListViewExt {
         if (onSelectionChanged != null) {
             selector.getSelectionModel().selectedItemProperty().addListener(onSelectionChanged);
         }
-        selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
     }
 
 }
