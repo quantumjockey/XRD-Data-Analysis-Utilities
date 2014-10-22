@@ -4,7 +4,6 @@ import app.dataexportcontrol.DataExportControl;
 import app.zoomcontrol.ZoomControl;
 import dialoginitialization.FileSaveChooserWrapper;
 import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;

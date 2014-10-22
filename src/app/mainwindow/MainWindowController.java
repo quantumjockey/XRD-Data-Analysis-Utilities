@@ -1,13 +1,11 @@
 package app.mainwindow;
 
 import dialoginitialization.DirectoryChooserWrapper;
-import dialoginitialization.FileSaveChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.*;
 import mvvmbase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
 import pathoperations.SystemAttributes;
-import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
