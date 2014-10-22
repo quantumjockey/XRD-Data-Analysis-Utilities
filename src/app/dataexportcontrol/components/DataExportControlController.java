@@ -3,10 +3,10 @@ package app.dataexportcontrol.components;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import mvvmbase.action.ActionDelegate;
+import mvvmbase.controls.ChoiceBoxExt;
 import mvvmbase.markup.MarkupControllerBase;
 
 import java.util.ArrayList;
@@ -43,9 +43,7 @@ public class DataExportControlController extends MarkupControllerBase {
             temp.add(item.getIdentifier());
             options.add(item);
         });
-        exportOptions.getItems().clear();
-        exportOptions.setItems(FXCollections.observableList(temp));
-        exportOptions.getSelectionModel().select(0);
+        ChoiceBoxExt.populate(exportOptions, temp, null);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////

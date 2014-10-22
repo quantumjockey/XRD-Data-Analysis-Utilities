@@ -3,6 +3,9 @@ package app.mainwindow;
 import dialoginitialization.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.*;
+import mvvmbase.controls.ComboBoxExt;
+import mvvmbase.controls.LabelExt;
+import mvvmbase.controls.ListViewExt;
 import mvvmbase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
 import pathoperations.SystemAttributes;
@@ -84,10 +87,9 @@ public class MainWindowController extends WindowControllerBase {
         if (selectedDirectory != null) {
             availableFiles = parseSelectedDirectory();
             populateControls();
-            rootPath.setText(selectedDirectory.getPath());
-            rootPath.setTooltip(new Tooltip(selectedDirectory.getPath()));
-            rootPathMulti.setText(selectedDirectory.getPath());
-            rootPathMulti.setTooltip(new Tooltip(selectedDirectory.getPath()));
+            String path = selectedDirectory.getPath();
+            LabelExt.update(rootPath, path, path);
+            LabelExt.update(rootPathMulti, path, path);
             try{
                 selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
                 subtractedImageViewport.renderImageFromFile(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
@@ -131,26 +133,13 @@ public class MainWindowController extends WindowControllerBase {
 
         // Single Image Subtraction
         ChangeListener<String> selectedChanged = createListener(selectedPath, selectedImageViewport);
-        populateComboBox(selectedPath, temp, selectedChanged);
+        ComboBoxExt.populate(selectedPath, temp, selectedChanged);
         ChangeListener<String> subtractedChanged = createListener(subtractedPath, subtractedImageViewport);
-        populateComboBox(subtractedPath, temp, subtractedChanged);
+        ComboBoxExt.populate(subtractedPath, temp, subtractedChanged);
 
         // Multiple Image Subtraction
-        selectedPathMulti.getItems().clear();
-        selectedPathMulti.setItems(FXCollections.observableList(temp));
-        selectedPathMulti.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        populateComboBox(subtractedPathMulti, temp, null);
-    }
-
-    private void populateComboBox(ComboBox<String> selector, ArrayList<String> temp, ChangeListener<String> onSelectionChanged){
-        selector.getItems().clear();
-        selector.setItems(FXCollections.observableList(temp));
-        selector.getSelectionModel().select(0);
-        selector.setEditable(false);
-        if (onSelectionChanged != null) {
-            selector.valueProperty().addListener(onSelectionChanged);
-        }
-        selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
+        ListViewExt.populate(selectedPathMulti, temp, null, SelectionMode.MULTIPLE, false);
+        ComboBoxExt.populate(subtractedPathMulti, temp, null);
     }
 
     private void setDefaultToolAssortment(){
@@ -166,12 +155,13 @@ public class MainWindowController extends WindowControllerBase {
 
     @Override
     protected void performInitializationTasks(){
+        String rootDefault = "(Unspecified)";
         selectedImageViewport.getController().setViewportTitle("Selected Image");
         subtractedImageViewport.getController().setViewportTitle("Subtracted Image");
         resultantImageViewport.getController().setViewportTitle("Resultant Image");
         setDefaultToolAssortment();
-        rootPath.setText("(Unspecified)");
-        rootPathMulti.setText("(Unspecified)");
+        LabelExt.update(rootPath, rootDefault, null);
+        LabelExt.update(rootPathMulti, rootDefault, null);
     }
 
 
