@@ -1,5 +1,7 @@
 package app.mainwindow;
 
+import app.filesystem.FileSysReader;
+import app.filesystem.FileSysWriter;
 import dialoginitialization.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.*;
@@ -10,14 +12,10 @@ import mvvmbase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
 import pathoperations.SystemAttributes;
 import xrdtiffoperations.math.DataSubtraction;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import pathoperations.PathWrapper;
 import pathoperations.filters.FilterWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
-import xrdtiffoperations.wrappers.filewrappers.TiffReader;
-import xrdtiffoperations.wrappers.filewrappers.TiffWriter;
-
 import java.io.*;
 import java.util.*;
 
@@ -182,13 +180,13 @@ public class MainWindowController extends WindowControllerBase {
 
             // Get Subtracted image from ComboBox
             PathWrapper subtracted = availableFiles.get(subtractedPathMulti.getSelectionModel().getSelectedIndex());
-            MARTiffImage subtractedImage = readImageData(subtracted);
+            MARTiffImage subtractedImage = FileSysReader.readImageData(subtracted);
 
             // Subtract Images & write data to file
             selected.forEach((path) -> {
                 MARTiffImage firstImage = null;
                 try{
-                    firstImage = readImageData(path);
+                    firstImage = FileSysReader.readImageData(path);
                 }
                 catch (IOException ex){
                     ex.printStackTrace();
@@ -196,29 +194,12 @@ public class MainWindowController extends WindowControllerBase {
                 if (firstImage != null && subtractedImage != null) {
                     MARTiffImage result = DataSubtraction.subtractImages(firstImage, subtractedImage);
                     String filePath = destination.getPath() + SystemAttributes.FILE_SEPARATOR + result.filename;
-                    writeImageDataToFile(new File(filePath), result);
+                    FileSysWriter.writeImageData(new File(filePath), result);
                 }
             });
 
         }
 
-    }
-
-    private MARTiffImage readImageData(PathWrapper imagePath) throws IOException {
-        MARTiffImage temp = null;
-        if (imagePath != null) {
-            TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
-            marImageReader.readFileData(false);
-            temp = marImageReader.getImageData();
-        }
-        return temp;
-    }
-
-    private void writeImageDataToFile(File path, MARTiffImage image){
-        if (path != null) {
-            TiffWriter writer = new TiffWriter(image);
-            writer.write(path.getPath());
-        }
     }
 
 }
