@@ -1,12 +1,18 @@
 package app.mainwindow;
 
+import app.filesystem.FileSysReader;
+import app.filesystem.FileSysWriter;
+import app.multipleimagesubtractor.MultipleImageSubtractor;
 import dialoginitialization.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.*;
+import mvvmbase.controls.ComboBoxExt;
+import mvvmbase.controls.LabelExt;
+import mvvmbase.controls.ListViewExt;
 import mvvmbase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
+import pathoperations.SystemAttributes;
 import xrdtiffoperations.math.DataSubtraction;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import pathoperations.PathWrapper;
 import pathoperations.filters.FilterWrapper;
@@ -27,6 +33,8 @@ public class MainWindowController extends WindowControllerBase {
     @FXML
     private MARTiffViewport resultantImageViewport;
 
+    // Single-Image Subtraction
+
     @FXML
     private ComboBox<String> selectedPath;
 
@@ -35,6 +43,13 @@ public class MainWindowController extends WindowControllerBase {
 
     @FXML
     private Label rootPath;
+
+    // Multiple-Image Subtraction
+
+    @FXML
+    private MultipleImageSubtractor multipleImageWorkspace;
+
+    // Tools Area
 
     @FXML
     private Accordion toolsContainer;
@@ -49,6 +64,7 @@ public class MainWindowController extends WindowControllerBase {
         selectedImageViewport = new MARTiffViewport();
         subtractedImageViewport = new MARTiffViewport();
         resultantImageViewport = new MARTiffViewport();
+        multipleImageWorkspace = new MultipleImageSubtractor();
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
@@ -65,8 +81,9 @@ public class MainWindowController extends WindowControllerBase {
         if (selectedDirectory != null) {
             availableFiles = parseSelectedDirectory();
             populateControls();
-            rootPath.setText(selectedDirectory.getPath());
-            rootPath.setTooltip(new Tooltip(selectedDirectory.getPath()));
+            String path = selectedDirectory.getPath();
+            LabelExt.update(rootPath, path, path);
+            multipleImageWorkspace.getController().updateControls(availableFiles, path);
             try{
                 selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
                 subtractedImageViewport.renderImageFromFile(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
@@ -107,19 +124,12 @@ public class MainWindowController extends WindowControllerBase {
     private void populateControls(){
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
-        ChangeListener<String> selectedChanged = createListener(selectedPath, selectedImageViewport);
-        populateComboBox(selectedPath, temp, selectedChanged);
-        ChangeListener<String> subtractedChanged = createListener(subtractedPath, subtractedImageViewport);
-        populateComboBox(subtractedPath, temp, subtractedChanged);
-    }
 
-    private void populateComboBox(ComboBox<String> selector, ArrayList<String> temp, ChangeListener<String> onSelectionChanged){
-        selector.getItems().clear();
-        selector.setItems(FXCollections.observableList(temp));
-        selector.getSelectionModel().select(0);
-        selector.setEditable(false);
-        selector.valueProperty().addListener(onSelectionChanged);
-        selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
+        // Single Image Subtraction
+        ChangeListener<String> selectedChanged = createListener(selectedPath, selectedImageViewport);
+        ComboBoxExt.populate(selectedPath, temp, selectedChanged);
+        ChangeListener<String> subtractedChanged = createListener(subtractedPath, subtractedImageViewport);
+        ComboBoxExt.populate(subtractedPath, temp, subtractedChanged);
     }
 
     private void setDefaultToolAssortment(){
@@ -135,11 +145,12 @@ public class MainWindowController extends WindowControllerBase {
 
     @Override
     protected void performInitializationTasks(){
+        String rootDefault = "(Unspecified)";
         selectedImageViewport.getController().setViewportTitle("Selected Image");
         subtractedImageViewport.getController().setViewportTitle("Subtracted Image");
         resultantImageViewport.getController().setViewportTitle("Resultant Image");
         setDefaultToolAssortment();
-        rootPath.setText("(Unspecified)");
+        LabelExt.update(rootPath, rootDefault, null);
     }
 
 }

@@ -1,10 +1,11 @@
 package app.martiffviewport.components;
 
 import app.dataexportcontrol.DataExportControl;
+import app.filesystem.FileSysReader;
+import app.filesystem.FileSysWriter;
 import app.zoomcontrol.ZoomControl;
 import dialoginitialization.FileSaveChooserWrapper;
 import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
@@ -28,8 +29,6 @@ import pathoperations.PathWrapper;
 import pathoperations.SystemAttributes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
-import xrdtiffoperations.wrappers.filewrappers.TiffReader;
-import xrdtiffoperations.wrappers.filewrappers.TiffWriter;
 import xrdtiffoperations.visualization.MARTiffVisualizer;
 import datavisualization.colorramps.GradientRamp;
 import datavisualization.masking.BoundedMask;
@@ -86,13 +85,18 @@ public class MARTiffViewportController extends MarkupControllerBase {
     }
 
     public void renderImageFromFile(PathWrapper filePath) throws IOException {
-        cachedImage = readImageData(filePath);
+        cachedImage = FileSysReader.readImageData(filePath);
         renderImage(cachedImage);
     }
 
     public void renderImageWithMask(MARTiffImage image) throws IOException {
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
-        imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp, new BoundedMask(maskOptions.getController().getLowerBound(), maskOptions.getController().getUpperBound(), maskOptions.getController().getMaskHue())));
+        imageViewport.setImage(marImageGraph.renderDataAsImage(
+                selectedRamp,
+                new BoundedMask(
+                        maskOptions.getController().getLowerBound(),
+                        maskOptions.getController().getUpperBound(),
+                        maskOptions.getController().getMaskHue())));
         cachedImage = image;
     }
 
@@ -115,7 +119,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
             dialog.setInitialFileName(cachedImage.filename);
         }
         File destination = dialog.getSaveDirectory();
-        writeImageDataToFile(destination, (withMask) ? masked : cachedImage);
+        FileSysWriter.writeImageData(destination, (withMask) ? masked : cachedImage);
     }
 
     private Void exportMaskedImage(){
@@ -126,16 +130,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
     private Void exportRawImage(){
         exportImage(false);
         return null;
-    }
-
-    private MARTiffImage readImageData(PathWrapper imagePath) throws IOException {
-        MARTiffImage temp = null;
-        if (imagePath != null) {
-            TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
-            marImageReader.readFileData(false);
-            temp = marImageReader.getImageData();
-        }
-        return temp;
     }
 
     private void updateMaskLimiters(MARTiffImage image){
@@ -160,13 +154,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
             double scale = viewportSize / (double) size;
             imageZoom.getController().setZoomBounds(scale, DEFAULT_ZOOM_MAX);
             imageZoom.getController().setZoomLevel(scale);
-        }
-    }
-
-    private void writeImageDataToFile(File path, MARTiffImage image){
-        if (path != null) {
-            TiffWriter writer = new TiffWriter(image);
-            writer.write(path.getPath());
         }
     }
 

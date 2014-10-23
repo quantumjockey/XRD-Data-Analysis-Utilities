@@ -4,6 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 import javafx.util.converter.NumberStringConverter;
+import mvvmbase.controls.ChoiceBoxExt;
 import mvvmbase.markup.MarkupControllerBase;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -67,9 +68,7 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     private void initializeRamps() {
         ArrayList<String> rampList = new ArrayList<>();
         ramps.forEach((item) -> rampList.add(item.tag));
-        availableRamps.getItems().clear();
-        availableRamps.setItems(FXCollections.observableList(rampList));
-        availableRamps.getSelectionModel().select(0);
+        ChoiceBoxExt.populate(availableRamps, rampList, null);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////

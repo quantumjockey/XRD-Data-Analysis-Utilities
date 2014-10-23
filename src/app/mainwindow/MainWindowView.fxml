@@ -6,6 +6,7 @@
 <?import app.martiffviewport.MARTiffViewport?>
 
 <?import javafx.geometry.Insets?>
+<?import app.multipleimagesubtractor.MultipleImageSubtractor?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.mainwindow.MainWindowController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
@@ -62,6 +63,9 @@
                             </padding>
                         </VBox>
                     </content>
+                </TitledPane>
+                <TitledPane text="Multiple-Image Subtraction (Automated)">
+                    <MultipleImageSubtractor fx:id="multipleImageWorkspace" />
                 </TitledPane>
             </panes>
         </Accordion>
