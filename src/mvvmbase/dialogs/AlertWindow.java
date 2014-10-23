@@ -1,4 +1,4 @@
-package dialoginitialization;
+package mvvmbase.dialogs;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

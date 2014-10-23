@@ -1,4 +1,4 @@
-package dialoginitialization;
+package mvvmbase.dialogs.wrappers;
 
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
