@@ -1,4 +1,4 @@
-package datavisualization.masking;
+package xrdtiffoperations.visualization.masking;
 
 
 import javafx.scene.paint.Color;

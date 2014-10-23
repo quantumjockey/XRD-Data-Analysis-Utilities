@@ -1,4 +1,4 @@
-package datavisualization.colorramps;
+package xrdtiffoperations.visualization.colorramps;
 
 import javafx.scene.paint.Color;
 import java.util.ArrayList;

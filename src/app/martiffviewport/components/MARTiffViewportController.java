@@ -30,8 +30,8 @@ import pathoperations.SystemAttributes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.visualization.MARTiffVisualizer;
-import datavisualization.colorramps.GradientRamp;
-import datavisualization.masking.BoundedMask;
+import xrdtiffoperations.visualization.colorramps.GradientRamp;
+import xrdtiffoperations.visualization.masking.BoundedMask;
 
 public class MARTiffViewportController extends MarkupControllerBase {
 
