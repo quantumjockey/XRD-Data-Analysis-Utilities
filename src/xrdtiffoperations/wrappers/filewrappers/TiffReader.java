@@ -40,6 +40,7 @@ public class TiffReader {
         getFileHeader(fileBytesRaw);
         getIFDByteGroups(fileBytesRaw, marImageData.firstIfdOffset);
         retrieveImageData(retrieveImageStartingByte(), retrieveImageHeight(), retrieveImageWidth());
+        getExcessDataBytes(fileBytesRaw);
         if (printInfoToConsole) {
             printFileInfo();
         }
@@ -72,6 +73,14 @@ public class TiffReader {
         }
 
         return order;
+    }
+
+    private void getExcessDataBytes(byte[] bytes){
+        byte[] data = new byte[3930];
+        for (int i = 166; i < 1024; i++){
+            data[i - 166] = bytes[i];
+        }
+        marImageData.excessDataBuffer = data;
     }
 
     private void getFileHeader(byte[] imageData){
