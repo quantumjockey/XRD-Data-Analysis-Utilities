@@ -3,6 +3,7 @@ package xrdtiffoperations.wrappers.filewrappers;
 import pathoperations.PathWrapper;
 import xrdtiffoperations.imagemodel.ifd.ImageFileDirectory;
 import xrdtiffoperations.imagemodel.ifd.fields.FieldInformation;
+import xrdtiffoperations.imagemodel.ifd.fields.FieldTags;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.wrappers.bytewrappers.IntWrapper;
 import xrdtiffoperations.wrappers.bytewrappers.ShortWrapper;
@@ -144,15 +145,15 @@ public class TiffReader {
     }
 
     private int retrieveImageStartingByte(){
-        return searchDirectoriesForTag(273);
+        return searchDirectoriesForTag(FieldTags.STRIP_OFFSETS);
     }
 
     private int retrieveImageHeight(){
-        return searchDirectoriesForTag(257);
+        return searchDirectoriesForTag(FieldTags.IMAGE_HEIGHT);
     }
 
     private int retrieveImageWidth(){
-        return searchDirectoriesForTag(256);
+        return searchDirectoriesForTag(FieldTags.IMAGE_WIDTH);
     }
 
     private int searchDirectoriesForTag(int tag){
