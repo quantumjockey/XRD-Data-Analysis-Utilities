@@ -2,6 +2,7 @@ package app.mainwindow;
 
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
+import app.multipleimagesubtractor.MultipleImageSubtractor;
 import dialoginitialization.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.*;
@@ -46,13 +47,7 @@ public class MainWindowController extends WindowControllerBase {
     // Multiple-Image Subtraction
 
     @FXML
-    private ListView<String> selectedPathMulti;
-
-    @FXML
-    private ComboBox<String> subtractedPathMulti;
-
-    @FXML
-    private Label rootPathMulti;
+    private MultipleImageSubtractor multipleImageWorkspace;
 
     // Tools Area
 
@@ -69,6 +64,7 @@ public class MainWindowController extends WindowControllerBase {
         selectedImageViewport = new MARTiffViewport();
         subtractedImageViewport = new MARTiffViewport();
         resultantImageViewport = new MARTiffViewport();
+        multipleImageWorkspace = new MultipleImageSubtractor();
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
@@ -87,7 +83,7 @@ public class MainWindowController extends WindowControllerBase {
             populateControls();
             String path = selectedDirectory.getPath();
             LabelExt.update(rootPath, path, path);
-            LabelExt.update(rootPathMulti, path, path);
+            multipleImageWorkspace.getController().updateControls(availableFiles, path);
             try{
                 selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
                 subtractedImageViewport.renderImageFromFile(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
@@ -134,10 +130,6 @@ public class MainWindowController extends WindowControllerBase {
         ComboBoxExt.populate(selectedPath, temp, selectedChanged);
         ChangeListener<String> subtractedChanged = createListener(subtractedPath, subtractedImageViewport);
         ComboBoxExt.populate(subtractedPath, temp, subtractedChanged);
-
-        // Multiple Image Subtraction
-        ListViewExt.populate(selectedPathMulti, temp, null, SelectionMode.MULTIPLE, false);
-        ComboBoxExt.populate(subtractedPathMulti, temp, null);
     }
 
     private void setDefaultToolAssortment(){
@@ -159,47 +151,6 @@ public class MainWindowController extends WindowControllerBase {
         resultantImageViewport.getController().setViewportTitle("Resultant Image");
         setDefaultToolAssortment();
         LabelExt.update(rootPath, rootDefault, null);
-        LabelExt.update(rootPathMulti, rootDefault, null);
-    }
-
-
-    ////// Multiple-Image Subtraction //////
-
-    @FXML
-    public void subtractImageGroup() throws IOException{
-
-        // Get destination directory
-        DirectoryChooserWrapper dialog = new DirectoryChooserWrapper("Save to...");
-        File destination = dialog.getSelectedDirectory();
-
-        if (destination != null) {
-
-            // Get Items from ListView
-            ArrayList<PathWrapper> selected = new ArrayList<>();
-            selectedPathMulti.getSelectionModel().getSelectedIndices().forEach((index) -> selected.add(availableFiles.get(index)));
-
-            // Get Subtracted image from ComboBox
-            PathWrapper subtracted = availableFiles.get(subtractedPathMulti.getSelectionModel().getSelectedIndex());
-            MARTiffImage subtractedImage = FileSysReader.readImageData(subtracted);
-
-            // Subtract Images & write data to file
-            selected.forEach((path) -> {
-                MARTiffImage firstImage = null;
-                try{
-                    firstImage = FileSysReader.readImageData(path);
-                }
-                catch (IOException ex){
-                    ex.printStackTrace();
-                }
-                if (firstImage != null && subtractedImage != null) {
-                    MARTiffImage result = DataSubtraction.subtractImages(firstImage, subtractedImage);
-                    String filePath = destination.getPath() + SystemAttributes.FILE_SEPARATOR + result.filename;
-                    FileSysWriter.writeImageData(new File(filePath), result);
-                }
-            });
-
-        }
-
     }
 
 }
