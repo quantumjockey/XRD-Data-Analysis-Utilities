@@ -119,7 +119,7 @@ public class TiffWriter {
         ByteBuffer bytes = ByteBuffer.allocate(regionLength);
         bytes.order(order);
         for (int i = 0; i < regionLength; i++){
-            bytes.put((byte)0);
+            bytes.put(cachedData.excessDataBuffer[i]);
         }
         return bytes.array();
     }
