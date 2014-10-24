@@ -1,4 +1,4 @@
-package pathoperations;
+package filesystembase.paths;
 
 public class SystemAttributes {
 

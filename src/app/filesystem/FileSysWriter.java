@@ -1,7 +1,7 @@
 package app.filesystem;
 
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
-import xrdtiffoperations.wrappers.filewrappers.TiffWriter;
+import xrdtiffoperations.filehandling.TiffWriter;
 import java.io.File;
 
 public class FileSysWriter {

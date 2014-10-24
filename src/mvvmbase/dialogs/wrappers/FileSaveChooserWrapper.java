@@ -2,7 +2,7 @@ package mvvmbase.dialogs.wrappers;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import pathoperations.SystemAttributes;
+import filesystembase.paths.SystemAttributes;
 import java.io.File;
 
 public class FileSaveChooserWrapper {

@@ -1,12 +1,12 @@
-package xrdtiffoperations.wrappers.filewrappers;
+package xrdtiffoperations.filehandling;
 
-import pathoperations.PathWrapper;
+import filesystembase.paths.PathWrapper;
 import xrdtiffoperations.imagemodel.ifd.ImageFileDirectory;
 import xrdtiffoperations.imagemodel.ifd.fields.FieldInformation;
 import xrdtiffoperations.imagemodel.ifd.fields.FieldTags;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
-import xrdtiffoperations.wrappers.bytewrappers.IntWrapper;
-import xrdtiffoperations.wrappers.bytewrappers.ShortWrapper;
+import filesystembase.bytewrappers.IntWrapper;
+import filesystembase.bytewrappers.ShortWrapper;
 
 import java.io.IOException;
 import java.nio.ByteOrder;

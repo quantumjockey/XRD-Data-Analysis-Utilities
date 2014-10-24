@@ -1,4 +1,4 @@
-package pathoperations;
+package filesystembase.paths;
 
 
 import javafx.beans.property.SimpleStringProperty;

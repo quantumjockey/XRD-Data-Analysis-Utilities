@@ -1,6 +1,5 @@
-package pathoperations.filters;
+package filesystembase.paths.filters;
 
-import java.io.File;
 import java.io.FilenameFilter;
 
 public class FilterWrapper {
