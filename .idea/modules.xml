@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/XRD Data Analysis Utilities.iml" filepath="$PROJECT_DIR$/XRD Data Analysis Utilities.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Modules/filesystemhelper/filesystemhelper.iml" filepath="$PROJECT_DIR$/../../Modules/filesystemhelper/filesystemhelper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Modules/mvvmhelper/mvvmhelper.iml" filepath="$PROJECT_DIR$/../../Modules/mvvmhelper/mvvmhelper.iml" />
+    </modules>
+  </component>
+</project>
+
