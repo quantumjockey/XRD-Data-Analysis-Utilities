@@ -12,7 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.paint.Color;
-import xrdtiffoperations.visualization.colorramps.GradientRamp;
+import colorramps.GradientRamp;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

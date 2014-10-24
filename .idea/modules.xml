@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/XRD Data Analysis Utilities.iml" filepath="$PROJECT_DIR$/XRD Data Analysis Utilities.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../Modules/filesystemhelper/filesystemhelper.iml" filepath="$PROJECT_DIR$/../../Modules/filesystemhelper/filesystemhelper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Modules/gradientswatch/gradientswatch.iml" filepath="$PROJECT_DIR$/../../Modules/gradientswatch/gradientswatch.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../Modules/mvvmhelper/mvvmhelper.iml" filepath="$PROJECT_DIR$/../../Modules/mvvmhelper/mvvmhelper.iml" />
     </modules>
   </component>
