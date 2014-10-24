@@ -11,10 +11,11 @@ This project has three purposes:
 
 Though the tool is in a useful state right now, a myriad of features (and documentation) will be added over the course of the next few weeks.
 
-Note that this project currently has two dependencies:
+Note that this project currently has three dependencies:
 
 1. filesystemhelper
-2. mvvmhelper
+2. gradientswatch
+3. mvvmhelper
 
 Be sure to clone these repositories and reconfigure the application's project structure prior to working with the code.
 
