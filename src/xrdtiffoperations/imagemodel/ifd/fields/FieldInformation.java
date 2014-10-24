@@ -59,8 +59,8 @@ public class FieldInformation {
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private String getFieldType(short _typeId){
-        Integer value = (int)_typeId;
-        Map<Integer, String> typeIds = new HashMap<>();
+        Short value = _typeId;
+        Map<Short, String> typeIds = new HashMap<>();
         typeIds.put(FieldTypes.EIGHT_BIT_UNSIGNED_INT, "8-bit unsigned int (byte)");
         typeIds.put(FieldTypes.ASCII, "ASCII");
         typeIds.put(FieldTypes.SIXTEEN_BIT_UNSIGNED_INT, "16-bit unsigned int (short)");
@@ -70,8 +70,8 @@ public class FieldInformation {
     }
 
     private String getTagDescription(short _tagData){
-        Integer value = (int)_tagData;
-        Map<Integer, String> tags = new HashMap<>();
+        Short value = _tagData;
+        Map<Short, String> tags = new HashMap<>();
         tags.put(FieldTags.IMAGE_WIDTH, "Image Width");
         tags.put(FieldTags.IMAGE_HEIGHT, "Image Height");
         tags.put(FieldTags.BITS_PER_SAMPLE, "Bits Per Sample");

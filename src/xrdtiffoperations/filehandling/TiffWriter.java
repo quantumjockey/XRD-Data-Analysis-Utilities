@@ -1,6 +1,7 @@
 package xrdtiffoperations.filehandling;
 
 import xrdtiffoperations.imagemodel.ifd.fields.FieldInformation;
+import xrdtiffoperations.imagemodel.ifd.fields.FieldTags;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 
 import java.io.IOException;
@@ -100,7 +101,7 @@ public class TiffWriter {
     }
 
     private byte[] createImageBytes(ByteOrder order){
-        int numBytes = cachedData.ifdListing.get(0).getTagValue((short) 279);
+        int numBytes = cachedData.ifdListing.get(0).getTagValue(FieldTags.STRIP_BYTE_COUNTS);
         ByteBuffer bytes = ByteBuffer.allocate(numBytes);
         bytes.order(order);
         int gridHeight = cachedData.getHeight();
@@ -114,7 +115,7 @@ public class TiffWriter {
     }
 
     private byte[] createRegionBeforeImageData(ByteOrder order, int lengthOfHeaderPlusIFD) {
-        int imageOffset = cachedData.ifdListing.get(0).getTagValue((short) 273);
+        int imageOffset = cachedData.ifdListing.get(0).getTagValue(FieldTags.STRIP_OFFSETS);
         int regionLength = imageOffset - lengthOfHeaderPlusIFD;
         ByteBuffer bytes = ByteBuffer.allocate(regionLength);
         bytes.order(order);
