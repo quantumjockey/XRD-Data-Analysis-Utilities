@@ -13,6 +13,7 @@ public class DataSubtraction {
         MARTiffImage temp = new MARTiffImage(filename);
         temp.ifdListing = firstImage.ifdListing;
         temp.byteOrder = firstImage.byteOrder;
+        temp.excessDataBuffer = firstImage.excessDataBuffer;
         int height, width;
 
         height = (firstImage.getHeight() < secondImage.getHeight()) ? firstImage.getHeight() : secondImage.getHeight();

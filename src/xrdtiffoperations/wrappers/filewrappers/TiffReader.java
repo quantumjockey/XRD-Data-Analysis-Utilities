@@ -3,6 +3,7 @@ package xrdtiffoperations.wrappers.filewrappers;
 import pathoperations.PathWrapper;
 import xrdtiffoperations.imagemodel.ifd.ImageFileDirectory;
 import xrdtiffoperations.imagemodel.ifd.fields.FieldInformation;
+import xrdtiffoperations.imagemodel.ifd.fields.FieldTags;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.wrappers.bytewrappers.IntWrapper;
 import xrdtiffoperations.wrappers.bytewrappers.ShortWrapper;
@@ -39,6 +40,7 @@ public class TiffReader {
         getFileHeader(fileBytesRaw);
         getIFDByteGroups(fileBytesRaw, marImageData.firstIfdOffset);
         retrieveImageData(retrieveImageStartingByte(), retrieveImageHeight(), retrieveImageWidth());
+        getExcessDataBytes(fileBytesRaw);
         if (printInfoToConsole) {
             printFileInfo();
         }
@@ -71,6 +73,14 @@ public class TiffReader {
         }
 
         return order;
+    }
+
+    private void getExcessDataBytes(byte[] bytes){
+        byte[] data = new byte[3930];
+        for (int i = 166; i < 1024; i++){
+            data[i - 166] = bytes[i];
+        }
+        marImageData.excessDataBuffer = data;
     }
 
     private void getFileHeader(byte[] imageData){
@@ -144,15 +154,15 @@ public class TiffReader {
     }
 
     private int retrieveImageStartingByte(){
-        return searchDirectoriesForTag(273);
+        return searchDirectoriesForTag(FieldTags.STRIP_OFFSETS);
     }
 
     private int retrieveImageHeight(){
-        return searchDirectoriesForTag(257);
+        return searchDirectoriesForTag(FieldTags.IMAGE_HEIGHT);
     }
 
     private int retrieveImageWidth(){
-        return searchDirectoriesForTag(256);
+        return searchDirectoriesForTag(FieldTags.IMAGE_WIDTH);
     }
 
     private int searchDirectoriesForTag(int tag){

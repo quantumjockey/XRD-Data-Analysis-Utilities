@@ -59,29 +59,31 @@ public class FieldInformation {
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private String getFieldType(short _typeId){
+        Integer value = (int)_typeId;
         Map<Integer, String> typeIds = new HashMap<>();
-        typeIds.put(1, "8-bit unsigned int (byte)");
-        typeIds.put(2, "ASCII");
-        typeIds.put(3, "16-bit unsigned int (short)");
-        typeIds.put(4, "32-bit unsigned int (long)");
-        typeIds.put(5, "Rational");
-        return (typeIds.containsKey(_typeId)) ? typeIds.get(_typeId) : "(type indeterminable)";
+        typeIds.put(FieldTypes.EIGHT_BIT_UNSIGNED_INT, "8-bit unsigned int (byte)");
+        typeIds.put(FieldTypes.ASCII, "ASCII");
+        typeIds.put(FieldTypes.SIXTEEN_BIT_UNSIGNED_INT, "16-bit unsigned int (short)");
+        typeIds.put(FieldTypes.THIRTY_TWO_BIT_UNSIGNED_INT, "32-bit unsigned int (long)");
+        typeIds.put(FieldTypes.RATIONAL, "Rational");
+        return (typeIds.containsKey(value)) ? typeIds.get(value) : "(type indeterminable)";
     }
 
     private String getTagDescription(short _tagData){
+        Integer value = (int)_tagData;
         Map<Integer, String> tags = new HashMap<>();
-        tags.put(256, "Image Width");
-        tags.put(257, "Image Height");
-        tags.put(258, "Bits Per Sample");
-        tags.put(259, "Compression");
-        tags.put(262, "Photometric Interpretation");
-        tags.put(273, "Strip-Offsets (Location of image data in file)");
-        tags.put(274, "Orientation");
-        tags.put(278, "Rows Per Strip");
-        tags.put(279, "Strip Byte Counts (Total number of image data bytes)");
-        tags.put(282, "X-Resolution");
-        tags.put(283, "Y-Resolution");
-        tags.put(296, "Resolution Unit");
-        return (tags.containsKey(_tagData)) ? tags.get(_tagData) : "(tag code unrecognized)";
+        tags.put(FieldTags.IMAGE_WIDTH, "Image Width");
+        tags.put(FieldTags.IMAGE_HEIGHT, "Image Height");
+        tags.put(FieldTags.BITS_PER_SAMPLE, "Bits Per Sample");
+        tags.put(FieldTags.COMPRESSION, "Compression");
+        tags.put(FieldTags.PHOTOMETRIC_INTERPRETATION, "Photometric Interpretation");
+        tags.put(FieldTags.STRIP_OFFSETS, "Strip-Offsets (Location of image data in file)");
+        tags.put(FieldTags.ORIENTATION, "Orientation");
+        tags.put(FieldTags.ROWS_PER_STRIP, "Rows Per Strip");
+        tags.put(FieldTags.STRIP_BYTE_COUNTS, "Strip Byte Counts (Total number of image data bytes)");
+        tags.put(FieldTags.X_RESOLUTION, "X-Resolution");
+        tags.put(FieldTags.Y_RESOLUTION, "Y-Resolution");
+        tags.put(FieldTags.RESOLUTION_UNIT, "Resolution Unit");
+        return (tags.containsKey(value)) ? tags.get(value) : "(tag code unrecognized)";
     }
 }

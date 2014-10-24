@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ListView?>
 
+<?import javafx.scene.control.TextField?>
 <fx:root type="javafx.scene.layout.VBox"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.multipleimagesubtractor.components.MultipleImageSubtractorController" >
     <children>
         <VBox alignment="TOP_CENTER" spacing="5.0">
@@ -29,6 +30,18 @@
                     <children>
                         <Label text="Subtracted Image:" />
                         <ComboBox fx:id="subtractedPath" prefWidth="225"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                    <children>
+                        <Label text="Lower Bound:" />
+                        <TextField fx:id="lowerBoundFilter" prefWidth="225"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                    <children>
+                        <Label text="Upper Bound:" />
+                        <TextField fx:id="upperBoundFilter" prefWidth="225"/>
                     </children>
                 </HBox>
                 <Button onAction="#subtractImageGroup" text="Subtract Selected Images" />
