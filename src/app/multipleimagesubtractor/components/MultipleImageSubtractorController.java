@@ -3,7 +3,7 @@ package app.multipleimagesubtractor.components;
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
 import mvvmbase.dialogs.AlertWindow;
-import mvvmbase.dialogs.wrappers.DirectoryChooserWrapper;
+import filesystembase.dialogwrappers.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

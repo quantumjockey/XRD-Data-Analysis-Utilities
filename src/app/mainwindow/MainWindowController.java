@@ -1,7 +1,7 @@
 package app.mainwindow;
 
 import app.multipleimagesubtractor.MultipleImageSubtractor;
-import mvvmbase.dialogs.wrappers.DirectoryChooserWrapper;
+import filesystembase.dialogwrappers.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.*;
 import mvvmbase.controls.ComboBoxExt;

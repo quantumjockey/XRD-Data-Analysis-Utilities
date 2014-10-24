@@ -4,7 +4,7 @@ import app.dataexportcontrol.DataExportControl;
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
 import app.zoomcontrol.ZoomControl;
-import mvvmbase.dialogs.wrappers.FileSaveChooserWrapper;
+import filesystembase.dialogwrappers.FileSaveChooserWrapper;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
