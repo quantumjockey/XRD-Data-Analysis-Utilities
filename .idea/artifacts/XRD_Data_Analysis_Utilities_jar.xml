@@ -3,6 +3,8 @@
     <output-path>$PROJECT_DIR$/out/artifacts/XRD_Data_Analysis_Utilities_jar</output-path>
     <root id="archive" name="XRD Data Analysis Utilities.jar">
       <element id="module-output" name="XRD Data Analysis Utilities" />
+      <element id="module-output" name="mvvmhelper" />
+      <element id="module-output" name="filesystemhelper" />
     </root>
   </artifact>
 </component>
