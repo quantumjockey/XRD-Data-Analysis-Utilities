@@ -1,8 +1,8 @@
 package app.filesystem;
 
-import pathoperations.PathWrapper;
+import filesystembase.paths.PathWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
-import xrdtiffoperations.wrappers.filewrappers.TiffReader;
+import xrdtiffoperations.filehandling.TiffReader;
 import java.io.IOException;
 
 public class FileSysReader {

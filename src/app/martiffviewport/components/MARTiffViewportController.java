@@ -4,7 +4,7 @@ import app.dataexportcontrol.DataExportControl;
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
 import app.zoomcontrol.ZoomControl;
-import mvvmbase.dialogs.wrappers.FileSaveChooserWrapper;
+import filesystembase.dialogwrappers.FileSaveChooserWrapper;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -25,12 +25,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import pathoperations.PathWrapper;
-import pathoperations.SystemAttributes;
+import filesystembase.paths.PathWrapper;
+import filesystembase.paths.SystemAttributes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.visualization.MARTiffVisualizer;
-import xrdtiffoperations.visualization.colorramps.GradientRamp;
+import colorramps.GradientRamp;
 import xrdtiffoperations.visualization.masking.BoundedMask;
 
 public class MARTiffViewportController extends MarkupControllerBase {

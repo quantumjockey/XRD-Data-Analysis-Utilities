@@ -1,8 +1,8 @@
 package xrdtiffoperations.imagemodel.ifd;
 
 import xrdtiffoperations.imagemodel.ifd.fields.FieldInformation;
-import xrdtiffoperations.wrappers.bytewrappers.IntWrapper;
-import xrdtiffoperations.wrappers.bytewrappers.ShortWrapper;
+import filesystembase.bytewrappers.IntWrapper;
+import filesystembase.bytewrappers.ShortWrapper;
 
 import java.nio.ByteOrder;
 import java.util.ArrayList;

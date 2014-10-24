@@ -1,7 +1,7 @@
 package app.mainwindow;
 
 import app.multipleimagesubtractor.MultipleImageSubtractor;
-import mvvmbase.dialogs.wrappers.DirectoryChooserWrapper;
+import filesystembase.dialogwrappers.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.*;
 import mvvmbase.controls.ComboBoxExt;
@@ -10,8 +10,8 @@ import mvvmbase.window.WindowControllerBase;
 import app.martiffviewport.MARTiffViewport;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.fxml.FXML;
-import pathoperations.PathWrapper;
-import pathoperations.filters.FilterWrapper;
+import filesystembase.paths.PathWrapper;
+import filesystembase.paths.filters.FilterWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import java.io.*;
 import java.util.*;

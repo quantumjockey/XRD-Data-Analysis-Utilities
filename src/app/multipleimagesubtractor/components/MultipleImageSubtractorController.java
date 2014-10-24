@@ -3,7 +3,7 @@ package app.multipleimagesubtractor.components;
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
 import mvvmbase.dialogs.AlertWindow;
-import mvvmbase.dialogs.wrappers.DirectoryChooserWrapper;
+import filesystembase.dialogwrappers.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,14 +11,13 @@ import mvvmbase.controls.ComboBoxExt;
 import mvvmbase.controls.LabelExt;
 import mvvmbase.controls.ListViewExt;
 import mvvmbase.markup.MarkupControllerBase;
-import pathoperations.PathWrapper;
-import pathoperations.SystemAttributes;
+import filesystembase.paths.PathWrapper;
+import filesystembase.paths.SystemAttributes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.math.DataSubtraction;
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public class MultipleImageSubtractorController extends MarkupControllerBase {

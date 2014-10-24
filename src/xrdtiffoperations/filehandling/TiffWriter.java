@@ -1,4 +1,4 @@
-package xrdtiffoperations.wrappers.filewrappers;
+package xrdtiffoperations.filehandling;
 
 import xrdtiffoperations.imagemodel.ifd.fields.FieldInformation;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;

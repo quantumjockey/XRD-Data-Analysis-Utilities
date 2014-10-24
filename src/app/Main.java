@@ -4,7 +4,7 @@ import app.mainwindow.MainWindowController;
 import mvvmbase.window.initialization.WindowInitializer;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import pathoperations.SystemAttributes;
+import filesystembase.paths.SystemAttributes;
 
 public class Main extends Application {
 
