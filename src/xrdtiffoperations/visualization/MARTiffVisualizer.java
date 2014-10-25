@@ -72,8 +72,8 @@ public class MARTiffVisualizer {
         for (int y = 0; y < data.getHeight(); y++) {
             for (int x = 0; x < data.getWidth(); x++) {
                 int value = data.intensityMap[y][x];
-                if (value < mask.lowerBound || value > mask.upperBound){
-                    writer.setColor(x, y, mask.maskHue);
+                if (value < mask.getLowerBound() || value > mask.getUpperBound()){
+                    writer.setColor(x, y, mask.getMaskHue());
                 }
                 else {
                     double coefficient = (double)(value + valueOffset) / (double)(maxValue + valueOffset);

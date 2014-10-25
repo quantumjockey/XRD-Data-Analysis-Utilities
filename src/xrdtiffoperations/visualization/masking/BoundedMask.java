@@ -7,9 +7,23 @@ public class BoundedMask {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
-    public int lowerBound;
-    public int upperBound;
-    public Color maskHue;
+    private int lowerBound;
+    private int upperBound;
+    private Color maskHue;
+
+    /////////// Accessors ///////////////////////////////////////////////////////////////////
+
+    public int getLowerBound(){
+        return lowerBound;
+    }
+
+    public int getUpperBound(){
+        return upperBound;
+    }
+
+    public Color getMaskHue(){
+        return maskHue;
+    }
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
