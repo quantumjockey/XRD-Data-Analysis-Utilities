@@ -12,7 +12,7 @@ public class DataSubtraction {
 
         MARTiffImage temp = new MARTiffImage(filename);
         temp.ifdListing = firstImage.ifdListing;
-        temp.byteOrder = firstImage.byteOrder;
+        temp.setByteOrder(firstImage.getByteOrder());
         temp.excessDataBuffer = firstImage.excessDataBuffer;
         int height, width;
 

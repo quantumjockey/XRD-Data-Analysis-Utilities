@@ -126,7 +126,7 @@ public class TiffWriter {
     }
 
     private byte[] generateFileBytes(){
-        ByteOrder order = cachedData.byteOrder;
+        ByteOrder order = cachedData.getByteOrder();
         byte[] header = createHeaderBytes(order);
         byte[] ifd = createIFDBytes(order);
         int lengthOfHeadPlusIfd = header.length + ifd.length;
