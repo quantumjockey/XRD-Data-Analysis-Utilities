@@ -86,10 +86,10 @@ public class TiffWriter {
     private byte[] createIFDEntryBytes(ByteOrder order, FieldInformation info){
         ByteBuffer bytes = ByteBuffer.allocate(IFD_LENGTH);
         bytes.order(order);
-        bytes.putShort(info.tag);
-        bytes.putShort(info.type);
-        bytes.putInt(info.count);
-        bytes.putInt(info.value);
+        bytes.putShort(info.getTag());
+        bytes.putShort(info.getType());
+        bytes.putInt(info.getCount());
+        bytes.putInt(info.getValue());
         return bytes.array();
     }
 
