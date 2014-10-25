@@ -16,9 +16,15 @@ public class ImageFileDirectory {
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private int numFields;
-    public ArrayList<FieldInformation> fields;
-    public int nextOffset;
-    public int offset;
+    private ArrayList<FieldInformation> fields;
+    private int nextOffset;
+    private int offset;
+
+    /////////// Accessors ///////////////////////////////////////////////////////////////////
+
+    public ArrayList<FieldInformation> getFields(){
+        return fields;
+    }
 
     /////////// Constructors //////////////////////////////////////////////////////////////////
 

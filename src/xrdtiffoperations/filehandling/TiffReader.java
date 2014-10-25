@@ -168,7 +168,7 @@ public class TiffReader {
     private int searchDirectoriesForTag(int tag){
         int _value = 0;
         for (ImageFileDirectory directory : marImageData.ifdListing){
-            for (FieldInformation item : directory.fields){
+            for (FieldInformation item : directory.getFields()){
                 if (item.getTag() == tag){
                     _value = item.getValue();
                 }
