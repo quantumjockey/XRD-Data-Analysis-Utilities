@@ -108,7 +108,7 @@ public class TiffWriter {
         int gridWidth = cachedData.getWidth();
         for (int y = 0; y < gridHeight; y++){
             for (int x = 0; x < gridWidth; x++){
-                bytes.putShort(cachedData.intensityMap[y][x]);
+                bytes.putShort(cachedData.getIntensityMapValue(y, x));
             }
         }
         return bytes.array();
@@ -120,7 +120,7 @@ public class TiffWriter {
         ByteBuffer bytes = ByteBuffer.allocate(regionLength);
         bytes.order(order);
         for (int i = 0; i < regionLength; i++){
-            bytes.put(cachedData.excessDataBuffer[i]);
+            bytes.put(cachedData.getExcessDataBufferByte(i));
         }
         return bytes.array();
     }

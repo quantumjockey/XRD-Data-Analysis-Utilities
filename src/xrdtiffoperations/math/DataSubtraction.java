@@ -13,18 +13,17 @@ public class DataSubtraction {
         MARTiffImage temp = new MARTiffImage(filename);
         temp.setIfdListing(firstImage.getIfdListing());
         temp.setByteOrder(firstImage.getByteOrder());
-        temp.excessDataBuffer = firstImage.excessDataBuffer;
+        temp.setExcessDataBuffer(firstImage.getExcessDataBuffer());
         int height, width;
 
         height = (firstImage.getHeight() < secondImage.getHeight()) ? firstImage.getHeight() : secondImage.getHeight();
         width  = (firstImage.getWidth() < secondImage.getWidth()) ? firstImage.getWidth() : secondImage.getWidth();
 
-        temp.intensityMap = new short[height][];
+        temp.initializeIntensityMap(height, width);
 
         for (int y = 0; y < height; y++) {
-            temp.intensityMap[y] = new short[width];
             for (int x = 0; x < width; x++) {
-                temp.intensityMap[y][x] = subtractIntensity(firstImage.intensityMap[y][x], secondImage.intensityMap[y][x]);
+                temp.setIntensityMapCoordinate(y, x, subtractIntensity(firstImage.getIntensityMapValue(y, x), secondImage.getIntensityMapValue(y, x)));
             }
         }
         return temp;

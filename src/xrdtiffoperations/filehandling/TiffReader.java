@@ -80,7 +80,7 @@ public class TiffReader {
         for (int i = 166; i < 1024; i++){
             data[i - 166] = bytes[i];
         }
-        marImageData.excessDataBuffer = data;
+        marImageData.setExcessDataBuffer(data);
     }
 
     private void getFileHeader(byte[] imageData){
@@ -145,10 +145,10 @@ public class TiffReader {
                 z++;
             }
         }
-        marImageData.intensityMap = new short[imageHeight][imageWidth];
-        for (int i = 0; i < imageHeight; i++){
-            for (int j = 0; j < imageWidth; j++){
-                marImageData.intensityMap[i][j] = linearImageArray[j + (i * imageHeight)];
+        marImageData.initializeIntensityMap(imageHeight, imageWidth);
+        for (int y = 0; y < imageHeight; y++){
+            for (int x = 0; x < imageWidth; x++){
+                marImageData.setIntensityMapCoordinate(y, x, linearImageArray[x + (y * imageHeight)]);
             }
         }
     }

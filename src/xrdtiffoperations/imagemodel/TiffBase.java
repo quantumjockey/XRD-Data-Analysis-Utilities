@@ -1,8 +1,6 @@
 package xrdtiffoperations.imagemodel;
 
 import xrdtiffoperations.imagemodel.ifd.ImageFileDirectory;
-
-import java.lang.reflect.Array;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 
