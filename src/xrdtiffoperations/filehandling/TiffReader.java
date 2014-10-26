@@ -38,7 +38,7 @@ public class TiffReader {
 
     public void readFileData(boolean printInfoToConsole){
         getFileHeader(fileBytesRaw);
-        getIFDByteGroups(fileBytesRaw, marImageData.firstIfdOffset);
+        getIFDByteGroups(fileBytesRaw, marImageData.getFirstIfdOffset());
         retrieveImageData(retrieveImageStartingByte(), retrieveImageHeight(), retrieveImageWidth());
         getExcessDataBytes(fileBytesRaw);
         if (printInfoToConsole) {
@@ -80,7 +80,7 @@ public class TiffReader {
         for (int i = 166; i < 1024; i++){
             data[i - 166] = bytes[i];
         }
-        marImageData.excessDataBuffer = data;
+        marImageData.setExcessDataBuffer(data);
     }
 
     private void getFileHeader(byte[] imageData){
@@ -102,9 +102,9 @@ public class TiffReader {
             cursor++;
         }
 
-        marImageData.byteOrder = getByteOrder(new String(_byteOrder));
-        marImageData.identifier = (new ShortWrapper(_identifier, marImageData.byteOrder)).get();
-        marImageData.firstIfdOffset = (new IntWrapper(_ifdOffset, marImageData.byteOrder)).get();
+        marImageData.setByteOrder(getByteOrder(new String(_byteOrder)));
+        marImageData.setIdentifier((new ShortWrapper(_identifier, marImageData.getByteOrder())).get());
+        marImageData.setFirstIfdOffset((new IntWrapper(_ifdOffset, marImageData.getByteOrder())).get());
     }
 
     private void getIFDByteGroups(byte[] imageData, int firstIfdOffset){
@@ -117,7 +117,7 @@ public class TiffReader {
             _fieldsCount[i] = imageData[directoryOffset + i];
         }
 
-        int fieldsCount = (new ShortWrapper(_fieldsCount, marImageData.byteOrder)).get();
+        int fieldsCount = (new ShortWrapper(_fieldsCount, marImageData.getByteOrder())).get();
 
         int directoryLength = 2 + (fieldsCount * 12) + 4;
 
@@ -127,8 +127,8 @@ public class TiffReader {
             directoryBytes[i] = imageData[directoryOffset + i];
         }
 
-        ImageFileDirectory directory = new ImageFileDirectory(directoryBytes, directoryOffset, marImageData.byteOrder);
-        marImageData.ifdListing.add(directory);
+        ImageFileDirectory directory = new ImageFileDirectory(directoryBytes, directoryOffset, marImageData.getByteOrder());
+        marImageData.getIfdListing().add(directory);
     }
 
     private void retrieveImageData(int startingByte, int imageHeight, int imageWidth){
@@ -141,14 +141,14 @@ public class TiffReader {
             }
             else if ((startingByte + i ) % 2 != 0) {
                 pixelTemp[1] = fileBytesRaw[startingByte + i];
-                linearImageArray[z] = (new ShortWrapper(pixelTemp, marImageData.byteOrder)).get();
+                linearImageArray[z] = (new ShortWrapper(pixelTemp, marImageData.getByteOrder())).get();
                 z++;
             }
         }
-        marImageData.intensityMap = new short[imageHeight][imageWidth];
-        for (int i = 0; i < imageHeight; i++){
-            for (int j = 0; j < imageWidth; j++){
-                marImageData.intensityMap[i][j] = linearImageArray[j + (i * imageHeight)];
+        marImageData.initializeIntensityMap(imageHeight, imageWidth);
+        for (int y = 0; y < imageHeight; y++){
+            for (int x = 0; x < imageWidth; x++){
+                marImageData.setIntensityMapCoordinate(y, x, linearImageArray[x + (y * imageHeight)]);
             }
         }
     }
@@ -167,10 +167,10 @@ public class TiffReader {
 
     private int searchDirectoriesForTag(int tag){
         int _value = 0;
-        for (ImageFileDirectory directory : marImageData.ifdListing){
-            for (FieldInformation item : directory.fields){
-                if (item.tag == tag){
-                    _value = item.value;
+        for (ImageFileDirectory directory : marImageData.getIfdListing()){
+            for (FieldInformation item : directory.getFields()){
+                if (item.getTag() == tag){
+                    _value = item.getValue();
                 }
             }
         }
@@ -192,9 +192,9 @@ public class TiffReader {
     }
 
     private void PrintFileHeader(){
-        System.out.println("Byte Order: " + marImageData.byteOrder);
-        System.out.println("Identifier: " + marImageData.identifier);
-        System.out.println("First IFD Offset: " + marImageData.firstIfdOffset);
+        System.out.println("Byte Order: " + marImageData.getByteOrder());
+        System.out.println("Identifier: " + marImageData.getIdentifier());
+        System.out.println("First IFD Offset: " + marImageData.getFirstIfdOffset());
     }
 
     private void printTotalBytes(byte[] imageData){
@@ -202,7 +202,7 @@ public class TiffReader {
     }
 
     private void printIFDMetadata(){
-        for (ImageFileDirectory item : marImageData.ifdListing){
+        for (ImageFileDirectory item : marImageData.getIfdListing()){
             item.printDirectory();
         }
     }

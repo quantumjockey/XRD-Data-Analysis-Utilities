@@ -113,10 +113,10 @@ public class MARTiffViewportController extends MarkupControllerBase {
         int maskUb = maskOptions.getController().getUpperBound();
         if(withMask){
             masked = DataMasking.maskImage(cachedImage, maskLb, maskUb);
-            dialog.setInitialFileName(masked.filename);
+            dialog.setInitialFileName(masked.getFilename());
         }
         else {
-            dialog.setInitialFileName(cachedImage.filename);
+            dialog.setInitialFileName(cachedImage.getFilename());
         }
         File destination = dialog.getSaveDirectory();
         FileSysWriter.writeImageData(destination, (withMask) ? masked : cachedImage);
@@ -215,14 +215,14 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
             String message = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approximate] " : "")
                     + "Coordinates (x,y): " + scaledX + "," + scaledY
-                    + " - Intensity: " + cachedImage.intensityMap[scaledY][scaledX];
+                    + " - Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
 
             pixelTrack.setFont(Font.font(null, FontWeight.BOLD, 13));
             pixelTrack.setText(message);
 
             String tooltip = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approx.] " : "")
                     + "(x,y): " + scaledX + "," + scaledY + SystemAttributes.LINE_SEPARATOR
-                    + "Intensity: " + cachedImage.intensityMap[scaledY][scaledX];
+                    + "Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
 
             scrollViewport.setTooltip(new Tooltip(tooltip));
         };

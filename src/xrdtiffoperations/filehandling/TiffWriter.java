@@ -72,11 +72,11 @@ public class TiffWriter {
 
     private byte[] createIFDBytes(ByteOrder order){
         byte[] count = createIFDEntryCountBytes(order);
-        int byteCount = IFD_ENTRY_COUNT_LENGTH + (cachedData.ifdListing.get(0).fields.size() * IFD_LENGTH) + IFD_BUFFER_LENGTH;
+        int byteCount = IFD_ENTRY_COUNT_LENGTH + (cachedData.getIfdListing().get(0).getFields().size() * IFD_LENGTH) + IFD_BUFFER_LENGTH;
         ByteBuffer bytes = ByteBuffer.allocate(byteCount);
         bytes.order(order);
         bytes.put(count);
-        for (FieldInformation item : cachedData.ifdListing.get(0).fields){
+        for (FieldInformation item : cachedData.getIfdListing().get(0).getFields()){
             bytes.put(createIFDEntryBytes(order, item));
         }
         bytes.put(createIFDBuffer(order));
@@ -86,47 +86,47 @@ public class TiffWriter {
     private byte[] createIFDEntryBytes(ByteOrder order, FieldInformation info){
         ByteBuffer bytes = ByteBuffer.allocate(IFD_LENGTH);
         bytes.order(order);
-        bytes.putShort(info.tag);
-        bytes.putShort(info.type);
-        bytes.putInt(info.count);
-        bytes.putInt(info.value);
+        bytes.putShort(info.getTag());
+        bytes.putShort(info.getType());
+        bytes.putInt(info.getCount());
+        bytes.putInt(info.getValue());
         return bytes.array();
     }
 
     private byte[] createIFDEntryCountBytes(ByteOrder order){
         ByteBuffer bytes = ByteBuffer.allocate(IFD_ENTRY_COUNT_LENGTH);
         bytes.order(order);
-        bytes.putShort((short)cachedData.ifdListing.get(0).fields.size());
+        bytes.putShort((short)cachedData.getIfdListing().get(0).getFields().size());
         return bytes.array();
     }
 
     private byte[] createImageBytes(ByteOrder order){
-        int numBytes = cachedData.ifdListing.get(0).getTagValue(FieldTags.STRIP_BYTE_COUNTS);
+        int numBytes = cachedData.getIfdListing().get(0).getTagValue(FieldTags.STRIP_BYTE_COUNTS);
         ByteBuffer bytes = ByteBuffer.allocate(numBytes);
         bytes.order(order);
         int gridHeight = cachedData.getHeight();
         int gridWidth = cachedData.getWidth();
         for (int y = 0; y < gridHeight; y++){
             for (int x = 0; x < gridWidth; x++){
-                bytes.putShort(cachedData.intensityMap[y][x]);
+                bytes.putShort(cachedData.getIntensityMapValue(y, x));
             }
         }
         return bytes.array();
     }
 
     private byte[] createRegionBeforeImageData(ByteOrder order, int lengthOfHeaderPlusIFD) {
-        int imageOffset = cachedData.ifdListing.get(0).getTagValue(FieldTags.STRIP_OFFSETS);
+        int imageOffset = cachedData.getIfdListing().get(0).getTagValue(FieldTags.STRIP_OFFSETS);
         int regionLength = imageOffset - lengthOfHeaderPlusIFD;
         ByteBuffer bytes = ByteBuffer.allocate(regionLength);
         bytes.order(order);
         for (int i = 0; i < regionLength; i++){
-            bytes.put(cachedData.excessDataBuffer[i]);
+            bytes.put(cachedData.getExcessDataBufferByte(i));
         }
         return bytes.array();
     }
 
     private byte[] generateFileBytes(){
-        ByteOrder order = cachedData.byteOrder;
+        ByteOrder order = cachedData.getByteOrder();
         byte[] header = createHeaderBytes(order);
         byte[] ifd = createIFDBytes(order);
         int lengthOfHeadPlusIfd = header.length + ifd.length;

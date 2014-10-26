@@ -11,8 +11,36 @@ public class MARTiffImage extends TiffBase{
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
-    public byte[] excessDataBuffer;
-    public short[][] intensityMap;
+    private byte[] excessDataBuffer;
+    private short[][] intensityMap;
+
+    /////////// Accessors ///////////////////////////////////////////////////////////////////
+
+    public byte[] getExcessDataBuffer(){
+        return excessDataBuffer;
+    }
+
+    public byte getExcessDataBufferByte(int index){
+        return excessDataBuffer[index];
+    }
+
+    public short getIntensityMapValue(int y, int x){
+        return intensityMap[y][x];
+    }
+
+    /////////// Mutators ///////////////////////////////////////////////////////////////////
+
+    public void initializeIntensityMap(int height, int width){
+        intensityMap = new short[height][width];
+    }
+
+    public void setExcessDataBuffer(byte[] buffer){
+        excessDataBuffer = buffer;
+    }
+
+    public void setIntensityMapCoordinate(int y, int x, short value){
+        intensityMap[y][x] = value;
+    }
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 

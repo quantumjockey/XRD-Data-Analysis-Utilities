@@ -8,23 +8,22 @@ public class DataSubtraction {
 
     public static MARTiffImage subtractImages(MARTiffImage firstImage, MARTiffImage secondImage){
 
-        String filename = firstImage.filename.replace('.', '-') + "_minus_" + secondImage.filename.replace('.', '-') + ".tif";
+        String filename = firstImage.getFilename().replace('.', '-') + "_minus_" + secondImage.getFilename().replace('.', '-') + ".tif";
 
         MARTiffImage temp = new MARTiffImage(filename);
-        temp.ifdListing = firstImage.ifdListing;
-        temp.byteOrder = firstImage.byteOrder;
-        temp.excessDataBuffer = firstImage.excessDataBuffer;
+        temp.setIfdListing(firstImage.getIfdListing());
+        temp.setByteOrder(firstImage.getByteOrder());
+        temp.setExcessDataBuffer(firstImage.getExcessDataBuffer());
         int height, width;
 
         height = (firstImage.getHeight() < secondImage.getHeight()) ? firstImage.getHeight() : secondImage.getHeight();
         width  = (firstImage.getWidth() < secondImage.getWidth()) ? firstImage.getWidth() : secondImage.getWidth();
 
-        temp.intensityMap = new short[height][];
+        temp.initializeIntensityMap(height, width);
 
         for (int y = 0; y < height; y++) {
-            temp.intensityMap[y] = new short[width];
             for (int x = 0; x < width; x++) {
-                temp.intensityMap[y][x] = subtractIntensity(firstImage.intensityMap[y][x], secondImage.intensityMap[y][x]);
+                temp.setIntensityMapCoordinate(y, x, subtractIntensity(firstImage.getIntensityMapValue(y, x), secondImage.getIntensityMapValue(y, x)));
             }
         }
         return temp;

@@ -11,14 +11,32 @@ public class FieldInformation {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
-    public short tag;
-    public short type;
-    public int count;
-    public int value;
+    private short tag;
+    private short type;
+    private int count;
+    private int value;
+
+    /////////// Accessors ///////////////////////////////////////////////////////////////////
+
+    public short getTag(){
+        return tag;
+    }
+
+    public short getType(){
+        return type;
+    }
+
+    public int getCount(){
+        return count;
+    }
+
+    public int getValue(){
+        return value;
+    }
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public FieldInformation(byte[] data, ByteOrder order){
+    public FieldInformation(byte[] fieldData, ByteOrder order){
 
         byte[] _fieldTag = new byte[2];
         byte[] _fieldType = new byte[2];
@@ -27,16 +45,16 @@ public class FieldInformation {
 
         for (int i = 0; i < 12; i++) {
             if (i < 2){
-                _fieldTag[i] = data[i];
+                _fieldTag[i] = fieldData[i];
             }
             else if(i >= 2 && i < 4){
-                _fieldType[i - 2] = data[i];
+                _fieldType[i - 2] = fieldData[i];
             }
             else if(i >= 4 && i < 8){
-                _typeCount[i - 4] = data[i];
+                _typeCount[i - 4] = fieldData[i];
             }
             else if(i >= 8 && i < 12){
-                _fieldValue[i - 8] = data[i];
+                _fieldValue[i - 8] = fieldData[i];
             }
         }
 

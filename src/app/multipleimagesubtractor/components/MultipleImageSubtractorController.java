@@ -117,7 +117,7 @@ public class MultipleImageSubtractorController extends MarkupControllerBase {
             if (firstImage != null && subtractedImage != null) {
                 MARTiffImage result = DataSubtraction.subtractImages(firstImage, subtractedImage);
                 result = filterImage(result);
-                String filePath = destination.getPath() + SystemAttributes.FILE_SEPARATOR + result.filename;
+                String filePath = destination.getPath() + SystemAttributes.FILE_SEPARATOR + result.getFilename();
                 FileSysWriter.writeImageData(new File(filePath), result);
             }
         });
