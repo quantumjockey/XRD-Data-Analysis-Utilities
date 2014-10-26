@@ -128,7 +128,7 @@ public class TiffReader {
         }
 
         ImageFileDirectory directory = new ImageFileDirectory(directoryBytes, directoryOffset, marImageData.getByteOrder());
-        marImageData.ifdListing.add(directory);
+        marImageData.getIfdListing().add(directory);
     }
 
     private void retrieveImageData(int startingByte, int imageHeight, int imageWidth){
@@ -167,7 +167,7 @@ public class TiffReader {
 
     private int searchDirectoriesForTag(int tag){
         int _value = 0;
-        for (ImageFileDirectory directory : marImageData.ifdListing){
+        for (ImageFileDirectory directory : marImageData.getIfdListing()){
             for (FieldInformation item : directory.getFields()){
                 if (item.getTag() == tag){
                     _value = item.getValue();
@@ -202,7 +202,7 @@ public class TiffReader {
     }
 
     private void printIFDMetadata(){
-        for (ImageFileDirectory item : marImageData.ifdListing){
+        for (ImageFileDirectory item : marImageData.getIfdListing()){
             item.printDirectory();
         }
     }

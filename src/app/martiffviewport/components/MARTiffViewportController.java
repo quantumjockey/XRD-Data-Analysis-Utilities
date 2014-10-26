@@ -113,10 +113,10 @@ public class MARTiffViewportController extends MarkupControllerBase {
         int maskUb = maskOptions.getController().getUpperBound();
         if(withMask){
             masked = DataMasking.maskImage(cachedImage, maskLb, maskUb);
-            dialog.setInitialFileName(masked.filename);
+            dialog.setInitialFileName(masked.getFilename());
         }
         else {
-            dialog.setInitialFileName(cachedImage.filename);
+            dialog.setInitialFileName(cachedImage.getFilename());
         }
         File destination = dialog.getSaveDirectory();
         FileSysWriter.writeImageData(destination, (withMask) ? masked : cachedImage);

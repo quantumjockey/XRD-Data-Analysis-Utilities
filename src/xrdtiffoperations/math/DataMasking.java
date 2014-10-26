@@ -8,8 +8,8 @@ public class DataMasking {
 
     public static MARTiffImage maskImage(MARTiffImage image, int minVal, int maxVal){
         MARTiffImage temp = image;
-        String name = temp.filename.replace('.', '-') + "_mask_lb" + minVal + "_ub" + maxVal + ".tif";
-        temp.filename = name;
+        String name = temp.getFilename().replace('.', '-') + "_mask_lb" + minVal + "_ub" + maxVal + ".tif";
+        temp.setFilename(name);
         for(int y = 0; y < temp.getHeight(); y++){
             for (int x = 0; x < temp.getWidth(); x++){
                 temp.intensityMap[y][x] = maskValue(temp.intensityMap[y][x], (short) maxVal, (short) minVal);

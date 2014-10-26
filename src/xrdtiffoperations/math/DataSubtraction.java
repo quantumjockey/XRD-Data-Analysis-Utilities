@@ -8,10 +8,10 @@ public class DataSubtraction {
 
     public static MARTiffImage subtractImages(MARTiffImage firstImage, MARTiffImage secondImage){
 
-        String filename = firstImage.filename.replace('.', '-') + "_minus_" + secondImage.filename.replace('.', '-') + ".tif";
+        String filename = firstImage.getFilename().replace('.', '-') + "_minus_" + secondImage.getFilename().replace('.', '-') + ".tif";
 
         MARTiffImage temp = new MARTiffImage(filename);
-        temp.ifdListing = firstImage.ifdListing;
+        temp.setIfdListing(firstImage.getIfdListing());
         temp.setByteOrder(firstImage.getByteOrder());
         temp.excessDataBuffer = firstImage.excessDataBuffer;
         int height, width;

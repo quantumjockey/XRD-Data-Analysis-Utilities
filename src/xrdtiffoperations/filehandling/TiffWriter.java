@@ -72,11 +72,11 @@ public class TiffWriter {
 
     private byte[] createIFDBytes(ByteOrder order){
         byte[] count = createIFDEntryCountBytes(order);
-        int byteCount = IFD_ENTRY_COUNT_LENGTH + (cachedData.ifdListing.get(0).getFields().size() * IFD_LENGTH) + IFD_BUFFER_LENGTH;
+        int byteCount = IFD_ENTRY_COUNT_LENGTH + (cachedData.getIfdListing().get(0).getFields().size() * IFD_LENGTH) + IFD_BUFFER_LENGTH;
         ByteBuffer bytes = ByteBuffer.allocate(byteCount);
         bytes.order(order);
         bytes.put(count);
-        for (FieldInformation item : cachedData.ifdListing.get(0).getFields()){
+        for (FieldInformation item : cachedData.getIfdListing().get(0).getFields()){
             bytes.put(createIFDEntryBytes(order, item));
         }
         bytes.put(createIFDBuffer(order));
@@ -96,12 +96,12 @@ public class TiffWriter {
     private byte[] createIFDEntryCountBytes(ByteOrder order){
         ByteBuffer bytes = ByteBuffer.allocate(IFD_ENTRY_COUNT_LENGTH);
         bytes.order(order);
-        bytes.putShort((short)cachedData.ifdListing.get(0).getFields().size());
+        bytes.putShort((short)cachedData.getIfdListing().get(0).getFields().size());
         return bytes.array();
     }
 
     private byte[] createImageBytes(ByteOrder order){
-        int numBytes = cachedData.ifdListing.get(0).getTagValue(FieldTags.STRIP_BYTE_COUNTS);
+        int numBytes = cachedData.getIfdListing().get(0).getTagValue(FieldTags.STRIP_BYTE_COUNTS);
         ByteBuffer bytes = ByteBuffer.allocate(numBytes);
         bytes.order(order);
         int gridHeight = cachedData.getHeight();
@@ -115,7 +115,7 @@ public class TiffWriter {
     }
 
     private byte[] createRegionBeforeImageData(ByteOrder order, int lengthOfHeaderPlusIFD) {
-        int imageOffset = cachedData.ifdListing.get(0).getTagValue(FieldTags.STRIP_OFFSETS);
+        int imageOffset = cachedData.getIfdListing().get(0).getTagValue(FieldTags.STRIP_OFFSETS);
         int regionLength = imageOffset - lengthOfHeaderPlusIFD;
         ByteBuffer bytes = ByteBuffer.allocate(regionLength);
         bytes.order(order);
