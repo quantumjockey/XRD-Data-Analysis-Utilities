@@ -1,6 +1,7 @@
 package xrdtiffoperations.math;
 
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
+import xrdtiffoperations.imagemodel.martiff.WritableMARTiffImage;
 
 public class DataSubtraction {
 
@@ -10,7 +11,7 @@ public class DataSubtraction {
 
         String filename = firstImage.getFilename().replace('.', '-') + "_minus_" + secondImage.getFilename().replace('.', '-') + ".tif";
 
-        MARTiffImage temp = new MARTiffImage(filename);
+        WritableMARTiffImage temp = new WritableMARTiffImage(filename);
         temp.setIfdListing(firstImage.getIfdListing());
         temp.setByteOrder(firstImage.getByteOrder());
         temp.setExcessDataBuffer(firstImage.getExcessDataBuffer());

@@ -1,13 +1,14 @@
 package xrdtiffoperations.math;
 
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
+import xrdtiffoperations.imagemodel.martiff.WritableMARTiffImage;
 
 public class DataMasking {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
     public static MARTiffImage maskImage(MARTiffImage image, int minVal, int maxVal){
-        MARTiffImage temp = image;
+        WritableMARTiffImage temp = (WritableMARTiffImage)image;
         String name = temp.getFilename().replace('.', '-') + "_mask_lb" + minVal + "_ub" + maxVal + ".tif";
         temp.setFilename(name);
         for(int y = 0; y < temp.getHeight(); y++){

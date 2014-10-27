@@ -7,6 +7,7 @@ import xrdtiffoperations.imagemodel.ifd.fields.FieldTags;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import filesystembase.bytewrappers.IntWrapper;
 import filesystembase.bytewrappers.ShortWrapper;
+import xrdtiffoperations.imagemodel.martiff.WritableMARTiffImage;
 
 import java.io.IOException;
 import java.nio.ByteOrder;
@@ -22,7 +23,7 @@ public class TiffReader {
     private String fullFilePath;
 
     // Image data
-    private MARTiffImage marImageData;
+    private WritableMARTiffImage marImageData;
     private boolean fileHasBeenRead;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
@@ -30,7 +31,7 @@ public class TiffReader {
     public TiffReader(String filePath) throws IOException{
         fullFilePath = filePath;
         fileBytesRaw = Files.readAllBytes(FileSystems.getDefault().getPath(filePath));
-        marImageData = new MARTiffImage((new PathWrapper(filePath)).getPathTail());
+        marImageData = new WritableMARTiffImage((new PathWrapper(filePath)).getPathTail());
         fileHasBeenRead = false;
     }
 
