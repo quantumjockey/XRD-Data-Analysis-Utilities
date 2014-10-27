@@ -96,9 +96,12 @@ public class MainWindowController extends WindowControllerBase {
     private ChangeListener<String> createListener(ComboBox<String> selector, MARTiffViewport imageViewport) {
         return (observable, oldValue, newValue) -> {
             try {
-                selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
-                imageViewport.renderImageFromFile(availableFiles.get(selector.getSelectionModel().getSelectedIndex()));
-                subtractImages();
+                SingleSelectionModel selected = selector.getSelectionModel();
+                if (selected.getSelectedIndex() >= 0) {
+                    selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
+                    imageViewport.renderImageFromFile(availableFiles.get(selected.getSelectedIndex()));
+                    subtractImages();
+                }
             }
             catch (IOException ex){
                 System.out.println("Image file could not be read!");
