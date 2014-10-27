@@ -51,17 +51,4 @@ public class WritableMARTiffImage extends MARTiffImage{
         super(_filename);
     }
 
-    /////////// Public Methods //////////////////////////////////////////////////////////////
-
-    public MARTiffImage getImage(){
-        MARTiffImage image = null;
-        try{
-            image = (MARTiffImage)super.clone();
-        }
-        catch (CloneNotSupportedException ex){
-            ex.printStackTrace();
-        }
-        return image;
-    }
-
 }
