@@ -8,11 +8,11 @@ public class TiffBase {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
-    private ByteOrder byteOrder;
-    private short identifier;
-    private String filename;
-    private int firstIfdOffset;
-    private ArrayList<ImageFileDirectory> ifdListing;
+    protected ByteOrder byteOrder;
+    protected short identifier;
+    protected String filename;
+    protected int firstIfdOffset;
+    protected ArrayList<ImageFileDirectory> ifdListing;
 
     /////////// Accessors ///////////////////////////////////////////////////////////////////
 
@@ -34,28 +34,6 @@ public class TiffBase {
 
     public int getFirstIfdOffset(){
         return firstIfdOffset;
-    }
-
-    /////////// Mutators ///////////////////////////////////////////////////////////////////
-
-    public void setByteOrder(ByteOrder order){
-        byteOrder = order;
-    }
-
-    public void setIdentifier(short id){
-        identifier = id;
-    }
-
-    public void setFilename(String name){
-        filename = name;
-    }
-
-    public void setIfdListing(ArrayList<ImageFileDirectory> listing){
-        ifdListing = listing;
-    }
-
-    public void setFirstIfdOffset(int offset){
-        firstIfdOffset = offset;
     }
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
