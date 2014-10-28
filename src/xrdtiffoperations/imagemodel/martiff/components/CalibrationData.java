@@ -47,7 +47,7 @@ public class CalibrationData {
         for(int i = 0; i < calibrationLength; i++){
             bytes[i] = buffer[i + calOffset];
         }
-        // Encoding for detecotor outputs required before this can properly read
+        // Encoding for detector outputs required before this can properly read
         // central section reads when UTF-16 charset selected
         coreCalibrationBytes = bytes;
     }
