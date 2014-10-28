@@ -1,7 +1,6 @@
 package xrdtiffoperations.imagemodel.ifd;
 
 import xrdtiffoperations.imagemodel.ifd.fields.FieldInformation;
-import filesystembase.bytewrappers.IntWrapper;
 import filesystembase.bytewrappers.ShortWrapper;
 
 import java.nio.ByteOrder;
@@ -17,8 +16,6 @@ public class ImageFileDirectory {
 
     private int numFields;
     private ArrayList<FieldInformation> fields;
-    private int nextOffset;
-    private int offset;
 
     /////////// Accessors ///////////////////////////////////////////////////////////////////
 
@@ -28,10 +25,8 @@ public class ImageFileDirectory {
 
     /////////// Constructors //////////////////////////////////////////////////////////////////
 
-    public ImageFileDirectory(byte[] directoryBytes, int _offset, ByteOrder order){
-        offset = _offset;
+    public ImageFileDirectory(byte[] directoryBytes, ByteOrder order){
         numFields = getFieldsCount(directoryBytes, order);
-        nextOffset = getNextOffset(directoryBytes, order);
         fields = new ArrayList<>();
         getFields(directoryBytes, order);
     }
@@ -46,16 +41,6 @@ public class ImageFileDirectory {
             }
         }
         return value;
-    }
-
-    public void printDirectory(){
-        System.out.println("-----------IFD-------------");
-        System.out.println("Number of fields: " + numFields);
-        System.out.println("Offset: " + offset);
-        System.out.println("Next Directory Offset: " + nextOffset + ((nextOffset == 0) ? " (No Additional Directories)" : ""));
-        for (FieldInformation item : fields){
-            item.print();
-        }
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
@@ -78,15 +63,6 @@ public class ImageFileDirectory {
              _fieldsCount[i] = bytes[i];
         }
         return (new ShortWrapper(_fieldsCount, byteOrder)).get();
-    }
-
-    private int getNextOffset(byte[] bytes, ByteOrder byteOrder){
-        int cursor = 2 + numFields * FIELD_ENTRY_LENGTH;
-        byte[] _nextOffset = new byte[4];
-        for (int i = 0; i < 4; i++) {
-            _nextOffset[i] = bytes[cursor + i];
-        }
-        return (new IntWrapper(_nextOffset, byteOrder)).get();
     }
 
 }
