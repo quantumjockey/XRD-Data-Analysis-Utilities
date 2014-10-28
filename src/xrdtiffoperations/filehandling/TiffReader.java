@@ -21,7 +21,6 @@ public class TiffReader {
 
     // File Data
     private byte[] fileBytesRaw;
-    private String fullFilePath;
 
     // Image data
     private WritableMARTiffImage marImageData;
@@ -30,7 +29,6 @@ public class TiffReader {
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public TiffReader(String filePath) throws IOException{
-        fullFilePath = filePath;
         fileBytesRaw = Files.readAllBytes(FileSystems.getDefault().getPath(filePath));
         marImageData = new WritableMARTiffImage((new PathWrapper(filePath)).getPathTail());
         fileHasBeenRead = false;
@@ -39,8 +37,9 @@ public class TiffReader {
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
     public void readFileData(boolean printInfoToConsole){
+        int lastIfdByte;
         getFileHeader(fileBytesRaw);
-        int lastIfdByte = getIFDByteGroups(fileBytesRaw, marImageData.getFirstIfdOffset());
+        lastIfdByte = getIFDByteGroups(fileBytesRaw, marImageData.getFirstIfdOffset());
         getCalibrationData(lastIfdByte, fileBytesRaw);
         retrieveImageData(retrieveImageStartingByte(), retrieveImageHeight(), retrieveImageWidth());
         if (printInfoToConsole) {
@@ -204,7 +203,7 @@ public class TiffReader {
     }
 
     private void printFileName(){
-        System.out.println("File name (full path): " + fullFilePath);
+//        System.out.println("File name (full path): " + fullFilePath);
     }
 
     private void PrintFileHeader(){
