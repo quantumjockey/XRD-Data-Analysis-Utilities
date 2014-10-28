@@ -14,7 +14,7 @@ public class DataSubtraction {
         WritableMARTiffImage temp = new WritableMARTiffImage(filename);
         temp.setIfdListing(firstImage.getIfdListing());
         temp.setByteOrder(firstImage.getByteOrder());
-        temp.setExcessDataBuffer(firstImage.getExcessDataBuffer());
+        temp.setCalibration(firstImage.getCalibration());
         int height, width;
 
         height = (firstImage.getHeight() < secondImage.getHeight()) ? firstImage.getHeight() : secondImage.getHeight();
