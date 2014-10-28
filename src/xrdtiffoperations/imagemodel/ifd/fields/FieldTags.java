@@ -13,8 +13,9 @@ public class FieldTags {
     public static short ORIENTATION = 274;
     public static short ROWS_PER_STRIP = 278;
     public static short STRIP_BYTE_COUNTS = 279;
-    public static short X_RESOLUTION = 282;
-    public static short Y_RESOLUTION = 283;
+    public static short X_RESOLUTION_OFFSET = 282;
+    public static short Y_RESOLUTION_OFFSET = 283;
     public static short RESOLUTION_UNIT = 296;
+    public static short CALIBRATION_DATA_OFFSET = -30826;
 
 }

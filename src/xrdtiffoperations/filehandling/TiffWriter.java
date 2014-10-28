@@ -119,9 +119,19 @@ public class TiffWriter {
         int regionLength = imageOffset - lengthOfHeaderPlusIFD;
         ByteBuffer bytes = ByteBuffer.allocate(regionLength);
         bytes.order(order);
-        for (int i = 0; i < regionLength; i++){
-            bytes.put(cachedData.getExcessDataBufferByte(i));
+
+        bytes.putInt(cachedData.getCalibration().getDetectorXResolution().getNumerator());
+        bytes.putInt(cachedData.getCalibration().getDetectorXResolution().getDenominator());
+        bytes.putInt(cachedData.getCalibration().getDetectorYResolution().getNumerator());
+        bytes.putInt(cachedData.getCalibration().getDetectorYResolution().getDenominator());
+
+        int emptyRegion = regionLength - (cachedData.getCalibration().getCoreCalibrationBytes().length + 16);
+        byte[] emptyBytes = new byte[emptyRegion];
+        for (int i = 0; i < emptyRegion; i++){
+            emptyBytes[i] = 0;
         }
+        bytes.put(emptyBytes);
+        bytes.put(cachedData.getCalibration().getCoreCalibrationBytes());
         return bytes.array();
     }
 

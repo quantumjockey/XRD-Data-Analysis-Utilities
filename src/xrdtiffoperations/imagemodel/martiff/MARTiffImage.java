@@ -1,6 +1,7 @@
 package xrdtiffoperations.imagemodel.martiff;
 
 import xrdtiffoperations.imagemodel.TiffBase;
+import xrdtiffoperations.imagemodel.martiff.components.CalibrationData;
 
 public class MARTiffImage extends TiffBase{
 
@@ -11,17 +12,13 @@ public class MARTiffImage extends TiffBase{
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
-    protected byte[] excessDataBuffer;
+    protected CalibrationData calibration;
     protected short[][] intensityMap;
 
     /////////// Accessors ///////////////////////////////////////////////////////////////////
 
-    public byte[] getExcessDataBuffer(){
-        return excessDataBuffer;
-    }
-
-    public byte getExcessDataBufferByte(int index){
-        return excessDataBuffer[index];
+    public CalibrationData getCalibration(){
+        return calibration;
     }
 
     public short getIntensityMapValue(int y, int x){

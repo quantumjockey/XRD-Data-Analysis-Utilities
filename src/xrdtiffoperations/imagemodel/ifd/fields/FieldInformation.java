@@ -99,9 +99,10 @@ public class FieldInformation {
         tags.put(FieldTags.ORIENTATION, "Orientation");
         tags.put(FieldTags.ROWS_PER_STRIP, "Rows Per Strip");
         tags.put(FieldTags.STRIP_BYTE_COUNTS, "Strip Byte Counts (Total number of image data bytes)");
-        tags.put(FieldTags.X_RESOLUTION, "X-Resolution");
-        tags.put(FieldTags.Y_RESOLUTION, "Y-Resolution");
+        tags.put(FieldTags.X_RESOLUTION_OFFSET, "X-Resolution Offset");
+        tags.put(FieldTags.Y_RESOLUTION_OFFSET, "Y-Resolution Offset");
         tags.put(FieldTags.RESOLUTION_UNIT, "Resolution Unit");
+        tags.put(FieldTags.CALIBRATION_DATA_OFFSET, "Calibration Data Offset");
         return (tags.containsKey(value)) ? tags.get(value) : "(tag code unrecognized)";
     }
 }
