@@ -1,4 +1,4 @@
-package app.multipleimagesubtractor.components;
+package app.workspaces.multipleimagesubtractor.components;
 
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;

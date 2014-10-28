@@ -1,6 +1,6 @@
-package app.multipleimagesubtractor;
+package app.workspaces.multipleimagesubtractor;
 
-import app.multipleimagesubtractor.components.MultipleImageSubtractorController;
+import app.workspaces.multipleimagesubtractor.components.MultipleImageSubtractorController;
 import javafx.scene.layout.VBox;
 import mvvmbase.markup.initialization.MarkupInitializer;
 import mvvmbase.markup.initialization.MarkupInitializerMacro;

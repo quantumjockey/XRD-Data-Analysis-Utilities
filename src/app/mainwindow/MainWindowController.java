@@ -1,13 +1,13 @@
 package app.mainwindow;
 
-import app.multipleimagesubtractor.MultipleImageSubtractor;
+import app.workspaces.multipleimagesubtractor.MultipleImageSubtractor;
 import filesystembase.dialogwrappers.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.*;
 import mvvmbase.controls.ComboBoxExt;
 import mvvmbase.controls.LabelExt;
 import mvvmbase.window.WindowControllerBase;
-import app.martiffviewport.MARTiffViewport;
+import app.controls.martiffviewport.MARTiffViewport;
 import xrdtiffoperations.math.DataSubtraction;
 import javafx.fxml.FXML;
 import filesystembase.paths.PathWrapper;

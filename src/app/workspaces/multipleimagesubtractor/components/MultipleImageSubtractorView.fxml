@@ -11,7 +11,7 @@
 <?import javafx.scene.control.ListView?>
 
 <?import javafx.scene.control.TextField?>
-<fx:root type="javafx.scene.layout.VBox"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.multipleimagesubtractor.components.MultipleImageSubtractorController" >
+<fx:root type="javafx.scene.layout.VBox"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.workspaces.multipleimagesubtractor.components.MultipleImageSubtractorController" >
     <children>
         <VBox alignment="TOP_CENTER" spacing="5.0">
             <children>
