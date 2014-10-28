@@ -36,15 +36,12 @@ public class TiffReader {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public void readFileData(boolean printInfoToConsole){
+    public void readFileData(){
         int lastIfdByte;
         getFileHeader(fileBytesRaw);
         lastIfdByte = getIFDByteGroups(fileBytesRaw, marImageData.getFirstIfdOffset());
         getCalibrationData(lastIfdByte, fileBytesRaw);
         retrieveImageData(retrieveImageStartingByte(), retrieveImageHeight(), retrieveImageWidth());
-        if (printInfoToConsole) {
-            printFileInfo();
-        }
         fileHasBeenRead = true;
     }
 
@@ -190,36 +187,6 @@ public class TiffReader {
             }
         }
         return _value;
-    }
-
-    ////////////////////////////////////////////////////////
-
-    private void printFileInfo(){
-        System.out.println("---------- File Info ----------");
-        printFileName();
-        printTotalBytes(fileBytesRaw);
-        PrintFileHeader();
-        printIFDMetadata();
-    }
-
-    private void printFileName(){
-//        System.out.println("File name (full path): " + fullFilePath);
-    }
-
-    private void PrintFileHeader(){
-        System.out.println("Byte Order: " + marImageData.getByteOrder());
-        System.out.println("Identifier: " + marImageData.getIdentifier());
-        System.out.println("First IFD Offset: " + marImageData.getFirstIfdOffset());
-    }
-
-    private void printTotalBytes(byte[] imageData){
-        System.out.println("Total number of bytes: " + imageData.length);
-    }
-
-    private void printIFDMetadata(){
-        for (ImageFileDirectory item : marImageData.getIfdListing()){
-            item.printDirectory();
-        }
     }
 
 }

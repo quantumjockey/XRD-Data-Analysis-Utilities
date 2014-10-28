@@ -13,7 +13,7 @@ public class FileSysReader {
         MARTiffImage temp = null;
         if (imagePath != null) {
             TiffReader marImageReader = new TiffReader(imagePath.getInjectedPath());
-            marImageReader.readFileData(false);
+            marImageReader.readFileData();
             temp = marImageReader.getImageData();
         }
         return temp;
