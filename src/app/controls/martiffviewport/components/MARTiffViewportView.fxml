@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import app.controls.maskoptionscontrol.MaskOptionsControl?>
+<?import javafx.geometry.Insets?>
+<?import app.controls.renderoptionscontrol.RenderOptionsControl?>
+
+<?import app.controls.dataexportcontrol.DataExportControl?>
+<?import app.controls.zoomcontrol.ZoomControl?>
+<fx:root fx:id="viewportTitle" alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controls.martiffviewport.components.MARTiffViewportController">
+    <content>
+      <HBox>
+         <children>
+            <GridPane>
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+              <children>
+                  <ScrollPane fx:id="scrollViewport" prefHeight="570.0" prefWidth="570.0" pannable="true" GridPane.rowIndex="0">
+                      <ImageView fx:id="imageViewport" pickOnBounds="true" preserveRatio="true" />
+                  </ScrollPane>
+                  <Label fx:id="pixelTrack" GridPane.rowIndex="1" />
+              </children>
+                <padding>
+                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                </padding>
+            </GridPane>
+            <VBox alignment="CENTER" spacing="5.0">
+               <children>
+                   <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Image Zoom">
+                       <ZoomControl fx:id="imageZoom" />
+                   </TitledPane>
+                   <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Masking">
+                       <MaskOptionsControl fx:id="maskOptions" />
+                   </TitledPane>
+                   <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Rendering">
+                       <RenderOptionsControl fx:id="renderOptions" />
+                   </TitledPane>
+                   <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Data Export">
+                       <DataExportControl fx:id="exportOptions" />
+                   </TitledPane>
+               </children>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+            </VBox>
+         </children>
+      </HBox>
+    </content>
+</fx:root>
