@@ -9,7 +9,6 @@ import filesystembase.bytewrappers.IntWrapper;
 import filesystembase.bytewrappers.ShortWrapper;
 import xrdtiffoperations.imagemodel.martiff.WritableMARTiffImage;
 import xrdtiffoperations.imagemodel.martiff.components.CalibrationData;
-
 import java.io.IOException;
 import java.nio.ByteOrder;
 import java.nio.file.FileSystems;
@@ -137,7 +136,7 @@ public class TiffReader {
             directoryBytes[i] = imageData[firstIfdOffset + i];
         }
 
-        ImageFileDirectory directory = new ImageFileDirectory(directoryBytes, firstIfdOffset, marImageData.getByteOrder());
+        ImageFileDirectory directory = new ImageFileDirectory(directoryBytes, marImageData.getByteOrder());
         marImageData.getIfdListing().add(directory);
 
         return firstIfdOffset + directoryLength;
