@@ -48,16 +48,6 @@ public class ImageFileDirectory {
         return value;
     }
 
-    public void printDirectory(){
-        System.out.println("-----------IFD-------------");
-        System.out.println("Number of fields: " + numFields);
-        System.out.println("Offset: " + offset);
-        System.out.println("Next Directory Offset: " + nextOffset + ((nextOffset == 0) ? " (No Additional Directories)" : ""));
-        for (FieldInformation item : fields){
-            item.print();
-        }
-    }
-
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private void getFields(byte[] bytes, ByteOrder byteOrder){
