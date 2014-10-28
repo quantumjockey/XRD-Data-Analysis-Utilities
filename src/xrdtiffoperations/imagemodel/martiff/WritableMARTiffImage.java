@@ -1,7 +1,7 @@
 package xrdtiffoperations.imagemodel.martiff;
 
 import xrdtiffoperations.imagemodel.ifd.ImageFileDirectory;
-
+import xrdtiffoperations.imagemodel.martiff.components.CalibrationData;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 
@@ -37,8 +37,8 @@ public class WritableMARTiffImage extends MARTiffImage{
         intensityMap = new short[height][width];
     }
 
-    public void setExcessDataBuffer(byte[] buffer){
-        excessDataBuffer = buffer;
+    public void setCalibration(CalibrationData data){
+        calibration = data;
     }
 
     public void setIntensityMapCoordinate(int y, int x, short value){
