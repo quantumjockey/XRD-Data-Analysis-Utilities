@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import app.doubleadjuster.DoubleAdjuster?>
-
-<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.zoomcontrol.components.ZoomControlController">
-    <children>
-        <DoubleAdjuster fx:id="zoomScale" />
-    </children>
-</fx:root>
