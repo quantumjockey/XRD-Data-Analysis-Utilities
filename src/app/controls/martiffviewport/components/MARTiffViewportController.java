@@ -81,6 +81,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
         updatePixelScale(image);
         updateZoomScale(image);
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
+        imageViewport.setSmooth(false);
         imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp));
     }
 
