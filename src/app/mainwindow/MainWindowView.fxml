@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import app.workspaces.multipleimagesubtractor.MultipleImageSubtractor?>
 <?import app.workspaces.singleimagesubtractor.SingleImageSubtractor?>
+
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.mainwindow.MainWindowController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
