@@ -3,10 +3,8 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import app.controls.martiffviewport.MARTiffViewport?>
-
-<?import javafx.geometry.Insets?>
 <?import app.workspaces.multipleimagesubtractor.MultipleImageSubtractor?>
+<?import app.workspaces.singleimagesubtractor.SingleImageSubtractor?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.mainwindow.MainWindowController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
@@ -22,52 +20,15 @@
         </MenuBar>
     </top>
     <center>
-        <ScrollPane vbarPolicy="ALWAYS" hbarPolicy="NEVER">
-            <VBox>
-              <children>
-                  <MARTiffViewport fx:id="selectedImageViewport" />
-                  <MARTiffViewport fx:id="subtractedImageViewport" />
-                  <MARTiffViewport fx:id="resultantImageViewport" />
-              </children>
-            </VBox>
-        </ScrollPane>
-    </center>
-    <right>
-        <Accordion maxWidth="450" fx:id="toolsContainer">
-            <panes>
-                <TitledPane text="Single-Image Subtraction">
-                    <content>
-                        <VBox alignment="TOP_CENTER" spacing="5.0">
-                            <children>
-                                <HBox alignment="CENTER_RIGHT" spacing="5.0">
-                                    <children>
-                                        <Label text="Root Path:" />
-                                        <Label fx:id="rootPath" prefWidth="225"/>
-                                    </children>
-                                </HBox>
-                                <HBox alignment="CENTER_RIGHT" spacing="5.0">
-                                    <children>
-                                        <Label text="Base Image:" />
-                                        <ComboBox fx:id="selectedPath" prefWidth="225"/>
-                                    </children>
-                                </HBox>
-                                <HBox alignment="CENTER_RIGHT" spacing="5.0">
-                                    <children>
-                                        <Label text="Subtracted Image:" />
-                                        <ComboBox fx:id="subtractedPath" prefWidth="225"/>
-                                    </children>
-                                </HBox>
-                            </children>
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </padding>
-                        </VBox>
-                    </content>
-                </TitledPane>
-                <TitledPane text="Multiple-Image Subtraction (Automated)">
+        <TabPane>
+            <tabs>
+                <Tab text="Single-Image Subtraction" closable="false">
+                    <SingleImageSubtractor fx:id="singleImageWorkspace" />
+                </Tab>
+                <Tab text="Multiple-Image Subtraction (Automated)" closable="false">
                     <MultipleImageSubtractor fx:id="multipleImageWorkspace" />
-                </TitledPane>
-            </panes>
-        </Accordion>
-    </right>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
 </BorderPane>
