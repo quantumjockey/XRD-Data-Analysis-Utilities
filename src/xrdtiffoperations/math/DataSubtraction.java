@@ -5,11 +5,15 @@ import xrdtiffoperations.imagemodel.martiff.WritableMARTiffImage;
 
 public class DataSubtraction {
 
+    /////////// Constants /////////////////////////////////////////////////////////////////////
+
+    private static final String DEFAULT_EXTENSION = ".tif";
+
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
     public static MARTiffImage subtractImages(MARTiffImage firstImage, MARTiffImage secondImage){
 
-        String filename = firstImage.getFilename().replace('.', '-') + "_minus_" + secondImage.getFilename().replace('.', '-') + ".tif";
+        String filename = generateFilename(firstImage, secondImage, false);
 
         WritableMARTiffImage temp = new WritableMARTiffImage(filename);
         temp.setIfdListing(firstImage.getIfdListing());
@@ -31,6 +35,24 @@ public class DataSubtraction {
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////////
+
+    private static String generateFilename(MARTiffImage firstFile, MARTiffImage secondFile, boolean longName){
+        String result;
+        String firstSegment = stripFilename(firstFile.getFilename());
+        String secondSegment = stripFilename(secondFile.getFilename());
+        if (longName){
+            result = firstSegment + "_minus_" + secondSegment + DEFAULT_EXTENSION;
+        }
+        else{
+            String[] suffixParts = secondSegment.split("_");
+            result = firstSegment + "_bknd_" + suffixParts[suffixParts.length - 1] + DEFAULT_EXTENSION;
+        }
+        return result;
+    }
+
+    private static String stripFilename(String name){
+        return name.replace(DEFAULT_EXTENSION, "");
+    }
 
     private static short subtractIntensity(short firstValue, short secondValue){
         return (short)(firstValue - secondValue);
