@@ -58,7 +58,7 @@ public class RenderOptionsControlController extends MarkupControllerBase {
         ramps.add(new GradientRamp(new Color[]{Color.RED, Color.ORANGE, Color.YELLOW}, "Autumn Ramp"));
         ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.BLUE, Color.YELLOW, Color.RED}, "Primaries Ramp"));
         ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.GREEN, Color.ORANGE}, "Secondaries Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.YELLOW, Color.WHITE}, "High Contrast Ramp"));
+        ramps.add(new GradientRamp(new Color[]{Color.VIOLET, Color.BLUE, Color.BLACK, Color.YELLOW, Color.WHITE}, "High Contrast Ramp"));
         ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.WHITE}, "Grayscale Ramp"));
         ramps.add(new GradientRamp(new Color[]{Color.WHITE, Color.BLACK}, "Inverse Grayscale Ramp"));
         setActiveRamp(ramps.get(0));
