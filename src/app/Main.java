@@ -13,6 +13,10 @@ public class Main extends Application {
         WindowInitializer init = new WindowInitializer("mainwindow/MainWindowView.fxml", new MainWindowController(), this.getClass());
         primaryStage.setTitle("XRD Data Analysis Utilities - " + SystemAttributes.OS_NAME);
         primaryStage.setScene(init.getScene());
+        if (SystemAttributes.OS_NAME.contains("Windows")){
+            primaryStage.requestFocus();
+            primaryStage.setMaximized(true);
+        }
         primaryStage.show();
     }
 
