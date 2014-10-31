@@ -3,7 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import app.workspaces.multipleimagesubtractor.MultipleImageSubtractor?>
+<?import app.workspaces.bulkimagesubtractor.BulkImageSubtractor?>
 <?import app.workspaces.singleimagesubtractor.SingleImageSubtractor?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.mainwindow.MainWindowController">
@@ -23,11 +23,11 @@
     <center>
         <TabPane>
             <tabs>
-                <Tab text="Single-Image Subtraction" closable="false">
-                    <SingleImageSubtractor fx:id="singleImageWorkspace" />
+                <Tab text="Bulk Image Subtraction (Automated)" closable="false">
+                    <BulkImageSubtractor fx:id="multipleImageWorkspace" />
                 </Tab>
-                <Tab text="Multiple-Image Subtraction (Automated)" closable="false">
-                    <MultipleImageSubtractor fx:id="multipleImageWorkspace" />
+                <Tab text="Single-Image Subtraction/Analysis" closable="false">
+                    <SingleImageSubtractor fx:id="singleImageWorkspace" />
                 </Tab>
             </tabs>
         </TabPane>

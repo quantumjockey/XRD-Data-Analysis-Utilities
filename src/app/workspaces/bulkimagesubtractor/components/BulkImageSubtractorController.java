@@ -1,4 +1,4 @@
-package app.workspaces.multipleimagesubtractor.components;
+package app.workspaces.bulkimagesubtractor.components;
 
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MultipleImageSubtractorController extends MarkupControllerBase {
+public class BulkImageSubtractorController extends MarkupControllerBase {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 

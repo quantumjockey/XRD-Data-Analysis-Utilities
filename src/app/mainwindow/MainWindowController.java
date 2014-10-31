@@ -1,19 +1,13 @@
 package app.mainwindow;
 
-import app.workspaces.multipleimagesubtractor.MultipleImageSubtractor;
+import app.workspaces.bulkimagesubtractor.BulkImageSubtractor;
 import app.workspaces.singleimagesubtractor.SingleImageSubtractor;
 import filesystembase.dialogwrappers.DirectoryChooserWrapper;
-import javafx.beans.value.ChangeListener;
-import javafx.scene.control.*;
-import mvvmbase.controls.ComboBoxExt;
-import mvvmbase.controls.LabelExt;
 import mvvmbase.window.WindowControllerBase;
-import app.controls.martiffviewport.MARTiffViewport;
-import xrdtiffoperations.math.DataSubtraction;
 import javafx.fxml.FXML;
 import filesystembase.paths.PathWrapper;
 import filesystembase.paths.filters.FilterWrapper;
-import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
+
 import java.io.*;
 import java.util.*;
 
@@ -22,7 +16,7 @@ public class MainWindowController extends WindowControllerBase {
     /////////// Fields ////////////////////////////////////////////////////////////////////////
 
     @FXML
-    private MultipleImageSubtractor multipleImageWorkspace;
+    private BulkImageSubtractor multipleImageWorkspace;
 
     @FXML
     private SingleImageSubtractor singleImageWorkspace;
@@ -34,8 +28,8 @@ public class MainWindowController extends WindowControllerBase {
 
     public MainWindowController() {
         super();
+        multipleImageWorkspace = new BulkImageSubtractor();
         singleImageWorkspace = new SingleImageSubtractor();
-        multipleImageWorkspace = new MultipleImageSubtractor();
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////

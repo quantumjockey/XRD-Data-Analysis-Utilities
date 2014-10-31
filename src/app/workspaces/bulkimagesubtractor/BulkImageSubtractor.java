@@ -1,15 +1,15 @@
-package app.workspaces.multipleimagesubtractor;
+package app.workspaces.bulkimagesubtractor;
 
-import app.workspaces.multipleimagesubtractor.components.MultipleImageSubtractorController;
+import app.workspaces.bulkimagesubtractor.components.BulkImageSubtractorController;
 import javafx.scene.layout.VBox;
 import mvvmbase.markup.initialization.MarkupInitializer;
 import mvvmbase.markup.initialization.MarkupInitializerMacro;
 
-public class MultipleImageSubtractor extends VBox {
+public class BulkImageSubtractor extends VBox {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
-    private final String MARKUP_FILE = "MultipleImageSubtractorView.fxml";
+    private final String MARKUP_FILE = "BulkImageSubtractorView.fxml";
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -17,20 +17,20 @@ public class MultipleImageSubtractor extends VBox {
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public MultipleImageSubtractor() {
+    public BulkImageSubtractor() {
         initializeComponents();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public MultipleImageSubtractorController getController(){
-        return (MultipleImageSubtractorController)markupContainer.getController();
+    public BulkImageSubtractorController getController(){
+        return (BulkImageSubtractorController)markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents(){
-        markupContainer = MarkupInitializerMacro.createInitializer(this, MultipleImageSubtractorController.class, MARKUP_FILE);
+        markupContainer = MarkupInitializerMacro.createInitializer(this, BulkImageSubtractorController.class, MARKUP_FILE);
         markupContainer.load();
     }
 
