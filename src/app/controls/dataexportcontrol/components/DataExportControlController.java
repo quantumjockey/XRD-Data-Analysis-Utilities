@@ -6,7 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import mvvmbase.action.ActionDelegate;
-import mvvmbase.controls.ChoiceBoxExt;
+import mvvmbase.controls.macros.ChoiceBoxExt;
 import mvvmbase.markup.MarkupControllerBase;
 
 import java.util.ArrayList;
