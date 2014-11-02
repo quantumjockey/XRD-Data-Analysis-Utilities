@@ -24,14 +24,6 @@ public class MainWindowController extends WindowControllerBase {
     private ArrayList<PathWrapper> availableFiles;
     private File selectedDirectory;
 
-    /////////// Constructors //////////////////////////////////////////////////////////////////
-
-    public MainWindowController() {
-        super();
-        multipleImageWorkspace = new BulkImageSubtractor();
-        singleImageWorkspace = new SingleImageSubtractor();
-    }
-
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
     @FXML
@@ -53,7 +45,6 @@ public class MainWindowController extends WindowControllerBase {
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-
     private ArrayList<PathWrapper> parseSelectedDirectory(){
         FilterWrapper tiffFilter = new FilterWrapper(new String[]{".tif", ".tiff"});
         File[] images = selectedDirectory.listFiles(tiffFilter.filter);
@@ -66,6 +57,12 @@ public class MainWindowController extends WindowControllerBase {
     }
 
     /////////// Protected Methods /////////////////////////////////////////////////////////////
+
+    @Override
+    protected void createCustomControls() {
+        multipleImageWorkspace = new BulkImageSubtractor();
+        singleImageWorkspace = new SingleImageSubtractor();
+    }
 
     @Override
     protected void performInitializationTasks(){
