@@ -2,14 +2,15 @@ package app.workspaces.bulkimagesubtractor.components;
 
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
+import mvvmbase.controls.factories.SelectableGroupTreeCellFctry;
+import mvvmbase.controls.macros.ComboBoxExt;
+import mvvmbase.controls.macros.LabelExt;
+import mvvmbase.controls.macros.TreeViewExt;
 import mvvmbase.dialogs.AlertWindow;
 import filesystembase.dialogwrappers.DirectoryChooserWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import mvvmbase.controls.ComboBoxExt;
-import mvvmbase.controls.LabelExt;
-import mvvmbase.controls.ListViewExt;
 import mvvmbase.markup.MarkupControllerBase;
 import filesystembase.paths.PathWrapper;
 import filesystembase.paths.SystemAttributes;
@@ -25,10 +26,10 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     @FXML
-    private ListView<String> selectedPath;
+    private TreeView<String> selectedPath;
 
     @FXML
-    private ComboBox<String> subtractedPath;
+    private TreeView<String> subtractedPath;
 
     @FXML
     private Label rootPath;
@@ -64,20 +65,24 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
         availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
-        ListViewExt.populate(selectedPath, temp, null, SelectionMode.MULTIPLE, false);
-        ComboBoxExt.populate(subtractedPath, temp, createListener(subtractedPath));
+        TreeViewExt.populateTree(selectedPath, temp, root, SelectionMode.MULTIPLE, false, (f) -> new SelectableGroupTreeCellFctry());
+        TreeViewExt.populateTree(subtractedPath, temp, root, SelectionMode.SINGLE, false, null);
         LabelExt.update(rootPath, root, root);
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private ChangeListener<String> createListener(ComboBox<String> selector) {
-        return (observable, oldValue, newValue) -> selector.setTooltip(new Tooltip(selector.getSelectionModel().getSelectedItem()));
-    }
-
     private ArrayList<PathWrapper> getSelectedPaths(){
         ArrayList<PathWrapper> selectedPaths = new ArrayList<>();
-        selectedPath.getSelectionModel().getSelectedIndices().forEach((index) -> selectedPaths.add(availableFiles.get(index)));
+        selectedPath.getSelectionModel().getSelectedItems().forEach((item) -> {
+            if (item.isLeaf() && item.getChildren().size() == 0) {
+                availableFiles.forEach((path) -> {
+                    if (path.getPathTail() == item.getValue()){
+                        selectedPaths.add(availableFiles.get(availableFiles.indexOf(path)));
+                    }
+                });
+            }
+        });
         return selectedPaths;
     }
 

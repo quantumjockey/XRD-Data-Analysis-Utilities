@@ -16,17 +16,28 @@
                 <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
             </padding>
         </HBox>
-        <HBox VBox.Vgrow="ALWAYS">
+        <HBox spacing="5.0" VBox.Vgrow="ALWAYS">
             <children>
-                <ListView fx:id="selectedPath" prefWidth="400" VBox.vgrow="ALWAYS" />
+                <VBox alignment="CENTER" spacing="5.0">
+                    <children>
+                        <Label text="Selected Image(s)" />
+                        <TreeView fx:id="selectedPath" prefWidth="400" VBox.vgrow="ALWAYS" />
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </VBox>
+                <VBox alignment="CENTER" spacing="5.0">
+                    <children>
+                        <Label text="Subtracted Image" />
+                        <TreeView fx:id="subtractedPath" prefWidth="400" VBox.vgrow="ALWAYS" />
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </VBox>
                 <VBox alignment="TOP_CENTER" spacing="5.0">
                     <children>
-                        <HBox alignment="CENTER_RIGHT" spacing="5.0">
-                            <children>
-                                <Label text="Subtracted Image:" />
-                                <ComboBox fx:id="subtractedPath" prefWidth="225" />
-                            </children>
-                        </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0">
                             <children>
                                 <Label text="Lower Bound:" />
