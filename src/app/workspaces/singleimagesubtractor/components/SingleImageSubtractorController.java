@@ -45,9 +45,9 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
         ChangeListener<String> selectedChanged = createListener(selectedPath, selectedImageViewport);
-        ComboBoxExt.populate(selectedPath, temp, selectedChanged);
+        ComboBoxExt.populate(selectedPath, temp, false, selectedChanged);
         ChangeListener<String> subtractedChanged = createListener(subtractedPath, subtractedImageViewport);
-        ComboBoxExt.populate(subtractedPath, temp, subtractedChanged);
+        ComboBoxExt.populate(subtractedPath, temp, false, subtractedChanged);
         LabelExt.update(rootPath, root, root);
         try{
             selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
