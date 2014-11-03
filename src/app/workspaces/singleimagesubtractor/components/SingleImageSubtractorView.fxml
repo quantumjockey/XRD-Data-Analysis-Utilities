@@ -35,13 +35,13 @@
                     <children>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0">
                             <children>
-                                <Label text="Base Image:" />
+                                <Label text="Inspected Image:" />
                                 <ComboBox fx:id="selectedPath" prefWidth="225"/>
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0">
                             <children>
-                                <Label text="Subtracted Image:" />
+                                <Label text="Dark Field Image:" />
                                 <ComboBox fx:id="subtractedPath" prefWidth="225"/>
                             </children>
                         </HBox>

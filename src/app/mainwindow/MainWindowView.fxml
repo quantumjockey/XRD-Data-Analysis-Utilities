@@ -23,10 +23,10 @@
     <center>
         <TabPane>
             <tabs>
-                <Tab text="Bulk Image Subtraction (Automated)" closable="false">
+                <Tab text="Bulk Image Correction (Automated)" closable="false">
                     <BulkImageSubtractor fx:id="multipleImageWorkspace" />
                 </Tab>
-                <Tab text="Single-Image Subtraction/Analysis" closable="false">
+                <Tab text="Single-Image Correction/Analysis" closable="false">
                     <SingleImageSubtractor fx:id="singleImageWorkspace" />
                 </Tab>
             </tabs>

@@ -20,7 +20,7 @@
             <children>
                 <VBox alignment="CENTER" spacing="5.0">
                     <children>
-                        <Label text="Selected Image(s)" />
+                        <Label text="Image(s) Selected for Correction" />
                         <TreeView fx:id="selectedPath" prefWidth="400" VBox.vgrow="ALWAYS" />
                     </children>
                     <padding>
@@ -29,7 +29,7 @@
                 </VBox>
                 <VBox alignment="CENTER" spacing="5.0">
                     <children>
-                        <Label text="Subtracted Image" />
+                        <Label text="Dark Field Image" />
                         <TreeView fx:id="subtractedPath" prefWidth="400" VBox.vgrow="ALWAYS" />
                     </children>
                     <padding>
@@ -40,13 +40,13 @@
                     <children>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0">
                             <children>
-                                <Label text="Lower Bound:" />
+                                <Label text="Low Intensity Bound:" />
                                 <TextField fx:id="lowerBoundFilter" prefWidth="225" />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0">
                             <children>
-                                <Label text="Upper Bound:" />
+                                <Label text="High Intensity Bound:" />
                                 <TextField fx:id="upperBoundFilter" prefWidth="225" />
                             </children>
                         </HBox>
