@@ -17,6 +17,8 @@ import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.math.DataSubtraction;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class BulkImageSubtractorController extends MarkupControllerBase {
@@ -44,7 +46,10 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
 
     @FXML
     public void subtractImageGroup() throws IOException {
-        if (selectedPath.getSelectionModel().isEmpty()){
+        if (selectedPath.getSelectionModel().isEmpty()
+                || !selectedPath.getSelectionModel().getSelectedItem().isLeaf()
+                || subtractedPath.getSelectionModel().isEmpty()
+                || !subtractedPath.getSelectionModel().getSelectedItem().isLeaf()){
             AlertWindow alert = new AlertWindow("Invalid Operation", "No images are selected for subtraction.");
             alert.show();
         }
@@ -85,7 +90,12 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
     }
 
     private MARTiffImage getSubtractedImageData() throws IOException{
-        PathWrapper subtracted = availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex());
+        PathWrapper subtracted = null;
+        for (PathWrapper file : availableFiles){
+            if (file.getPathTail().contains(subtractedPath.getSelectionModel().getSelectedItem().getValue())){
+                subtracted = file;
+            }
+        }
         return FileSysReader.readImageData(subtracted);
     }
 
@@ -111,17 +121,44 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
 
     private void streamImageSubtraction(File destination, ArrayList<PathWrapper> selectedPaths, MARTiffImage subtractedImage){
         String basePath = destination.getPath();
+
+        String[] parts = selectedPaths.get(0).getPathTail().split("_");
+        String newDirectoryName = parts[0] + "_" + parts[1];
+        String newDestination = basePath + SystemAttributes.FILE_SEPARATOR + newDirectoryName;
+
+        try {
+            if (!Files.exists(Paths.get(newDestination))) {
+                Files.createDirectory(Paths.get(newDestination));
+            }
+            else{
+                int i = 1;
+                while(Files.exists(Paths.get(newDestination + "(" + i + ")"))){
+                    i++;
+                }
+                newDestination += "(" + i + ")";
+                Files.createDirectory(Paths.get(newDestination));
+            }
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+        final String newerDestination = newDestination;
+
         selectedPaths.forEach((path) -> {
             MARTiffImage firstImage = null;
+
             try {
                 firstImage = FileSysReader.readImageData(path);
-            } catch (IOException ex) {
+            }
+            catch (IOException ex) {
                 ex.printStackTrace();
             }
+
             if (firstImage != null && subtractedImage != null) {
                 MARTiffImage result = DataSubtraction.subtractImages(firstImage, subtractedImage);
                 result = filterImage(result);
-                String filePath = basePath + SystemAttributes.FILE_SEPARATOR + result.getFilename();
+                String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + result.getFilename();
                 FileSysWriter.writeImageData(new File(filePath), result);
             }
         });
