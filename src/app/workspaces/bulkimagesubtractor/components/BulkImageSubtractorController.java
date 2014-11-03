@@ -3,12 +3,10 @@ package app.workspaces.bulkimagesubtractor.components;
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
 import mvvmbase.controls.factories.SelectableGroupTreeCellFctry;
-import mvvmbase.controls.macros.ComboBoxExt;
 import mvvmbase.controls.macros.LabelExt;
 import mvvmbase.controls.macros.TreeViewExt;
 import mvvmbase.dialogs.AlertWindow;
 import filesystembase.dialogwrappers.DirectoryChooserWrapper;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import mvvmbase.markup.MarkupControllerBase;
@@ -75,9 +73,9 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
     private ArrayList<PathWrapper> getSelectedPaths(){
         ArrayList<PathWrapper> selectedPaths = new ArrayList<>();
         selectedPath.getSelectionModel().getSelectedItems().forEach((item) -> {
-            if (item.isLeaf() && item.getChildren().size() == 0) {
+            if (item.isLeaf()) {
                 availableFiles.forEach((path) -> {
-                    if (path.getPathTail() == item.getValue()){
+                    if (path.getPathTail().equals(item.getValue())){
                         selectedPaths.add(availableFiles.get(availableFiles.indexOf(path)));
                     }
                 });
@@ -112,6 +110,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
     }
 
     private void streamImageSubtraction(File destination, ArrayList<PathWrapper> selectedPaths, MARTiffImage subtractedImage){
+        String basePath = destination.getPath();
         selectedPaths.forEach((path) -> {
             MARTiffImage firstImage = null;
             try {
@@ -122,7 +121,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
             if (firstImage != null && subtractedImage != null) {
                 MARTiffImage result = DataSubtraction.subtractImages(firstImage, subtractedImage);
                 result = filterImage(result);
-                String filePath = destination.getPath() + SystemAttributes.FILE_SEPARATOR + result.getFilename();
+                String filePath = basePath + SystemAttributes.FILE_SEPARATOR + result.getFilename();
                 FileSysWriter.writeImageData(new File(filePath), result);
             }
         });
