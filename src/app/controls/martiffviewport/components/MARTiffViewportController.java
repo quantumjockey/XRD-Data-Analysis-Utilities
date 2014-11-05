@@ -29,9 +29,9 @@ import filesystembase.paths.PathWrapper;
 import filesystembase.paths.SystemAttributes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
-import xrdtiffoperations.visualization.MARTiffVisualizer;
+import xrdtiffvisualization.MARTiffVisualizer;
 import colorramps.GradientRamp;
-import xrdtiffoperations.visualization.masking.BoundedMask;
+import xrdtiffvisualization.masking.BoundedMask;
 
 public class MARTiffViewportController extends MarkupControllerBase {
 
