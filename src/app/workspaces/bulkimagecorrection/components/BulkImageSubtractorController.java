@@ -1,4 +1,4 @@
-package app.workspaces.bulkimagesubtractor.components;
+package app.workspaces.bulkimagecorrection.components;
 
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;

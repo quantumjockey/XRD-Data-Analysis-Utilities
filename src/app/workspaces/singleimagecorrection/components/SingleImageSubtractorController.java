@@ -1,4 +1,4 @@
-package app.workspaces.singleimagesubtractor.components;
+package app.workspaces.singleimagecorrection.components;
 
 import app.controls.martiffviewport.MARTiffViewport;
 import filesystembase.paths.PathWrapper;

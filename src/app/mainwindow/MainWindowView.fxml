@@ -3,8 +3,8 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import app.workspaces.bulkimagesubtractor.BulkImageSubtractor?>
-<?import app.workspaces.singleimagesubtractor.SingleImageSubtractor?>
+<?import app.workspaces.bulkimagecorrection.BulkImageSubtractor?>
+<?import app.workspaces.singleimagecorrection.SingleImageSubtractor?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.mainwindow.MainWindowController">
     <top>

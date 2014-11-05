@@ -1,7 +1,7 @@
 package app.mainwindow;
 
-import app.workspaces.bulkimagesubtractor.BulkImageSubtractor;
-import app.workspaces.singleimagesubtractor.SingleImageSubtractor;
+import app.workspaces.bulkimagecorrection.BulkImageSubtractor;
+import app.workspaces.singleimagecorrection.SingleImageSubtractor;
 import filesystembase.dialogwrappers.DirectoryChooserWrapper;
 import mvvmbase.window.WindowControllerBase;
 import javafx.fxml.FXML;
