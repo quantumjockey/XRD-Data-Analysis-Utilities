@@ -1,6 +1,6 @@
 package xrdtiffoperations.imagemodel.martiff.components;
 
-import filesystembase.bytewrappers.IntWrapper;
+import xrdtiffoperations.filehandling.bytewrappers.IntWrapper;
 import java.nio.ByteOrder;
 
 public class CalibrationData {
