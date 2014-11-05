@@ -1,6 +1,5 @@
 package xrdtiffoperations.filehandling.io;
 
-import filesystembase.paths.PathWrapper;
 import xrdtiffoperations.imagemodel.ifd.ImageFileDirectory;
 import xrdtiffoperations.imagemodel.ifd.fields.FieldInformation;
 import xrdtiffoperations.imagemodel.ifd.fields.FieldTags;
@@ -11,8 +10,8 @@ import xrdtiffoperations.imagemodel.martiff.WritableMARTiffImage;
 import xrdtiffoperations.imagemodel.martiff.components.CalibrationData;
 import java.io.IOException;
 import java.nio.ByteOrder;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class TiffReader {
 
@@ -27,9 +26,9 @@ public class TiffReader {
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public TiffReader(String filePath) throws IOException{
-        fileBytesRaw = Files.readAllBytes(FileSystems.getDefault().getPath(filePath));
-        marImageData = new WritableMARTiffImage((new PathWrapper(filePath)).getPathTail());
+    public TiffReader(Path filePath) throws IOException{
+        fileBytesRaw = Files.readAllBytes(filePath);
+        marImageData = new WritableMARTiffImage(filePath.getFileName().toString());
         fileHasBeenRead = false;
     }
 
