@@ -26,7 +26,7 @@
                 <Tab text="Bulk Image Correction (Automated)" closable="false">
                     <BulkImageSubtractor fx:id="multipleImageWorkspace" />
                 </Tab>
-                <Tab text="Single-Image Correction/Analysis" closable="false">
+                <Tab text="Single-Image Correction" closable="false">
                     <SingleImageSubtractor fx:id="singleImageWorkspace" />
                 </Tab>
             </tabs>
