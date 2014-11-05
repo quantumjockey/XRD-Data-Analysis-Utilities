@@ -1,4 +1,4 @@
-package xrdtiffoperations.filehandling;
+package xrdtiffoperations.filehandling.io;
 
 import xrdtiffoperations.imagemodel.ifd.fields.FieldInformation;
 import xrdtiffoperations.imagemodel.ifd.fields.FieldTags;

@@ -1,4 +1,4 @@
-package xrdtiffoperations.filehandling;
+package xrdtiffoperations.filehandling.io;
 
 import filesystembase.paths.PathWrapper;
 import xrdtiffoperations.imagemodel.ifd.ImageFileDirectory;

@@ -2,7 +2,7 @@ package app.filesystem;
 
 import filesystembase.paths.PathWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
-import xrdtiffoperations.filehandling.TiffReader;
+import xrdtiffoperations.filehandling.io.TiffReader;
 import java.io.IOException;
 
 public class FileSysReader {
