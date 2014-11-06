@@ -47,7 +47,7 @@ public class MainWindowController extends WindowControllerBase {
 
     private ArrayList<PathWrapper> parseSelectedDirectory(){
         FilterWrapper tiffFilter = new FilterWrapper(new String[]{".tif", ".tiff"});
-        File[] images = selectedDirectory.listFiles(tiffFilter.filter);
+        File[] images = selectedDirectory.listFiles(tiffFilter.getFilter());
         ArrayList<PathWrapper> imagesPaths = new ArrayList<>();
         for (File item : images){
             PathWrapper wrapper = new PathWrapper(item.getPath());
