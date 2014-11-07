@@ -4,7 +4,7 @@ import mvvmbase.markup.initialization.MarkupInitializer;
 import app.controls.martiffviewport.components.MARTiffViewportController;
 import javafx.scene.control.TitledPane;
 import mvvmbase.markup.initialization.MarkupInitializerMacro;
-import filesystembase.paths.PathWrapper;
+import paths.PathWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import java.io.IOException;
 

@@ -1,7 +1,7 @@
 package app.workspaces.singleimagecorrection.components;
 
 import app.controls.martiffviewport.MARTiffViewport;
-import filesystembase.paths.PathWrapper;
+import paths.PathWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

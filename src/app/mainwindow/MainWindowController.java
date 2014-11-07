@@ -2,11 +2,11 @@ package app.mainwindow;
 
 import app.workspaces.bulkimagecorrection.BulkImageSubtractor;
 import app.workspaces.singleimagecorrection.SingleImageSubtractor;
-import filesystembase.dialogwrappers.DirectoryChooserWrapper;
+import dialogs.DirectoryChooserWrapper;
 import mvvmbase.window.WindowControllerBase;
 import javafx.fxml.FXML;
-import filesystembase.paths.PathWrapper;
-import filesystembase.paths.filters.FilterWrapper;
+import paths.PathWrapper;
+import paths.filters.FilterWrapper;
 
 import java.io.*;
 import java.util.*;
