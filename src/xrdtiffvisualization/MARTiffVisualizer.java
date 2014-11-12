@@ -44,7 +44,7 @@ public class MARTiffVisualizer {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void renderImageViaColorRamp(PixelWriter writer, short maxValue, GradientRamp ramp) throws IOException{
+    private void renderImageViaColorRamp(PixelWriter writer, int maxValue, GradientRamp ramp) throws IOException{
         GradientRamp colorRamp;
         if (ramp == null) {
             colorRamp = new GradientRamp(DEFAULT_RAMP);
@@ -61,7 +61,7 @@ public class MARTiffVisualizer {
         }
     }
 
-    private void renderImageWithMask(PixelWriter writer, short maxValue, GradientRamp ramp, BoundedMask mask) throws IOException{
+    private void renderImageWithMask(PixelWriter writer, int maxValue, GradientRamp ramp, BoundedMask mask) throws IOException{
         GradientRamp colorRamp;
         if (ramp == null) {
             colorRamp = new GradientRamp(DEFAULT_RAMP);
