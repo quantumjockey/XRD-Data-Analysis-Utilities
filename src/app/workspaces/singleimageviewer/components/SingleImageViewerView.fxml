@@ -8,6 +8,7 @@
 <?import app.controls.martiffviewport.MARTiffViewport?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TreeView?>
+
 <fx:root type="javafx.scene.layout.VBox"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.workspaces.singleimageviewer.components.SingleImageViewerController" >
     <children>
         <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
@@ -22,11 +23,13 @@
         <HBox>
             <children>
                 <ScrollPane vbarPolicy="AS_NEEDED" hbarPolicy="AS_NEEDED">
-                    <VBox>
-                        <children>
-                            <MARTiffViewport fx:id="selectedImageViewport" />
-                        </children>
-                    </VBox>
+                    <content>
+                        <VBox>
+                            <children>
+                                <MARTiffViewport fx:id="selectedImageViewport" />
+                            </children>
+                        </VBox>
+                    </content>
                 </ScrollPane>
                 <VBox alignment="CENTER" spacing="5.0">
                     <children>

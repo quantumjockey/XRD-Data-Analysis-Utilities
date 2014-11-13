@@ -1,12 +1,12 @@
 package app.workspaces.singleimagecorrection.components;
 
 import app.controls.martiffviewport.MARTiffViewport;
+import app.filesystem.FileSysReader;
 import mvvmbase.controls.macros.TreeViewExt;
 import paths.PathWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import mvvmbase.controls.macros.ComboBoxExt;
 import mvvmbase.controls.macros.LabelExt;
 import mvvmbase.markup.MarkupControllerBase;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
@@ -18,12 +18,6 @@ import java.util.ArrayList;
 public class SingleImageSubtractorController extends MarkupControllerBase {
 
     /////////// Fields ////////////////////////////////////////////////////////////////////////
-
-    @FXML
-    private MARTiffViewport selectedImageViewport;
-
-    @FXML
-    private MARTiffViewport subtractedImageViewport;
 
     @FXML
     private MARTiffViewport resultantImageViewport;
@@ -38,6 +32,8 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     private Label rootPath;
 
     private ArrayList<PathWrapper> availableFiles;
+    private MARTiffImage selectedImage;
+    private MARTiffImage subtractedImage;
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
@@ -45,14 +41,14 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
         availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
-        ChangeListener<TreeItem<String>> selectedChanged = createListener(selectedPath, selectedImageViewport);
+        ChangeListener<TreeItem<String>> selectedChanged = createSelectedListener(selectedPath);
         TreeViewExt.populateTree(selectedPath, temp, root, SelectionMode.SINGLE, false, null, selectedChanged);
-        ChangeListener<TreeItem<String>> subtractedChanged = createListener(subtractedPath, subtractedImageViewport);
+        ChangeListener<TreeItem<String>> subtractedChanged = createSubtractedListener(subtractedPath);
         TreeViewExt.populateTree(subtractedPath, temp, root, SelectionMode.SINGLE, false, null, subtractedChanged);
         LabelExt.update(rootPath, root, root);
         try{
-            selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
-            subtractedImageViewport.renderImageFromFile(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
+            selectedImage = FileSysReader.readImageData(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
+            subtractedImage = FileSysReader.readImageData(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
             subtractImages();
         }
         catch (IOException ex){
@@ -62,7 +58,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private ChangeListener<TreeItem<String>> createListener(TreeView<String> selector, MARTiffViewport imageViewport) {
+    private ChangeListener<TreeItem<String>> createSelectedListener(TreeView<String> selector) {
         return (observable, oldValue, newValue) -> {
             try {
                 MultipleSelectionModel selected = selector.getSelectionModel();
@@ -71,7 +67,26 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
                         && selected.getSelectedIndex() >= 0){
                     String tip = "Current Selection: " + selector.getSelectionModel().getSelectedItem().getValue();
                     selector.setTooltip(new Tooltip(tip));
-                    imageViewport.renderImageFromFile(getPath(newValue.getValue()));
+                    selectedImage = FileSysReader.readImageData(getPath(newValue.getValue()));
+                    subtractImages();
+                }
+            }
+            catch (IOException ex){
+                System.out.println("Image file could not be read!");
+            }
+        };
+    }
+
+    private ChangeListener<TreeItem<String>> createSubtractedListener(TreeView<String> selector) {
+        return (observable, oldValue, newValue) -> {
+            try {
+                MultipleSelectionModel selected = selector.getSelectionModel();
+                if (!subtractedPath.getSelectionModel().isEmpty()
+                        && newValue.isLeaf()
+                        && selected.getSelectedIndex() >= 0){
+                    String tip = "Current Selection: " + selector.getSelectionModel().getSelectedItem().getValue();
+                    selector.setTooltip(new Tooltip(tip));
+                    subtractedImage = FileSysReader.readImageData(getPath(newValue.getValue()));
                     subtractImages();
                 }
             }
@@ -93,7 +108,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     }
 
     private void subtractImages() throws IOException{
-        MARTiffImage resultantImage = DataSubtraction.subtractImages(selectedImageViewport.getController().getCachedImage(), subtractedImageViewport.getController().getCachedImage());
+        MARTiffImage resultantImage = DataSubtraction.subtractImages(selectedImage, subtractedImage);
         resultantImageViewport.renderImage(resultantImage);
     }
 
@@ -101,8 +116,6 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
 
     @Override
     protected void createCustomControls() {
-        selectedImageViewport = new MARTiffViewport();
-        subtractedImageViewport = new MARTiffViewport();
         resultantImageViewport = new MARTiffViewport();
     }
 
@@ -114,8 +127,6 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     @Override
     protected void setDefaults(){
         String rootDefault = "(Unspecified)";
-        selectedImageViewport.getController().setViewportTitle("Selected Image");
-        subtractedImageViewport.getController().setViewportTitle("Subtracted Image");
         resultantImageViewport.getController().setViewportTitle("Resultant Image");
         LabelExt.update(rootPath, rootDefault, null);
     }

@@ -26,8 +26,6 @@
                     <content>
                         <VBox>
                             <children>
-                                <MARTiffViewport fx:id="selectedImageViewport" />
-                                <MARTiffViewport fx:id="subtractedImageViewport" />
                                 <MARTiffViewport fx:id="resultantImageViewport" />
                             </children>
                         </VBox>
