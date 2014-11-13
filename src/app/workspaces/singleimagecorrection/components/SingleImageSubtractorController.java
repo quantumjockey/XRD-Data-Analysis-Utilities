@@ -46,11 +46,9 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
         ChangeListener<TreeItem<String>> selectedChanged = createListener(selectedPath, selectedImageViewport);
-        TreeViewExt.populateTree(selectedPath, temp, root, SelectionMode.SINGLE, false, null);
-        selectedPath.getSelectionModel().selectedItemProperty().addListener(selectedChanged);
+        TreeViewExt.populateTree(selectedPath, temp, root, SelectionMode.SINGLE, false, null, selectedChanged);
         ChangeListener<TreeItem<String>> subtractedChanged = createListener(subtractedPath, subtractedImageViewport);
-        TreeViewExt.populateTree(subtractedPath, temp, root, SelectionMode.SINGLE, false, null);
-        subtractedPath.getSelectionModel().selectedItemProperty().addListener(subtractedChanged);
+        TreeViewExt.populateTree(subtractedPath, temp, root, SelectionMode.SINGLE, false, null, subtractedChanged);
         LabelExt.update(rootPath, root, root);
         try{
             selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));

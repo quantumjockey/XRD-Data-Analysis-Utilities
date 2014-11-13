@@ -3,7 +3,6 @@ package app.workspaces.singleimageviewer.components;
 
 import app.controls.martiffviewport.MARTiffViewport;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import mvvmbase.controls.macros.LabelExt;
@@ -35,8 +34,7 @@ public class SingleImageViewerController  extends MarkupControllerBase {
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
         ChangeListener<TreeItem<String>> selectedChanged = createListener(selectedPath, selectedImageViewport);
-        TreeViewExt.populateTree(selectedPath, temp, root, SelectionMode.SINGLE, false, null);
-        selectedPath.getSelectionModel().selectedItemProperty().addListener(selectedChanged);
+        TreeViewExt.populateTree(selectedPath, temp, root, SelectionMode.SINGLE, false, null, selectedChanged);
         LabelExt.update(rootPath, root, root);
         try{
             selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
