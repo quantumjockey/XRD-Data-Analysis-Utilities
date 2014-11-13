@@ -68,8 +68,8 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
         availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
-        TreeViewExt.populateTree(selectedPath, temp, root, SelectionMode.MULTIPLE, false, (f) -> new SelectableGroupTreeCellFctry());
-        TreeViewExt.populateTree(subtractedPath, temp, root, SelectionMode.SINGLE, false, null);
+        TreeViewExt.populateTree(selectedPath, temp, root, SelectionMode.MULTIPLE, false, (f) -> new SelectableGroupTreeCellFctry(), null);
+        TreeViewExt.populateTree(subtractedPath, temp, root, SelectionMode.SINGLE, false, null, null);
         LabelExt.update(rootPath, root, root);
     }
 

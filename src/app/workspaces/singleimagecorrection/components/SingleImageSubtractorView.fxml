@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import app.controls.martiffviewport.MARTiffViewport?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TreeView?>
 
 <fx:root type="javafx.scene.layout.VBox"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.workspaces.singleimagecorrection.components.SingleImageSubtractorController" >
     <children>
@@ -22,34 +22,38 @@
         </HBox>
         <HBox>
             <children>
-                <ScrollPane vbarPolicy="ALWAYS" hbarPolicy="NEVER">
-                    <VBox>
-                        <children>
-                            <MARTiffViewport fx:id="selectedImageViewport" />
-                            <MARTiffViewport fx:id="subtractedImageViewport" />
-                            <MARTiffViewport fx:id="resultantImageViewport" />
-                        </children>
-                    </VBox>
+                <ScrollPane vbarPolicy="AS_NEEDED" hbarPolicy="AS_NEEDED">
+                    <content>
+                        <VBox>
+                            <children>
+                                <MARTiffViewport fx:id="resultantImageViewport" />
+                            </children>
+                        </VBox>
+                    </content>
                 </ScrollPane>
-                <VBox alignment="TOP_CENTER" spacing="5.0">
-                    <children>
-                        <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                <ScrollPane vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" prefWidth="400">
+                    <content>
+                        <VBox alignment="TOP_CENTER" spacing="5.0">
                             <children>
-                                <Label text="Inspected Image:" />
-                                <ComboBox fx:id="selectedPath" prefWidth="225"/>
+                                <VBox alignment="CENTER" spacing="5.0">
+                                    <children>
+                                        <Label text="Inspected Image:" />
+                                        <TreeView fx:id="selectedPath" prefHeight="320" prefWidth="360"/>
+                                    </children>
+                                </VBox>
+                                <VBox alignment="CENTER" spacing="5.0">
+                                    <children>
+                                        <Label text="Dark Field Image:" />
+                                        <TreeView fx:id="subtractedPath" prefHeight="320" prefWidth="360"/>
+                                    </children>
+                                </VBox>
                             </children>
-                        </HBox>
-                        <HBox alignment="CENTER_RIGHT" spacing="5.0">
-                            <children>
-                                <Label text="Dark Field Image:" />
-                                <ComboBox fx:id="subtractedPath" prefWidth="225"/>
-                            </children>
-                        </HBox>
-                    </children>
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                </VBox>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
             </children>
         </HBox>
     </children>

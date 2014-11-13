@@ -6,6 +6,7 @@
 <?import app.workspaces.bulkimagecorrection.BulkImageSubtractor?>
 <?import app.workspaces.singleimagecorrection.SingleImageSubtractor?>
 
+<?import app.workspaces.singleimageviewer.SingleImageViewer?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.mainwindow.MainWindowController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
@@ -28,6 +29,9 @@
                 </Tab>
                 <Tab text="Single-Image Correction" closable="false">
                     <SingleImageSubtractor fx:id="singleImageWorkspace" />
+                </Tab>
+                <Tab text="Single-Image Viewer" closable="false">
+                    <SingleImageViewer fx:id="singleImageViewer" />
                 </Tab>
             </tabs>
         </TabPane>

@@ -2,6 +2,7 @@ package app.mainwindow;
 
 import app.workspaces.bulkimagecorrection.BulkImageSubtractor;
 import app.workspaces.singleimagecorrection.SingleImageSubtractor;
+import app.workspaces.singleimageviewer.SingleImageViewer;
 import dialogs.DirectoryChooserWrapper;
 import mvvmbase.window.WindowControllerBase;
 import javafx.fxml.FXML;
@@ -20,6 +21,9 @@ public class MainWindowController extends WindowControllerBase {
 
     @FXML
     private SingleImageSubtractor singleImageWorkspace;
+
+    @FXML
+    private SingleImageViewer singleImageViewer;
 
     private ArrayList<PathWrapper> availableFiles;
     private File selectedDirectory;
@@ -40,6 +44,7 @@ public class MainWindowController extends WindowControllerBase {
             String path = selectedDirectory.getPath();
             multipleImageWorkspace.getController().updateControls(availableFiles, path);
             singleImageWorkspace.getController().updateControls(availableFiles, path);
+            singleImageViewer.getController().updateControls(availableFiles, path);
         }
     }
 
@@ -62,6 +67,7 @@ public class MainWindowController extends WindowControllerBase {
     protected void createCustomControls() {
         multipleImageWorkspace = new BulkImageSubtractor();
         singleImageWorkspace = new SingleImageSubtractor();
+        singleImageViewer = new SingleImageViewer();
     }
 
     @Override
