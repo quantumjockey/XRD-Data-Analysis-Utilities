@@ -181,6 +181,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
         exportActions.add(new ActionDelegate<>("Raw Data", this::exportRawImage));
         exportActions.add(new ActionDelegate<>("Masked Data", this::exportMaskedImage));
         exportOptions.getController().updateSelections(exportActions);
+        selectedRamp = renderOptions.getController().getActiveRamp();
     }
 
     @Override
