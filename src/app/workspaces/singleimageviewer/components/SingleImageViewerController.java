@@ -90,7 +90,6 @@ public class SingleImageViewerController  extends MarkupControllerBase {
     @Override
     protected void setDefaults(){
         String rootDefault = "(Unspecified)";
-        selectedImageViewport.getController().setViewportTitle("Selected Image");
         LabelExt.update(rootPath, rootDefault, null);
     }
 

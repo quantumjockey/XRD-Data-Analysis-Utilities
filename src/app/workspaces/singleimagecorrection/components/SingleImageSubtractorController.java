@@ -127,7 +127,6 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     @Override
     protected void setDefaults(){
         String rootDefault = "(Unspecified)";
-        resultantImageViewport.getController().setViewportTitle("Resultant Image");
         LabelExt.update(rootPath, rootDefault, null);
     }
 

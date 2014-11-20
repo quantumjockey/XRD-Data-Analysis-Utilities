@@ -83,6 +83,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
         MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
         imageViewport.setSmooth(false);
         imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp));
+        viewportTitle.setText(image.getFilename());
     }
 
     public void renderImageFromFile(PathWrapper filePath) throws IOException {
@@ -182,6 +183,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
         exportActions.add(new ActionDelegate<>("Masked Data", this::exportMaskedImage));
         exportOptions.getController().updateSelections(exportActions);
         selectedRamp = renderOptions.getController().getActiveRamp();
+        viewportTitle.setText("(No Data Selected)");
     }
 
     @Override
