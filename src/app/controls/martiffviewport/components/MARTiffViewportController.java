@@ -217,15 +217,16 @@ public class MARTiffViewportController extends MarkupControllerBase {
             double viewportY = imageViewport.getFitHeight();
             int scaledY = (int)((realY / viewportY) * imageY);
 
+            // (imageY - scaledY) used for display to represent 0,0 in bottom-left corner of image
             String message = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approximate] " : "")
-                    + "Coordinates (x,y): " + scaledX + "," + scaledY
+                    + "Coordinates (x,y): " + scaledX + "," + ((int)imageY - scaledY)
                     + " - Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
 
             pixelTrack.setFont(Font.font(null, FontWeight.BOLD, 13));
             pixelTrack.setText(message);
 
             String tooltip = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approx.] " : "")
-                    + "(x,y): " + scaledX + "," + scaledY + SystemAttributes.LINE_SEPARATOR
+                    + "(x,y): " + scaledX + "," + ((int)imageY - scaledY) + SystemAttributes.LINE_SEPARATOR
                     + "Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
 
             scrollViewport.setTooltip(new Tooltip(tooltip));
