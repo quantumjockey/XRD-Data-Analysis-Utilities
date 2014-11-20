@@ -108,7 +108,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     }
 
     private void subtractImages() throws IOException{
-        MARTiffImage resultantImage = DataSubtraction.subtractImages(selectedImage, subtractedImage);
+        MARTiffImage resultantImage = DataSubtraction.subtractImages(subtractedImage, selectedImage);
         resultantImageViewport.renderImage(resultantImage);
     }
 

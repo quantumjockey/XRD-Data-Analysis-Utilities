@@ -146,17 +146,17 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
         final String newerDestination = newDestination;
 
         selectedPaths.forEach((path) -> {
-            MARTiffImage firstImage = null;
+            MARTiffImage baseImage = null;
 
             try {
-                firstImage = FileSysReader.readImageData(path);
+                baseImage = FileSysReader.readImageData(path);
             }
             catch (IOException ex) {
                 ex.printStackTrace();
             }
 
-            if (firstImage != null && subtractedImage != null) {
-                MARTiffImage result = DataSubtraction.subtractImages(firstImage, subtractedImage);
+            if (baseImage != null && subtractedImage != null) {
+                MARTiffImage result = DataSubtraction.subtractImages(subtractedImage, baseImage);
                 result = filterImage(result);
                 String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + result.getFilename();
                 FileSysWriter.writeImageData(new File(filePath), result);
