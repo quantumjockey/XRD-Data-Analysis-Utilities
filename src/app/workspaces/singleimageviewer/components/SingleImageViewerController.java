@@ -1,12 +1,11 @@
 package app.workspaces.singleimageviewer.components;
 
-
+import app.controls.filegroupselector.FileGroupSelector;
 import app.controls.martiffviewport.MARTiffViewport;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import mvvmbase.controls.macros.LabelExt;
-import mvvmbase.controls.macros.TreeViewExt;
 import mvvmbase.markup.MarkupControllerBase;
 import paths.PathWrapper;
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class SingleImageViewerController  extends MarkupControllerBase {
     private MARTiffViewport selectedImageViewport;
 
     @FXML
-    private TreeView<String> selectedPath;
+    private FileGroupSelector selectedPath;
 
     @FXML
     private Label rootPath;
@@ -33,11 +32,11 @@ public class SingleImageViewerController  extends MarkupControllerBase {
         availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
-        ChangeListener<TreeItem<String>> selectedChanged = createListener(selectedPath, selectedImageViewport);
-        TreeViewExt.populateTree(selectedPath, temp, root, SelectionMode.SINGLE, false, null, selectedChanged);
+        ChangeListener<TreeItem<String>> selectedChanged = createListener(selectedImageViewport);
+        selectedPath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
         LabelExt.update(rootPath, root, root);
         try{
-            selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
+            selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getController().getSelectionModel().getSelectedIndex()));
         }
         catch (IOException ex){
             System.out.println("Image file could not be rendered!");
@@ -46,15 +45,15 @@ public class SingleImageViewerController  extends MarkupControllerBase {
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private ChangeListener<TreeItem<String>> createListener(TreeView<String> selector, MARTiffViewport imageViewport) {
+    private ChangeListener<TreeItem<String>> createListener(MARTiffViewport imageViewport) {
         return (observable, oldValue, newValue) -> {
             try {
-                MultipleSelectionModel selected = selector.getSelectionModel();
-                if (!selectedPath.getSelectionModel().isEmpty()
+                MultipleSelectionModel<TreeItem<String>> selected = selectedPath.getController().getSelectionModel();
+                if (!selected.isEmpty()
                         && newValue.isLeaf()
                         && selected.getSelectedIndex() >= 0){
-                    String tip = "Current Selection: " + selector.getSelectionModel().getSelectedItem().getValue();
-                    selector.setTooltip(new Tooltip(tip));
+                    String tip = "Current Selection: " + selected.getSelectedItem().getValue();
+                    selectedPath.getController().setTooltip(new Tooltip(tip));
                     imageViewport.renderImageFromFile(getPath(newValue.getValue()));
                 }
             }
@@ -79,6 +78,7 @@ public class SingleImageViewerController  extends MarkupControllerBase {
 
     @Override
     protected void createCustomControls() {
+        selectedPath = new FileGroupSelector();
         selectedImageViewport = new MARTiffViewport();
     }
 
@@ -91,6 +91,7 @@ public class SingleImageViewerController  extends MarkupControllerBase {
     protected void setDefaults(){
         String rootDefault = "(Unspecified)";
         LabelExt.update(rootPath, rootDefault, null);
+        selectedPath.getController().setHeader("Image Selected for Viewing");
     }
 
     @Override
@@ -99,4 +100,3 @@ public class SingleImageViewerController  extends MarkupControllerBase {
     }
 
 }
-

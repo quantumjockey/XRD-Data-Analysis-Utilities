@@ -1,8 +1,8 @@
 package app.workspaces.singleimagecorrection.components;
 
+import app.controls.filegroupselector.FileGroupSelector;
 import app.controls.martiffviewport.MARTiffViewport;
 import app.filesystem.FileSysReader;
-import mvvmbase.controls.macros.TreeViewExt;
 import paths.PathWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -23,10 +23,10 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     private MARTiffViewport resultantImageViewport;
 
     @FXML
-    private TreeView<String> selectedPath;
+    private FileGroupSelector selectedPath;
 
     @FXML
-    private TreeView<String> subtractedPath;
+    private FileGroupSelector subtractedPath;
 
     @FXML
     private Label rootPath;
@@ -41,14 +41,18 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
         availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
-        ChangeListener<TreeItem<String>> selectedChanged = createSelectedListener(selectedPath);
-        TreeViewExt.populateTree(selectedPath, temp, root, SelectionMode.SINGLE, false, null, selectedChanged);
-        ChangeListener<TreeItem<String>> subtractedChanged = createSubtractedListener(subtractedPath);
-        TreeViewExt.populateTree(subtractedPath, temp, root, SelectionMode.SINGLE, false, null, subtractedChanged);
+
+        ChangeListener<TreeItem<String>> selectedChanged = createSelectedListener();
+        selectedPath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
+
+        ChangeListener<TreeItem<String>> subtractedChanged = createSubtractedListener();
+        subtractedPath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
+
         LabelExt.update(rootPath, root, root);
+
         try{
-            selectedImage = FileSysReader.readImageData(availableFiles.get(selectedPath.getSelectionModel().getSelectedIndex()));
-            subtractedImage = FileSysReader.readImageData(availableFiles.get(subtractedPath.getSelectionModel().getSelectedIndex()));
+            selectedImage = FileSysReader.readImageData(availableFiles.get(selectedPath.getController().getSelectionModel().getSelectedIndex()));
+            subtractedImage = FileSysReader.readImageData(availableFiles.get(subtractedPath.getController().getSelectionModel().getSelectedIndex()));
             subtractImages();
         }
         catch (IOException ex){
@@ -58,15 +62,15 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private ChangeListener<TreeItem<String>> createSelectedListener(TreeView<String> selector) {
+    private ChangeListener<TreeItem<String>> createSelectedListener() {
         return (observable, oldValue, newValue) -> {
             try {
-                MultipleSelectionModel selected = selector.getSelectionModel();
-                if (!selectedPath.getSelectionModel().isEmpty()
+                MultipleSelectionModel<TreeItem<String>> selected = selectedPath.getController().getSelectionModel();
+                if (!selected.isEmpty()
                         && newValue.isLeaf()
                         && selected.getSelectedIndex() >= 0){
-                    String tip = "Current Selection: " + selector.getSelectionModel().getSelectedItem().getValue();
-                    selector.setTooltip(new Tooltip(tip));
+                    String tip = "Current Selection: " + selected.getSelectedItem().getValue();
+                    selectedPath.getController().setTooltip(new Tooltip(tip));
                     selectedImage = FileSysReader.readImageData(getPath(newValue.getValue()));
                     subtractImages();
                 }
@@ -77,15 +81,15 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
         };
     }
 
-    private ChangeListener<TreeItem<String>> createSubtractedListener(TreeView<String> selector) {
+    private ChangeListener<TreeItem<String>> createSubtractedListener() {
         return (observable, oldValue, newValue) -> {
             try {
-                MultipleSelectionModel selected = selector.getSelectionModel();
-                if (!subtractedPath.getSelectionModel().isEmpty()
+                MultipleSelectionModel<TreeItem<String>> selected = subtractedPath.getController().getSelectionModel();
+                if (!selected.isEmpty()
                         && newValue.isLeaf()
                         && selected.getSelectedIndex() >= 0){
-                    String tip = "Current Selection: " + selector.getSelectionModel().getSelectedItem().getValue();
-                    selector.setTooltip(new Tooltip(tip));
+                    String tip = "Current Selection: " + selected.getSelectedItem().getValue();
+                    subtractedPath.getController().setTooltip(new Tooltip(tip));
                     subtractedImage = FileSysReader.readImageData(getPath(newValue.getValue()));
                     subtractImages();
                 }
@@ -128,6 +132,8 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     protected void setDefaults(){
         String rootDefault = "(Unspecified)";
         LabelExt.update(rootPath, rootDefault, null);
+        selectedPath.getController().setHeader("Inspected Image:");
+        subtractedPath.getController().setHeader("Dark Field Image:");
     }
 
     @Override
