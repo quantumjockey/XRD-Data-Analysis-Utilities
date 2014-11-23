@@ -25,7 +25,6 @@ public class MainWindowController extends WindowControllerBase {
     @FXML
     private SingleImageViewer singleImageViewer;
 
-    private ArrayList<PathWrapper> availableFiles;
     private File selectedDirectory;
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
@@ -37,8 +36,12 @@ public class MainWindowController extends WindowControllerBase {
 
     @FXML
     public void getDirectoryToDisplay(){
-        DirectoryChooserWrapper dialog = new DirectoryChooserWrapper("Select Directory for Images");
+        ArrayList<PathWrapper> availableFiles;
+        DirectoryChooserWrapper dialog;
+
+        dialog = new DirectoryChooserWrapper("Select Directory for Images");
         selectedDirectory = dialog.getSelectedDirectory();
+
         if (selectedDirectory != null) {
             availableFiles = parseSelectedDirectory();
             String path = selectedDirectory.getPath();
