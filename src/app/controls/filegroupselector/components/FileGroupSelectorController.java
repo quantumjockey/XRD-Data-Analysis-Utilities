@@ -8,6 +8,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import mvvmbase.controls.factories.SelectableGroupTreeCellFctry;
 import mvvmbase.controls.macros.TreeViewExtLite;
 import mvvmbase.icons.IconLibrary;
@@ -108,7 +110,7 @@ public class FileGroupSelectorController extends MarkupControllerBase{
 
     @Override
     protected void setDefaults(){
-
+        VBox.setVgrow(fileSelection, Priority.ALWAYS);
     }
 
     @Override
