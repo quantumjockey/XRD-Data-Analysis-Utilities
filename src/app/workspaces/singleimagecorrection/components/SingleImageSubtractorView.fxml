@@ -9,6 +9,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TreeView?>
 
+<?import app.controls.filegroupselector.FileGroupSelector?>
 <fx:root type="javafx.scene.layout.VBox"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.workspaces.singleimagecorrection.components.SingleImageSubtractorController" >
     <children>
         <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
@@ -35,18 +36,8 @@
                     <content>
                         <VBox alignment="TOP_CENTER" spacing="5.0">
                             <children>
-                                <VBox alignment="CENTER" spacing="5.0">
-                                    <children>
-                                        <Label text="Inspected Image:" />
-                                        <TreeView fx:id="selectedPath" prefHeight="320" prefWidth="360"/>
-                                    </children>
-                                </VBox>
-                                <VBox alignment="CENTER" spacing="5.0">
-                                    <children>
-                                        <Label text="Dark Field Image:" />
-                                        <TreeView fx:id="subtractedPath" prefHeight="320" prefWidth="360"/>
-                                    </children>
-                                </VBox>
+                                <FileGroupSelector fx:id="selectedPath" />
+                                <FileGroupSelector fx:id="subtractedPath" />
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
