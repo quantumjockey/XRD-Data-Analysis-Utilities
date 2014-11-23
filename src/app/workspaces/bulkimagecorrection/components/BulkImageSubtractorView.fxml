@@ -19,8 +19,8 @@
         </HBox>
         <HBox spacing="5.0" VBox.Vgrow="ALWAYS">
             <children>
-                <FileGroupSelector fx:id="selectedPath" VBox.vgrow="ALWAYS" />
-                <FileGroupSelector fx:id="subtractedPath" VBox.vgrow="ALWAYS" />
+                <FileGroupSelector fx:id="diffractionImagePath" VBox.vgrow="ALWAYS" />
+                <FileGroupSelector fx:id="darkFieldImagePath" VBox.vgrow="ALWAYS" />
                 <VBox alignment="TOP_CENTER" spacing="5.0">
                     <children>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0">

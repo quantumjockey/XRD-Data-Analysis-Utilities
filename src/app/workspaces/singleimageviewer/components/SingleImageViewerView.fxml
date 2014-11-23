@@ -26,12 +26,12 @@
                     <content>
                         <VBox>
                             <children>
-                                <MARTiffViewport fx:id="selectedImageViewport" />
+                                <MARTiffViewport fx:id="diffractionImageViewport" />
                             </children>
                         </VBox>
                     </content>
                 </ScrollPane>
-                <FileGroupSelector fx:id="selectedPath" alignment="TOP_CENTER" />
+                <FileGroupSelector fx:id="diffractionImagePath" alignment="TOP_CENTER" />
             </children>
         </HBox>
     </children>

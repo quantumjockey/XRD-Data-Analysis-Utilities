@@ -3,9 +3,7 @@ package app.workspaces.bulkimagecorrection.components;
 import app.controls.filegroupselector.FileGroupSelector;
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
-import mvvmbase.controls.factories.SelectableGroupTreeCellFctry;
 import mvvmbase.controls.macros.LabelExt;
-import mvvmbase.controls.macros.TreeViewExt;
 import mvvmbase.dialogs.AlertWindow;
 import dialogs.DirectoryChooserWrapper;
 import javafx.fxml.FXML;
@@ -27,10 +25,10 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     @FXML
-    private FileGroupSelector selectedPath;
+    private FileGroupSelector darkFieldImagePath;
 
     @FXML
-    private FileGroupSelector subtractedPath;
+    private FileGroupSelector diffractionImagePath;
 
     @FXML
     private Label rootPath;
@@ -47,10 +45,10 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
 
     @FXML
     public void subtractImageGroup() throws IOException {
-        if (selectedPath.getController().getSelectionModel().isEmpty()
-                || !selectedPath.getController().getSelectionModel().getSelectedItem().isLeaf()
-                || subtractedPath.getController().getSelectionModel().isEmpty()
-                || !subtractedPath.getController().getSelectionModel().getSelectedItem().isLeaf()){
+        if (diffractionImagePath.getController().getSelectionModel().isEmpty()
+                || !diffractionImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()
+                || darkFieldImagePath.getController().getSelectionModel().isEmpty()
+                || !darkFieldImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()){
             AlertWindow alert = new AlertWindow("Invalid Operation", "No images are selected for subtraction.");
             alert.show();
         }
@@ -69,8 +67,8 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
         availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
-        selectedPath.getController().populateTree(temp, root, SelectionMode.MULTIPLE, null);
-        subtractedPath.getController().populateTree(temp, root, SelectionMode.SINGLE, null);
+        diffractionImagePath.getController().populateTree(temp, root, SelectionMode.MULTIPLE, null);
+        darkFieldImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, null);
         LabelExt.update(rootPath, root, root);
     }
 
@@ -78,7 +76,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
 
     private ArrayList<PathWrapper> getSelectedPaths(){
         ArrayList<PathWrapper> selectedPaths = new ArrayList<>();
-        selectedPath.getController().getSelectionModel().getSelectedItems().forEach((item) -> {
+        diffractionImagePath.getController().getSelectionModel().getSelectedItems().forEach((item) -> {
             if (item.isLeaf()) {
                 availableFiles.forEach((path) -> {
                     if (path.getPathTail().equals(item.getValue())){
@@ -93,7 +91,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
     private MARTiffImage getSubtractedImageData() throws IOException{
         PathWrapper subtracted = null;
         for (PathWrapper file : availableFiles){
-            if (file.getPathTail().contains(subtractedPath.getController().getSelectionModel().getSelectedItem().getValue())){
+            if (file.getPathTail().contains(darkFieldImagePath.getController().getSelectionModel().getSelectedItem().getValue())){
                 subtracted = file;
             }
         }
@@ -169,8 +167,8 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
 
     @Override
     protected void createCustomControls() {
-        selectedPath = new FileGroupSelector();
-        subtractedPath = new FileGroupSelector();
+        diffractionImagePath = new FileGroupSelector();
+        darkFieldImagePath = new FileGroupSelector();
     }
 
     @Override
@@ -182,8 +180,8 @@ public class BulkImageSubtractorController extends MarkupControllerBase {
     protected void setDefaults(){
         String rootDefault = "(Unspecified)";
         LabelExt.update(rootPath, rootDefault, null);
-        selectedPath.getController().setHeader("Image(s) Selected for Correction");
-        subtractedPath.getController().setHeader("Dark Field Image");
+        diffractionImagePath.getController().setHeader("Image(s) Selected for Correction");
+        darkFieldImagePath.getController().setHeader("Dark Field Image");
     }
 
     @Override

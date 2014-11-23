@@ -16,10 +16,10 @@ public class SingleImageViewerController  extends MarkupControllerBase {
     /////////// Fields ////////////////////////////////////////////////////////////////////////
 
     @FXML
-    private MARTiffViewport selectedImageViewport;
+    private FileGroupSelector diffractionImagePath;
 
     @FXML
-    private FileGroupSelector selectedPath;
+    private MARTiffViewport diffractionImageViewport;
 
     @FXML
     private Label rootPath;
@@ -32,11 +32,11 @@ public class SingleImageViewerController  extends MarkupControllerBase {
         availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
-        ChangeListener<TreeItem<String>> selectedChanged = createListener(selectedImageViewport);
-        selectedPath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
+        ChangeListener<TreeItem<String>> selectedChanged = createListener(diffractionImageViewport);
+        diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
         LabelExt.update(rootPath, root, root);
         try{
-            selectedImageViewport.renderImageFromFile(availableFiles.get(selectedPath.getController().getSelectionModel().getSelectedIndex()));
+            diffractionImageViewport.renderImageFromFile(availableFiles.get(diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
         }
         catch (IOException ex){
             System.out.println("Image file could not be rendered!");
@@ -48,12 +48,12 @@ public class SingleImageViewerController  extends MarkupControllerBase {
     private ChangeListener<TreeItem<String>> createListener(MARTiffViewport imageViewport) {
         return (observable, oldValue, newValue) -> {
             try {
-                MultipleSelectionModel<TreeItem<String>> selected = selectedPath.getController().getSelectionModel();
+                MultipleSelectionModel<TreeItem<String>> selected = diffractionImagePath.getController().getSelectionModel();
                 if (!selected.isEmpty()
                         && newValue.isLeaf()
                         && selected.getSelectedIndex() >= 0){
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
-                    selectedPath.getController().setTooltip(new Tooltip(tip));
+                    diffractionImagePath.getController().setTooltip(new Tooltip(tip));
                     imageViewport.renderImageFromFile(getPath(newValue.getValue()));
                 }
             }
@@ -78,8 +78,8 @@ public class SingleImageViewerController  extends MarkupControllerBase {
 
     @Override
     protected void createCustomControls() {
-        selectedPath = new FileGroupSelector();
-        selectedImageViewport = new MARTiffViewport();
+        diffractionImagePath = new FileGroupSelector();
+        diffractionImageViewport = new MARTiffViewport();
     }
 
     @Override
@@ -91,7 +91,7 @@ public class SingleImageViewerController  extends MarkupControllerBase {
     protected void setDefaults(){
         String rootDefault = "(Unspecified)";
         LabelExt.update(rootPath, rootDefault, null);
-        selectedPath.getController().setHeader("Image Selected for Viewing");
+        diffractionImagePath.getController().setHeader("Image Selected for Viewing");
     }
 
     @Override

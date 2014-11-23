@@ -20,20 +20,20 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     /////////// Fields ////////////////////////////////////////////////////////////////////////
 
     @FXML
+    private FileGroupSelector darkFieldImagePath;
+
+    @FXML
+    private FileGroupSelector diffractionImagePath;
+
+    @FXML
     private MARTiffViewport resultantImageViewport;
-
-    @FXML
-    private FileGroupSelector selectedPath;
-
-    @FXML
-    private FileGroupSelector subtractedPath;
 
     @FXML
     private Label rootPath;
 
     private ArrayList<PathWrapper> availableFiles;
-    private MARTiffImage selectedImage;
-    private MARTiffImage subtractedImage;
+    private MARTiffImage darkFieldImage;
+    private MARTiffImage diffractionImage;
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
@@ -43,16 +43,16 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
 
         ChangeListener<TreeItem<String>> selectedChanged = createSelectedListener();
-        selectedPath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
+        diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
 
         ChangeListener<TreeItem<String>> subtractedChanged = createSubtractedListener();
-        subtractedPath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
+        darkFieldImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
 
         LabelExt.update(rootPath, root, root);
 
         try{
-            selectedImage = FileSysReader.readImageData(availableFiles.get(selectedPath.getController().getSelectionModel().getSelectedIndex()));
-            subtractedImage = FileSysReader.readImageData(availableFiles.get(subtractedPath.getController().getSelectionModel().getSelectedIndex()));
+            diffractionImage = FileSysReader.readImageData(availableFiles.get(diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
+            darkFieldImage = FileSysReader.readImageData(availableFiles.get(darkFieldImagePath.getController().getSelectionModel().getSelectedIndex()));
             subtractImages();
         }
         catch (IOException ex){
@@ -65,13 +65,13 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     private ChangeListener<TreeItem<String>> createSelectedListener() {
         return (observable, oldValue, newValue) -> {
             try {
-                MultipleSelectionModel<TreeItem<String>> selected = selectedPath.getController().getSelectionModel();
+                MultipleSelectionModel<TreeItem<String>> selected = diffractionImagePath.getController().getSelectionModel();
                 if (!selected.isEmpty()
                         && newValue.isLeaf()
                         && selected.getSelectedIndex() >= 0){
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
-                    selectedPath.getController().setTooltip(new Tooltip(tip));
-                    selectedImage = FileSysReader.readImageData(getPath(newValue.getValue()));
+                    diffractionImagePath.getController().setTooltip(new Tooltip(tip));
+                    diffractionImage = FileSysReader.readImageData(getPath(newValue.getValue()));
                     subtractImages();
                 }
             }
@@ -84,13 +84,13 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     private ChangeListener<TreeItem<String>> createSubtractedListener() {
         return (observable, oldValue, newValue) -> {
             try {
-                MultipleSelectionModel<TreeItem<String>> selected = subtractedPath.getController().getSelectionModel();
+                MultipleSelectionModel<TreeItem<String>> selected = darkFieldImagePath.getController().getSelectionModel();
                 if (!selected.isEmpty()
                         && newValue.isLeaf()
                         && selected.getSelectedIndex() >= 0){
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
-                    subtractedPath.getController().setTooltip(new Tooltip(tip));
-                    subtractedImage = FileSysReader.readImageData(getPath(newValue.getValue()));
+                    darkFieldImagePath.getController().setTooltip(new Tooltip(tip));
+                    darkFieldImage = FileSysReader.readImageData(getPath(newValue.getValue()));
                     subtractImages();
                 }
             }
@@ -112,7 +112,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     }
 
     private void subtractImages() throws IOException{
-        MARTiffImage resultantImage = DataSubtraction.subtractImages(subtractedImage, selectedImage);
+        MARTiffImage resultantImage = DataSubtraction.subtractImages(darkFieldImage, diffractionImage);
         resultantImageViewport.renderImage(resultantImage);
     }
 
@@ -132,8 +132,8 @@ public class SingleImageSubtractorController extends MarkupControllerBase {
     protected void setDefaults(){
         String rootDefault = "(Unspecified)";
         LabelExt.update(rootPath, rootDefault, null);
-        selectedPath.getController().setHeader("Inspected Image:");
-        subtractedPath.getController().setHeader("Dark Field Image:");
+        diffractionImagePath.getController().setHeader("Inspected Image:");
+        darkFieldImagePath.getController().setHeader("Dark Field Image:");
     }
 
     @Override
