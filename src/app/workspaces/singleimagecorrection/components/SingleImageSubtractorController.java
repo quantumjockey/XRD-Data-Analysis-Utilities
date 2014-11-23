@@ -7,7 +7,7 @@ import paths.PathWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import mvvmbase.controls.macros.LabelExt;
+import mvvmbase.controls.initialization.LabelExt;
 import mvvmbase.markup.MarkupControllerBase;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataSubtraction;

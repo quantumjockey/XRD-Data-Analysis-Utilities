@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import mvvmbase.controls.factories.SelectableGroupTreeCellFctry;
-import mvvmbase.controls.macros.TreeViewExtLite;
+import mvvmbase.controls.initialization.TreeViewExt;
 import mvvmbase.icons.IconLibrary;
 import mvvmbase.markup.MarkupControllerBase;
 import java.util.ArrayList;
@@ -74,10 +74,10 @@ public class FileGroupSelectorController extends MarkupControllerBase{
         }
 
         if (mode == SelectionMode.MULTIPLE){
-            TreeViewExtLite.populateTree(fileSelection, root, mode, false, (f) -> new SelectableGroupTreeCellFctry(), selectionChangedEvent);
+            TreeViewExt.populateTree(fileSelection, root, mode, false, (f) -> new SelectableGroupTreeCellFctry(), selectionChangedEvent);
         }
         else {
-            TreeViewExtLite.populateTree(fileSelection, root, mode, false, null, selectionChangedEvent);
+            TreeViewExt.populateTree(fileSelection, root, mode, false, null, selectionChangedEvent);
         }
     }
 

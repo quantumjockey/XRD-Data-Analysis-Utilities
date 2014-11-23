@@ -4,7 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 import javafx.util.converter.NumberStringConverter;
-import mvvmbase.controls.macros.ChoiceBoxExt;
+import mvvmbase.controls.initialization.ChoiceBoxExt;
 import mvvmbase.markup.MarkupControllerBase;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

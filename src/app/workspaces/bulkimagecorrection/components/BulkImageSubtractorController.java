@@ -3,7 +3,7 @@ package app.workspaces.bulkimagecorrection.components;
 import app.controls.filegroupselector.FileGroupSelector;
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
-import mvvmbase.controls.macros.LabelExt;
+import mvvmbase.controls.initialization.LabelExt;
 import mvvmbase.dialogs.AlertWindow;
 import dialogs.DirectoryChooserWrapper;
 import javafx.fxml.FXML;

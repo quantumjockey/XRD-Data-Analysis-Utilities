@@ -5,7 +5,7 @@ import app.controls.martiffviewport.MARTiffViewport;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import mvvmbase.controls.macros.LabelExt;
+import mvvmbase.controls.initialization.LabelExt;
 import mvvmbase.markup.MarkupControllerBase;
 import paths.PathWrapper;
 import java.io.IOException;
