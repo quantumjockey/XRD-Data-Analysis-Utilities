@@ -3,6 +3,7 @@ package app.workspaces.bulkimagecorrection.components;
 import app.controls.filegroupselector.FileGroupSelector;
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
+import app.workspaces.WorkspaceController;
 import mvvmbase.controls.initialization.LabelExt;
 import mvvmbase.dialogs.AlertWindow;
 import dialogs.DirectoryChooserWrapper;
@@ -20,7 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class BulkImageSubtractorController extends MarkupControllerBase {
+public class BulkImageSubtractorController extends MarkupControllerBase implements WorkspaceController {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 

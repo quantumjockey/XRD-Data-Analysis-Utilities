@@ -2,6 +2,7 @@ package app.workspaces.singleimageviewer.components;
 
 import app.controls.filegroupselector.FileGroupSelector;
 import app.controls.martiffviewport.MARTiffViewport;
+import app.workspaces.WorkspaceController;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,7 +12,7 @@ import paths.PathWrapper;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class SingleImageViewerController  extends MarkupControllerBase {
+public class SingleImageViewerController extends MarkupControllerBase implements WorkspaceController {
 
     /////////// Fields ////////////////////////////////////////////////////////////////////////
 

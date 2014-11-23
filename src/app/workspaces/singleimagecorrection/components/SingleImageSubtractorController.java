@@ -3,6 +3,7 @@ package app.workspaces.singleimagecorrection.components;
 import app.controls.filegroupselector.FileGroupSelector;
 import app.controls.martiffviewport.MARTiffViewport;
 import app.filesystem.FileSysReader;
+import app.workspaces.WorkspaceController;
 import paths.PathWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import xrdtiffoperations.math.DataSubtraction;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class SingleImageSubtractorController extends MarkupControllerBase {
+public class SingleImageSubtractorController extends MarkupControllerBase implements WorkspaceController {
 
     /////////// Fields ////////////////////////////////////////////////////////////////////////
 
