@@ -8,7 +8,7 @@ import mvvmbase.window.WindowControllerBase;
 import javafx.fxml.FXML;
 import paths.PathWrapper;
 import paths.filters.FilterWrapper;
-
+import xrdtiffoperations.imagemodel.FileExtensions;
 import java.io.*;
 import java.util.*;
 
@@ -54,7 +54,7 @@ public class MainWindowController extends WindowControllerBase {
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private ArrayList<PathWrapper> parseSelectedDirectory(){
-        FilterWrapper tiffFilter = new FilterWrapper(new String[]{".tif", ".tiff"});
+        FilterWrapper tiffFilter = new FilterWrapper(new String[]{FileExtensions.DEFAULT, FileExtensions.EXTENDED_DEFAULT, FileExtensions.MAR_2300, FileExtensions.MAR_3450});
         File[] images = selectedDirectory.listFiles(tiffFilter.getFilter());
         ArrayList<PathWrapper> imagesPaths = new ArrayList<>();
         for (File item : images){
