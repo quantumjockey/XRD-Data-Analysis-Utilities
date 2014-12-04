@@ -50,7 +50,9 @@ public class SingleImageViewerController extends MarkupControllerBase implements
         return (observable, oldValue, newValue) -> {
             try {
                 MultipleSelectionModel<TreeItem<String>> selected = diffractionImagePath.getController().getSelectionModel();
-                if (!selected.isEmpty()
+                if (selected != null
+                        && !selected.isEmpty()
+                        && newValue != null
                         && newValue.isLeaf()
                         && selected.getSelectedIndex() >= 0){
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
