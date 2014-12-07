@@ -40,6 +40,11 @@ public class MARTiffViewportController extends MarkupControllerBase {
     private final double DEFAULT_ZOOM_MAX = 6.0;
     private final double AUTO_ZOOM_INCREMENT = 0.5;
 
+    private final String TIFF_8_BIT_INT = "Tiff 8-Bit (Scaled)";
+    private final String TIFF_16_BIT_INT = "Tiff 16-Bit (Scaled)";
+    private final String TIFF_32_BIT_INT = "Tiff 32-Bit (Int)";
+    private final String TIFF_32_BIT_FLOAT = "Tiff 32-Bit (Float)";
+
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     @FXML
@@ -108,29 +113,60 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void exportImage(boolean withMask){
+    private void exportImage(String imageType){
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
         MARTiffImage masked = null;
         int maskLb = maskOptions.getController().getLowerBound();
         int maskUb = maskOptions.getController().getUpperBound();
-        if(withMask){
+        boolean isMasked = (cachedImage.getMaxValue() != maskUb || cachedImage.getMinValue() != maskLb);
+
+        if(isMasked){
             masked = DataMasking.maskImage(cachedImage, maskLb, maskUb);
             dialog.setInitialFileName(masked.getFilename());
         }
         else {
             dialog.setInitialFileName(cachedImage.getFilename());
         }
+
         File destination = dialog.getSaveDirectory();
-        FileSysWriter.writeImageData(destination, (withMask) ? masked : cachedImage);
+
+        switch (imageType) {
+            case TIFF_8_BIT_INT:
+                // requires argument for image type
+                FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
+                break;
+            case TIFF_16_BIT_INT:
+                // requires argument for image type
+                FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
+                break;
+            case TIFF_32_BIT_INT:
+                // requires argument for image type
+                FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
+                break;
+            case TIFF_32_BIT_FLOAT:
+                // requires argument for image type
+                FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
+                break;
+        }
     }
 
-    private Void exportMaskedImage(){
-        exportImage(true);
+    private Void exportEightBitIntImage(){
+        exportImage(TIFF_8_BIT_INT);
         return null;
     }
 
-    private Void exportRawImage(){
-        exportImage(false);
+    private Void exportSixteenBitIntImage(){
+        exportImage(TIFF_16_BIT_INT);
+        return null;
+    }
+
+    private Void exportThirtyTwoBitIntImage(){
+        exportImage(TIFF_32_BIT_INT);
+        return null;
+    }
+
+    private Void exportThirtyTwoBitFloatImage(){
+        exportImage(TIFF_32_BIT_FLOAT);
         return null;
     }
 
@@ -179,8 +215,10 @@ public class MARTiffViewportController extends MarkupControllerBase {
         updatePixelScale(cachedImage);
         ArrayList<ActionDelegate<Void>> exportActions;
         exportActions = new ArrayList<>();
-        exportActions.add(new ActionDelegate<>("Raw Data", this::exportRawImage));
-        exportActions.add(new ActionDelegate<>("Masked Data", this::exportMaskedImage));
+        exportActions.add(new ActionDelegate<>(TIFF_32_BIT_INT, this::exportThirtyTwoBitIntImage));
+        exportActions.add(new ActionDelegate<>(TIFF_32_BIT_FLOAT, this::exportThirtyTwoBitFloatImage));
+        exportActions.add(new ActionDelegate<>(TIFF_16_BIT_INT, this::exportSixteenBitIntImage));
+        exportActions.add(new ActionDelegate<>(TIFF_8_BIT_INT, this::exportEightBitIntImage));
         exportOptions.getController().updateSelections(exportActions);
         selectedRamp = renderOptions.getController().getActiveRamp();
         viewportTitle.setText("(No Data Selected)");
