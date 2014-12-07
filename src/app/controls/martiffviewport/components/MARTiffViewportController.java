@@ -37,9 +37,8 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
-    private final double DEFAULT_ZOOM_MAX = 6.0;
     private final double AUTO_ZOOM_INCREMENT = 0.5;
-
+    private final double DEFAULT_ZOOM_MAX = 6.0;
     private final String TIFF_8_BIT_INT = "Tiff 8-Bit (Scaled)";
     private final String TIFF_16_BIT_INT = "Tiff 16-Bit (Scaled)";
     private final String TIFF_32_BIT_INT = "Tiff 32-Bit (Int)";
@@ -76,10 +75,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public MARTiffImage getCachedImage() {
-        return cachedImage;
-    }
-
     public void renderImage(MARTiffImage image) throws IOException {
         cachedImage = image;
         updateMaskLimiters(image);
@@ -105,10 +100,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
                         maskOptions.getController().getUpperBound(),
                         maskOptions.getController().getMaskHue())));
         cachedImage = image;
-    }
-
-    public void setViewportTitle(String title){
-        viewportTitle.setText(title);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
