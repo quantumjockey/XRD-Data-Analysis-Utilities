@@ -27,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import paths.PathWrapper;
 import paths.SystemAttributes;
+import xrdtiffoperations.imagemodel.FileTypes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
 import xrdtiffvisualization.MARTiffVisualizer;
@@ -39,10 +40,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
     private final double AUTO_ZOOM_INCREMENT = 0.5;
     private final double DEFAULT_ZOOM_MAX = 6.0;
-    private final String TIFF_8_BIT_INT = "Tiff 8-Bit (Scaled)";
-    private final String TIFF_16_BIT_INT = "Tiff 16-Bit (Scaled)";
-    private final String TIFF_32_BIT_INT = "Tiff 32-Bit (Int)";
-    private final String TIFF_32_BIT_FLOAT = "Tiff 32-Bit (Float)";
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -122,19 +119,19 @@ public class MARTiffViewportController extends MarkupControllerBase {
         File destination = dialog.getSaveDirectory();
 
         switch (imageType) {
-            case TIFF_8_BIT_INT:
+            case FileTypes.TIFF_8_BIT_INT:
                 // requires argument for image type
                 FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
                 break;
-            case TIFF_16_BIT_INT:
+            case FileTypes.TIFF_16_BIT_INT:
                 // requires argument for image type
                 FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
                 break;
-            case TIFF_32_BIT_INT:
+            case FileTypes.TIFF_32_BIT_INT:
                 // requires argument for image type
                 FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
                 break;
-            case TIFF_32_BIT_FLOAT:
+            case FileTypes.TIFF_32_BIT_FLOAT:
                 // requires argument for image type
                 FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
                 break;
@@ -142,22 +139,22 @@ public class MARTiffViewportController extends MarkupControllerBase {
     }
 
     private Void exportEightBitIntImage(){
-        exportImage(TIFF_8_BIT_INT);
+        exportImage(FileTypes.TIFF_8_BIT_INT);
         return null;
     }
 
     private Void exportSixteenBitIntImage(){
-        exportImage(TIFF_16_BIT_INT);
+        exportImage(FileTypes.TIFF_16_BIT_INT);
         return null;
     }
 
     private Void exportThirtyTwoBitIntImage(){
-        exportImage(TIFF_32_BIT_INT);
+        exportImage(FileTypes.TIFF_32_BIT_INT);
         return null;
     }
 
     private Void exportThirtyTwoBitFloatImage(){
-        exportImage(TIFF_32_BIT_FLOAT);
+        exportImage(FileTypes.TIFF_32_BIT_FLOAT);
         return null;
     }
 
@@ -206,10 +203,10 @@ public class MARTiffViewportController extends MarkupControllerBase {
         updatePixelScale(cachedImage);
         ArrayList<ActionDelegate<Void>> exportActions;
         exportActions = new ArrayList<>();
-        exportActions.add(new ActionDelegate<>(TIFF_32_BIT_INT, this::exportThirtyTwoBitIntImage));
-        exportActions.add(new ActionDelegate<>(TIFF_32_BIT_FLOAT, this::exportThirtyTwoBitFloatImage));
-        exportActions.add(new ActionDelegate<>(TIFF_16_BIT_INT, this::exportSixteenBitIntImage));
-        exportActions.add(new ActionDelegate<>(TIFF_8_BIT_INT, this::exportEightBitIntImage));
+        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_INT, this::exportThirtyTwoBitIntImage));
+        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_FLOAT, this::exportThirtyTwoBitFloatImage));
+        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_16_BIT_INT, this::exportSixteenBitIntImage));
+        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_8_BIT_INT, this::exportEightBitIntImage));
         exportOptions.getController().updateSelections(exportActions);
         selectedRamp = renderOptions.getController().getActiveRamp();
         viewportTitle.setText("(No Data Selected)");
