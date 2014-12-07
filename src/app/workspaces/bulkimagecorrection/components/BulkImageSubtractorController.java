@@ -159,7 +159,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
                 MARTiffImage result = DataSubtraction.subtractImages(subtractedImage, baseImage);
                 result = filterImage(result);
                 String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + result.getFilename();
-                FileSysWriter.writeImageData(new File(filePath), result);
+                FileSysWriter.writeImageData(new File(filePath), result, null);
             }
         });
     }
