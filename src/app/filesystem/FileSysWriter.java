@@ -8,10 +8,10 @@ public class FileSysWriter {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public static void writeImageData(File path, MARTiffImage image){
+    public static void writeImageData(File path, MARTiffImage image, String type){
         if (path != null) {
             TiffWriter writer = new TiffWriter(image);
-            writer.write(path.getPath());
+            writer.write(path.getPath(), type);
         }
     }
 

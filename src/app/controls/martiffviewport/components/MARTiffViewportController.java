@@ -118,24 +118,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
 
         File destination = dialog.getSaveDirectory();
 
-        switch (imageType) {
-            case FileTypes.TIFF_8_BIT_INT:
-                // requires argument for image type
-                FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
-                break;
-            case FileTypes.TIFF_16_BIT_INT:
-                // requires argument for image type
-                FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
-                break;
-            case FileTypes.TIFF_32_BIT_INT:
-                // requires argument for image type
-                FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
-                break;
-            case FileTypes.TIFF_32_BIT_FLOAT:
-                // requires argument for image type
-                FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage);
-                break;
-        }
+        FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage, imageType);
     }
 
     private Void exportEightBitIntImage(){
