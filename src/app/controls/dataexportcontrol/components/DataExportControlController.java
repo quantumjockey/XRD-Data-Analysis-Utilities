@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Tooltip;
 import mvvmbase.action.ActionDelegate;
 import mvvmbase.controls.initialization.ChoiceBoxExt;
 import mvvmbase.markup.MarkupControllerBase;
@@ -71,7 +72,10 @@ public class DataExportControlController extends MarkupControllerBase {
 
     @Override
     protected void setListeners(){
-        ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> setSelected(options.get(newValue.intValue()));
+        ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> {
+            setSelected(options.get(newValue.intValue()));
+            exportOptions.setTooltip(new Tooltip(options.get(newValue.intValue()).getIdentifier()));
+        };
         exportOptions.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);
     }
 
