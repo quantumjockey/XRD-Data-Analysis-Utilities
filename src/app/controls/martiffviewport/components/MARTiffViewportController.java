@@ -121,16 +121,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
         FileSysWriter.writeImageData(destination, (isMasked) ? masked : cachedImage, imageType);
     }
 
-    private Void exportEightBitIntImage(){
-        exportImage(FileTypes.TIFF_8_BIT_INT);
-        return null;
-    }
-
-    private Void exportSixteenBitIntImage(){
-        exportImage(FileTypes.TIFF_16_BIT_INT);
-        return null;
-    }
-
     private Void exportThirtyTwoBitIntImage(){
         exportImage(FileTypes.TIFF_32_BIT_INT);
         return null;
@@ -188,8 +178,6 @@ public class MARTiffViewportController extends MarkupControllerBase {
         exportActions = new ArrayList<>();
         exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_INT, this::exportThirtyTwoBitIntImage));
         exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_FLOAT, this::exportThirtyTwoBitFloatImage));
-        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_16_BIT_INT, this::exportSixteenBitIntImage));
-        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_8_BIT_INT, this::exportEightBitIntImage));
         exportOptions.getController().updateSelections(exportActions);
         selectedRamp = renderOptions.getController().getActiveRamp();
         viewportTitle.setText("(No Data Selected)");
