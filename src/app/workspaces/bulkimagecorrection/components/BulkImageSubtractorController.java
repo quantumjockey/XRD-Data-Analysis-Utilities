@@ -18,6 +18,7 @@ import xrdtiffoperations.imagemodel.FileTypes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.math.DataSubtraction;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -122,6 +123,15 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         return result;
     }
 
+    private void openDirectoryInFileExplorerWindow(String directoryPath){
+        try {
+            Desktop.getDesktop().open(new File(directoryPath));
+        }
+        catch (IOException ex){
+            System.out.println("File explorer window could not be opened.");
+        }
+    }
+
     private void streamImageSubtraction(File destination, ArrayList<PathWrapper> selectedPaths, MARTiffImage subtractedImage){
         String basePath = destination.getPath();
 
@@ -147,6 +157,8 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         }
 
         final String newerDestination = newDestination;
+
+        openDirectoryInFileExplorerWindow(newDestination);
 
         selectedPaths.forEach((path) -> {
             MARTiffImage baseImage = null;
