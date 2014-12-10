@@ -4,6 +4,8 @@ import app.controls.filegroupselector.FileGroupSelector;
 import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
 import app.workspaces.WorkspaceController;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import mvvmbase.controls.initialization.LabelExt;
 import mvvmbase.dialogs.AlertWindow;
 import dialogs.DirectoryChooserWrapper;
@@ -12,6 +14,7 @@ import javafx.scene.control.*;
 import mvvmbase.markup.MarkupControllerBase;
 import paths.PathWrapper;
 import paths.SystemAttributes;
+import xrdtiffoperations.imagemodel.FileTypes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.math.DataSubtraction;
@@ -159,7 +162,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
                 MARTiffImage result = DataSubtraction.subtractImages(subtractedImage, baseImage);
                 result = filterImage(result);
                 String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + result.getFilename();
-                FileSysWriter.writeImageData(new File(filePath), result, null);
+                FileSysWriter.writeImageData(new File(filePath), result, FileTypes.TIFF_32_BIT_INT);
             }
         });
     }
