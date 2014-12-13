@@ -21,7 +21,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
     /////////// Fields ////////////////////////////////////////////////////////////////////////
 
     @FXML
-    private FileGroupSelector darkFieldImagePath;
+    private FileGroupSelector backgroundImagePath;
 
     @FXML
     private FileGroupSelector diffractionImagePath;
@@ -33,7 +33,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
     private Label rootPath;
 
     private ArrayList<PathWrapper> availableFiles;
-    private MARTiffImage darkFieldImage;
+    private MARTiffImage backgroundImage;
     private MARTiffImage diffractionImage;
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
@@ -47,13 +47,13 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
         diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
 
         ChangeListener<TreeItem<String>> subtractedChanged = createSubtractedListener();
-        darkFieldImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
+        backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
 
         LabelExt.update(rootPath, root, root);
 
         try{
             diffractionImage = FileSysReader.readImageData(availableFiles.get(diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
-            darkFieldImage = FileSysReader.readImageData(availableFiles.get(darkFieldImagePath.getController().getSelectionModel().getSelectedIndex()));
+            backgroundImage = FileSysReader.readImageData(availableFiles.get(backgroundImagePath.getController().getSelectionModel().getSelectedIndex()));
             subtractImages();
         }
         catch (IOException ex){
@@ -87,15 +87,15 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
     private ChangeListener<TreeItem<String>> createSubtractedListener() {
         return (observable, oldValue, newValue) -> {
             try {
-                MultipleSelectionModel<TreeItem<String>> selected = darkFieldImagePath.getController().getSelectionModel();
+                MultipleSelectionModel<TreeItem<String>> selected = backgroundImagePath.getController().getSelectionModel();
                 if (selected != null
                         && !selected.isEmpty()
                         && newValue != null
                         && newValue.isLeaf()
                         && selected.getSelectedIndex() >= 0){
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
-                    darkFieldImagePath.getController().setTooltip(new Tooltip(tip));
-                    darkFieldImage = FileSysReader.readImageData(getPath(newValue.getValue()));
+                    backgroundImagePath.getController().setTooltip(new Tooltip(tip));
+                    backgroundImage = FileSysReader.readImageData(getPath(newValue.getValue()));
                     subtractImages();
                 }
             }
@@ -117,7 +117,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
     }
 
     private void subtractImages() throws IOException{
-        MARTiffImage resultantImage = DataSubtraction.subtractImages(darkFieldImage, diffractionImage);
+        MARTiffImage resultantImage = DataSubtraction.subtractImages(backgroundImage, diffractionImage);
         resultantImageViewport.renderImage(resultantImage);
     }
 
@@ -138,7 +138,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
         String rootDefault = "(Unspecified)";
         LabelExt.update(rootPath, rootDefault, null);
         diffractionImagePath.getController().setHeader("Inspected Image:");
-        darkFieldImagePath.getController().setHeader("Dark Field Image:");
+        backgroundImagePath.getController().setHeader("Background Image:");
     }
 
     @Override

@@ -30,7 +30,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     @FXML
-    private FileGroupSelector darkFieldImagePath;
+    private FileGroupSelector backgroundImagePath;
 
     @FXML
     private FileGroupSelector diffractionImagePath;
@@ -52,8 +52,8 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
     public void subtractImageGroup() throws IOException {
         if (diffractionImagePath.getController().getSelectionModel().isEmpty()
                 || !diffractionImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()
-                || darkFieldImagePath.getController().getSelectionModel().isEmpty()
-                || !darkFieldImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()){
+                || backgroundImagePath.getController().getSelectionModel().isEmpty()
+                || !backgroundImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()){
             AlertWindow alert = new AlertWindow("Invalid Operation", "No images are selected for subtraction.");
             alert.show();
         }
@@ -73,7 +73,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
         diffractionImagePath.getController().populateTree(temp, root, SelectionMode.MULTIPLE, null);
-        darkFieldImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, null);
+        backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, null);
         LabelExt.update(rootPath, root, root);
     }
 
@@ -96,7 +96,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
     private MARTiffImage getSubtractedImageData() throws IOException{
         PathWrapper subtracted = null;
         for (PathWrapper file : availableFiles){
-            if (file.getPathTail().contains(darkFieldImagePath.getController().getSelectionModel().getSelectedItem().getValue())){
+            if (file.getPathTail().contains(backgroundImagePath.getController().getSelectionModel().getSelectedItem().getValue())){
                 subtracted = file;
             }
         }
@@ -132,7 +132,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         }
     }
 
-    private void streamImageSubtraction(File destination, ArrayList<PathWrapper> selectedPaths, MARTiffImage subtractedImage){
+    private void streamImageSubtraction(File destination, ArrayList<PathWrapper> selectedPaths, MARTiffImage backgroundImage){
         String basePath = destination.getPath();
 
         String[] parts = selectedPaths.get(0).getPathTail().split("_");
@@ -170,8 +170,8 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
                 ex.printStackTrace();
             }
 
-            if (baseImage != null && subtractedImage != null) {
-                MARTiffImage result = DataSubtraction.subtractImages(subtractedImage, baseImage);
+            if (baseImage != null && backgroundImage != null) {
+                MARTiffImage result = DataSubtraction.subtractImages(backgroundImage, baseImage);
                 result = filterImage(result);
                 String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + result.getFilename();
                 FileSysWriter.writeImageData(new File(filePath), result, FileTypes.TIFF_32_BIT_INT);
@@ -184,7 +184,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
     @Override
     protected void createCustomControls() {
         diffractionImagePath = new FileGroupSelector();
-        darkFieldImagePath = new FileGroupSelector();
+        backgroundImagePath = new FileGroupSelector();
     }
 
     @Override
@@ -197,7 +197,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         String rootDefault = "(Unspecified)";
         LabelExt.update(rootPath, rootDefault, null);
         diffractionImagePath.getController().setHeader("Image(s) Selected for Correction");
-        darkFieldImagePath.getController().setHeader("Dark Field Image");
+        backgroundImagePath.getController().setHeader("Background Image");
     }
 
     @Override

@@ -37,7 +37,7 @@
                         <VBox alignment="TOP_CENTER" spacing="5.0">
                             <children>
                                 <FileGroupSelector fx:id="diffractionImagePath" />
-                                <FileGroupSelector fx:id="darkFieldImagePath" />
+                                <FileGroupSelector fx:id="backgroundImagePath" />
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
