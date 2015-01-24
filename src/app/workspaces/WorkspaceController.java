@@ -1,6 +1,6 @@
 package app.workspaces;
 
-import paths.PathWrapper;
+import com.quantumjockey.paths.PathWrapper;
 
 import java.util.ArrayList;
 

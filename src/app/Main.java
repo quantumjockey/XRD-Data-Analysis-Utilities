@@ -1,10 +1,10 @@
 package app;
 
 import app.mainwindow.MainWindowController;
-import mvvmbase.window.initialization.WindowInitializer;
+import com.quantumjockey.mvvmbase.window.initialization.WindowInitializer;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import paths.SystemAttributes;
+import com.quantumjockey.paths.SystemAttributes;
 
 public class Main extends Application {
 

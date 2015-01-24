@@ -4,15 +4,15 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 import javafx.util.converter.NumberStringConverter;
-import mvvmbase.controls.initialization.ChoiceBoxExt;
-import mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxExt;
+import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.paint.Color;
-import colorramps.GradientRamp;
+import com.quantumjockey.colorramps.GradientRamp;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

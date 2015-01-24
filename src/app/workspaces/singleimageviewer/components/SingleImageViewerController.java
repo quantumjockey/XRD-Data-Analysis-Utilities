@@ -6,9 +6,9 @@ import app.workspaces.WorkspaceController;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import mvvmbase.controls.initialization.LabelExt;
-import mvvmbase.markup.MarkupControllerBase;
-import paths.PathWrapper;
+import com.quantumjockey.mvvmbase.controls.initialization.LabelExt;
+import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.paths.PathWrapper;
 import java.io.IOException;
 import java.util.ArrayList;
 

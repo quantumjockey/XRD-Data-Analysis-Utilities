@@ -1,10 +1,10 @@
 package app.controls.martiffviewport;
 
-import mvvmbase.markup.initialization.MarkupInitializer;
+import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
 import app.controls.martiffviewport.components.MARTiffViewportController;
 import javafx.scene.control.TitledPane;
-import mvvmbase.markup.initialization.MarkupInitializerMacro;
-import paths.PathWrapper;
+import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
+import com.quantumjockey.paths.PathWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import java.io.IOException;
 

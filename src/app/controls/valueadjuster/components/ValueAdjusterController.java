@@ -1,6 +1,6 @@
 package app.controls.valueadjuster.components;
 
-import mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;

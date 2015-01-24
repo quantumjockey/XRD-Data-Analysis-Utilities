@@ -1,9 +1,9 @@
 package app.controls.maskoptionscontrol;
 
-import mvvmbase.markup.initialization.MarkupInitializer;
+import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
 import app.controls.maskoptionscontrol.components.MaskOptionsControlController;
 import javafx.scene.layout.VBox;
-import mvvmbase.markup.initialization.MarkupInitializerMacro;
+import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class MaskOptionsControl extends VBox {
 

@@ -1,9 +1,9 @@
 package app.controls.valueadjuster;
 
-import mvvmbase.markup.initialization.MarkupInitializer;
+import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
 import app.controls.valueadjuster.components.ValueAdjusterController;
 import javafx.scene.layout.VBox;
-import mvvmbase.markup.initialization.MarkupInitializerMacro;
+import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class ValueAdjuster extends VBox {
 

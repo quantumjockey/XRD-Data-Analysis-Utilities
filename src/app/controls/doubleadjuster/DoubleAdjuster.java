@@ -2,8 +2,8 @@ package app.controls.doubleadjuster;
 
 import app.controls.doubleadjuster.components.DoubleAdjusterController;
 import javafx.scene.layout.VBox;
-import mvvmbase.markup.initialization.MarkupInitializer;
-import mvvmbase.markup.initialization.MarkupInitializerMacro;
+import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
+import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class DoubleAdjuster extends VBox {
 

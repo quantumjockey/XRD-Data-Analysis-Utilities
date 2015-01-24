@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
-import mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 
 import java.text.NumberFormat;
 

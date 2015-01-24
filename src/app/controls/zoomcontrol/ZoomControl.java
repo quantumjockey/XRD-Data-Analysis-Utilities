@@ -2,8 +2,8 @@ package app.controls.zoomcontrol;
 
 import app.controls.zoomcontrol.components.ZoomControlController;
 import javafx.scene.layout.VBox;
-import mvvmbase.markup.initialization.MarkupInitializer;
-import mvvmbase.markup.initialization.MarkupInitializerMacro;
+import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
+import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class ZoomControl extends VBox {
 

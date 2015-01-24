@@ -4,12 +4,12 @@ import app.controls.filegroupselector.FileGroupSelector;
 import app.controls.martiffviewport.MARTiffViewport;
 import app.filesystem.FileSysReader;
 import app.workspaces.WorkspaceController;
-import paths.PathWrapper;
+import com.quantumjockey.paths.PathWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import mvvmbase.controls.initialization.LabelExt;
-import mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.mvvmbase.controls.initialization.LabelExt;
+import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataSubtraction;
 

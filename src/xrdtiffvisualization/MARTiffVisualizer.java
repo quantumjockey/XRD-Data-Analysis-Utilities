@@ -5,7 +5,7 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
-import colorramps.GradientRamp;
+import com.quantumjockey.colorramps.GradientRamp;
 import xrdtiffvisualization.masking.BoundedMask;
 
 import java.io.IOException;

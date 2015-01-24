@@ -6,9 +6,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tooltip;
-import mvvmbase.action.ActionDelegate;
-import mvvmbase.controls.initialization.ChoiceBoxExt;
-import mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.mvvmbase.action.ActionDelegate;
+import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxExt;
+import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 
 import java.util.ArrayList;
 

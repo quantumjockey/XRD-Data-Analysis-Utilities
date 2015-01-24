@@ -1,6 +1,6 @@
 package app.filesystem;
 
-import paths.PathWrapper;
+import com.quantumjockey.paths.PathWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.filehandling.io.TiffReader;
 import java.io.IOException;
