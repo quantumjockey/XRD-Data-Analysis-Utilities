@@ -1,7 +1,7 @@
 package app.workspaces.singleimageviewer.components;
 
 import app.controls.filegroupselector.FileGroupSelector;
-import app.controls.martiffviewport.MARTiffViewport;
+import app.controls.diffractionframeviewport.DiffractionFrameViewport;
 import app.workspaces.WorkspaceController;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -20,7 +20,7 @@ public class SingleImageViewerController extends MarkupControllerBase implements
     private FileGroupSelector diffractionImagePath;
 
     @FXML
-    private MARTiffViewport diffractionImageViewport;
+    private DiffractionFrameViewport diffractionImageViewport;
 
     @FXML
     private Label rootPath;
@@ -46,7 +46,7 @@ public class SingleImageViewerController extends MarkupControllerBase implements
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private ChangeListener<TreeItem<String>> createListener(MARTiffViewport imageViewport) {
+    private ChangeListener<TreeItem<String>> createListener(DiffractionFrameViewport imageViewport) {
         return (observable, oldValue, newValue) -> {
             try {
                 MultipleSelectionModel<TreeItem<String>> selected = diffractionImagePath.getController().getSelectionModel();
@@ -82,7 +82,7 @@ public class SingleImageViewerController extends MarkupControllerBase implements
     @Override
     protected void createCustomControls() {
         diffractionImagePath = new FileGroupSelector();
-        diffractionImageViewport = new MARTiffViewport();
+        diffractionImageViewport = new DiffractionFrameViewport();
     }
 
     @Override

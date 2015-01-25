@@ -10,7 +10,7 @@ import xrdtiffvisualization.masking.BoundedMask;
 
 import java.io.IOException;
 
-public class MARTiffVisualizer {
+public class DiffractionFrameVisualizer {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
@@ -23,7 +23,7 @@ public class MARTiffVisualizer {
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public MARTiffVisualizer(MARTiffImage imageData){
+    public DiffractionFrameVisualizer(MARTiffImage imageData){
         data = imageData;
         valueOffset = scaleImageZero();
     }

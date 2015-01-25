@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
-<?import app.controls.martiffviewport.MARTiffViewport?>
+<?import app.controls.diffractionframeviewport.DiffractionFrameViewport?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TreeView?>
 
@@ -27,7 +27,7 @@
                     <content>
                         <VBox>
                             <children>
-                                <MARTiffViewport fx:id="resultantImageViewport" />
+                                <DiffractionFrameViewport fx:id="resultantImageViewport" />
                             </children>
                         </VBox>
                     </content>

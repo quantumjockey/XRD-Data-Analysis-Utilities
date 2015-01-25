@@ -1,18 +1,18 @@
-package app.controls.martiffviewport;
+package app.controls.diffractionframeviewport;
 
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
-import app.controls.martiffviewport.components.MARTiffViewportController;
+import app.controls.diffractionframeviewport.components.DiffractionFrameViewportController;
 import javafx.scene.control.TitledPane;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 import com.quantumjockey.paths.PathWrapper;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import java.io.IOException;
 
-public class MARTiffViewport extends TitledPane {
+public class DiffractionFrameViewport extends TitledPane {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
-    private final String MARKUP_FILE = "MARTiffViewportView.fxml";
+    private final String MARKUP_FILE = "DiffractionFrameViewportView.fxml";
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -20,14 +20,14 @@ public class MARTiffViewport extends TitledPane {
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public MARTiffViewport() {
+    public DiffractionFrameViewport() {
         initializeComponents();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public MARTiffViewportController getController(){
-        return (MARTiffViewportController)markupContainer.getController();
+    public DiffractionFrameViewportController getController(){
+        return (DiffractionFrameViewportController)markupContainer.getController();
     }
 
     public void renderImage(MARTiffImage image) throws IOException{
@@ -41,7 +41,7 @@ public class MARTiffViewport extends TitledPane {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents(){
-        markupContainer = MarkupInitializerMacro.createInitializer(this, MARTiffViewportController.class, MARKUP_FILE);
+        markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameViewportController.class, MARKUP_FILE);
         markupContainer.load();
     }
 

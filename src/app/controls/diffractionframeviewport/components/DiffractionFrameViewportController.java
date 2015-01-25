@@ -1,4 +1,4 @@
-package app.controls.martiffviewport.components;
+package app.controls.diffractionframeviewport.components;
 
 import app.controls.dataexportcontrol.DataExportControl;
 import app.filesystem.FileSysReader;
@@ -30,11 +30,11 @@ import com.quantumjockey.paths.SystemAttributes;
 import xrdtiffoperations.imagemodel.FileTypes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
-import xrdtiffvisualization.MARTiffVisualizer;
+import xrdtiffvisualization.DiffractionFrameVisualizer;
 import com.quantumjockey.colorramps.GradientRamp;
 import xrdtiffvisualization.masking.BoundedMask;
 
-public class MARTiffViewportController extends MarkupControllerBase {
+public class DiffractionFrameViewportController extends MarkupControllerBase {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
@@ -77,7 +77,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
         updateMaskLimiters(image);
         updatePixelScale(image);
         updateZoomScale(image);
-        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
+        DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
         imageViewport.setSmooth(false);
         imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp));
         viewportTitle.setText(image.getFilename());
@@ -89,7 +89,7 @@ public class MARTiffViewportController extends MarkupControllerBase {
     }
 
     public void renderImageWithMask(MARTiffImage image) throws IOException {
-        MARTiffVisualizer marImageGraph = new MARTiffVisualizer(image);
+        DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
         imageViewport.setImage(marImageGraph.renderDataAsImage(
                 selectedRamp,
                 new BoundedMask(

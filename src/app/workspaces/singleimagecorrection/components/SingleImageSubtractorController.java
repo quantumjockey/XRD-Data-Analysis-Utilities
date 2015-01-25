@@ -1,7 +1,7 @@
 package app.workspaces.singleimagecorrection.components;
 
 import app.controls.filegroupselector.FileGroupSelector;
-import app.controls.martiffviewport.MARTiffViewport;
+import app.controls.diffractionframeviewport.DiffractionFrameViewport;
 import app.filesystem.FileSysReader;
 import app.workspaces.WorkspaceController;
 import com.quantumjockey.paths.PathWrapper;
@@ -27,7 +27,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
     private FileGroupSelector diffractionImagePath;
 
     @FXML
-    private MARTiffViewport resultantImageViewport;
+    private DiffractionFrameViewport resultantImageViewport;
 
     @FXML
     private Label rootPath;
@@ -125,7 +125,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
 
     @Override
     protected void createCustomControls() {
-        resultantImageViewport = new MARTiffViewport();
+        resultantImageViewport = new DiffractionFrameViewport();
     }
 
     @Override
