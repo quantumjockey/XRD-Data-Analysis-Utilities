@@ -1,13 +1,10 @@
 package xrdtiffvisualization;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
+import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import com.quantumjockey.colorramps.GradientRamp;
 import xrdtiffvisualization.masking.BoundedMask;
-
 import java.io.IOException;
 
 public class DiffractionFrameVisualizer {
@@ -30,15 +27,14 @@ public class DiffractionFrameVisualizer {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public Image renderDataAsImage(GradientRamp _ramp) throws IOException {
-        WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
-        renderImageViaColorRamp(displayed.getPixelWriter(), data.getMaxValue(), _ramp);
-        return displayed;
-    }
-
     public Image renderDataAsImage(GradientRamp _ramp, BoundedMask mask) throws IOException {
         WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
-        renderImageWithMask(displayed.getPixelWriter(), data.getMaxValue(), _ramp, mask);
+        if (mask != null) {
+            renderImageWithMask(displayed.getPixelWriter(), data.getMaxValue(), _ramp, mask);
+        }
+        else{
+            renderImageViaColorRamp(displayed.getPixelWriter(), data.getMaxValue(), _ramp);
+        }
         return displayed;
     }
 
@@ -46,16 +42,13 @@ public class DiffractionFrameVisualizer {
 
     private void renderImageViaColorRamp(PixelWriter writer, int maxValue, GradientRamp ramp) throws IOException{
         GradientRamp colorRamp;
-        if (ramp == null) {
-            colorRamp = new GradientRamp(DEFAULT_RAMP);
-        }
-        else{
-            colorRamp = ramp;
-        }
+
+        colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
+
         for (int y = 0; y < data.getHeight(); y++) {
             for (int x = 0; x < data.getWidth(); x++) {
                 int value = data.getIntensityMapValue(y, x);
-                double coefficient = (double)(value + valueOffset) / (double)(maxValue + valueOffset);
+                double coefficient = (double) (value + valueOffset) / (double) (maxValue + valueOffset);
                 writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
             }
         }
@@ -63,12 +56,9 @@ public class DiffractionFrameVisualizer {
 
     private void renderImageWithMask(PixelWriter writer, int maxValue, GradientRamp ramp, BoundedMask mask) throws IOException{
         GradientRamp colorRamp;
-        if (ramp == null) {
-            colorRamp = new GradientRamp(DEFAULT_RAMP);
-        }
-        else{
-            colorRamp = ramp;
-        }
+
+        colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
+
         for (int y = 0; y < data.getHeight(); y++) {
             for (int x = 0; x < data.getWidth(); x++) {
                 int value = data.getIntensityMapValue(y, x);
@@ -76,7 +66,7 @@ public class DiffractionFrameVisualizer {
                     writer.setColor(x, y, mask.getMaskHue());
                 }
                 else {
-                    double coefficient = (double)(value + valueOffset) / (double)(maxValue + valueOffset);
+                    double coefficient = (double) (value + valueOffset) / (double) (maxValue + valueOffset);
                     writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
                 }
             }

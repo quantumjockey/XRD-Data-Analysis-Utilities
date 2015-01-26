@@ -79,7 +79,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         updateZoomScale(image);
         DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
         imageViewport.setSmooth(false);
-        imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp));
+        imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp, null));
         viewportTitle.setText(image.getFilename());
     }
 
