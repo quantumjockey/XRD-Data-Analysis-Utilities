@@ -49,7 +49,7 @@ public class DiffractionFrameVisualizer {
             for (int x = 0; x < data.getWidth(); x++) {
                 int value = data.getIntensityMapValue(y, x);
                 double coefficient = (double) (value + valueOffset) / (double) (maxValue + valueOffset);
-                writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
+                writer.setColor(x, y, colorRamp.getRampColorValue(coefficient));
             }
         }
     }
@@ -67,7 +67,7 @@ public class DiffractionFrameVisualizer {
                 }
                 else {
                     double coefficient = (double) (value + valueOffset) / (double) (maxValue + valueOffset);
-                    writer.setColor(x, y, colorRamp.getRampColorValue(coefficient, 0.0, 1.0));
+                    writer.setColor(x, y, colorRamp.getRampColorValue(coefficient));
                 }
             }
         }
