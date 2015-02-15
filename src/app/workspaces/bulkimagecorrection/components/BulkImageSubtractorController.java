@@ -106,8 +106,8 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
     private MARTiffImage filterImage(MARTiffImage image){
         MARTiffImage result = image;
         try {
-            int lowerBound = result.getMinValue();
-            int upperBound = result.getMaxValue();
+            int lowerBound = result.getGeneratedImage().getMinValue();
+            int upperBound = result.getGeneratedImage().getMaxValue();
             if (!lowerBoundFilter.getText().isEmpty()) {
                 lowerBound = Integer.parseInt(lowerBoundFilter.getText().trim());
             }

@@ -106,7 +106,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         MARTiffImage masked = null;
         int maskLb = maskOptions.getController().getLowerBound();
         int maskUb = maskOptions.getController().getUpperBound();
-        boolean isMasked = (cachedImage.getMaxValue() != maskUb || cachedImage.getMinValue() != maskLb);
+        boolean isMasked = (cachedImage.getGeneratedImage().getMaxValue() != maskUb || cachedImage.getGeneratedImage().getMinValue() != maskLb);
 
         if(isMasked){
             masked = DataMasking.maskImage(cachedImage, maskLb, maskUb);
@@ -132,8 +132,8 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
     }
 
     private void updateMaskLimiters(MARTiffImage image){
-        int max = image.getMaxValue();
-        int min = image.getMinValue();
+        int max = image.getGeneratedImage().getMaxValue();
+        int min = image.getGeneratedImage().getMinValue();
         maskOptions.getController().setLimiters(min, max);
     }
 
@@ -142,13 +142,13 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
             renderOptions.getController().setOffset(0);
         }
         else {
-            renderOptions.getController().setOffset(Math.abs(image.getMinValue()));
+            renderOptions.getController().setOffset(Math.abs(image.getGeneratedImage().getMinValue()));
         }
     }
 
     private void updateZoomScale(MARTiffImage image){
         if (image != null) {
-            int size = (image.getHeight() >= image.getWidth()) ? image.getHeight() : image.getWidth();
+            int size = (image.getGeneratedImage().getHeight() >= image.getGeneratedImage().getWidth()) ? image.getGeneratedImage().getHeight() : image.getGeneratedImage().getWidth();
             double viewportSize = scrollViewport.getWidth() - 2;
             double scale = viewportSize / (double) size;
             imageZoom.getController().setZoomBounds(scale, DEFAULT_ZOOM_MAX);
@@ -204,12 +204,12 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         EventHandler<MouseEvent> exitEvent = (event) -> pixelTrack.setText("");
 
         EventHandler<MouseEvent> movedEvent = (event) -> {
-            double imageX = cachedImage.getWidth();
+            double imageX = cachedImage.getGeneratedImage().getWidth();
             double realX = event.getX();
             double viewportX = imageViewport.getFitWidth();
             int scaledX = (int)((realX / viewportX) * imageX);
 
-            double imageY = cachedImage.getHeight();
+            double imageY = cachedImage.getGeneratedImage().getHeight();
             double realY = event.getY();
             double viewportY = imageViewport.getFitHeight();
             int scaledY = (int)((realY / viewportY) * imageY);
@@ -217,14 +217,14 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
             // (imageY - scaledY) used for display to represent 0,0 in bottom-left corner of image
             String message = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approximate] " : "")
                     + "Coordinates (x,y): " + scaledX + "," + ((int)imageY - scaledY)
-                    + " - Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
+                    + " - Intensity: " + cachedImage.getGeneratedImage().getIntensityMapValue(scaledY, scaledX);
 
             pixelTrack.setFont(Font.font(null, FontWeight.BOLD, 13));
             pixelTrack.setText(message);
 
             String tooltip = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approx.] " : "")
                     + "(x,y): " + scaledX + "," + ((int)imageY - scaledY) + SystemAttributes.LINE_SEPARATOR
-                    + "Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
+                    + "Intensity: " + cachedImage.getGeneratedImage().getIntensityMapValue(scaledY, scaledX);
 
             scrollViewport.setTooltip(new Tooltip(tooltip));
         };
@@ -258,9 +258,9 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
             if (cachedImage != null){
                 double vVal = scrollViewport.getVvalue();
                 double hVal = scrollViewport.getHvalue();
-                int height = cachedImage.getHeight();
+                int height = cachedImage.getGeneratedImage().getHeight();
                 double heightScaled = newValue.doubleValue() * height;
-                int width = cachedImage.getWidth();
+                int width = cachedImage.getGeneratedImage().getWidth();
                 double widthScaled = newValue.doubleValue() * width;
                 imageViewport.setFitHeight(heightScaled);
                 imageViewport.setFitWidth(widthScaled);

@@ -28,12 +28,12 @@ public class DiffractionFrameVisualizer {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public Image renderDataAsImage(GradientRamp _ramp, BoundedMask mask) throws IOException {
-        WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
+        WritableImage displayed = new WritableImage(data.getGeneratedImage().getWidth(), data.getGeneratedImage().getHeight());
         if (mask != null) {
-            renderImageWithMask(displayed.getPixelWriter(), data.getMaxValue(), _ramp, mask);
+            renderImageWithMask(displayed.getPixelWriter(), data.getGeneratedImage().getMaxValue(), _ramp, mask);
         }
         else{
-            renderImageViaColorRamp(displayed.getPixelWriter(), data.getMaxValue(), _ramp);
+            renderImageViaColorRamp(displayed.getPixelWriter(), data.getGeneratedImage().getMaxValue(), _ramp);
         }
         return displayed;
     }
@@ -45,9 +45,9 @@ public class DiffractionFrameVisualizer {
 
         colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
 
-        for (int y = 0; y < data.getHeight(); y++) {
-            for (int x = 0; x < data.getWidth(); x++) {
-                int value = data.getIntensityMapValue(y, x);
+        for (int y = 0; y < data.getGeneratedImage().getHeight(); y++) {
+            for (int x = 0; x < data.getGeneratedImage().getWidth(); x++) {
+                int value = data.getGeneratedImage().getIntensityMapValue(y, x);
                 double coefficient = (double) (value + valueOffset) / (double) (maxValue + valueOffset);
                 writer.setColor(x, y, colorRamp.getRampColorValue(coefficient));
             }
@@ -59,9 +59,9 @@ public class DiffractionFrameVisualizer {
 
         colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
 
-        for (int y = 0; y < data.getHeight(); y++) {
-            for (int x = 0; x < data.getWidth(); x++) {
-                int value = data.getIntensityMapValue(y, x);
+        for (int y = 0; y < data.getGeneratedImage().getHeight(); y++) {
+            for (int x = 0; x < data.getGeneratedImage().getWidth(); x++) {
+                int value = data.getGeneratedImage().getIntensityMapValue(y, x);
                 if (value < mask.getLowerBound() || value > mask.getUpperBound()){
                     writer.setColor(x, y, mask.getMaskHue());
                 }
@@ -74,7 +74,7 @@ public class DiffractionFrameVisualizer {
     }
 
     private int scaleImageZero(){
-        return Math.abs(data.getMinValue());
+        return Math.abs(data.getGeneratedImage().getMinValue());
     }
 
 }
