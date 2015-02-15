@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.quantumjockey.mvvmbase.controls.initialization.LabelExt;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
+import xrdtiffoperations.data.DiffractionFrame;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataSubtraction;
 
@@ -33,8 +34,8 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
     private Label rootPath;
 
     private ArrayList<PathWrapper> availableFiles;
-    private MARTiffImage backgroundImage;
-    private MARTiffImage diffractionImage;
+    private DiffractionFrame backgroundImage;
+    private DiffractionFrame diffractionImage;
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
@@ -117,7 +118,7 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
     }
 
     private void subtractImages() throws IOException{
-        MARTiffImage resultantImage = DataSubtraction.subtractImages(backgroundImage, diffractionImage);
+        DiffractionFrame resultantImage = DataSubtraction.subtractImages(backgroundImage, diffractionImage);
         resultantImageViewport.renderImage(resultantImage);
     }
 

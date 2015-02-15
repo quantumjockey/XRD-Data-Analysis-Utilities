@@ -14,8 +14,9 @@ import javafx.scene.control.*;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import com.quantumjockey.paths.PathWrapper;
 import com.quantumjockey.paths.SystemAttributes;
+import xrdtiffoperations.data.DiffractionFrame;
+import xrdtiffoperations.imagemodel.FileExtensions;
 import xrdtiffoperations.imagemodel.FileTypes;
-import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
 import xrdtiffoperations.math.DataSubtraction;
 import java.awt.*;
@@ -62,7 +63,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
             File destination = dialog.getSelectedDirectory();
             if (destination != null) {
                 ArrayList<PathWrapper> selected = getSelectedPaths();
-                MARTiffImage result = getSubtractedImageData();
+                DiffractionFrame result = getSubtractedImageData();
                 streamImageSubtraction(destination, selected, result);
             }
         }
@@ -93,7 +94,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         return selectedPaths;
     }
 
-    private MARTiffImage getSubtractedImageData() throws IOException{
+    private DiffractionFrame getSubtractedImageData() throws IOException{
         PathWrapper subtracted = null;
         for (PathWrapper file : availableFiles){
             if (file.getPathTail().contains(backgroundImagePath.getController().getSelectionModel().getSelectedItem().getValue())){
@@ -103,24 +104,21 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         return FileSysReader.readImageData(subtracted);
     }
 
-    private MARTiffImage filterImage(MARTiffImage image){
-        MARTiffImage result = image;
+    private void filterImage(DiffractionFrame image){
         try {
-            int lowerBound = result.getGeneratedImage().getMinValue();
-            int upperBound = result.getGeneratedImage().getMaxValue();
+            int lowerBound = image.getMinValue();
+            int upperBound = image.getMaxValue();
             if (!lowerBoundFilter.getText().isEmpty()) {
                 lowerBound = Integer.parseInt(lowerBoundFilter.getText().trim());
             }
             if (!upperBoundFilter.getText().isEmpty()) {
                 upperBound = Integer.parseInt(upperBoundFilter.getText().trim());
             }
-            result = DataMasking.maskImage(result, lowerBound, upperBound);
+            DataMasking.maskImage(image, lowerBound, upperBound);
         }
         catch (Exception ex){
             ex.printStackTrace();
-            result = image;
         }
-        return result;
     }
 
     private void openDirectoryInFileExplorerWindow(String directoryPath){
@@ -132,7 +130,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         }
     }
 
-    private void streamImageSubtraction(File destination, ArrayList<PathWrapper> selectedPaths, MARTiffImage backgroundImage){
+    private void streamImageSubtraction(File destination, ArrayList<PathWrapper> selectedPaths, DiffractionFrame backgroundImage){
         String basePath = destination.getPath();
 
         String[] parts = selectedPaths.get(0).getPathTail().split("_");
@@ -161,7 +159,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         openDirectoryInFileExplorerWindow(newDestination);
 
         selectedPaths.forEach((path) -> {
-            MARTiffImage baseImage = null;
+            DiffractionFrame baseImage = null;
 
             try {
                 baseImage = FileSysReader.readImageData(path);
@@ -171,9 +169,9 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
             }
 
             if (baseImage != null && backgroundImage != null) {
-                MARTiffImage result = DataSubtraction.subtractImages(backgroundImage, baseImage);
-                result = filterImage(result);
-                String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + result.getFilename();
+                DiffractionFrame result = DataSubtraction.subtractImages(backgroundImage, baseImage);
+                filterImage(result);
+                String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + result.getIdentifier() + FileExtensions.DEFAULT;
                 FileSysWriter.writeImageData(new File(filePath), result, FileTypes.TIFF_32_BIT_INT);
             }
         });

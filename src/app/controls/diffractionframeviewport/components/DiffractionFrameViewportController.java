@@ -84,7 +84,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
     }
 
     public void renderImageFromFile(PathWrapper filePath) throws IOException {
-        cachedImage = FileSysReader.readImageData(filePath).getDiffractionData();
+        cachedImage = FileSysReader.readImageData(filePath);
         renderImage(cachedImage);
     }
 
