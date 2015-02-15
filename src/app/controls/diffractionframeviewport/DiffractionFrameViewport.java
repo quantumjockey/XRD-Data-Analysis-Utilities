@@ -5,7 +5,7 @@ import app.controls.diffractionframeviewport.components.DiffractionFrameViewport
 import javafx.scene.control.TitledPane;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 import com.quantumjockey.paths.PathWrapper;
-import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
+import xrdtiffoperations.data.DiffractionFrame;
 import java.io.IOException;
 
 public class DiffractionFrameViewport extends TitledPane {
@@ -30,7 +30,7 @@ public class DiffractionFrameViewport extends TitledPane {
         return (DiffractionFrameViewportController)markupContainer.getController();
     }
 
-    public void renderImage(MARTiffImage image) throws IOException{
+    public void renderImage(DiffractionFrame image) throws IOException{
         getController().renderImage(image);
     }
 
