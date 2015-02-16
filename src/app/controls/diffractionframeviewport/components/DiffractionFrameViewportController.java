@@ -30,6 +30,7 @@ import com.quantumjockey.paths.SystemAttributes;
 import xrdtiffoperations.data.DiffractionFrame;
 import xrdtiffoperations.imagemodel.FileTypes;
 import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
+import xrdtiffoperations.math.DataMasking;
 import xrdtiffvisualization.DiffractionFrameVisualizer;
 import com.quantumjockey.colorramps.GradientRamp;
 import xrdtiffvisualization.masking.BoundedMask;
@@ -103,25 +104,22 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
 
     private void exportImage(String imageType){
 
-        ///////////////// NOTE TO SELF: REQUIRES COMPLETE RE-WRITE /////////////////
+        FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
+        int maskLb = maskOptions.getController().getLowerBound();
+        int maskUb = maskOptions.getController().getUpperBound();
+        boolean isMasked = (cachedImage.getMaxValue() != maskUb || cachedImage.getMinValue() != maskLb);
 
-//        FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
-//        MARTiffImage masked = null;
-//        int maskLb = maskOptions.getController().getLowerBound();
-//        int maskUb = maskOptions.getController().getUpperBound();
-//        boolean isMasked = (cachedImage.getMaxValue() != maskUb || cachedImage.getMinValue() != maskLb);
-//
-//        if(isMasked){
-//            masked = DataMasking.maskImage(cachedImage.getDiffractionData(), maskLb, maskUb);
-//            dialog.setInitialFileName(masked.getFilename());
-//        }
-//        else {
-//            dialog.setInitialFileName(cachedImage.getIdentifier());
-//        }
-//
-//        File destination = dialog.getSaveDirectory();
-//
-//        FileSysWriter.writeImageData(destination, (isMasked) ? masked : new MARTiffImage(cachedImage), imageType);
+        if(isMasked){
+            DataMasking.maskImage(cachedImage, maskLb, maskUb);
+            dialog.setInitialFileName(cachedImage.getIdentifier());
+        }
+        else {
+            dialog.setInitialFileName(cachedImage.getIdentifier());
+        }
+
+        File destination = dialog.getSaveDirectory();
+
+        FileSysWriter.writeImageData(destination, cachedImage, imageType);
     }
 
     private Void exportThirtyTwoBitIntImage(){
