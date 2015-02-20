@@ -72,7 +72,12 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public void renderImage(DiffractionFrame image) throws IOException {
+    public void renderImageFromFile(PathWrapper filePath) throws IOException {
+        cachedImage = FileSysReader.readImageData(filePath);
+        renderImageOnLoad(cachedImage);
+    }
+
+    public void renderImageOnLoad(DiffractionFrame image) throws IOException {
 
         int priorLowerBnd = maskOptions.getController().getLowerBound();
         int priorUpperBnd = maskOptions.getController().getUpperBound();
@@ -98,11 +103,6 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         updateZoomScale(image);
         renderImageWithMask(image, renderOptions.getController().getAdaptiveRender());
         viewportTitle.setText(image.getIdentifier());
-    }
-
-    public void renderImageFromFile(PathWrapper filePath) throws IOException {
-        cachedImage = FileSysReader.readImageData(filePath);
-        renderImage(cachedImage);
     }
 
     public void renderImageWithMask(DiffractionFrame image, boolean isAdaptive) throws IOException {
@@ -286,7 +286,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
 
         ChangeListener<Boolean> onStickyBoundsChange = (observable, oldValue, newValue) -> {
             try {
-                renderImage(cachedImage);
+                renderImageOnLoad(cachedImage);
             } catch (IOException ex) {
                 System.out.println("Image render error!");
             }

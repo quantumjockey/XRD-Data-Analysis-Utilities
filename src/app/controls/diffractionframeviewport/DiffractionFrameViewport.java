@@ -31,7 +31,7 @@ public class DiffractionFrameViewport extends TitledPane {
     }
 
     public void renderImage(DiffractionFrame image) throws IOException{
-        getController().renderImage(image);
+        getController().renderImageOnLoad(image);
     }
 
     public void renderImageFromFile(PathWrapper filePath) throws IOException{
