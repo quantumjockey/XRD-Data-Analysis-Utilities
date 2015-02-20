@@ -29,7 +29,6 @@ import com.quantumjockey.paths.PathWrapper;
 import com.quantumjockey.paths.SystemAttributes;
 import xrdtiffoperations.data.DiffractionFrame;
 import xrdtiffoperations.imagemodel.FileTypes;
-import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataMasking;
 import xrdtiffvisualization.DiffractionFrameVisualizer;
 import com.quantumjockey.colorramps.GradientRamp;
