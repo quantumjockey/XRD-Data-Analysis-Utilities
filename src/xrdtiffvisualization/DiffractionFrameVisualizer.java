@@ -27,11 +27,11 @@ public class DiffractionFrameVisualizer {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public Image renderDataAsImage(GradientRamp _ramp, BoundedMask mask) throws IOException {
+    public Image renderDataAsImage(GradientRamp _ramp, BoundedMask mask, boolean adaptive) throws IOException {
         WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
 
         if (mask != null)
-            renderImageWithMask(displayed.getPixelWriter(), data.getMaxValue(), _ramp, mask);
+            renderImageWithMask(displayed.getPixelWriter(), data.getMaxValue(), _ramp, mask, adaptive);
         else
             renderImageViaColorRamp(displayed.getPixelWriter(), data.getMaxValue(), _ramp);
 
@@ -52,10 +52,12 @@ public class DiffractionFrameVisualizer {
         });
     }
 
-    private void renderImageWithMask(PixelWriter writer, int maxValue, GradientRamp ramp, BoundedMask mask) throws IOException {
+    private void renderImageWithMask(PixelWriter writer, int maxValue, GradientRamp ramp, BoundedMask mask, boolean adaptive) throws IOException {
         GradientRamp colorRamp;
 
         colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
+
+        valueOffset = (adaptive) ? mask.getLowerBound() : scaleImageZero();
 
         data.cycleImageDataBytes((y, x) -> {
             int value = data.getIntensityMapValue(y, x);
@@ -67,6 +69,7 @@ public class DiffractionFrameVisualizer {
             }
         });
     }
+
     private int scaleImageZero(){
         return Math.abs(data.getMinValue());
     }

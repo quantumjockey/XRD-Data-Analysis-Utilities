@@ -79,7 +79,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         updateZoomScale(image);
         DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
         imageViewport.setSmooth(false);
-        imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp, null));
+        imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp, null, false));
         viewportTitle.setText(image.getIdentifier());
     }
 
@@ -88,14 +88,16 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         renderImage(cachedImage);
     }
 
-    public void renderImageWithMask(DiffractionFrame image) throws IOException {
+    public void renderImageWithMask(DiffractionFrame image, boolean isAdaptive) throws IOException {
         DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
         imageViewport.setImage(marImageGraph.renderDataAsImage(
                 selectedRamp,
                 new BoundedMask(
                         maskOptions.getController().getLowerBound(),
                         maskOptions.getController().getUpperBound(),
-                        maskOptions.getController().getMaskHue())));
+                        maskOptions.getController().getMaskHue()),
+                isAdaptive
+        ));
         cachedImage = image;
     }
 
@@ -229,9 +231,19 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
             scrollViewport.setTooltip(new Tooltip(tooltip));
         };
 
+        ChangeListener<Boolean> onAdaptiveRenderingChange = (observable, oldValue, newValue) -> {
+            try {
+                if(newValue)
+                    maskOptions.getController().setMaskHue(renderOptions.getController().getActiveRamp().getRampColorValue(0.0));
+                renderImageWithMask(cachedImage, newValue);
+            } catch (IOException ex) {
+                System.out.println("Image render error!");
+            }
+        };
+
         ChangeListener<Color> onHueChange = (observable, oldValue, newValue) -> {
             try {
-                renderImageWithMask(cachedImage);
+                renderImageWithMask(cachedImage, renderOptions.getController().getAdaptiveRender());
             } catch (IOException ex) {
                 System.out.println("Image render error!");
             }
@@ -240,7 +252,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         ChangeListener<GradientRamp> onRampChange = (observable, oldValue, newValue) -> {
             try {
                 selectedRamp = newValue;
-                renderImageWithMask(cachedImage);
+                renderImageWithMask(cachedImage, renderOptions.getController().getAdaptiveRender());
             } catch (IOException ex) {
                 System.out.println("Image render error!");
             }
@@ -248,7 +260,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
 
         ChangeListener<Number> onScaleChange = (observable, oldValue, newValue) -> {
             try {
-                renderImageWithMask(cachedImage);
+                renderImageWithMask(cachedImage, renderOptions.getController().getAdaptiveRender());
             } catch (IOException ex) {
                 System.out.println("Image render error!");
             }
@@ -270,6 +282,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         };
 
         renderOptions.getController().activeRampProperty().addListener(onRampChange);
+        renderOptions.getController().adaptiveRenderProperty().addListener(onAdaptiveRenderingChange);
         maskOptions.getController().lowerBoundProperty().addListener(onScaleChange);
         maskOptions.getController().upperBoundProperty().addListener(onScaleChange);
         maskOptions.getController().maskHueProperty().addListener(onHueChange);
