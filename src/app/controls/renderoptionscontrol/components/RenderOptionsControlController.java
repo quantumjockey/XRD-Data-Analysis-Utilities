@@ -1,14 +1,11 @@
 package app.controls.renderoptionscontrol.components;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.util.converter.NumberStringConverter;
 import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxExt;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -23,7 +20,7 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     @FXML
-    private CheckBox adaptiveRender;
+    private CheckBox adaptiveRendering;
 
     @FXML
     private ChoiceBox<String> availableRamps;
@@ -36,16 +33,37 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     /////////// Properties //////////////////////////////////////////////////////////////////
 
     private ObjectProperty<GradientRamp> activeRamp = new SimpleObjectProperty<>();
-    public final GradientRamp getActiveRamp(){ return this.activeRamp.get(); }
+    public final GradientRamp getActiveRamp() {
+        return this.activeRamp.get();
+    }
     public final void setActiveRamp(GradientRamp activeRamp) {
         this.activeRamp.set(activeRamp);
     }
-    public ObjectProperty<GradientRamp> activeRampProperty(){ return this.activeRamp; }
+    public ObjectProperty<GradientRamp> activeRampProperty() {
+        return this.activeRamp;
+    }
+
+    private BooleanProperty adaptiveRender = new SimpleBooleanProperty();
+    public final boolean getAdaptiveRender() {
+        return this.adaptiveRender.get();
+    }
+    public final void setAdaptiveRender(boolean checked){
+        this.adaptiveRender.set(checked);
+    }
+    public BooleanProperty adaptiveRenderProperty(){
+        return this.adaptiveRender;
+    }
 
     private IntegerProperty scaleOffset = new SimpleIntegerProperty();
-    public final int getScaleOffset(){ return this.scaleOffset.get(); }
-    public final void setScaleOffset(int scaleOffset){ this.scaleOffset.set(scaleOffset); }
-    public IntegerProperty scaleOffsetProperty(){ return this.scaleOffset; }
+    public final int getScaleOffset() {
+        return this.scaleOffset.get();
+    }
+    public final void setScaleOffset(int scaleOffset) {
+        this.scaleOffset.set(scaleOffset);
+    }
+    public IntegerProperty scaleOffsetProperty() {
+        return this.scaleOffset;
+    }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -84,12 +102,13 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setBindings(){
+        adaptiveRendering.selectedProperty().bindBidirectional(adaptiveRenderProperty());
         scaleOffsetDisplay.textProperty().bindBidirectional(scaleOffsetProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
     }
 
     @Override
     protected void setDefaults(){
-        adaptiveRender.setSelected(false);
+        adaptiveRendering.setSelected(false);
         createRamps();
         initializeRamps();
     }
