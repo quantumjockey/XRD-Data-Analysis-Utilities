@@ -2,6 +2,7 @@ package app.controls.renderoptionscontrol.components;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.util.converter.NumberStringConverter;
 import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxExt;
@@ -20,6 +21,9 @@ import java.util.ArrayList;
 public class RenderOptionsControlController extends MarkupControllerBase {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
+
+    @FXML
+    private CheckBox adaptiveRender;
 
     @FXML
     private ChoiceBox<String> availableRamps;
@@ -85,6 +89,7 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setDefaults(){
+        adaptiveRender.setSelected(false);
         createRamps();
         initializeRamps();
     }
