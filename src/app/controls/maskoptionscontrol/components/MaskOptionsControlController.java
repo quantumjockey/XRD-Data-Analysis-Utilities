@@ -2,10 +2,7 @@ package app.controls.maskoptionscontrol.components;
 
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import app.controls.valueadjuster.ValueAdjuster;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -13,6 +10,9 @@ import javafx.scene.paint.Color;
 public class MaskOptionsControlController extends MarkupControllerBase {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
+
+    @FXML
+    private CheckBox enableStickyBounds;
 
     @FXML
     private ValueAdjuster maxBound;
@@ -26,21 +26,48 @@ public class MaskOptionsControlController extends MarkupControllerBase {
     /////////// Properties //////////////////////////////////////////////////////////////////
 
     private ObjectProperty<Color> maskHue = new SimpleObjectProperty<>();
-    public final Color getMaskHue(){ return this.maskHue.get(); }
+    public final Color getMaskHue() {
+        return this.maskHue.get();
+    }
     public final void setMaskHue(Color maskHue) {
         this.maskHue.set(maskHue);
     }
-    public ObjectProperty<Color> maskHueProperty(){ return this.maskHue; }
+    public ObjectProperty<Color> maskHueProperty() {
+        return this.maskHue;
+    }
 
     private IntegerProperty lowerBound = new SimpleIntegerProperty();
-    public final int getLowerBound(){ return this.lowerBound.get(); }
-    public final void setLowerBound(int lowerBound){ this.lowerBound.set(lowerBound); }
-    public IntegerProperty lowerBoundProperty(){ return this.lowerBound; }
+    public final int getLowerBound() {
+        return this.lowerBound.get();
+    }
+    public final void setLowerBound(int lowerBound) {
+        this.lowerBound.set(lowerBound);
+    }
+    public IntegerProperty lowerBoundProperty() {
+        return this.lowerBound;
+    }
+
+    private BooleanProperty stickyBounds = new SimpleBooleanProperty();
+    public final boolean getStickyBounds() {
+        return this.stickyBounds.get();
+    }
+    public final void setStickyBounds(boolean setSticky){
+        this.stickyBounds.set(setSticky);
+    }
+    public BooleanProperty stickyBoundsProperty() {
+        return this.stickyBounds;
+    }
 
     private IntegerProperty upperBound = new SimpleIntegerProperty();
-    public final int getUpperBound(){ return this.upperBound.get(); }
-    public final void setUpperBound(int upperBound){ this.upperBound.set(upperBound); }
-    public IntegerProperty upperBoundProperty(){ return this.upperBound; }
+    public final int getUpperBound() {
+        return this.upperBound.get();
+    }
+    public final void setUpperBound(int upperBound) {
+        this.upperBound.set(upperBound);
+    }
+    public IntegerProperty upperBoundProperty() {
+        return this.upperBound;
+    }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -61,6 +88,7 @@ public class MaskOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setBindings(){
+        stickyBoundsProperty().bindBidirectional(enableStickyBounds.selectedProperty());
         upperBoundProperty().bindBidirectional(maxBound.getController().displayedValueProperty());
         lowerBoundProperty().bindBidirectional(minBound.getController().displayedValueProperty());
         maskHueProperty().bindBidirectional(overlayHue.valueProperty());
