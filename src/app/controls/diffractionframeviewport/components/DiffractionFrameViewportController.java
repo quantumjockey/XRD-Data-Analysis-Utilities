@@ -73,13 +73,30 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public void renderImage(DiffractionFrame image) throws IOException {
-        cachedImage = image;
+
+        int priorLowerBnd = maskOptions.getController().getLowerBound();
+        int priorUpperBnd = maskOptions.getController().getUpperBound();
+
         updateMaskLimiters(image);
+
+        if (cachedImage != null) {
+            int priorMax, priorMin;
+
+            priorMax = cachedImage.getMaxValue();
+            priorMin = cachedImage.getMinValue();
+
+            if (maskOptions.getController().getStickyBounds()) {
+                if (priorLowerBnd > cachedImage.getMinValue() && priorLowerBnd != priorMin)
+                    maskOptions.getController().setLowerBound(priorLowerBnd);
+                if (priorUpperBnd < cachedImage.getMaxValue() && priorUpperBnd != priorMax)
+                    maskOptions.getController().setUpperBound(priorUpperBnd);
+            }
+        }
+
+        cachedImage = image;
         updatePixelScale(image);
         updateZoomScale(image);
-        DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
-        imageViewport.setSmooth(false);
-        imageViewport.setImage(marImageGraph.renderDataAsImage(selectedRamp, null, false));
+        renderImageWithMask(image, renderOptions.getController().getAdaptiveRender());
         viewportTitle.setText(image.getIdentifier());
     }
 
@@ -90,6 +107,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
 
     public void renderImageWithMask(DiffractionFrame image, boolean isAdaptive) throws IOException {
         DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
+        imageViewport.setSmooth(false);
         imageViewport.setImage(marImageGraph.renderDataAsImage(
                 selectedRamp,
                 new BoundedMask(
@@ -266,6 +284,14 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
             }
         };
 
+        ChangeListener<Boolean> onStickyBoundsChange = (observable, oldValue, newValue) -> {
+            try {
+                renderImage(cachedImage);
+            } catch (IOException ex) {
+                System.out.println("Image render error!");
+            }
+        };
+
         ChangeListener<Number> onZoomChange = (observable, oldValue, newValue) -> {
             if (cachedImage != null){
                 double vVal = scrollViewport.getVvalue();
@@ -286,6 +312,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         maskOptions.getController().lowerBoundProperty().addListener(onScaleChange);
         maskOptions.getController().upperBoundProperty().addListener(onScaleChange);
         maskOptions.getController().maskHueProperty().addListener(onHueChange);
+        maskOptions.getController().stickyBoundsProperty().addListener(onStickyBoundsChange);
         imageZoom.getController().zoomLevelProperty().addListener(onZoomChange);
         imageViewport.setOnMouseClicked(clickEvent);
         imageViewport.setOnMouseExited(exitEvent);
