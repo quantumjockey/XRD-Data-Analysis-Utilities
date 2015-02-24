@@ -5,6 +5,7 @@ import app.workspaces.singleimagecorrection.SingleImageSubtractor;
 import app.workspaces.singleimageviewer.SingleImageViewer;
 import com.quantumjockey.dialogs.DirectoryChooserWrapper;
 import com.quantumjockey.mvvmbase.window.WindowControllerBase;
+import com.quantumjockey.parsers.DirectoryParser;
 import javafx.fxml.FXML;
 import com.quantumjockey.paths.PathWrapper;
 import com.quantumjockey.paths.filters.FilterWrapper;
@@ -25,8 +26,6 @@ public class MainWindowController extends WindowControllerBase {
     @FXML
     private SingleImageViewer singleImageViewer;
 
-    private File selectedDirectory;
-
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
     @FXML
@@ -40,28 +39,15 @@ public class MainWindowController extends WindowControllerBase {
         DirectoryChooserWrapper dialog;
 
         dialog = new DirectoryChooserWrapper("Select Directory for Images");
-        selectedDirectory = dialog.getSelectedDirectory();
+        File selectedDirectory = dialog.getSelectedDirectory();
 
         if (selectedDirectory != null) {
-            availableFiles = parseSelectedDirectory();
+            availableFiles = DirectoryParser.parseSelectedDirectory(selectedDirectory, new FilterWrapper(new String[]{FileExtensions.DEFAULT, FileExtensions.EXTENDED_DEFAULT, FileExtensions.MAR_2300, FileExtensions.MAR_3450}));
             String path = selectedDirectory.getPath();
             multipleImageWorkspace.getController().updateControls(availableFiles, path);
             singleImageWorkspace.getController().updateControls(availableFiles, path);
             singleImageViewer.getController().updateControls(availableFiles, path);
         }
-    }
-
-    /////////// Private Methods ///////////////////////////////////////////////////////////////
-
-    private ArrayList<PathWrapper> parseSelectedDirectory(){
-        FilterWrapper tiffFilter = new FilterWrapper(new String[]{FileExtensions.DEFAULT, FileExtensions.EXTENDED_DEFAULT, FileExtensions.MAR_2300, FileExtensions.MAR_3450});
-        File[] images = selectedDirectory.listFiles(tiffFilter.getFilter());
-        ArrayList<PathWrapper> imagesPaths = new ArrayList<>();
-        for (File item : images){
-            PathWrapper wrapper = new PathWrapper(item.getPath());
-            imagesPaths.add(wrapper);
-        }
-        return imagesPaths;
     }
 
     /////////// Protected Methods /////////////////////////////////////////////////////////////
