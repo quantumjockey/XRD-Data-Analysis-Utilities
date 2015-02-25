@@ -6,12 +6,8 @@ import app.filesystem.FileSysReader;
 import app.filesystem.FileSysWriter;
 import app.controls.zoomcontrol.ZoomControl;
 import com.quantumjockey.dialogs.FileSaveChooserWrapper;
-import javafx.event.EventHandler;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import com.quantumjockey.mvvmbase.action.ActionDelegate;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import java.io.File;
@@ -24,11 +20,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
 import javafx.scene.paint.Color;
 import com.quantumjockey.paths.PathWrapper;
-import com.quantumjockey.paths.SystemAttributes;
 import xrdtiffoperations.data.DiffractionFrame;
 import xrdtiffoperations.imagemodel.FileTypes;
 import xrdtiffoperations.math.DataMasking;
-import xrdtiffvisualization.DiffractionFrameVisualizer;
 import com.quantumjockey.colorramps.GradientRamp;
 import xrdtiffvisualization.masking.BoundedMask;
 
@@ -36,7 +30,6 @@ public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
-    private final double AUTO_ZOOM_INCREMENT = 0.5;
     private final double DEFAULT_ZOOM_MAX = 6.0;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
@@ -94,24 +87,21 @@ public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
         }
 
         cachedImage = image;
+        renderImageWithMask(image, renderOptions.getController().getAdaptiveRender());
         updatePixelScale(image);
         updateZoomScale(image);
-        renderImageWithMask(image, renderOptions.getController().getAdaptiveRender());
         viewportTitle.setText(image.getIdentifier());
     }
 
     public void renderImageWithMask(DiffractionFrame image, boolean isAdaptive) throws IOException {
-        DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
-        imageRender.getController().getImageViewport().setSmooth(false);
-        imageRender.getController().getImageViewport().setImage(marImageGraph.renderDataAsImage(
-                selectedRamp,
+
+        imageRender.getController().renderFrame(image, selectedRamp,
                 new BoundedMask(
                         maskOptions.getController().getLowerBound(),
                         maskOptions.getController().getUpperBound(),
                         maskOptions.getController().getMaskHue()),
                 isAdaptive
-        ));
-        cachedImage = image;
+        );
 //        if (!(diffractionPattern.getData().size() > 1))
 //            updateDiffractionPattern();
     }
@@ -194,7 +184,9 @@ public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-
+        imageZoom.getController().maxZoomProperty().bindBidirectional(imageRender.getController().maxZoomProperty());
+        imageZoom.getController().minZoomProperty().bindBidirectional(imageRender.getController().minZoomProperty());
+        imageZoom.getController().zoomLevelProperty().bindBidirectional(imageRender.getController().zoomLevelProperty());
     }
 
     @Override
@@ -211,48 +203,6 @@ public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
 
     @Override
     protected void setListeners() {
-
-        EventHandler<MouseEvent> clickEvent = (event) -> {
-            if (event.getClickCount() == 2) {
-                double currentZoom = imageZoom.getController().getZoomLevel();
-                double max = imageZoom.getController().getMaxZoom();
-                double min = imageZoom.getController().getMinZoom();
-                if (event.getButton() == MouseButton.SECONDARY) {
-                    double newValue = currentZoom - AUTO_ZOOM_INCREMENT;
-                    imageZoom.getController().setZoomLevel((newValue < min) ? min : newValue);
-                } else {
-                    double newValue = currentZoom + AUTO_ZOOM_INCREMENT;
-                    imageZoom.getController().setZoomLevel((newValue > max) ? max : newValue);
-                }
-            }
-        };
-
-        EventHandler<MouseEvent> exitEvent = (event) -> imageRender.getController().getPixelTrack().setText("");
-
-        EventHandler<MouseEvent> movedEvent = (event) -> {
-            double imageX = cachedImage.getWidth();
-            double realX = event.getX();
-            double viewportX = imageRender.getController().getImageViewport().getFitWidth();
-            int scaledX = (int) ((realX / viewportX) * imageX);
-
-            double imageY = cachedImage.getHeight();
-            double realY = event.getY();
-            double viewportY = imageRender.getController().getImageViewport().getFitHeight();
-            int scaledY = (int) ((realY / viewportY) * imageY);
-
-            // (imageY - scaledY) used for display to represent 0,0 in bottom-left corner of image
-            String message = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approximate] " : "")
-                    + "Coordinates (x,y): " + scaledX + "," + ((int) imageY - scaledY)
-                    + " - Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
-
-            imageRender.getController().getPixelTrack().setText(message);
-
-            String tooltip = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approx.] " : "")
-                    + "(x,y): " + scaledX + "," + ((int) imageY - scaledY) + SystemAttributes.LINE_SEPARATOR
-                    + "Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
-
-            imageRender.getController().getScrollViewport().setTooltip(new Tooltip(tooltip));
-        };
 
         ChangeListener<Boolean> onAdaptiveRenderingChange = (observable, oldValue, newValue) -> {
             try {
@@ -297,31 +247,12 @@ public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
             }
         };
 
-        ChangeListener<Number> onZoomChange = (observable, oldValue, newValue) -> {
-            if (cachedImage != null) {
-                double vVal = imageRender.getController().getScrollViewport().getVvalue();
-                double hVal = imageRender.getController().getScrollViewport().getHvalue();
-                int height = cachedImage.getHeight();
-                double heightScaled = newValue.doubleValue() * height;
-                int width = cachedImage.getWidth();
-                double widthScaled = newValue.doubleValue() * width;
-                imageRender.getController().getImageViewport().setFitHeight(heightScaled);
-                imageRender.getController().getImageViewport().setFitWidth(widthScaled);
-                imageRender.getController().getScrollViewport().setVvalue(vVal);
-                imageRender.getController().getScrollViewport().setHvalue(hVal);
-            }
-        };
-
         renderOptions.getController().activeRampProperty().addListener(onRampChange);
         renderOptions.getController().adaptiveRenderProperty().addListener(onAdaptiveRenderingChange);
         maskOptions.getController().lowerBoundProperty().addListener(onScaleChange);
         maskOptions.getController().upperBoundProperty().addListener(onScaleChange);
         maskOptions.getController().maskHueProperty().addListener(onHueChange);
         maskOptions.getController().stickyBoundsProperty().addListener(onStickyBoundsChange);
-        imageZoom.getController().zoomLevelProperty().addListener(onZoomChange);
-        imageRender.getController().getImageViewport().setOnMouseClicked(clickEvent);
-        imageRender.getController().getImageViewport().setOnMouseExited(exitEvent);
-        imageRender.getController().getImageViewport().setOnMouseMoved(movedEvent);
     }
 
 }

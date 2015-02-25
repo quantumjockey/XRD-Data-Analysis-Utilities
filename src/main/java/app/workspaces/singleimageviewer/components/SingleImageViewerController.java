@@ -33,9 +33,12 @@ public class SingleImageViewerController extends MarkupControllerBase implements
         availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
+
         ChangeListener<TreeItem<String>> selectedChanged = createListener(diffractionImageViewport);
         diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
+
         LabelExt.update(rootPath, root, root);
+
         try {
             diffractionImageViewport.renderImageFromFile(availableFiles.get(diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
         } catch (IOException ex) {
