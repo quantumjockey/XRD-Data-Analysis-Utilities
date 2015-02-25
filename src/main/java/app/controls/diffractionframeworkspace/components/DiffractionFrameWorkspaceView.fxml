@@ -42,6 +42,13 @@
                         </children>
                     </HBox>
                 </Tab>
+                <Tab text="Diffraction Gradient" closable="false">
+                <HBox>
+                <children>
+                <DiffractionFrameRender />
+                </children>
+                </HBox>
+                </Tab>
                 <Tab text="Diffraction Pattern" closable="false">
                     <HBox>
                         <children>
