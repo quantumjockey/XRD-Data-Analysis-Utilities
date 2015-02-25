@@ -8,13 +8,10 @@ import app.controls.zoomcontrol.ZoomControl;
 import com.quantumjockey.dialogs.FileSaveChooserWrapper;
 import javafx.event.EventHandler;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import com.quantumjockey.mvvmbase.action.ActionDelegate;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import java.io.File;
@@ -248,7 +245,6 @@ public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
                     + "Coordinates (x,y): " + scaledX + "," + ((int) imageY - scaledY)
                     + " - Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
 
-            imageRender.getController().getPixelTrack().setFont(Font.font(null, FontWeight.BOLD, 13));
             imageRender.getController().getPixelTrack().setText(message);
 
             String tooltip = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approx.] " : "")

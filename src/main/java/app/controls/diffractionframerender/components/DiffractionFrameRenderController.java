@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class DiffractionFrameRenderController extends MarkupControllerBase {
 
@@ -47,7 +49,7 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
 
     @Override
     protected void setDefaults() {
-
+        pixelTrack.setFont(Font.font(null, FontWeight.BOLD, 13));
     }
 
     @Override
