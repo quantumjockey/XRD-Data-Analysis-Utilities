@@ -125,7 +125,7 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
     }
 
     @Override
-    protected void setListeners() {
+    protected void setEvents() {
 
         EventHandler<MouseEvent> clickEvent = (event) -> {
             if (cachedImage != null && event.getClickCount() == 2) {
@@ -175,6 +175,14 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
             }
         };
 
+        this.getImageViewport().setOnMouseClicked(clickEvent);
+        this.getImageViewport().setOnMouseExited(exitEvent);
+        this.getImageViewport().setOnMouseMoved(movedEvent);
+    }
+
+    @Override
+    protected void setListeners() {
+
         ChangeListener<Number> onZoomChange = (observable, oldValue, newValue) -> {
             if (cachedImage != null) {
                 double vVal = this.getScrollViewport().getVvalue();
@@ -190,9 +198,6 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
             }
         };
 
-        this.getImageViewport().setOnMouseClicked(clickEvent);
-        this.getImageViewport().setOnMouseExited(exitEvent);
-        this.getImageViewport().setOnMouseMoved(movedEvent);
         this.zoomLevelProperty().addListener(onZoomChange);
     }
 

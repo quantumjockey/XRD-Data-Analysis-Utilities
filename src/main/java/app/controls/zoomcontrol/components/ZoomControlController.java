@@ -89,6 +89,11 @@ public class ZoomControlController extends MarkupControllerBase {
     }
 
     @Override
+    protected void setEvents() {
+
+    }
+
+    @Override
     protected void setListeners() {
 
     }

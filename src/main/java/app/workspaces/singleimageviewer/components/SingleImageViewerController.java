@@ -97,6 +97,11 @@ public class SingleImageViewerController extends MarkupControllerBase implements
     }
 
     @Override
+    protected void setEvents() {
+
+    }
+
+    @Override
     protected void setListeners() {
 
     }

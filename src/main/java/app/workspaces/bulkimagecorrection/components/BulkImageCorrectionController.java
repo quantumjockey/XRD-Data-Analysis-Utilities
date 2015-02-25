@@ -187,6 +187,11 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
     }
 
     @Override
+    protected void setEvents() {
+
+    }
+
+    @Override
     protected void setListeners() {
 
     }

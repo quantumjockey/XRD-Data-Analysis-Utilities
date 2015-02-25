@@ -123,6 +123,11 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     }
 
     @Override
+    protected void setEvents() {
+
+    }
+
+    @Override
     protected void setListeners() {
         ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> setActiveRamp(ramps.get(newValue.intValue()));
         availableRamps.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);

@@ -202,6 +202,11 @@ public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
     }
 
     @Override
+    protected void setEvents() {
+
+    }
+
+    @Override
     protected void setListeners() {
 
         ChangeListener<Boolean> onAdaptiveRenderingChange = (observable, oldValue, newValue) -> {

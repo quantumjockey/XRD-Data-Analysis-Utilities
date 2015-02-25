@@ -78,6 +78,11 @@ public class DataExportControlController extends MarkupControllerBase {
     }
 
     @Override
+    protected void setEvents() {
+
+    }
+
+    @Override
     protected void setListeners() {
         ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> {
             setSelected(options.get(newValue.intValue()));

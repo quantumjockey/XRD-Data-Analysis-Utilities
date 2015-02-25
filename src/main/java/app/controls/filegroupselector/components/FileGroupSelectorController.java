@@ -126,6 +126,11 @@ public class FileGroupSelectorController extends MarkupControllerBase {
     }
 
     @Override
+    protected void setEvents() {
+
+    }
+
+    @Override
     protected void setListeners() {
 
     }

@@ -138,6 +138,11 @@ public class DoubleAdjusterController extends MarkupControllerBase {
     }
 
     @Override
+    protected void setEvents() {
+
+    }
+
+    @Override
     protected void setListeners() {
 
     }

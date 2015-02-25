@@ -138,6 +138,11 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
     }
 
     @Override
+    protected void setEvents() {
+
+    }
+
+    @Override
     protected void setListeners() {
 
     }
