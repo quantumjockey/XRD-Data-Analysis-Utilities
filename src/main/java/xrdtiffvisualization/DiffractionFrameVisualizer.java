@@ -45,7 +45,7 @@ public class DiffractionFrameVisualizer {
 
         colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
 
-        data.cycleImageDataBytes((y, x) -> {
+        data.cycleFramePixels((y, x) -> {
             int value = data.getIntensityMapValue(y, x);
             double coefficient = (double) (value + valueOffset) / (double) (maxValue + valueOffset);
             writer.setColor(x, y, colorRamp.getRampColorValue(coefficient));
@@ -59,7 +59,7 @@ public class DiffractionFrameVisualizer {
 
         valueOffset = (adaptive) ? mask.getLowerBound() : scaleImageZero();
 
-        data.cycleImageDataBytes((y, x) -> {
+        data.cycleFramePixels((y, x) -> {
             int value = data.getIntensityMapValue(y, x);
             if (value < mask.getLowerBound() || value > mask.getUpperBound()) {
                 writer.setColor(x, y, mask.getMaskHue());

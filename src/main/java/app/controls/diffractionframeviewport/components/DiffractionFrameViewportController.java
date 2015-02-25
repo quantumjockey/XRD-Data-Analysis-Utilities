@@ -142,7 +142,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
     public XYChart.Series integrateDiffractionPattern() {
         XYChart.Series dataSet = new XYChart.Series<>();
 
-//        cachedImage.cycleImageDataBytes((x, y) -> {
+//        cachedImage.cycleFramePixels((x, y) -> {
 //            if (y != 0 && x % 128 == 0)
 //                dataSet.getData().add(new XYChart.Data<>(x, cachedImage.getIntensityMapValue(y, x)));
 //        });
