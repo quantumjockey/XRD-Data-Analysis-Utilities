@@ -1,7 +1,7 @@
 package app.mainwindow;
 
-import app.workspaces.bulkimagecorrection.BulkImageSubtractor;
-import app.workspaces.singleimagecorrection.SingleImageSubtractor;
+import app.workspaces.bulkimagecorrection.BulkImageCorrection;
+import app.workspaces.singleimagecorrection.SingleImageCorrection;
 import app.workspaces.singleimageviewer.SingleImageViewer;
 import com.quantumjockey.dialogs.DirectoryChooserWrapper;
 import com.quantumjockey.mvvmbase.window.WindowControllerBase;
@@ -18,10 +18,10 @@ public class MainWindowController extends WindowControllerBase {
     /////////// Fields ////////////////////////////////////////////////////////////////////////
 
     @FXML
-    private BulkImageSubtractor multipleImageWorkspace;
+    private BulkImageCorrection multipleImageWorkspace;
 
     @FXML
-    private SingleImageSubtractor singleImageWorkspace;
+    private SingleImageCorrection singleImageWorkspace;
 
     @FXML
     private SingleImageViewer singleImageViewer;
@@ -54,8 +54,8 @@ public class MainWindowController extends WindowControllerBase {
 
     @Override
     protected void createCustomControls() {
-        multipleImageWorkspace = new BulkImageSubtractor();
-        singleImageWorkspace = new SingleImageSubtractor();
+        multipleImageWorkspace = new BulkImageCorrection();
+        singleImageWorkspace = new SingleImageCorrection();
         singleImageViewer = new SingleImageViewer();
     }
 

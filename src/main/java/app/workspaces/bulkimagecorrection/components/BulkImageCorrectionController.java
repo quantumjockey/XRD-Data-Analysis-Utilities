@@ -26,7 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class BulkImageSubtractorController extends MarkupControllerBase implements WorkspaceController {
+public class BulkImageCorrectionController extends MarkupControllerBase implements WorkspaceController {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 

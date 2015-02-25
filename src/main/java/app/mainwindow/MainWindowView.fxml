@@ -3,8 +3,8 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import app.workspaces.bulkimagecorrection.BulkImageSubtractor?>
-<?import app.workspaces.singleimagecorrection.SingleImageSubtractor?>
+<?import app.workspaces.bulkimagecorrection.BulkImageCorrection?>
+<?import app.workspaces.singleimagecorrection.SingleImageCorrection?>
 
 <?import app.workspaces.singleimageviewer.SingleImageViewer?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.mainwindow.MainWindowController">
@@ -25,10 +25,10 @@
         <TabPane>
             <tabs>
                 <Tab text="Bulk Image Correction (Automated)" closable="false">
-                    <BulkImageSubtractor fx:id="multipleImageWorkspace" />
+                    <BulkImageCorrection fx:id="multipleImageWorkspace" />
                 </Tab>
                 <Tab text="Single-Image Correction" closable="false">
-                    <SingleImageSubtractor fx:id="singleImageWorkspace" />
+                    <SingleImageCorrection fx:id="singleImageWorkspace" />
                 </Tab>
                 <Tab text="Single-Image Viewer" closable="false">
                     <SingleImageViewer fx:id="singleImageViewer" />

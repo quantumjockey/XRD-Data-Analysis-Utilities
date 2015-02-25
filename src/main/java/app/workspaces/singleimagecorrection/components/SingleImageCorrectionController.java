@@ -17,7 +17,7 @@ import xrdtiffoperations.math.DataSubtraction;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class SingleImageSubtractorController extends MarkupControllerBase implements WorkspaceController {
+public class SingleImageCorrectionController extends MarkupControllerBase implements WorkspaceController {
 
     /////////// Fields ////////////////////////////////////////////////////////////////////////
 
