@@ -1,18 +1,18 @@
-package app.controls.diffractionframeviewport;
+package app.controls.diffractionframeworkspace;
 
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
-import app.controls.diffractionframeviewport.components.DiffractionFrameViewportController;
+import app.controls.diffractionframeworkspace.components.DiffractionFrameWorkspaceController;
 import javafx.scene.control.TitledPane;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 import com.quantumjockey.paths.PathWrapper;
 import xrdtiffoperations.data.DiffractionFrame;
 import java.io.IOException;
 
-public class DiffractionFrameViewport extends TitledPane {
+public class DiffractionFrameWorkspace extends TitledPane {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
-    private final String MARKUP_FILE = "DiffractionFrameViewportView.fxml";
+    private final String MARKUP_FILE = "DiffractionFrameWorkspaceView.fxml";
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -20,14 +20,14 @@ public class DiffractionFrameViewport extends TitledPane {
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public DiffractionFrameViewport() {
+    public DiffractionFrameWorkspace() {
         initializeComponents();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public DiffractionFrameViewportController getController() {
-        return (DiffractionFrameViewportController) markupContainer.getController();
+    public DiffractionFrameWorkspaceController getController() {
+        return (DiffractionFrameWorkspaceController) markupContainer.getController();
     }
 
     public void renderImage(DiffractionFrame image) throws IOException {
@@ -41,7 +41,7 @@ public class DiffractionFrameViewport extends TitledPane {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameViewportController.class, MARKUP_FILE);
+        markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameWorkspaceController.class, MARKUP_FILE);
         markupContainer.load();
     }
 

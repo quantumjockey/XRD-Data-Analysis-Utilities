@@ -1,7 +1,7 @@
 package app.workspaces.singleimagecorrection.components;
 
 import app.controls.filegroupselector.FileGroupSelector;
-import app.controls.diffractionframeviewport.DiffractionFrameViewport;
+import app.controls.diffractionframeworkspace.DiffractionFrameWorkspace;
 import app.filesystem.FileSysReader;
 import app.workspaces.WorkspaceController;
 import com.quantumjockey.paths.PathWrapper;
@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import com.quantumjockey.mvvmbase.controls.initialization.LabelExt;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import xrdtiffoperations.data.DiffractionFrame;
-import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
 import xrdtiffoperations.math.DataSubtraction;
 
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
     private FileGroupSelector diffractionImagePath;
 
     @FXML
-    private DiffractionFrameViewport resultantImageViewport;
+    private DiffractionFrameWorkspace resultantImageViewport;
 
     @FXML
     private Label rootPath;
@@ -122,7 +121,7 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
 
     @Override
     protected void createCustomControls() {
-        resultantImageViewport = new DiffractionFrameViewport();
+        resultantImageViewport = new DiffractionFrameWorkspace();
     }
 
     @Override

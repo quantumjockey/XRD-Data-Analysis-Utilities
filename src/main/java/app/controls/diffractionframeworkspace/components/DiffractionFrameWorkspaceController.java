@@ -1,4 +1,4 @@
-package app.controls.diffractionframeviewport.components;
+package app.controls.diffractionframeworkspace.components;
 
 import app.controls.dataexportcontrol.DataExportControl;
 import app.filesystem.FileSysReader;
@@ -37,7 +37,7 @@ import xrdtiffvisualization.DiffractionFrameVisualizer;
 import com.quantumjockey.colorramps.GradientRamp;
 import xrdtiffvisualization.masking.BoundedMask;
 
-public class DiffractionFrameViewportController extends MarkupControllerBase {
+public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 

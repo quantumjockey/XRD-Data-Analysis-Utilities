@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
-<?import app.controls.diffractionframeviewport.DiffractionFrameViewport?>
+<?import app.controls.diffractionframeworkspace.DiffractionFrameWorkspace?>
 <?import javafx.scene.control.ScrollPane?>
 <?import app.controls.filegroupselector.FileGroupSelector?>
 
@@ -26,7 +26,7 @@
                     <content>
                         <VBox>
                             <children>
-                                <DiffractionFrameViewport fx:id="resultantImageViewport" />
+                                <DiffractionFrameWorkspace fx:id="resultantImageViewport" />
                             </children>
                         </VBox>
                     </content>
