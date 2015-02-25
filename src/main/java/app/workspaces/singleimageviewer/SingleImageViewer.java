@@ -23,13 +23,13 @@ public class SingleImageViewer extends VBox {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public SingleImageViewerController getController(){
-        return (SingleImageViewerController)markupContainer.getController();
+    public SingleImageViewerController getController() {
+        return (SingleImageViewerController) markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void initializeComponents(){
+    private void initializeComponents() {
         markupContainer = MarkupInitializerMacro.createInitializer(this, SingleImageViewerController.class, MARKUP_FILE);
         markupContainer.load();
     }

@@ -20,7 +20,7 @@ public class DiffractionFrameVisualizer {
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public DiffractionFrameVisualizer(DiffractionFrame imageData){
+    public DiffractionFrameVisualizer(DiffractionFrame imageData) {
         data = imageData;
         valueOffset = scaleImageZero();
     }
@@ -70,7 +70,7 @@ public class DiffractionFrameVisualizer {
         });
     }
 
-    private int scaleImageZero(){
+    private int scaleImageZero() {
         return Math.abs(data.getMinValue());
     }
 

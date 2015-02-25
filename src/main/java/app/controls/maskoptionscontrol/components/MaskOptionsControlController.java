@@ -26,52 +26,64 @@ public class MaskOptionsControlController extends MarkupControllerBase {
     /////////// Properties //////////////////////////////////////////////////////////////////
 
     private ObjectProperty<Color> maskHue = new SimpleObjectProperty<>();
+
     public final Color getMaskHue() {
         return this.maskHue.get();
     }
+
     public final void setMaskHue(Color maskHue) {
         this.maskHue.set(maskHue);
     }
+
     public ObjectProperty<Color> maskHueProperty() {
         return this.maskHue;
     }
 
     private IntegerProperty lowerBound = new SimpleIntegerProperty();
+
     public final int getLowerBound() {
         return this.lowerBound.get();
     }
+
     public final void setLowerBound(int lowerBound) {
         this.lowerBound.set(lowerBound);
     }
+
     public IntegerProperty lowerBoundProperty() {
         return this.lowerBound;
     }
 
     private BooleanProperty stickyBounds = new SimpleBooleanProperty();
+
     public final boolean getStickyBounds() {
         return this.stickyBounds.get();
     }
-    public final void setStickyBounds(boolean setSticky){
+
+    public final void setStickyBounds(boolean setSticky) {
         this.stickyBounds.set(setSticky);
     }
+
     public BooleanProperty stickyBoundsProperty() {
         return this.stickyBounds;
     }
 
     private IntegerProperty upperBound = new SimpleIntegerProperty();
+
     public final int getUpperBound() {
         return this.upperBound.get();
     }
+
     public final void setUpperBound(int upperBound) {
         this.upperBound.set(upperBound);
     }
+
     public IntegerProperty upperBoundProperty() {
         return this.upperBound;
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public void setLimiters(int min, int max){
+    public void setLimiters(int min, int max) {
         minBound.getController().setLimiters(min, max);
         minBound.getController().setDisplayedValue(min);
         maxBound.getController().setLimiters(min, max);
@@ -87,7 +99,7 @@ public class MaskOptionsControlController extends MarkupControllerBase {
     }
 
     @Override
-    protected void setBindings(){
+    protected void setBindings() {
         stickyBoundsProperty().bindBidirectional(enableStickyBounds.selectedProperty());
         upperBoundProperty().bindBidirectional(maxBound.getController().displayedValueProperty());
         lowerBoundProperty().bindBidirectional(minBound.getController().displayedValueProperty());
@@ -95,12 +107,12 @@ public class MaskOptionsControlController extends MarkupControllerBase {
     }
 
     @Override
-    protected void setDefaults(){
+    protected void setDefaults() {
 
     }
 
     @Override
-    protected void setListeners(){
+    protected void setListeners() {
 
     }
 

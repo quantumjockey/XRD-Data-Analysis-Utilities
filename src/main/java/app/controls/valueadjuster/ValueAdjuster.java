@@ -23,13 +23,13 @@ public class ValueAdjuster extends VBox {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public ValueAdjusterController getController(){
-        return (ValueAdjusterController)markupContainer.getController();
+    public ValueAdjusterController getController() {
+        return (ValueAdjusterController) markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void initializeComponents(){
+    private void initializeComponents() {
         markupContainer = MarkupInitializerMacro.createInitializer(this, ValueAdjusterController.class, MARKUP_FILE);
         markupContainer.load();
     }

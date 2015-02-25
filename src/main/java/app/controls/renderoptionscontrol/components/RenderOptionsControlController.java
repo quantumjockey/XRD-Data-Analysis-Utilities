@@ -33,41 +33,50 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     /////////// Properties //////////////////////////////////////////////////////////////////
 
     private ObjectProperty<GradientRamp> activeRamp = new SimpleObjectProperty<>();
+
     public final GradientRamp getActiveRamp() {
         return this.activeRamp.get();
     }
+
     public final void setActiveRamp(GradientRamp activeRamp) {
         this.activeRamp.set(activeRamp);
     }
+
     public ObjectProperty<GradientRamp> activeRampProperty() {
         return this.activeRamp;
     }
 
     private BooleanProperty adaptiveRender = new SimpleBooleanProperty();
+
     public final boolean getAdaptiveRender() {
         return this.adaptiveRender.get();
     }
-    public final void setAdaptiveRender(boolean checked){
+
+    public final void setAdaptiveRender(boolean checked) {
         this.adaptiveRender.set(checked);
     }
-    public BooleanProperty adaptiveRenderProperty(){
+
+    public BooleanProperty adaptiveRenderProperty() {
         return this.adaptiveRender;
     }
 
     private IntegerProperty scaleOffset = new SimpleIntegerProperty();
+
     public final int getScaleOffset() {
         return this.scaleOffset.get();
     }
+
     public final void setScaleOffset(int scaleOffset) {
         this.scaleOffset.set(scaleOffset);
     }
+
     public IntegerProperty scaleOffsetProperty() {
         return this.scaleOffset;
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public void setOffset(int value){
+    public void setOffset(int value) {
         setScaleOffset(value);
     }
 
@@ -101,20 +110,20 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     }
 
     @Override
-    protected void setBindings(){
+    protected void setBindings() {
         adaptiveRendering.selectedProperty().bindBidirectional(adaptiveRenderProperty());
         scaleOffsetDisplay.textProperty().bindBidirectional(scaleOffsetProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
     }
 
     @Override
-    protected void setDefaults(){
+    protected void setDefaults() {
         adaptiveRendering.setSelected(false);
         createRamps();
         initializeRamps();
     }
 
     @Override
-    protected void setListeners(){
+    protected void setListeners() {
         ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> setActiveRamp(ramps.get(newValue.intValue()));
         availableRamps.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);
     }

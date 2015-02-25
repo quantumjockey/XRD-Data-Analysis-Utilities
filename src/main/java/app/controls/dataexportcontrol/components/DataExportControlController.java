@@ -24,20 +24,27 @@ public class DataExportControlController extends MarkupControllerBase {
     /////////// Properties //////////////////////////////////////////////////////////////////
 
     private ObjectProperty<ActionDelegate> selected = new SimpleObjectProperty<>();
-    public final ActionDelegate getSelected(){ return this.selected.get(); }
+
+    public final ActionDelegate getSelected() {
+        return this.selected.get();
+    }
+
     public final void setSelected(ActionDelegate selected) {
         this.selected.set(selected);
     }
-    public ObjectProperty<ActionDelegate> selectedProperty(){ return this.selected; }
+
+    public ObjectProperty<ActionDelegate> selectedProperty() {
+        return this.selected;
+    }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     @FXML
-    public void exportImage(){
+    public void exportImage() {
         getSelected().invoke();
     }
 
-    public void updateSelections(ArrayList<ActionDelegate<Void>> selections){
+    public void updateSelections(ArrayList<ActionDelegate<Void>> selections) {
         ArrayList<String> temp = new ArrayList<>();
         options.clear();
         selections.forEach((item) -> {
@@ -61,17 +68,17 @@ public class DataExportControlController extends MarkupControllerBase {
     }
 
     @Override
-    protected void setBindings(){
+    protected void setBindings() {
 
     }
 
     @Override
-    protected void setDefaults(){
+    protected void setDefaults() {
         createSelections();
     }
 
     @Override
-    protected void setListeners(){
+    protected void setListeners() {
         ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> {
             setSelected(options.get(newValue.intValue()));
             exportOptions.setTooltip(new Tooltip(options.get(newValue.intValue()).getIdentifier()));

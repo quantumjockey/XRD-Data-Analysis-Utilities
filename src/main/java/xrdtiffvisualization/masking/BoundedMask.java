@@ -13,21 +13,21 @@ public class BoundedMask {
 
     /////////// Accessors ///////////////////////////////////////////////////////////////////
 
-    public int getLowerBound(){
+    public int getLowerBound() {
         return lowerBound;
     }
 
-    public int getUpperBound(){
+    public int getUpperBound() {
         return upperBound;
     }
 
-    public Color getMaskHue(){
+    public Color getMaskHue() {
         return maskHue;
     }
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public BoundedMask(int min, int max, Color hue){
+    public BoundedMask(int min, int max, Color hue) {
         lowerBound = min;
         upperBound = max;
         maskHue = hue;

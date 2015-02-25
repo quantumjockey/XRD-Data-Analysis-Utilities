@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import app.controls.diffractionframeviewport.DiffractionFrameViewport?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TreeView?>
 
 <?import app.controls.filegroupselector.FileGroupSelector?>
 <fx:root type="javafx.scene.layout.VBox"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.workspaces.singleimagecorrection.components.SingleImageSubtractorController" >

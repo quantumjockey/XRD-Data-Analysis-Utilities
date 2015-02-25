@@ -27,47 +27,71 @@ public class ValueAdjusterController extends MarkupControllerBase {
     /////////// Properties //////////////////////////////////////////////////////////////////
 
     private IntegerProperty displayedValue = new SimpleIntegerProperty();
-    public final int getDisplayedValue(){ return this.displayedValue.get(); }
+
+    public final int getDisplayedValue() {
+        return this.displayedValue.get();
+    }
+
     public final void setDisplayedValue(int displayedValue) {
         this.displayedValue.set(displayedValue);
     }
-    public IntegerProperty displayedValueProperty(){ return this.displayedValue; }
+
+    public IntegerProperty displayedValueProperty() {
+        return this.displayedValue;
+    }
 
     private IntegerProperty maxValue = new SimpleIntegerProperty();
-    public final int getMaxValue(){ return this.maxValue.get(); }
-    public final void setMaxValue(int maxValue){ this.maxValue.set(maxValue); }
-    public IntegerProperty maxValueProperty(){ return this.maxValue; }
+
+    public final int getMaxValue() {
+        return this.maxValue.get();
+    }
+
+    public final void setMaxValue(int maxValue) {
+        this.maxValue.set(maxValue);
+    }
+
+    public IntegerProperty maxValueProperty() {
+        return this.maxValue;
+    }
 
     private IntegerProperty minValue = new SimpleIntegerProperty();
-    public final int getMinValue(){ return this.minValue.get(); }
-    public final void setMinValue(int minValue){ this.minValue.set(minValue); }
-    public IntegerProperty minValueProperty(){ return this.minValue; }
+
+    public final int getMinValue() {
+        return this.minValue.get();
+    }
+
+    public final void setMinValue(int minValue) {
+        this.minValue.set(minValue);
+    }
+
+    public IntegerProperty minValueProperty() {
+        return this.minValue;
+    }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     @FXML
-    public void decrement(){
-        if (getDisplayedValue() <= getMaxValue() && getDisplayedValue() > getMinValue()){
+    public void decrement() {
+        if (getDisplayedValue() <= getMaxValue() && getDisplayedValue() > getMinValue()) {
             int result = getDisplayedValue() - 1;
             setDisplayedValue(result);
         }
     }
 
     @FXML
-    public void increment(){
-        if (getDisplayedValue() < getMaxValue() && getDisplayedValue() >= getMinValue()){
+    public void increment() {
+        if (getDisplayedValue() < getMaxValue() && getDisplayedValue() >= getMinValue()) {
             int result = getDisplayedValue() + 1;
             setDisplayedValue(result);
         }
     }
 
-    public void setLimiters(int min, int max){
-        if (min > max){
+    public void setLimiters(int min, int max) {
+        if (min > max) {
             setMaxValue(min);
             setMinValue(max);
             setTickUnits(min);
-        }
-        else {
+        } else {
             setMaxValue(max);
             setMinValue(min);
             setTickUnits(max);
@@ -76,7 +100,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void setTickUnits(int maxVal){
+    private void setTickUnits(int maxVal) {
         int tickUnit = maxVal / 3;
         adjustment.setMajorTickUnit((tickUnit != 0) ? Math.abs(tickUnit) : 1);
     }
@@ -84,12 +108,12 @@ public class ValueAdjusterController extends MarkupControllerBase {
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls(){
+    protected void createCustomControls() {
 
     }
 
     @Override
-    protected void setBindings(){
+    protected void setBindings() {
         value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
         adjustment.maxProperty().bindBidirectional(maxValueProperty());
         adjustment.minProperty().bindBidirectional(minValueProperty());
@@ -97,7 +121,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
     }
 
     @Override
-    protected void setDefaults(){
+    protected void setDefaults() {
         setLimiters(SLIDER_MIN_DEFAULT, SLIDER_MAX_DEFAULT);
         setDisplayedValue(SLIDER_MIN_DEFAULT);
         adjustment.setShowTickMarks(true);
@@ -105,7 +129,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
     }
 
     @Override
-    protected void setListeners(){
+    protected void setListeners() {
 
     }
 

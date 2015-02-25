@@ -23,13 +23,13 @@ public class BulkImageSubtractor extends VBox {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public BulkImageSubtractorController getController(){
-        return (BulkImageSubtractorController)markupContainer.getController();
+    public BulkImageSubtractorController getController() {
+        return (BulkImageSubtractorController) markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void initializeComponents(){
+    private void initializeComponents() {
         markupContainer = MarkupInitializerMacro.createInitializer(this, BulkImageSubtractorController.class, MARKUP_FILE);
         markupContainer.load();
     }

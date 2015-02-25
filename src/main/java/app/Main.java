@@ -9,11 +9,11 @@ import com.quantumjockey.paths.SystemAttributes;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         WindowInitializer init = new WindowInitializer("mainwindow/MainWindowView.fxml", new MainWindowController(), this.getClass());
         primaryStage.setTitle("XRD Data Analysis Utilities - " + SystemAttributes.OS_NAME);
         primaryStage.setScene(init.getScene());
-        if (SystemAttributes.OS_NAME.contains("Windows")){
+        if (SystemAttributes.OS_NAME.contains("Windows")) {
             primaryStage.requestFocus();
             primaryStage.setMaximized(true);
         }
@@ -21,7 +21,8 @@ public class Main extends Application {
     }
 
     // Default application entry point
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
+    
 }

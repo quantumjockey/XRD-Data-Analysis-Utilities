@@ -54,11 +54,10 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         if (diffractionImagePath.getController().getSelectionModel().isEmpty()
                 || !diffractionImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()
                 || backgroundImagePath.getController().getSelectionModel().isEmpty()
-                || !backgroundImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()){
+                || !backgroundImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()) {
             AlertWindow alert = new AlertWindow("Invalid Operation", "No images are selected for subtraction.");
             alert.show();
-        }
-        else {
+        } else {
             DirectoryChooserWrapper dialog = new DirectoryChooserWrapper("Save to...");
             File destination = dialog.getSelectedDirectory();
             if (destination != null) {
@@ -69,7 +68,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         }
     }
 
-    public void updateControls(ArrayList<PathWrapper> newItems, String root){
+    public void updateControls(ArrayList<PathWrapper> newItems, String root) {
         availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
@@ -80,12 +79,12 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private ArrayList<PathWrapper> getSelectedPaths(){
+    private ArrayList<PathWrapper> getSelectedPaths() {
         ArrayList<PathWrapper> selectedPaths = new ArrayList<>();
         diffractionImagePath.getController().getSelectionModel().getSelectedItems().forEach((item) -> {
             if (item.isLeaf()) {
                 availableFiles.forEach((path) -> {
-                    if (path.getPathTail().equals(item.getValue())){
+                    if (path.getPathTail().equals(item.getValue())) {
                         selectedPaths.add(availableFiles.get(availableFiles.indexOf(path)));
                     }
                 });
@@ -94,17 +93,17 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         return selectedPaths;
     }
 
-    private DiffractionFrame getSubtractedImageData() throws IOException{
+    private DiffractionFrame getSubtractedImageData() throws IOException {
         PathWrapper subtracted = null;
-        for (PathWrapper file : availableFiles){
-            if (file.getPathTail().contains(backgroundImagePath.getController().getSelectionModel().getSelectedItem().getValue())){
+        for (PathWrapper file : availableFiles) {
+            if (file.getPathTail().contains(backgroundImagePath.getController().getSelectionModel().getSelectedItem().getValue())) {
                 subtracted = file;
             }
         }
         return FileSysReader.readImageData(subtracted);
     }
 
-    private void filterImage(DiffractionFrame image){
+    private void filterImage(DiffractionFrame image) {
         try {
             int lowerBound = image.getMinValue();
             int upperBound = image.getMaxValue();
@@ -115,22 +114,20 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
                 upperBound = Integer.parseInt(upperBoundFilter.getText().trim());
             }
             DataMasking.maskImage(image, lowerBound, upperBound);
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void openDirectoryInFileExplorerWindow(String directoryPath){
+    private void openDirectoryInFileExplorerWindow(String directoryPath) {
         try {
             Desktop.getDesktop().open(new File(directoryPath));
-        }
-        catch (IOException ex){
+        } catch (IOException ex) {
             System.out.println("File explorer window could not be opened.");
         }
     }
 
-    private void streamImageSubtraction(File destination, ArrayList<PathWrapper> selectedPaths, DiffractionFrame backgroundImage){
+    private void streamImageSubtraction(File destination, ArrayList<PathWrapper> selectedPaths, DiffractionFrame backgroundImage) {
         String basePath = destination.getPath();
 
         String[] parts = selectedPaths.get(0).getPathTail().split("_");
@@ -140,17 +137,15 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         try {
             if (!Files.exists(Paths.get(newDestination))) {
                 Files.createDirectory(Paths.get(newDestination));
-            }
-            else{
+            } else {
                 int i = 1;
-                while(Files.exists(Paths.get(newDestination + "(" + i + ")"))){
+                while (Files.exists(Paths.get(newDestination + "(" + i + ")"))) {
                     i++;
                 }
                 newDestination += "(" + i + ")";
                 Files.createDirectory(Paths.get(newDestination));
             }
-        }
-        catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
 
@@ -163,8 +158,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
 
             try {
                 baseImage = FileSysReader.readImageData(path);
-            }
-            catch (IOException ex) {
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
 
@@ -186,12 +180,12 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
     }
 
     @Override
-    protected void setBindings(){
+    protected void setBindings() {
 
     }
 
     @Override
-    protected void setDefaults(){
+    protected void setDefaults() {
         String rootDefault = "(Unspecified)";
         LabelExt.update(rootPath, rootDefault, null);
         diffractionImagePath.getController().setHeader("Image(s) Selected for Correction");
@@ -199,7 +193,7 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
     }
 
     @Override
-    protected void setListeners(){
+    protected void setListeners() {
 
     }
 

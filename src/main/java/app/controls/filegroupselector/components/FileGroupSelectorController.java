@@ -16,7 +16,7 @@ import com.quantumjockey.mvvmbase.icons.IconLibrary;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import java.util.ArrayList;
 
-public class FileGroupSelectorController extends MarkupControllerBase{
+public class FileGroupSelectorController extends MarkupControllerBase {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -29,22 +29,38 @@ public class FileGroupSelectorController extends MarkupControllerBase{
     /////////// Properties //////////////////////////////////////////////////////////////////
 
     private StringProperty header = new SimpleStringProperty();
-    public final String getHeader(){ return this.header.get(); }
+
+    public final String getHeader() {
+        return this.header.get();
+    }
+
     public final void setHeader(String header) {
         this.header.set(header);
     }
-    public StringProperty headerProperty(){ return this.header; }
+
+    public StringProperty headerProperty() {
+        return this.header;
+    }
 
     private ObjectProperty<Tooltip> tooltip = new SimpleObjectProperty<>();
-    public final Tooltip getTooltip(){ return this.tooltip.get(); }
+
+    public final Tooltip getTooltip() {
+        return this.tooltip.get();
+    }
+
     public final void setTooltip(Tooltip tooltip) {
         this.tooltip.set(tooltip);
     }
-    public ObjectProperty<Tooltip> tooltipProperty(){ return this.tooltip; }
+
+    public ObjectProperty<Tooltip> tooltipProperty() {
+        return this.tooltip;
+    }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public MultipleSelectionModel<TreeItem<String>> getSelectionModel(){ return fileSelection.getSelectionModel(); }
+    public MultipleSelectionModel<TreeItem<String>> getSelectionModel() {
+        return fileSelection.getSelectionModel();
+    }
 
     public void populateTree(ArrayList<String> temp, String label, SelectionMode mode, ChangeListener<TreeItem<String>> selectionChangedEvent) {
 
@@ -73,17 +89,16 @@ public class FileGroupSelectorController extends MarkupControllerBase{
             root.getChildren().add(content);
         }
 
-        if (mode == SelectionMode.MULTIPLE){
+        if (mode == SelectionMode.MULTIPLE) {
             TreeViewExt.populateTree(fileSelection, root, mode, false, (f) -> new SelectableGroupTreeCellFctry(), selectionChangedEvent);
-        }
-        else {
+        } else {
             TreeViewExt.populateTree(fileSelection, root, mode, false, null, selectionChangedEvent);
         }
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private String extractPrefix(String file){
+    private String extractPrefix(String file) {
         String[] components = file.split("_");
         String prefix = "";
         for (int j = 0; j < components.length - 1; j++) {
@@ -98,23 +113,23 @@ public class FileGroupSelectorController extends MarkupControllerBase{
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls(){
+    protected void createCustomControls() {
 
     }
 
     @Override
-    protected void setBindings(){
+    protected void setBindings() {
         hierarchyHeader.textProperty().bindBidirectional(headerProperty());
         fileSelection.tooltipProperty().bindBidirectional(tooltipProperty());
     }
 
     @Override
-    protected void setDefaults(){
+    protected void setDefaults() {
         VBox.setVgrow(fileSelection, Priority.ALWAYS);
     }
 
     @Override
-    protected void setListeners(){
+    protected void setListeners() {
 
     }
 

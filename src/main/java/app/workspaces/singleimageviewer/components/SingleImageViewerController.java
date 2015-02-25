@@ -29,17 +29,16 @@ public class SingleImageViewerController extends MarkupControllerBase implements
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public void updateControls(ArrayList<PathWrapper> newItems, String root){
+    public void updateControls(ArrayList<PathWrapper> newItems, String root) {
         availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
         availableFiles.forEach((item) -> temp.add(item.getPathTail()));
         ChangeListener<TreeItem<String>> selectedChanged = createListener(diffractionImageViewport);
         diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
         LabelExt.update(rootPath, root, root);
-        try{
+        try {
             diffractionImageViewport.renderImageFromFile(availableFiles.get(diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
-        }
-        catch (IOException ex){
+        } catch (IOException ex) {
             System.out.println("Image file could not be rendered!");
         }
     }
@@ -54,22 +53,21 @@ public class SingleImageViewerController extends MarkupControllerBase implements
                         && !selected.isEmpty()
                         && newValue != null
                         && newValue.isLeaf()
-                        && selected.getSelectedIndex() >= 0){
+                        && selected.getSelectedIndex() >= 0) {
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
                     diffractionImagePath.getController().setTooltip(new Tooltip(tip));
                     imageViewport.renderImageFromFile(getPath(newValue.getValue()));
                 }
-            }
-            catch (IOException ex){
+            } catch (IOException ex) {
                 System.out.println("Image file could not be read!");
             }
         };
     }
 
-    private PathWrapper getPath(String file){
+    private PathWrapper getPath(String file) {
         PathWrapper path = null;
-        for (PathWrapper item : availableFiles){
-            if (item.getPathTail().equals(file)){
+        for (PathWrapper item : availableFiles) {
+            if (item.getPathTail().equals(file)) {
                 path = item;
                 break;
             }
@@ -86,19 +84,19 @@ public class SingleImageViewerController extends MarkupControllerBase implements
     }
 
     @Override
-    protected void setBindings(){
+    protected void setBindings() {
 
     }
 
     @Override
-    protected void setDefaults(){
+    protected void setDefaults() {
         String rootDefault = "(Unspecified)";
         LabelExt.update(rootPath, rootDefault, null);
         diffractionImagePath.getController().setHeader("Image Selected for Viewing");
     }
 
     @Override
-    protected void setListeners(){
+    protected void setListeners() {
 
     }
 

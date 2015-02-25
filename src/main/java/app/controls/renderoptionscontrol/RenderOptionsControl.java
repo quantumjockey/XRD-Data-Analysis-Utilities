@@ -23,13 +23,13 @@ public class RenderOptionsControl extends VBox {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public RenderOptionsControlController getController(){
-        return (RenderOptionsControlController)markupContainer.getController();
+    public RenderOptionsControlController getController() {
+        return (RenderOptionsControlController) markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void initializeComponents(){
+    private void initializeComponents() {
         markupContainer = MarkupInitializerMacro.createInitializer(this, RenderOptionsControlController.class, MARKUP_FILE);
         markupContainer.load();
     }

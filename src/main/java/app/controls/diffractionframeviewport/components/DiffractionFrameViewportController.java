@@ -130,11 +130,11 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
                 isAdaptive
         ));
         cachedImage = image;
-        if(!(diffractionPattern.getData().size() > 1))
+        if (!(diffractionPattern.getData().size() > 1))
             updateDiffractionPattern();
     }
 
-    public void updateDiffractionPattern(){
+    public void updateDiffractionPattern() {
         diffractionPattern.getData().clear();
         diffractionPattern.getData().add(integrateDiffractionPattern());
     }
@@ -152,18 +152,17 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void exportImage(String imageType){
+    private void exportImage(String imageType) {
 
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
         int maskLb = maskOptions.getController().getLowerBound();
         int maskUb = maskOptions.getController().getUpperBound();
         boolean isMasked = (cachedImage.getMaxValue() != maskUb || cachedImage.getMinValue() != maskLb);
 
-        if(isMasked){
+        if (isMasked) {
             DataMasking.maskImage(cachedImage, maskLb, maskUb);
             dialog.setInitialFileName(cachedImage.getIdentifier());
-        }
-        else {
+        } else {
             dialog.setInitialFileName(cachedImage.getIdentifier());
         }
 
@@ -172,32 +171,31 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         FileSysWriter.writeImageData(destination, cachedImage, imageType);
     }
 
-    private Void exportThirtyTwoBitIntImage(){
+    private Void exportThirtyTwoBitIntImage() {
         exportImage(FileTypes.TIFF_32_BIT_INT);
         return null;
     }
 
-    private Void exportThirtyTwoBitFloatImage(){
+    private Void exportThirtyTwoBitFloatImage() {
         exportImage(FileTypes.TIFF_32_BIT_FLOAT);
         return null;
     }
 
-    private void updateMaskLimiters(DiffractionFrame image){
+    private void updateMaskLimiters(DiffractionFrame image) {
         int max = image.getMaxValue();
         int min = image.getMinValue();
         maskOptions.getController().setLimiters(min, max);
     }
 
-    private void updatePixelScale(DiffractionFrame image){
-        if (image == null){
+    private void updatePixelScale(DiffractionFrame image) {
+        if (image == null) {
             renderOptions.getController().setOffset(0);
-        }
-        else {
+        } else {
             renderOptions.getController().setOffset(Math.abs(image.getMinValue()));
         }
     }
 
-    private void updateZoomScale(DiffractionFrame image){
+    private void updateZoomScale(DiffractionFrame image) {
         if (image != null) {
             int size = (image.getHeight() >= image.getWidth()) ? image.getHeight() : image.getWidth();
             double viewportSize = scrollViewport.getWidth() - 2;
@@ -218,7 +216,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
     }
 
     @Override
-    protected void setBindings(){
+    protected void setBindings() {
 
     }
 
@@ -235,7 +233,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
     }
 
     @Override
-    protected void setListeners(){
+    protected void setListeners() {
 
         EventHandler<MouseEvent> clickEvent = (event) -> {
             if (event.getClickCount() == 2) {
@@ -258,23 +256,23 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
             double imageX = cachedImage.getWidth();
             double realX = event.getX();
             double viewportX = imageViewport.getFitWidth();
-            int scaledX = (int)((realX / viewportX) * imageX);
+            int scaledX = (int) ((realX / viewportX) * imageX);
 
             double imageY = cachedImage.getHeight();
             double realY = event.getY();
             double viewportY = imageViewport.getFitHeight();
-            int scaledY = (int)((realY / viewportY) * imageY);
+            int scaledY = (int) ((realY / viewportY) * imageY);
 
             // (imageY - scaledY) used for display to represent 0,0 in bottom-left corner of image
             String message = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approximate] " : "")
-                    + "Coordinates (x,y): " + scaledX + "," + ((int)imageY - scaledY)
+                    + "Coordinates (x,y): " + scaledX + "," + ((int) imageY - scaledY)
                     + " - Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
 
             pixelTrack.setFont(Font.font(null, FontWeight.BOLD, 13));
             pixelTrack.setText(message);
 
             String tooltip = ((imageZoom.getController().getZoomLevel() < 1) ? "[Approx.] " : "")
-                    + "(x,y): " + scaledX + "," + ((int)imageY - scaledY) + SystemAttributes.LINE_SEPARATOR
+                    + "(x,y): " + scaledX + "," + ((int) imageY - scaledY) + SystemAttributes.LINE_SEPARATOR
                     + "Intensity: " + cachedImage.getIntensityMapValue(scaledY, scaledX);
 
             scrollViewport.setTooltip(new Tooltip(tooltip));
@@ -282,7 +280,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
 
         ChangeListener<Boolean> onAdaptiveRenderingChange = (observable, oldValue, newValue) -> {
             try {
-                if(newValue)
+                if (newValue)
                     maskOptions.getController().setMaskHue(renderOptions.getController().getActiveRamp().getRampColorValue(0.0));
                 renderImageWithMask(cachedImage, newValue);
             } catch (IOException ex) {
@@ -324,7 +322,7 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         };
 
         ChangeListener<Number> onZoomChange = (observable, oldValue, newValue) -> {
-            if (cachedImage != null){
+            if (cachedImage != null) {
                 double vVal = scrollViewport.getVvalue();
                 double hVal = scrollViewport.getHvalue();
                 int height = cachedImage.getHeight();

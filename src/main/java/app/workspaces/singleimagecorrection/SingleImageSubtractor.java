@@ -23,13 +23,13 @@ public class SingleImageSubtractor extends VBox {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public SingleImageSubtractorController getController(){
-        return (SingleImageSubtractorController)markupContainer.getController();
+    public SingleImageSubtractorController getController() {
+        return (SingleImageSubtractorController) markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void initializeComponents(){
+    private void initializeComponents() {
         markupContainer = MarkupInitializerMacro.createInitializer(this, SingleImageSubtractorController.class, MARKUP_FILE);
         markupContainer.load();
     }

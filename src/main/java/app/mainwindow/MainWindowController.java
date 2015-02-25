@@ -29,12 +29,12 @@ public class MainWindowController extends WindowControllerBase {
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
     @FXML
-    public void exitApplication(){
+    public void exitApplication() {
         System.exit(0);
     }
 
     @FXML
-    public void getDirectoryToDisplay(){
+    public void getDirectoryToDisplay() {
         ArrayList<PathWrapper> availableFiles;
         DirectoryChooserWrapper dialog;
 
@@ -60,7 +60,7 @@ public class MainWindowController extends WindowControllerBase {
     }
 
     @Override
-    protected void performInitializationTasks(){
+    protected void performInitializationTasks() {
 
     }
 

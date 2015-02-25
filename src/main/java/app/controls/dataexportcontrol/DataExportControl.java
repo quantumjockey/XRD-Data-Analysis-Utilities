@@ -23,13 +23,13 @@ public class DataExportControl extends VBox {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public DataExportControlController getController(){
-        return (DataExportControlController)markupContainer.getController();
+    public DataExportControlController getController() {
+        return (DataExportControlController) markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void initializeComponents(){
+    private void initializeComponents() {
         markupContainer = MarkupInitializerMacro.createInitializer(this, DataExportControlController.class, MARKUP_FILE);
         markupContainer.load();
     }

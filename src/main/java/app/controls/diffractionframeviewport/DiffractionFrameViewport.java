@@ -26,21 +26,21 @@ public class DiffractionFrameViewport extends TitledPane {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public DiffractionFrameViewportController getController(){
-        return (DiffractionFrameViewportController)markupContainer.getController();
+    public DiffractionFrameViewportController getController() {
+        return (DiffractionFrameViewportController) markupContainer.getController();
     }
 
-    public void renderImage(DiffractionFrame image) throws IOException{
+    public void renderImage(DiffractionFrame image) throws IOException {
         getController().renderImageOnLoad(image);
     }
 
-    public void renderImageFromFile(PathWrapper filePath) throws IOException{
+    public void renderImageFromFile(PathWrapper filePath) throws IOException {
         getController().renderImageFromFile(filePath);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void initializeComponents(){
+    private void initializeComponents() {
         markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameViewportController.class, MARKUP_FILE);
         markupContainer.load();
     }
