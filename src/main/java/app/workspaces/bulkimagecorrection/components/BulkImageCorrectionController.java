@@ -170,8 +170,7 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
 
     @Override
     protected void createCustomControls() {
-        diffractionImagePath = new FileGroupSelector();
-        backgroundImagePath = new FileGroupSelector();
+
     }
 
     @Override

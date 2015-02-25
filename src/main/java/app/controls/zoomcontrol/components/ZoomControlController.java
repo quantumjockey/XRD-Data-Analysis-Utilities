@@ -71,7 +71,7 @@ public class ZoomControlController extends MarkupControllerBase {
 
     @Override
     protected void createCustomControls() {
-        zoomScale = new DoubleAdjuster();
+
     }
 
     @Override

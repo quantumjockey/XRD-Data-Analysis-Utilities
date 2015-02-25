@@ -94,8 +94,7 @@ public class MaskOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void createCustomControls() {
-        maxBound = new ValueAdjuster();
-        minBound = new ValueAdjuster();
+
     }
 
     @Override

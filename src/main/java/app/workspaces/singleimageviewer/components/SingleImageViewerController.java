@@ -78,8 +78,7 @@ public class SingleImageViewerController extends MarkupControllerBase implements
 
     @Override
     protected void createCustomControls() {
-        diffractionImagePath = new FileGroupSelector();
-        diffractionImageViewport = new DiffractionFrameWorkspace();
+
     }
 
     @Override

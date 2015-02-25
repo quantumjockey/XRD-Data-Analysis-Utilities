@@ -121,7 +121,7 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
 
     @Override
     protected void createCustomControls() {
-        resultantImageViewport = new DiffractionFrameWorkspace();
+
     }
 
     @Override

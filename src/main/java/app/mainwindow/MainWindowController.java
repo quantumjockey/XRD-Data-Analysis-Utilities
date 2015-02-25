@@ -66,9 +66,7 @@ public class MainWindowController extends WindowControllerBase {
 
     @Override
     protected void createCustomControls() {
-        multipleImageWorkspace = new BulkImageCorrection();
-        singleImageWorkspace = new SingleImageCorrection();
-        singleImageViewer = new SingleImageViewer();
+
     }
 
     @Override

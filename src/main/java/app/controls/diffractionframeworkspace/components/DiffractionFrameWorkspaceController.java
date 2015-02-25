@@ -192,10 +192,7 @@ public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
 
     @Override
     protected void createCustomControls() {
-        exportOptions = new DataExportControl();
-        maskOptions = new MaskOptionsControl();
-        renderOptions = new RenderOptionsControl();
-        imageZoom = new ZoomControl();
+
     }
 
     @Override
