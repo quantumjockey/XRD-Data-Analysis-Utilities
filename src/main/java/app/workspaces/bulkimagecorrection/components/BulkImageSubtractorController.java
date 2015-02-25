@@ -82,24 +82,20 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
     private ArrayList<PathWrapper> getSelectedPaths() {
         ArrayList<PathWrapper> selectedPaths = new ArrayList<>();
         diffractionImagePath.getController().getSelectionModel().getSelectedItems().forEach((item) -> {
-            if (item.isLeaf()) {
+            if (item.isLeaf())
                 availableFiles.forEach((path) -> {
-                    if (path.getPathTail().equals(item.getValue())) {
+                    if (path.getPathTail().equals(item.getValue()))
                         selectedPaths.add(availableFiles.get(availableFiles.indexOf(path)));
-                    }
                 });
-            }
         });
         return selectedPaths;
     }
 
     private DiffractionFrame getSubtractedImageData() throws IOException {
         PathWrapper subtracted = null;
-        for (PathWrapper file : availableFiles) {
-            if (file.getPathTail().contains(backgroundImagePath.getController().getSelectionModel().getSelectedItem().getValue())) {
+        for (PathWrapper file : availableFiles)
+            if (file.getPathTail().contains(backgroundImagePath.getController().getSelectionModel().getSelectedItem().getValue()))
                 subtracted = file;
-            }
-        }
         return FileSysReader.readImageData(subtracted);
     }
 
@@ -107,12 +103,12 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         try {
             int lowerBound = image.getMinValue();
             int upperBound = image.getMaxValue();
-            if (!lowerBoundFilter.getText().isEmpty()) {
+
+            if (!lowerBoundFilter.getText().isEmpty())
                 lowerBound = Integer.parseInt(lowerBoundFilter.getText().trim());
-            }
-            if (!upperBoundFilter.getText().isEmpty()) {
+            if (!upperBoundFilter.getText().isEmpty())
                 upperBound = Integer.parseInt(upperBoundFilter.getText().trim());
-            }
+
             DataMasking.maskImage(image, lowerBound, upperBound);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -135,13 +131,12 @@ public class BulkImageSubtractorController extends MarkupControllerBase implemen
         String newDestination = basePath + SystemAttributes.FILE_SEPARATOR + newDirectoryName;
 
         try {
-            if (!Files.exists(Paths.get(newDestination))) {
+            if (!Files.exists(Paths.get(newDestination)))
                 Files.createDirectory(Paths.get(newDestination));
-            } else {
+            else {
                 int i = 1;
-                while (Files.exists(Paths.get(newDestination + "(" + i + ")"))) {
+                while (Files.exists(Paths.get(newDestination + "(" + i + ")")))
                     i++;
-                }
                 newDestination += "(" + i + ")";
                 Files.createDirectory(Paths.get(newDestination));
             }

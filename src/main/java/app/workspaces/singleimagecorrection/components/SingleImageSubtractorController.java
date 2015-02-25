@@ -105,12 +105,11 @@ public class SingleImageSubtractorController extends MarkupControllerBase implem
 
     private PathWrapper getPath(String file) {
         PathWrapper path = null;
-        for (PathWrapper item : availableFiles) {
+        for (PathWrapper item : availableFiles)
             if (item.getPathTail().equals(file)) {
                 path = item;
                 break;
             }
-        }
         return path;
     }
 

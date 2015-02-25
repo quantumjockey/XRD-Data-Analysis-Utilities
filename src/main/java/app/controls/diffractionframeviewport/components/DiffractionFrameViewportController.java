@@ -55,7 +55,6 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
     @FXML
     private NumberAxis yAxis;
 
-
     @FXML
     private ImageView imageViewport;
 
@@ -162,9 +161,8 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
         if (isMasked) {
             DataMasking.maskImage(cachedImage, maskLb, maskUb);
             dialog.setInitialFileName(cachedImage.getIdentifier());
-        } else {
+        } else
             dialog.setInitialFileName(cachedImage.getIdentifier());
-        }
 
         File destination = dialog.getSaveDirectory();
 
@@ -188,11 +186,10 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
     }
 
     private void updatePixelScale(DiffractionFrame image) {
-        if (image == null) {
+        if (image == null)
             renderOptions.getController().setOffset(0);
-        } else {
+        else
             renderOptions.getController().setOffset(Math.abs(image.getMinValue()));
-        }
     }
 
     private void updateZoomScale(DiffractionFrame image) {

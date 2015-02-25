@@ -66,12 +66,11 @@ public class SingleImageViewerController extends MarkupControllerBase implements
 
     private PathWrapper getPath(String file) {
         PathWrapper path = null;
-        for (PathWrapper item : availableFiles) {
+        for (PathWrapper item : availableFiles)
             if (item.getPathTail().equals(file)) {
                 path = item;
                 break;
             }
-        }
         return path;
     }
 

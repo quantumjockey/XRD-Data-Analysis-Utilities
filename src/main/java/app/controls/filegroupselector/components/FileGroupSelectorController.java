@@ -70,9 +70,8 @@ public class FileGroupSelectorController extends MarkupControllerBase {
         ArrayList<String> _temp = new ArrayList<>();
         for (String item : temp) {
             String prefix = extractPrefix(item);
-            if (!_temp.contains(prefix)) {
+            if (!_temp.contains(prefix))
                 _temp.add(prefix);
-            }
         }
 
         TreeItem<String> root = new TreeItem<>(rootLabel, new ImageView(icons.getRootIcon()));
@@ -89,11 +88,10 @@ public class FileGroupSelectorController extends MarkupControllerBase {
             root.getChildren().add(content);
         }
 
-        if (mode == SelectionMode.MULTIPLE) {
+        if (mode == SelectionMode.MULTIPLE)
             TreeViewExt.populateTree(fileSelection, root, mode, false, (f) -> new SelectableGroupTreeCellFctry(), selectionChangedEvent);
-        } else {
+        else
             TreeViewExt.populateTree(fileSelection, root, mode, false, null, selectionChangedEvent);
-        }
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
@@ -103,9 +101,8 @@ public class FileGroupSelectorController extends MarkupControllerBase {
         String prefix = "";
         for (int j = 0; j < components.length - 1; j++) {
             prefix += components[j];
-            if (j != components.length - 2) {
+            if (j != components.length - 2)
                 prefix += "_";
-            }
         }
         return prefix;
     }
