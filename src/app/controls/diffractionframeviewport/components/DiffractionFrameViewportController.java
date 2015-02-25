@@ -6,6 +6,9 @@ import app.filesystem.FileSysWriter;
 import app.controls.zoomcontrol.ZoomControl;
 import com.quantumjockey.dialogs.FileSaveChooserWrapper;
 import javafx.event.EventHandler;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
@@ -42,6 +45,16 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
     private final double DEFAULT_ZOOM_MAX = 6.0;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
+
+    @FXML
+    private LineChart diffractionPattern;
+
+    @FXML
+    private NumberAxis xAxis;
+
+    @FXML
+    private NumberAxis yAxis;
+
 
     @FXML
     private ImageView imageViewport;
@@ -117,6 +130,24 @@ public class DiffractionFrameViewportController extends MarkupControllerBase {
                 isAdaptive
         ));
         cachedImage = image;
+        if(!(diffractionPattern.getData().size() > 1))
+            updateDiffractionPattern();
+    }
+
+    public void updateDiffractionPattern(){
+        diffractionPattern.getData().clear();
+        diffractionPattern.getData().add(integrateDiffractionPattern());
+    }
+
+    public XYChart.Series integrateDiffractionPattern() {
+        XYChart.Series dataSet = new XYChart.Series<>();
+
+//        cachedImage.cycleImageDataBytes((x, y) -> {
+//            if (y != 0 && x % 128 == 0)
+//                dataSet.getData().add(new XYChart.Data<>(x, cachedImage.getIntensityMapValue(y, x)));
+//        });
+
+        return dataSet;
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////

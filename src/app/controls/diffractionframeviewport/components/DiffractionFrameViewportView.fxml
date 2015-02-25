@@ -7,9 +7,10 @@
 <?import app.controls.maskoptionscontrol.MaskOptionsControl?>
 <?import javafx.geometry.Insets?>
 <?import app.controls.renderoptionscontrol.RenderOptionsControl?>
-
 <?import app.controls.dataexportcontrol.DataExportControl?>
 <?import app.controls.zoomcontrol.ZoomControl?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <fx:root fx:id="viewportTitle" alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controls.diffractionframeviewport.components.DiffractionFrameViewportController">
     <content>
         <TabPane>
@@ -28,7 +29,7 @@
                                   <ScrollPane fx:id="scrollViewport" prefHeight="600.0" prefWidth="600.0" pannable="true" GridPane.rowIndex="0">
                                       <ImageView fx:id="imageViewport" pickOnBounds="true" preserveRatio="true" />
                                   </ScrollPane>
-                                  <Label fx:id="pixelTrack" GridPane.rowIndex="1" />
+                                  <Label fx:id="pixelTrack" GridPane.rowIndex="1" prefHeight="30"/>
                                 </children>
                                 <padding>
                                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
@@ -57,7 +58,18 @@
                     </HBox>
                 </Tab>
                 <Tab text="Diffraction Pattern" closable="false">
-
+                    <HBox>
+                        <children>
+                            <LineChart fx:id="diffractionPattern" prefHeight="600" prefWidth="800">
+                                <xAxis>
+                                    <NumberAxis fx:id="xAxis" label="2-Theta" />
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis fx:id="yAxis" label="Intensity (counts)" />
+                                </yAxis>
+                            </LineChart>
+                        </children>
+                    </HBox>
                 </Tab>
             </tabs>
         </TabPane>
