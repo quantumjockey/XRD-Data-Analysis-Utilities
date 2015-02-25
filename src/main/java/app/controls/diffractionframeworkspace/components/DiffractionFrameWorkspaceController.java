@@ -48,12 +48,6 @@ public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
     private LineChart diffractionPattern;
 
     @FXML
-    private NumberAxis xAxis;
-
-    @FXML
-    private NumberAxis yAxis;
-
-    @FXML
     private TitledPane viewportTitle;
 
     @FXML

@@ -47,10 +47,10 @@
                         <children>
                             <LineChart fx:id="diffractionPattern" prefHeight="600" prefWidth="800">
                                 <xAxis>
-                                    <NumberAxis fx:id="xAxis" label="2-Theta" />
+                                    <NumberAxis label="2-Theta" />
                                 </xAxis>
                                 <yAxis>
-                                    <NumberAxis fx:id="yAxis" label="Intensity (counts)" />
+                                    <NumberAxis label="Intensity (counts)" />
                                 </yAxis>
                             </LineChart>
                         </children>
