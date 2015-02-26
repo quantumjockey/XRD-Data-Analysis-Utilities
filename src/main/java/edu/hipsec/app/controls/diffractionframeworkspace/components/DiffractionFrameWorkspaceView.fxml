@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import edu.hipsec.app.controls.maskoptionscontrol.MaskOptionsControl?>
+<?import javafx.geometry.Insets?>
+<?import edu.hipsec.app.controls.renderoptionscontrol.RenderOptionsControl?>
+<?import edu.hipsec.app.controls.dataexportcontrol.DataExportControl?>
+<?import edu.hipsec.app.controls.zoomcontrol.ZoomControl?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import edu.hipsec.app.controls.diffractionframerender.DiffractionFrameRender?>
+
+<fx:root fx:id="viewportTitle" alignment="TOP_CENTER" animated="false" collapsible="false" contentDisplay="CENTER" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.app.controls.diffractionframeworkspace.components.DiffractionFrameWorkspaceController">
+    <content>
+        <TabPane>
+            <tabs>
+                <Tab text="Diffraction Frame" closable="false">
+                    <HBox>
+                        <children>
+                            <DiffractionFrameRender fx:id="imageRender" />
+                            <VBox alignment="CENTER" spacing="5.0">
+                                <children>
+                                   <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Image Zoom">
+                                       <ZoomControl fx:id="imageZoom" />
+                                   </TitledPane>
+                                   <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Masking">
+                                       <MaskOptionsControl fx:id="maskOptions" />
+                                   </TitledPane>
+                                   <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Rendering">
+                                       <RenderOptionsControl fx:id="renderOptions" />
+                                   </TitledPane>
+                                   <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Data Export">
+                                       <DataExportControl fx:id="exportOptions" />
+                                   </TitledPane>
+                                </children>
+                                <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                </padding>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </Tab>
+                <Tab text="Diffraction Gradient" closable="false">
+                <HBox>
+                <children>
+                <DiffractionFrameRender />
+                </children>
+                </HBox>
+                </Tab>
+                <Tab text="Diffraction Pattern" closable="false">
+                    <HBox>
+                        <children>
+                            <LineChart fx:id="diffractionPattern" prefHeight="600" prefWidth="800">
+                                <xAxis>
+                                    <NumberAxis label="2-Theta" />
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Intensity (counts)" />
+                                </yAxis>
+                            </LineChart>
+                        </children>
+                    </HBox>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </content>
+</fx:root>

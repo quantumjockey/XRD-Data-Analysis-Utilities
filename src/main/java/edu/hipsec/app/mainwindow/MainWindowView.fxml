@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import edu.hipsec.app.workspaces.bulkimagecorrection.BulkImageCorrection?>
+<?import edu.hipsec.app.workspaces.singleimagecorrection.SingleImageCorrection?>
+
+<?import edu.hipsec.app.workspaces.singleimageviewer.SingleImageViewer?>
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.app.mainwindow.MainWindowController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+           <menus>
+               <Menu text="File">
+                   <items>
+                       <MenuItem onAction="#getDirectoryToDisplay" text="Open Folder..." />
+                       <SeparatorMenuItem />
+                       <MenuItem onAction="#exitApplication" text="Exit" />
+                    </items>
+               </Menu>
+           </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <TabPane>
+            <tabs>
+                <Tab text="Bulk Image Correction (Automated)" closable="false">
+                    <BulkImageCorrection fx:id="multipleImageWorkspace" />
+                </Tab>
+                <Tab text="Single-Image Correction" closable="false">
+                    <SingleImageCorrection fx:id="singleImageWorkspace" />
+                </Tab>
+                <Tab text="Single-Image Viewer" closable="false">
+                    <SingleImageViewer fx:id="singleImageViewer" />
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>
