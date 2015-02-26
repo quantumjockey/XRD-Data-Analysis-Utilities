@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import edu.hipsec.xrddau.app.controls.diffractionframeworkspace.DiffractionFrameWorkspace?>
+<?import javafx.scene.control.ScrollPane?>
+<?import edu.hipsec.xrddau.app.controls.filegroupselector.FileGroupSelector?>
+
+<fx:root type="javafx.scene.layout.VBox"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.workspaces.singleimagecorrection.components.SingleImageCorrectionController" >
+    <children>
+        <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
+            <children>
+                <Label text="Root Path:" />
+                <Label fx:id="rootPath" />
+            </children>
+            <padding>
+                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </padding>
+        </HBox>
+        <HBox>
+            <children>
+                <ScrollPane vbarPolicy="AS_NEEDED" hbarPolicy="AS_NEEDED">
+                    <content>
+                        <VBox>
+                            <children>
+                                <DiffractionFrameWorkspace fx:id="resultantImageViewport" />
+                            </children>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+                <ScrollPane vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" prefWidth="400">
+                    <content>
+                        <VBox alignment="TOP_CENTER" spacing="5.0">
+                            <children>
+                                <FileGroupSelector fx:id="diffractionImagePath" />
+                                <FileGroupSelector fx:id="backgroundImagePath" />
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </children>
+        </HBox>
+    </children>
+</fx:root>
