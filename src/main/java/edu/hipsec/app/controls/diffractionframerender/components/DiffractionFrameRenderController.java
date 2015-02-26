@@ -18,7 +18,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import xrdtiffoperations.data.DiffractionFrame;
+import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 
 import java.io.IOException;
 

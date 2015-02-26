@@ -10,8 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.quantumjockey.mvvmbase.controls.initialization.LabelExt;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
-import xrdtiffoperations.data.DiffractionFrame;
-import xrdtiffoperations.math.DataSubtraction;
+import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
+import edu.hipsec.xrdtiffoperations.math.DataSubtraction;
 
 import java.io.IOException;
 import java.util.ArrayList;

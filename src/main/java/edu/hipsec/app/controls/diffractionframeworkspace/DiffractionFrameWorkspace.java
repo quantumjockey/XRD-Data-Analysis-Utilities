@@ -5,7 +5,7 @@ import edu.hipsec.app.controls.diffractionframeworkspace.components.DiffractionF
 import javafx.scene.control.TitledPane;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 import com.quantumjockey.paths.PathWrapper;
-import xrdtiffoperations.data.DiffractionFrame;
+import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import java.io.IOException;
 
 public class DiffractionFrameWorkspace extends TitledPane {

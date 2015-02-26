@@ -20,9 +20,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
 import javafx.scene.paint.Color;
 import com.quantumjockey.paths.PathWrapper;
-import xrdtiffoperations.data.DiffractionFrame;
-import xrdtiffoperations.imagemodel.FileTypes;
-import xrdtiffoperations.math.DataMasking;
+import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
+import edu.hipsec.xrdtiffoperations.imagemodel.FileTypes;
+import edu.hipsec.xrdtiffoperations.math.DataMasking;
 import com.quantumjockey.colorramps.GradientRamp;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
 

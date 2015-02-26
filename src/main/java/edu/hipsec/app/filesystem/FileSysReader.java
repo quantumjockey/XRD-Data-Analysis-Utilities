@@ -1,9 +1,9 @@
 package edu.hipsec.app.filesystem;
 
 import com.quantumjockey.paths.PathWrapper;
-import xrdtiffoperations.data.DiffractionFrame;
-import xrdtiffoperations.imagemodel.martiff.MARTiffImage;
-import xrdtiffoperations.filehandling.io.TiffReader;
+import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
+import edu.hipsec.xrdtiffoperations.imagemodel.martiff.MARTiffImage;
+import edu.hipsec.xrdtiffoperations.filehandling.io.TiffReader;
 import java.io.IOException;
 import java.nio.file.Paths;
 

@@ -3,7 +3,7 @@ package edu.hipsec.xrdtiffvisualization;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
-import xrdtiffoperations.data.DiffractionFrame;
+import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import com.quantumjockey.colorramps.GradientRamp;
 
 import java.io.IOException;
