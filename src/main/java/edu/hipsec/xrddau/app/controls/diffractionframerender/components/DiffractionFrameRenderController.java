@@ -123,6 +123,8 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
     @Override
     protected void setDefaults() {
         this.getPixelTrack().setFont(Font.font(null, FontWeight.BOLD, 13));
+        this.setMaxZoom(4);
+        this.setMinZoom(1);
     }
 
     @Override
