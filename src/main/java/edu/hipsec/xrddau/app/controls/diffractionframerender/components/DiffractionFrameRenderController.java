@@ -105,7 +105,7 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
         DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
         this.getImageViewport().setSmooth(false);
         this.getImageViewport().setImage(marImageGraph.renderDataAsImage(ramp, mask, isAdaptive));
-        cachedImage = image;
+        this.cachedImage = image;
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
     protected void setEvents() {
 
         EventHandler<MouseEvent> clickEvent = (event) -> {
-            if (cachedImage != null && event.getClickCount() == 2) {
+            if (this.cachedImage != null && event.getClickCount() == 2) {
                 double currentZoom = this.getZoomLevel();
                 double max = this.getMaxZoom();
                 double min = this.getMinZoom();
@@ -148,19 +148,19 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
         EventHandler<MouseEvent> exitEvent = (event) -> this.getPixelTrack().setText("");
 
         EventHandler<MouseEvent> movedEvent = (event) -> {
-            if (cachedImage != null) {
-                double imageX = cachedImage.getWidth();
+            if (this.cachedImage != null) {
+                double imageX = this.cachedImage.getWidth();
                 double realX = event.getX();
                 double viewportX = this.getImageViewport().getFitWidth();
                 int scaledX = (int) ((realX / viewportX) * imageX);
 
-                double imageY = cachedImage.getHeight();
+                double imageY = this.cachedImage.getHeight();
                 double realY = event.getY();
                 double viewportY = this.getImageViewport().getFitHeight();
                 int scaledY = (int) ((realY / viewportY) * imageY);
 
                 int scaledYFlipped = ((int) imageY - scaledY);
-                int mapValue = cachedImage.getIntensityMapValue(scaledY, scaledX);
+                int mapValue = this.cachedImage.getIntensityMapValue(scaledY, scaledX);
 
 
                 // (imageY - scaledY) used for display to represent 0,0 in bottom-left corner of image
@@ -187,12 +187,12 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
     protected void setListeners() {
 
         ChangeListener<Number> onZoomChange = (observable, oldValue, newValue) -> {
-            if (cachedImage != null) {
+            if (this.cachedImage != null) {
                 double vVal = this.getScrollViewport().getVvalue();
                 double hVal = this.getScrollViewport().getHvalue();
-                int height = cachedImage.getHeight();
+                int height = this.cachedImage.getHeight();
                 double heightScaled = newValue.doubleValue() * height;
-                int width = cachedImage.getWidth();
+                int width = this.cachedImage.getWidth();
                 double widthScaled = newValue.doubleValue() * width;
                 this.getImageViewport().setFitHeight(heightScaled);
                 this.getImageViewport().setFitWidth(widthScaled);
