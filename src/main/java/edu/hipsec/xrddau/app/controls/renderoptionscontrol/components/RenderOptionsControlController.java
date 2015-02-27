@@ -83,23 +83,23 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void createRamps() {
-        ramps = new ArrayList<>();
-        ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.BLUE, Color.LIGHTBLUE, Color.LIGHTGREEN, Color.BEIGE, Color.BISQUE, Color.ORANGE, Color.MAGENTA, Color.LIGHTPINK, Color.WHITE}, "Fit2D Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED}, "Spectrum Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}, "Reduced Spectrum Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.RED, Color.ORANGE, Color.YELLOW}, "Autumn Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.BLUE, Color.YELLOW, Color.RED}, "Primaries Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.GREEN, Color.ORANGE}, "Secondaries Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.VIOLET, Color.BLUE, Color.BLACK, Color.YELLOW, Color.WHITE}, "High Contrast Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.WHITE}, "Grayscale Ramp"));
-        ramps.add(new GradientRamp(new Color[]{Color.WHITE, Color.BLACK}, "Inverse Grayscale Ramp"));
+        this.ramps = new ArrayList<>();
+        this.ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.BLUE, Color.LIGHTBLUE, Color.LIGHTGREEN, Color.BEIGE, Color.BISQUE, Color.ORANGE, Color.MAGENTA, Color.LIGHTPINK, Color.WHITE}, "Fit2D Ramp"));
+        this.ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED}, "Spectrum Ramp"));
+        this.ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE}, "Reduced Spectrum Ramp"));
+        this.ramps.add(new GradientRamp(new Color[]{Color.RED, Color.ORANGE, Color.YELLOW}, "Autumn Ramp"));
+        this.ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.BLUE, Color.YELLOW, Color.RED}, "Primaries Ramp"));
+        this.ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.VIOLET, Color.GREEN, Color.ORANGE}, "Secondaries Ramp"));
+        this.ramps.add(new GradientRamp(new Color[]{Color.VIOLET, Color.BLUE, Color.BLACK, Color.YELLOW, Color.WHITE}, "High Contrast Ramp"));
+        this.ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.WHITE}, "Grayscale Ramp"));
+        this.ramps.add(new GradientRamp(new Color[]{Color.WHITE, Color.BLACK}, "Inverse Grayscale Ramp"));
         setActiveRamp(ramps.get(0));
     }
 
     private void initializeRamps() {
         ArrayList<String> rampList = new ArrayList<>();
-        ramps.forEach((item) -> rampList.add(item.tag));
-        ChoiceBoxExt.populate(availableRamps, rampList, null);
+        this.ramps.forEach((item) -> rampList.add(item.tag));
+        ChoiceBoxExt.populate(this.availableRamps, rampList, null);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
@@ -111,13 +111,13 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        adaptiveRendering.selectedProperty().bindBidirectional(adaptiveRenderProperty());
-        scaleOffsetDisplay.textProperty().bindBidirectional(scaleOffsetProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
+        this.adaptiveRendering.selectedProperty().bindBidirectional(adaptiveRenderProperty());
+        this.scaleOffsetDisplay.textProperty().bindBidirectional(scaleOffsetProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
     }
 
     @Override
     protected void setDefaults() {
-        adaptiveRendering.setSelected(false);
+        this.adaptiveRendering.setSelected(false);
         createRamps();
         initializeRamps();
     }
@@ -129,8 +129,8 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setListeners() {
-        ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> setActiveRamp(ramps.get(newValue.intValue()));
-        availableRamps.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);
+        ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> setActiveRamp(this.ramps.get(newValue.intValue()));
+        this.availableRamps.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);
     }
 
 }

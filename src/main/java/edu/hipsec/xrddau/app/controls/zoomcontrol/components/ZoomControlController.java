@@ -60,11 +60,11 @@ public class ZoomControlController extends MarkupControllerBase {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public void setZoomBounds(double min, double max) {
-        zoomScale.getController().setLimiters(min, max);
+        this.zoomScale.getController().setLimiters(min, max);
     }
 
     public void setZoomIncrement(double increment) {
-        zoomScale.getController().setIncrement(increment);
+        this.zoomScale.getController().setIncrement(increment);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
@@ -76,9 +76,9 @@ public class ZoomControlController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        zoomLevelProperty().bindBidirectional(zoomScale.getController().displayedValueProperty());
-        maxZoomProperty().bindBidirectional(zoomScale.getController().maxValueProperty());
-        minZoomProperty().bindBidirectional(zoomScale.getController().minValueProperty());
+        zoomLevelProperty().bindBidirectional(this.zoomScale.getController().displayedValueProperty());
+        maxZoomProperty().bindBidirectional(this.zoomScale.getController().maxValueProperty());
+        minZoomProperty().bindBidirectional(this.zoomScale.getController().minValueProperty());
     }
 
     @Override

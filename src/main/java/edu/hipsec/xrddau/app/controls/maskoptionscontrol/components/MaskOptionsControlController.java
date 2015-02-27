@@ -84,10 +84,10 @@ public class MaskOptionsControlController extends MarkupControllerBase {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public void setLimiters(int min, int max) {
-        minBound.getController().setLimiters(min, max);
-        minBound.getController().setDisplayedValue(min);
-        maxBound.getController().setLimiters(min, max);
-        maxBound.getController().setDisplayedValue(max);
+        this.minBound.getController().setLimiters(min, max);
+        this.minBound.getController().setDisplayedValue(min);
+        this.maxBound.getController().setLimiters(min, max);
+        this.maxBound.getController().setDisplayedValue(max);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
@@ -99,10 +99,10 @@ public class MaskOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        stickyBoundsProperty().bindBidirectional(enableStickyBounds.selectedProperty());
-        upperBoundProperty().bindBidirectional(maxBound.getController().displayedValueProperty());
-        lowerBoundProperty().bindBidirectional(minBound.getController().displayedValueProperty());
-        maskHueProperty().bindBidirectional(overlayHue.valueProperty());
+        stickyBoundsProperty().bindBidirectional(this.enableStickyBounds.selectedProperty());
+        upperBoundProperty().bindBidirectional(this.maxBound.getController().displayedValueProperty());
+        lowerBoundProperty().bindBidirectional(this.minBound.getController().displayedValueProperty());
+        maskHueProperty().bindBidirectional(this.overlayHue.valueProperty());
     }
 
     @Override

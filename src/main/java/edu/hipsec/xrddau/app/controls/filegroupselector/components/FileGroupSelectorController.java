@@ -59,7 +59,7 @@ public class FileGroupSelectorController extends MarkupControllerBase {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public MultipleSelectionModel<TreeItem<String>> getSelectionModel() {
-        return fileSelection.getSelectionModel();
+        return this.fileSelection.getSelectionModel();
     }
 
     public void populateTree(ArrayList<String> temp, String label, SelectionMode mode, ChangeListener<TreeItem<String>> selectionChangedEvent) {
@@ -89,9 +89,9 @@ public class FileGroupSelectorController extends MarkupControllerBase {
         }
 
         if (mode == SelectionMode.MULTIPLE)
-            TreeViewExt.populateTree(fileSelection, root, mode, false, (f) -> new SelectableGroupTreeCellFctry(), selectionChangedEvent);
+            TreeViewExt.populateTree(this.fileSelection, root, mode, false, (f) -> new SelectableGroupTreeCellFctry(), selectionChangedEvent);
         else
-            TreeViewExt.populateTree(fileSelection, root, mode, false, null, selectionChangedEvent);
+            TreeViewExt.populateTree(this.fileSelection, root, mode, false, null, selectionChangedEvent);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
@@ -116,8 +116,8 @@ public class FileGroupSelectorController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        hierarchyHeader.textProperty().bindBidirectional(headerProperty());
-        fileSelection.tooltipProperty().bindBidirectional(tooltipProperty());
+        this.hierarchyHeader.textProperty().bindBidirectional(headerProperty());
+        this.fileSelection.tooltipProperty().bindBidirectional(tooltipProperty());
     }
 
     @Override

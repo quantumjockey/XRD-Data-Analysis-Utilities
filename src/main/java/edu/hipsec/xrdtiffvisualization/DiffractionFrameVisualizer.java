@@ -5,7 +5,6 @@ import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import com.quantumjockey.colorramps.GradientRamp;
-
 import java.io.IOException;
 
 public class DiffractionFrameVisualizer {
@@ -22,19 +21,19 @@ public class DiffractionFrameVisualizer {
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public DiffractionFrameVisualizer(DiffractionFrame imageData) {
-        data = imageData;
-        valueOffset = scaleImageZero();
+        this.data = imageData;
+        this.valueOffset = scaleImageZero();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public Image renderDataAsImage(GradientRamp _ramp, BoundedMask mask, boolean adaptive) throws IOException {
-        WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
+        WritableImage displayed = new WritableImage(this.data.getWidth(), this.data.getHeight());
 
         if (mask != null)
-            renderImageWithMask(displayed.getPixelWriter(), data.getMaxValue(), _ramp, mask, adaptive);
+            renderImageWithMask(displayed.getPixelWriter(), this.data.getMaxValue(), _ramp, mask, adaptive);
         else
-            renderImageViaColorRamp(displayed.getPixelWriter(), data.getMaxValue(), _ramp);
+            renderImageViaColorRamp(displayed.getPixelWriter(), this.data.getMaxValue(), _ramp);
 
         return displayed;
     }
@@ -46,9 +45,9 @@ public class DiffractionFrameVisualizer {
 
         colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
 
-        data.cycleFramePixels((y, x) -> {
-            int value = data.getIntensityMapValue(y, x);
-            double coefficient = (double) (value + valueOffset) / (double) (maxValue + valueOffset);
+        this.data.cycleFramePixels((y, x) -> {
+            int value = this.data.getIntensityMapValue(y, x);
+            double coefficient = (double) (value + this.valueOffset) / (double) (maxValue + this.valueOffset);
             writer.setColor(x, y, colorRamp.getRampColorValue(coefficient));
         });
     }
@@ -58,21 +57,21 @@ public class DiffractionFrameVisualizer {
 
         colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
 
-        valueOffset = (adaptive) ? mask.getLowerBound() : scaleImageZero();
+        this.valueOffset = (adaptive) ? mask.getLowerBound() : scaleImageZero();
 
-        data.cycleFramePixels((y, x) -> {
-            int value = data.getIntensityMapValue(y, x);
+        this.data.cycleFramePixels((y, x) -> {
+            int value = this.data.getIntensityMapValue(y, x);
             if (value < mask.getLowerBound() || value > mask.getUpperBound()) {
                 writer.setColor(x, y, mask.getMaskHue());
             } else {
-                double coefficient = (double) (value + valueOffset) / (double) (maxValue + valueOffset);
+                double coefficient = (double) (value + this.valueOffset) / (double) (maxValue + this.valueOffset);
                 writer.setColor(x, y, colorRamp.getRampColorValue(coefficient));
             }
         });
     }
 
     private int scaleImageZero() {
-        return Math.abs(data.getMinValue());
+        return Math.abs(this.data.getMinValue());
     }
 
 }

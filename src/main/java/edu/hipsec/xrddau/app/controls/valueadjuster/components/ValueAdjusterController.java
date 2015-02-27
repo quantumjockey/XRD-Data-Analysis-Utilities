@@ -102,7 +102,7 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     private void setTickUnits(int maxVal) {
         int tickUnit = maxVal / 3;
-        adjustment.setMajorTickUnit((tickUnit != 0) ? Math.abs(tickUnit) : 1);
+        this.adjustment.setMajorTickUnit((tickUnit != 0) ? Math.abs(tickUnit) : 1);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
@@ -114,18 +114,18 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
-        adjustment.maxProperty().bindBidirectional(maxValueProperty());
-        adjustment.minProperty().bindBidirectional(minValueProperty());
-        adjustment.valueProperty().bindBidirectional(displayedValueProperty());
+        this.value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
+        this.adjustment.maxProperty().bindBidirectional(maxValueProperty());
+        this.adjustment.minProperty().bindBidirectional(minValueProperty());
+        this.adjustment.valueProperty().bindBidirectional(displayedValueProperty());
     }
 
     @Override
     protected void setDefaults() {
         setLimiters(SLIDER_MIN_DEFAULT, SLIDER_MAX_DEFAULT);
         setDisplayedValue(SLIDER_MIN_DEFAULT);
-        adjustment.setShowTickMarks(true);
-        adjustment.setShowTickLabels(true);
+        this.adjustment.setShowTickMarks(true);
+        this.adjustment.setShowTickLabels(true);
     }
 
     @Override

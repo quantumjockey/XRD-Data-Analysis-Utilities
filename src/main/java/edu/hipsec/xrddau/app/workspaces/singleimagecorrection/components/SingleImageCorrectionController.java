@@ -39,21 +39,21 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
     public void updateControls(ArrayList<PathWrapper> newItems, String root) {
-        availableFiles = newItems;
+        this.availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
-        availableFiles.forEach((item) -> temp.add(item.getPathTail()));
+        this.availableFiles.forEach((item) -> temp.add(item.getPathTail()));
 
         ChangeListener<TreeItem<String>> selectedChanged = createSelectedListener();
-        diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
+        this.diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
 
         ChangeListener<TreeItem<String>> subtractedChanged = createSubtractedListener();
-        backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
+        this. backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
 
-        LabelExt.update(rootPath, root, root);
+        LabelExt.update(this.rootPath, root, root);
 
         try {
-            diffractionImage = FileSysReader.readImageData(availableFiles.get(diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
-            backgroundImage = FileSysReader.readImageData(availableFiles.get(backgroundImagePath.getController().getSelectionModel().getSelectedIndex()));
+            this.diffractionImage = FileSysReader.readImageData(this.availableFiles.get(this.diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
+            this.backgroundImage = FileSysReader.readImageData(this.availableFiles.get(this.backgroundImagePath.getController().getSelectionModel().getSelectedIndex()));
             subtractImages();
         } catch (IOException ex) {
             System.out.println("Image file could not be rendered!");
@@ -65,15 +65,15 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
     private ChangeListener<TreeItem<String>> createSelectedListener() {
         return (observable, oldValue, newValue) -> {
             try {
-                MultipleSelectionModel<TreeItem<String>> selected = diffractionImagePath.getController().getSelectionModel();
+                MultipleSelectionModel<TreeItem<String>> selected = this.diffractionImagePath.getController().getSelectionModel();
                 if (selected != null
                         && !selected.isEmpty()
                         && newValue != null
                         && newValue.isLeaf()
                         && selected.getSelectedIndex() >= 0) {
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
-                    diffractionImagePath.getController().setTooltip(new Tooltip(tip));
-                    diffractionImage = FileSysReader.readImageData(getPath(newValue.getValue()));
+                    this.diffractionImagePath.getController().setTooltip(new Tooltip(tip));
+                    this.diffractionImage = FileSysReader.readImageData(getPath(newValue.getValue()));
                     subtractImages();
                 }
             } catch (IOException ex) {
@@ -85,15 +85,15 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
     private ChangeListener<TreeItem<String>> createSubtractedListener() {
         return (observable, oldValue, newValue) -> {
             try {
-                MultipleSelectionModel<TreeItem<String>> selected = backgroundImagePath.getController().getSelectionModel();
+                MultipleSelectionModel<TreeItem<String>> selected = this.backgroundImagePath.getController().getSelectionModel();
                 if (selected != null
                         && !selected.isEmpty()
                         && newValue != null
                         && newValue.isLeaf()
                         && selected.getSelectedIndex() >= 0) {
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
-                    backgroundImagePath.getController().setTooltip(new Tooltip(tip));
-                    backgroundImage = FileSysReader.readImageData(getPath(newValue.getValue()));
+                    this.backgroundImagePath.getController().setTooltip(new Tooltip(tip));
+                    this.backgroundImage = FileSysReader.readImageData(getPath(newValue.getValue()));
                     subtractImages();
                 }
             } catch (IOException ex) {
@@ -104,7 +104,7 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
 
     private PathWrapper getPath(String file) {
         PathWrapper path = null;
-        for (PathWrapper item : availableFiles)
+        for (PathWrapper item : this.availableFiles)
             if (item.getPathTail().equals(file)) {
                 path = item;
                 break;
@@ -113,8 +113,8 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
     }
 
     private void subtractImages() throws IOException {
-        DiffractionFrame resultantImage = DataSubtraction.subtractImages(backgroundImage, diffractionImage);
-        resultantImageViewport.renderImage(resultantImage);
+        DiffractionFrame resultantImage = DataSubtraction.subtractImages(this.backgroundImage, this.diffractionImage);
+        this.resultantImageViewport.renderImage(resultantImage);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
@@ -132,9 +132,9 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
     @Override
     protected void setDefaults() {
         String rootDefault = "(Unspecified)";
-        LabelExt.update(rootPath, rootDefault, null);
-        diffractionImagePath.getController().setHeader("Inspected Image:");
-        backgroundImagePath.getController().setHeader("Background Image:");
+        LabelExt.update(this.rootPath, rootDefault, null);
+        this.diffractionImagePath.getController().setHeader("Inspected Image:");
+        this.backgroundImagePath.getController().setHeader("Background Image:");
     }
 
     @Override

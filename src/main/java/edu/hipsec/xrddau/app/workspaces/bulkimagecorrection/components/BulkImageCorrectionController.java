@@ -51,10 +51,10 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
 
     @FXML
     public void subtractImageGroup() throws IOException {
-        if (diffractionImagePath.getController().getSelectionModel().isEmpty()
-                || !diffractionImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()
-                || backgroundImagePath.getController().getSelectionModel().isEmpty()
-                || !backgroundImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()) {
+        if (this.diffractionImagePath.getController().getSelectionModel().isEmpty()
+                || !this.diffractionImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()
+                || this.backgroundImagePath.getController().getSelectionModel().isEmpty()
+                || !this.backgroundImagePath.getController().getSelectionModel().getSelectedItem().isLeaf()) {
             AlertWindow alert = new AlertWindow("Invalid Operation", "No images are selected for subtraction.");
             alert.show();
         } else {
@@ -69,23 +69,23 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
     }
 
     public void updateControls(ArrayList<PathWrapper> newItems, String root) {
-        availableFiles = newItems;
+        this.availableFiles = newItems;
         ArrayList<String> temp = new ArrayList<>();
-        availableFiles.forEach((item) -> temp.add(item.getPathTail()));
-        diffractionImagePath.getController().populateTree(temp, root, SelectionMode.MULTIPLE, null);
-        backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, null);
-        LabelExt.update(rootPath, root, root);
+        this.availableFiles.forEach((item) -> temp.add(item.getPathTail()));
+        this.diffractionImagePath.getController().populateTree(temp, root, SelectionMode.MULTIPLE, null);
+        this.backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, null);
+        LabelExt.update(this.rootPath, root, root);
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
     private ArrayList<PathWrapper> getSelectedPaths() {
         ArrayList<PathWrapper> selectedPaths = new ArrayList<>();
-        diffractionImagePath.getController().getSelectionModel().getSelectedItems().forEach((item) -> {
+        this.diffractionImagePath.getController().getSelectionModel().getSelectedItems().forEach((item) -> {
             if (item.isLeaf())
-                availableFiles.forEach((path) -> {
+                this.availableFiles.forEach((path) -> {
                     if (path.getPathTail().equals(item.getValue()))
-                        selectedPaths.add(availableFiles.get(availableFiles.indexOf(path)));
+                        selectedPaths.add(this.availableFiles.get(this.availableFiles.indexOf(path)));
                 });
         });
         return selectedPaths;
@@ -93,8 +93,8 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
 
     private DiffractionFrame getSubtractedImageData() throws IOException {
         PathWrapper subtracted = null;
-        for (PathWrapper file : availableFiles)
-            if (file.getPathTail().contains(backgroundImagePath.getController().getSelectionModel().getSelectedItem().getValue()))
+        for (PathWrapper file : this.availableFiles)
+            if (file.getPathTail().contains(this.backgroundImagePath.getController().getSelectionModel().getSelectedItem().getValue()))
                 subtracted = file;
         return FileSysReader.readImageData(subtracted);
     }
@@ -104,10 +104,10 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
             int lowerBound = image.getMinValue();
             int upperBound = image.getMaxValue();
 
-            if (!lowerBoundFilter.getText().isEmpty())
-                lowerBound = Integer.parseInt(lowerBoundFilter.getText().trim());
-            if (!upperBoundFilter.getText().isEmpty())
-                upperBound = Integer.parseInt(upperBoundFilter.getText().trim());
+            if (!this.lowerBoundFilter.getText().isEmpty())
+                lowerBound = Integer.parseInt(this.lowerBoundFilter.getText().trim());
+            if (!this.upperBoundFilter.getText().isEmpty())
+                upperBound = Integer.parseInt(this.upperBoundFilter.getText().trim());
 
             DataMasking.maskImage(image, lowerBound, upperBound);
         } catch (Exception ex) {
@@ -182,8 +182,8 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
     protected void setDefaults() {
         String rootDefault = "(Unspecified)";
         LabelExt.update(rootPath, rootDefault, null);
-        diffractionImagePath.getController().setHeader("Image(s) Selected for Correction");
-        backgroundImagePath.getController().setHeader("Background Image");
+        this.diffractionImagePath.getController().setHeader("Image(s) Selected for Correction");
+        this.backgroundImagePath.getController().setHeader("Background Image");
     }
 
     @Override

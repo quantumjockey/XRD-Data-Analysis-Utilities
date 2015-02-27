@@ -14,23 +14,23 @@ public class BoundedMask {
     /////////// Accessors ///////////////////////////////////////////////////////////////////
 
     public int getLowerBound() {
-        return lowerBound;
+        return this.lowerBound;
     }
 
     public int getUpperBound() {
-        return upperBound;
+        return this.upperBound;
     }
 
     public Color getMaskHue() {
-        return maskHue;
+        return this.maskHue;
     }
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
     public BoundedMask(int min, int max, Color hue) {
-        lowerBound = min;
-        upperBound = max;
-        maskHue = hue;
+        this.lowerBound = min;
+        this.upperBound = max;
+        this.maskHue = hue;
     }
 
 }

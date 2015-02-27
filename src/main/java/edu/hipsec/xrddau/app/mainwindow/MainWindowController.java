@@ -49,9 +49,9 @@ public class MainWindowController extends WindowControllerBase {
 
             if (availableFiles.size() != 0) {
                 String path = selectedDirectory.getPath();
-                multipleImageWorkspace.getController().updateControls(availableFiles, path);
-                singleImageWorkspace.getController().updateControls(availableFiles, path);
-                singleImageViewer.getController().updateControls(availableFiles, path);
+                this.multipleImageWorkspace.getController().updateControls(availableFiles, path);
+                this.singleImageWorkspace.getController().updateControls(availableFiles, path);
+                this.singleImageViewer.getController().updateControls(availableFiles, path);
             } else {
                 String title = "No Files Found";
                 String message = "No files matching XRD file extension filters have been found in this directory. If files exist in a subdirectory of this   " + SystemAttributes.LINE_SEPARATOR
