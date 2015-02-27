@@ -3,9 +3,9 @@ package edu.hipsec.xrddau.app.controls.diffractionframepalette;
 import edu.hipsec.xrddau.app.controls.diffractionframepalette.components.DiffractionFramePaletteController;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
-public class DiffractionFramePalette extends GridPane {
+public class DiffractionFramePalette extends HBox {
 
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
