@@ -13,6 +13,7 @@ import javafx.scene.control.Tooltip;
 import com.quantumjockey.mvvmbase.action.ActionDelegate;
 import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxExt;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
+import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -59,8 +60,8 @@ public class DataExportControlController extends MarkupControllerBase {
         } else
             dialog.setInitialFileName(image.getIdentifier());
 
+        dialog.setFileType(new FileChooser.ExtensionFilter(imageType, "*.tif"));
         File destination = dialog.getSaveDirectory();
-
         FileSysWriter.writeImageData(destination, image, imageType);
     }
 
