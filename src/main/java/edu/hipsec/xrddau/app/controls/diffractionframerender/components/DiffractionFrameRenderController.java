@@ -105,7 +105,7 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
         if (image != null) {
             DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
             this.getImageViewport().setSmooth(false);
-            this.getImageViewport().setImage(marImageGraph.renderDataAsImage(ramp, mask, isAdaptive));
+            this.getImageViewport().setImage(marImageGraph.renderDataAsFalseColorMapping(ramp, mask, isAdaptive));
             this.cachedImage = image;
         }
     }

@@ -27,7 +27,7 @@ public class DiffractionFrameVisualizer {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public Image renderDataAsImage(GradientRamp _ramp, BoundedMask mask, boolean adaptive) throws IOException {
+    public Image renderDataAsFalseColorMapping(GradientRamp _ramp, BoundedMask mask, boolean adaptive) throws IOException {
         WritableImage displayed = new WritableImage(this.data.getWidth(), this.data.getHeight());
 
         if (mask != null)
