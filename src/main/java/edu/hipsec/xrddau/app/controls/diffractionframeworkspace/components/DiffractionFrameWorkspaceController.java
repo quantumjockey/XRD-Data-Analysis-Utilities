@@ -39,23 +39,23 @@ public class DiffractionFrameWorkspaceController extends MarkupControllerBase {
     }
 
     public void updateDiffractionPattern() {
-        if (!(diffractionPattern.getData().size() > 1)) {
-            diffractionPattern.getData().clear();
-            diffractionPattern.getData().add(integrateDiffractionPattern());
+        if (!(this.diffractionPattern.getData().size() > 1)) {
+            this.diffractionPattern.getData().clear();
+            this.diffractionPattern.getData().add(this.integrateDiffractionPattern());
         }
     }
 
     public XYChart.Series integrateDiffractionPattern() {
         XYChart.Series dataSet = new XYChart.Series<>();
 
-        cachedImage.cycleFramePixels((x, y) -> {
+        this.cachedImage.cycleFramePixels((x, y) -> {
             if (y != 0 && x % 128 == 0)
-                dataSet.getData().add(new XYChart.Data<>(x, cachedImage.getIntensityMapValue(y, x)));
+                dataSet.getData().add(new XYChart.Data<>(x, this.cachedImage.getIntensityMapValue(y, x)));
         });
 
         return dataSet;
     }
-    
+
     /////////// Protected Methods /////////////////////////////////////////////////////////////
 
     @Override
