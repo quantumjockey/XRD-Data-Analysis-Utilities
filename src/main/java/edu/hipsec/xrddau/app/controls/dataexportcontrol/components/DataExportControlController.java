@@ -3,6 +3,7 @@ package edu.hipsec.xrddau.app.controls.dataexportcontrol.components;
 import com.quantumjockey.dialogs.FileSaveChooserWrapper;
 import edu.hipsec.xrddau.app.filesystem.FileSysWriter;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
+import edu.hipsec.xrdtiffoperations.imagemodel.FileExtensions;
 import edu.hipsec.xrdtiffoperations.math.DataMasking;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -58,7 +59,7 @@ public class DataExportControlController extends MarkupControllerBase {
             DataMasking.maskImage(image, maskLb, maskUb);
 
         dialog.setInitialFileName(image.getIdentifier());
-        dialog.setFileType(new FileChooser.ExtensionFilter(imageType, "*.tif"));
+        dialog.setFileType(new FileChooser.ExtensionFilter(imageType, "*" + FileExtensions.DEFAULT));
         File destination = dialog.getSaveDirectory();
         FileSysWriter.writeImageData(destination, image, imageType);
     }
