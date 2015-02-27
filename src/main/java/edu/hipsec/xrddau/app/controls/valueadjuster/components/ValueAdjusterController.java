@@ -72,29 +72,29 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     @FXML
     public void decrement() {
-        if (getDisplayedValue() <= getMaxValue() && getDisplayedValue() > getMinValue()) {
-            int result = getDisplayedValue() - 1;
-            setDisplayedValue(result);
+        if (this.getDisplayedValue() <= this.getMaxValue() && this.getDisplayedValue() > this.getMinValue()) {
+            int result = this.getDisplayedValue() - 1;
+            this.setDisplayedValue(result);
         }
     }
 
     @FXML
     public void increment() {
-        if (getDisplayedValue() < getMaxValue() && getDisplayedValue() >= getMinValue()) {
-            int result = getDisplayedValue() + 1;
-            setDisplayedValue(result);
+        if (this.getDisplayedValue() < this.getMaxValue() && this.getDisplayedValue() >= this.getMinValue()) {
+            int result = this.getDisplayedValue() + 1;
+            this.setDisplayedValue(result);
         }
     }
 
     public void setLimiters(int min, int max) {
         if (min > max) {
-            setMaxValue(min);
-            setMinValue(max);
-            setTickUnits(min);
+            this.setMaxValue(min);
+            this.setMinValue(max);
+            this.setTickUnits(min);
         } else {
-            setMaxValue(max);
-            setMinValue(min);
-            setTickUnits(max);
+            this.setMaxValue(max);
+            this.setMinValue(min);
+            this.setTickUnits(max);
         }
     }
 
@@ -114,16 +114,16 @@ public class ValueAdjusterController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        this.value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
-        this.adjustment.maxProperty().bindBidirectional(maxValueProperty());
-        this.adjustment.minProperty().bindBidirectional(minValueProperty());
-        this.adjustment.valueProperty().bindBidirectional(displayedValueProperty());
+        this.value.textProperty().bindBidirectional(this.displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
+        this.adjustment.maxProperty().bindBidirectional(this.maxValueProperty());
+        this.adjustment.minProperty().bindBidirectional(this.minValueProperty());
+        this.adjustment.valueProperty().bindBidirectional(this.displayedValueProperty());
     }
 
     @Override
     protected void setDefaults() {
-        setLimiters(SLIDER_MIN_DEFAULT, SLIDER_MAX_DEFAULT);
-        setDisplayedValue(SLIDER_MIN_DEFAULT);
+        this.setLimiters(SLIDER_MIN_DEFAULT, SLIDER_MAX_DEFAULT);
+        this.setDisplayedValue(SLIDER_MIN_DEFAULT);
         this.adjustment.setShowTickMarks(true);
         this.adjustment.setShowTickLabels(true);
     }

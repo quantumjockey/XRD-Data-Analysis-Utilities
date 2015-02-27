@@ -83,9 +83,9 @@ public class ZoomControlController extends MarkupControllerBase {
 
     @Override
     protected void setDefaults() {
-        setZoomBounds(0.05, 2.0);
-        setZoomIncrement(0.05);
-        setZoomLevel(1.0);
+        this.setZoomBounds(0.05, 2.0);
+        this.setZoomIncrement(0.05);
+        this.setZoomLevel(1.0);
     }
 
     @Override

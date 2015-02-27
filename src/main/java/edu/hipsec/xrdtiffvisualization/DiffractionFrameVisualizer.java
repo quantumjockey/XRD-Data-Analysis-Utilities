@@ -31,9 +31,9 @@ public class DiffractionFrameVisualizer {
         WritableImage displayed = new WritableImage(this.data.getWidth(), this.data.getHeight());
 
         if (mask != null)
-            renderImageWithMask(displayed.getPixelWriter(), this.data.getMaxValue(), _ramp, mask, adaptive);
+            this.renderImageWithMask(displayed.getPixelWriter(), this.data.getMaxValue(), _ramp, mask, adaptive);
         else
-            renderImageViaColorRamp(displayed.getPixelWriter(), this.data.getMaxValue(), _ramp);
+            this.renderImageViaColorRamp(displayed.getPixelWriter(), this.data.getMaxValue(), _ramp);
 
         return displayed;
     }
@@ -57,7 +57,7 @@ public class DiffractionFrameVisualizer {
 
         colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
 
-        this.valueOffset = (adaptive) ? mask.getLowerBound() : scaleImageZero();
+        this.valueOffset = (adaptive) ? mask.getLowerBound() : this.scaleImageZero();
 
         this.data.cycleFramePixels((y, x) -> {
             int value = this.data.getIntensityMapValue(y, x);

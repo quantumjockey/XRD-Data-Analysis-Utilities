@@ -85,7 +85,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private ArrayList<ActionDelegate<Void>> createExportSelections(){
+    private ArrayList<ActionDelegate<Void>> createExportSelections() {
         ArrayList<ActionDelegate<Void>> exportActions = new ArrayList<>();
         exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_INT, this::exportThirtyTwoBitIntImage));
         exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_FLOAT, this::exportThirtyTwoBitFloatImage));
@@ -152,7 +152,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
     @Override
     protected void setDefaults() {
         this.updatePixelScale(this.cachedImage);
-        this.exportOptions.getController().updateSelections(createExportSelections());
+        this.exportOptions.getController().updateSelections(this.createExportSelections());
         this.selectedRamp = this.renderOptions.getController().getActiveRamp();
     }
 

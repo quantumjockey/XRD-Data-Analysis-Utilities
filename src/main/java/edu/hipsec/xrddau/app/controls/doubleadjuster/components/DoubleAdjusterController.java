@@ -76,17 +76,17 @@ public class DoubleAdjusterController extends MarkupControllerBase {
 
     @FXML
     public void decrement() {
-        if (getDisplayedValue() <= getMaxValue() && getDisplayedValue() > getMinValue()) {
-            double result = getDisplayedValue() - this.increment;
-            setDisplayedValue(result);
+        if (this.getDisplayedValue() <= this.getMaxValue() && this.getDisplayedValue() > this.getMinValue()) {
+            double result = this.getDisplayedValue() - this.increment;
+            this.setDisplayedValue(result);
         }
     }
 
     @FXML
     public void increment() {
-        if (getDisplayedValue() < getMaxValue() && getDisplayedValue() >= getMinValue()) {
+        if (this.getDisplayedValue() < this.getMaxValue() && this.getDisplayedValue() >= this.getMinValue()) {
             double result = getDisplayedValue() + this.increment;
-            setDisplayedValue(result);
+            this.setDisplayedValue(result);
         }
     }
 
@@ -96,13 +96,13 @@ public class DoubleAdjusterController extends MarkupControllerBase {
 
     public void setLimiters(double min, double max) {
         if (min > max) {
-            setMaxValue(min);
-            setMinValue(max);
-            setTickUnits(min);
+            this.setMaxValue(min);
+            this.setMinValue(max);
+            this.setTickUnits(min);
         } else {
-            setMaxValue(max);
-            setMinValue(min);
-            setTickUnits(max);
+            this.setMaxValue(max);
+            this.setMinValue(min);
+            this.setTickUnits(max);
         }
     }
 
@@ -122,10 +122,10 @@ public class DoubleAdjusterController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        this.value.textProperty().bindBidirectional(displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
-        this.adjustment.maxProperty().bindBidirectional(maxValueProperty());
-        this.adjustment.minProperty().bindBidirectional(minValueProperty());
-        this.adjustment.valueProperty().bindBidirectional(displayedValueProperty());
+        this.value.textProperty().bindBidirectional(this.displayedValueProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
+        this.adjustment.maxProperty().bindBidirectional(this.maxValueProperty());
+        this.adjustment.minProperty().bindBidirectional(this.minValueProperty());
+        this.adjustment.valueProperty().bindBidirectional(this.displayedValueProperty());
     }
 
     @Override

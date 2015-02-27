@@ -43,10 +43,10 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
         ArrayList<String> temp = new ArrayList<>();
         this.availableFiles.forEach((item) -> temp.add(item.getPathTail()));
 
-        ChangeListener<TreeItem<String>> selectedChanged = createSelectedListener();
+        ChangeListener<TreeItem<String>> selectedChanged = this.createSelectedListener();
         this.diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
 
-        ChangeListener<TreeItem<String>> subtractedChanged = createSubtractedListener();
+        ChangeListener<TreeItem<String>> subtractedChanged = this.createSubtractedListener();
         this. backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
 
         LabelExt.update(this.rootPath, root, root);
@@ -54,7 +54,7 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
         try {
             this.diffractionImage = FileSysReader.readImageData(this.availableFiles.get(this.diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
             this.backgroundImage = FileSysReader.readImageData(this.availableFiles.get(this.backgroundImagePath.getController().getSelectionModel().getSelectedIndex()));
-            subtractImages();
+            this.subtractImages();
         } catch (IOException ex) {
             System.out.println("Image file could not be rendered!");
         }
@@ -73,8 +73,8 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
                         && selected.getSelectedIndex() >= 0) {
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
                     this.diffractionImagePath.getController().setTooltip(new Tooltip(tip));
-                    this.diffractionImage = FileSysReader.readImageData(getPath(newValue.getValue()));
-                    subtractImages();
+                    this.diffractionImage = FileSysReader.readImageData(this.getPath(newValue.getValue()));
+                    this.subtractImages();
                 }
             } catch (IOException ex) {
                 System.out.println("Image file could not be read!");
@@ -93,8 +93,8 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
                         && selected.getSelectedIndex() >= 0) {
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
                     this.backgroundImagePath.getController().setTooltip(new Tooltip(tip));
-                    this.backgroundImage = FileSysReader.readImageData(getPath(newValue.getValue()));
-                    subtractImages();
+                    this.backgroundImage = FileSysReader.readImageData(this.getPath(newValue.getValue()));
+                    this.subtractImages();
                 }
             } catch (IOException ex) {
                 System.out.println("Image file could not be read!");

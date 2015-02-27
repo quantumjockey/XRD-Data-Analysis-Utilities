@@ -34,7 +34,7 @@ public class SingleImageViewerController extends MarkupControllerBase implements
         ArrayList<String> temp = new ArrayList<>();
         this.availableFiles.forEach((item) -> temp.add(item.getPathTail()));
 
-        ChangeListener<TreeItem<String>> selectedChanged = createListener(this.diffractionImageViewport);
+        ChangeListener<TreeItem<String>> selectedChanged = this.createListener(this.diffractionImageViewport);
         this.diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
 
         LabelExt.update(this.rootPath, root, root);
@@ -59,7 +59,7 @@ public class SingleImageViewerController extends MarkupControllerBase implements
                         && selected.getSelectedIndex() >= 0) {
                     String tip = "Current Selection: " + selected.getSelectedItem().getValue();
                     this.diffractionImagePath.getController().setTooltip(new Tooltip(tip));
-                    imageViewport.renderImageFromFile(getPath(newValue.getValue()));
+                    imageViewport.renderImageFromFile(this.getPath(newValue.getValue()));
                 }
             } catch (IOException ex) {
                 System.out.println("Image file could not be read!");

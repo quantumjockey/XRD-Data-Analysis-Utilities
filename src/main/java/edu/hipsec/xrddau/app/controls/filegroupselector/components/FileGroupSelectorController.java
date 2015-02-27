@@ -69,7 +69,7 @@ public class FileGroupSelectorController extends MarkupControllerBase {
 
         ArrayList<String> _temp = new ArrayList<>();
         for (String item : temp) {
-            String prefix = extractPrefix(item);
+            String prefix = this.extractPrefix(item);
             if (!_temp.contains(prefix))
                 _temp.add(prefix);
         }
@@ -116,13 +116,13 @@ public class FileGroupSelectorController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        this.hierarchyHeader.textProperty().bindBidirectional(headerProperty());
-        this.fileSelection.tooltipProperty().bindBidirectional(tooltipProperty());
+        this.hierarchyHeader.textProperty().bindBidirectional(this.headerProperty());
+        this.fileSelection.tooltipProperty().bindBidirectional(this.tooltipProperty());
     }
 
     @Override
     protected void setDefaults() {
-        VBox.setVgrow(fileSelection, Priority.ALWAYS);
+        VBox.setVgrow(this.fileSelection, Priority.ALWAYS);
     }
 
     @Override

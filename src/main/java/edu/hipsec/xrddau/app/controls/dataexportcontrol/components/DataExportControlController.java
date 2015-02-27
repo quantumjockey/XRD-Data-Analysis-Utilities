@@ -108,7 +108,7 @@ public class DataExportControlController extends MarkupControllerBase {
     @Override
     protected void setListeners() {
         ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> {
-            setSelected(this.options.get(newValue.intValue()));
+            this.setSelected(this.options.get(newValue.intValue()));
             this.exportOptions.setTooltip(new Tooltip(this.options.get(newValue.intValue()).getIdentifier()));
         };
         this.exportOptions.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);

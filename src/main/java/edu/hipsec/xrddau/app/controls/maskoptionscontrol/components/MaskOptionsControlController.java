@@ -99,10 +99,10 @@ public class MaskOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        stickyBoundsProperty().bindBidirectional(this.enableStickyBounds.selectedProperty());
-        upperBoundProperty().bindBidirectional(this.maxBound.getController().displayedValueProperty());
-        lowerBoundProperty().bindBidirectional(this.minBound.getController().displayedValueProperty());
-        maskHueProperty().bindBidirectional(this.overlayHue.valueProperty());
+        this.stickyBoundsProperty().bindBidirectional(this.enableStickyBounds.selectedProperty());
+        this.upperBoundProperty().bindBidirectional(this.maxBound.getController().displayedValueProperty());
+        this.lowerBoundProperty().bindBidirectional(this.minBound.getController().displayedValueProperty());
+        this.maskHueProperty().bindBidirectional(this.overlayHue.valueProperty());
     }
 
     @Override

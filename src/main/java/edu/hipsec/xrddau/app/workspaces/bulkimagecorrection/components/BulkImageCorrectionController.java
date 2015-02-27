@@ -61,9 +61,9 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
             DirectoryChooserWrapper dialog = new DirectoryChooserWrapper("Save to...");
             File destination = dialog.getSelectedDirectory();
             if (destination != null) {
-                ArrayList<PathWrapper> selected = getSelectedPaths();
-                DiffractionFrame result = getSubtractedImageData();
-                streamImageSubtraction(destination, selected, result);
+                ArrayList<PathWrapper> selected = this.getSelectedPaths();
+                DiffractionFrame result = this.getSubtractedImageData();
+                this.streamImageSubtraction(destination, selected, result);
             }
         }
     }
@@ -146,7 +146,7 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
 
         final String newerDestination = newDestination;
 
-        openDirectoryInFileExplorerWindow(newDestination);
+        this.openDirectoryInFileExplorerWindow(newDestination);
 
         selectedPaths.forEach((path) -> {
             DiffractionFrame baseImage = null;
@@ -159,7 +159,7 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
 
             if (baseImage != null && backgroundImage != null) {
                 DiffractionFrame result = DataSubtraction.subtractImages(backgroundImage, baseImage);
-                filterImage(result);
+                this.filterImage(result);
                 String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + result.getIdentifier() + FileExtensions.DEFAULT;
                 FileSysWriter.writeImageData(new File(filePath), result, FileTypes.TIFF_32_BIT_INT);
             }

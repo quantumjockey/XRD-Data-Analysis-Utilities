@@ -77,7 +77,7 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public void setOffset(int value) {
-        setScaleOffset(value);
+        this.setScaleOffset(value);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
@@ -111,15 +111,15 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        this.adaptiveRendering.selectedProperty().bindBidirectional(adaptiveRenderProperty());
-        this.scaleOffsetDisplay.textProperty().bindBidirectional(scaleOffsetProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
+        this.adaptiveRendering.selectedProperty().bindBidirectional(this.adaptiveRenderProperty());
+        this.scaleOffsetDisplay.textProperty().bindBidirectional(this.scaleOffsetProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
     }
 
     @Override
     protected void setDefaults() {
         this.adaptiveRendering.setSelected(false);
-        createRamps();
-        initializeRamps();
+        this.createRamps();
+        this.initializeRamps();
     }
 
     @Override
