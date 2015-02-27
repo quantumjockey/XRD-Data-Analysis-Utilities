@@ -1,7 +1,6 @@
 package edu.hipsec.xrddau.app.controls.diffractionframepalette.components;
 
 import com.quantumjockey.colorramps.GradientRamp;
-import com.quantumjockey.dialogs.FileSaveChooserWrapper;
 import com.quantumjockey.mvvmbase.action.ActionDelegate;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import edu.hipsec.xrddau.app.controls.dataexportcontrol.DataExportControl;
@@ -9,15 +8,12 @@ import edu.hipsec.xrddau.app.controls.diffractionframerender.DiffractionFrameRen
 import edu.hipsec.xrddau.app.controls.maskoptionscontrol.MaskOptionsControl;
 import edu.hipsec.xrddau.app.controls.renderoptionscontrol.RenderOptionsControl;
 import edu.hipsec.xrddau.app.controls.zoomcontrol.ZoomControl;
-import edu.hipsec.xrddau.app.filesystem.FileSysWriter;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.imagemodel.FileTypes;
-import edu.hipsec.xrdtiffoperations.math.DataMasking;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -89,31 +85,30 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void exportImage(String imageType) {
-
-        FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
-        int maskLb = this.maskOptions.getController().getLowerBound();
-        int maskUb = this.maskOptions.getController().getUpperBound();
-        boolean isMasked = (this.cachedImage.getMaxValue() != maskUb || this.cachedImage.getMinValue() != maskLb);
-
-        if (isMasked) {
-            DataMasking.maskImage(this.cachedImage, maskLb, maskUb);
-            dialog.setInitialFileName(this.cachedImage.getIdentifier());
-        } else
-            dialog.setInitialFileName(this.cachedImage.getIdentifier());
-
-        File destination = dialog.getSaveDirectory();
-
-        FileSysWriter.writeImageData(destination, this.cachedImage, imageType);
+    private ArrayList<ActionDelegate<Void>> createExportSelections(){
+        ArrayList<ActionDelegate<Void>> exportActions = new ArrayList<>();
+        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_INT, this::exportThirtyTwoBitIntImage));
+        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_FLOAT, this::exportThirtyTwoBitFloatImage));
+        return exportActions;
     }
 
     private Void exportThirtyTwoBitIntImage() {
-        this.exportImage(FileTypes.TIFF_32_BIT_INT);
+        this.exportOptions.getController().exportImageWithAttributes(
+                this.cachedImage,
+                FileTypes.TIFF_32_BIT_INT,
+                this.maskOptions.getController().getLowerBound(),
+                this.maskOptions.getController().getUpperBound()
+        );
         return null;
     }
 
     private Void exportThirtyTwoBitFloatImage() {
-        this.exportImage(FileTypes.TIFF_32_BIT_FLOAT);
+        this.exportOptions.getController().exportImageWithAttributes(
+                this.cachedImage,
+                FileTypes.TIFF_32_BIT_FLOAT,
+                this.maskOptions.getController().getLowerBound(),
+                this.maskOptions.getController().getUpperBound()
+        );
         return null;
     }
 
@@ -157,11 +152,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
     @Override
     protected void setDefaults() {
         this.updatePixelScale(this.cachedImage);
-        ArrayList<ActionDelegate<Void>> exportActions;
-        exportActions = new ArrayList<>();
-        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_INT, this::exportThirtyTwoBitIntImage));
-        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_FLOAT, this::exportThirtyTwoBitFloatImage));
-        this.exportOptions.getController().updateSelections(exportActions);
+        this.exportOptions.getController().updateSelections(createExportSelections());
         this.selectedRamp = this.renderOptions.getController().getActiveRamp();
     }
 

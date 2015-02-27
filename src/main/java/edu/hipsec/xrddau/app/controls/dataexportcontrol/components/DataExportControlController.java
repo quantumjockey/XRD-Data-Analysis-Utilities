@@ -1,5 +1,9 @@
 package edu.hipsec.xrddau.app.controls.dataexportcontrol.components;
 
+import com.quantumjockey.dialogs.FileSaveChooserWrapper;
+import edu.hipsec.xrddau.app.filesystem.FileSysWriter;
+import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
+import edu.hipsec.xrdtiffoperations.math.DataMasking;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -9,7 +13,7 @@ import javafx.scene.control.Tooltip;
 import com.quantumjockey.mvvmbase.action.ActionDelegate;
 import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxExt;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
-
+import java.io.File;
 import java.util.ArrayList;
 
 public class DataExportControlController extends MarkupControllerBase {
@@ -42,6 +46,22 @@ public class DataExportControlController extends MarkupControllerBase {
     @FXML
     public void exportImage() {
         getSelected().invoke();
+    }
+
+    public void exportImageWithAttributes(DiffractionFrame image, String imageType, int maskLb, int maskUb) {
+
+        FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
+        boolean isMasked = (image.getMaxValue() != maskUb || image.getMinValue() != maskLb);
+
+        if (isMasked) {
+            DataMasking.maskImage(image, maskLb, maskUb);
+            dialog.setInitialFileName(image.getIdentifier());
+        } else
+            dialog.setInitialFileName(image.getIdentifier());
+
+        File destination = dialog.getSaveDirectory();
+
+        FileSysWriter.writeImageData(destination, image, imageType);
     }
 
     public void updateSelections(ArrayList<ActionDelegate<Void>> selections) {
