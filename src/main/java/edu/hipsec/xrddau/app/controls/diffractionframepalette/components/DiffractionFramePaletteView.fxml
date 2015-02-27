@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import edu.hipsec.xrddau.app.controls.dataexportcontrol.DataExportControl?>
+<?import edu.hipsec.xrddau.app.controls.diffractionframerender.DiffractionFrameRender?>
+<?import edu.hipsec.xrddau.app.controls.maskoptionscontrol.MaskOptionsControl?>
+<?import edu.hipsec.xrddau.app.controls.renderoptionscontrol.RenderOptionsControl?>
+<?import edu.hipsec.xrddau.app.controls.zoomcontrol.ZoomControl?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.controls.diffractionframepalette.components.DiffractionFramePaletteController">
+    <children>
+        <DiffractionFrameRender fx:id="imageRender" />
+        <VBox alignment="CENTER" spacing="5.0">
+            <children>
+               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Image Zoom">
+                   <ZoomControl fx:id="imageZoom" />
+               </TitledPane>
+               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Masking">
+                   <MaskOptionsControl fx:id="maskOptions" />
+               </TitledPane>
+               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Rendering">
+                   <RenderOptionsControl fx:id="renderOptions" />
+               </TitledPane>
+               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Data Export">
+                   <DataExportControl fx:id="exportOptions" />
+               </TitledPane>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </VBox>
+    </children>
+</fx:root>
