@@ -54,12 +54,10 @@ public class DataExportControlController extends MarkupControllerBase {
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
         boolean isMasked = (image.getMaxValue() != maskUb || image.getMinValue() != maskLb);
 
-        if (isMasked) {
+        if (isMasked)
             DataMasking.maskImage(image, maskLb, maskUb);
-            dialog.setInitialFileName(image.getIdentifier());
-        } else
-            dialog.setInitialFileName(image.getIdentifier());
 
+        dialog.setInitialFileName(image.getIdentifier());
         dialog.setFileType(new FileChooser.ExtensionFilter(imageType, "*.tif"));
         File destination = dialog.getSaveDirectory();
         FileSysWriter.writeImageData(destination, image, imageType);
@@ -67,18 +65,18 @@ public class DataExportControlController extends MarkupControllerBase {
 
     public void updateSelections(ArrayList<ActionDelegate<Void>> selections) {
         ArrayList<String> temp = new ArrayList<>();
-        options.clear();
+        this.options.clear();
         selections.forEach((item) -> {
             temp.add(item.getIdentifier());
-            options.add(item);
+            this.options.add(item);
         });
-        ChoiceBoxExt.populate(exportOptions, temp, null);
+        ChoiceBoxExt.populate(this.exportOptions, temp, null);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void createSelections() {
-        options = new ArrayList<>();
+        this.options = new ArrayList<>();
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
@@ -95,7 +93,7 @@ public class DataExportControlController extends MarkupControllerBase {
 
     @Override
     protected void setDefaults() {
-        createSelections();
+        this.createSelections();
     }
 
     @Override
@@ -106,10 +104,10 @@ public class DataExportControlController extends MarkupControllerBase {
     @Override
     protected void setListeners() {
         ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> {
-            setSelected(options.get(newValue.intValue()));
-            exportOptions.setTooltip(new Tooltip(options.get(newValue.intValue()).getIdentifier()));
+            setSelected(this.options.get(newValue.intValue()));
+            this.exportOptions.setTooltip(new Tooltip(this.options.get(newValue.intValue()).getIdentifier()));
         };
-        exportOptions.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);
+        this.exportOptions.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);
     }
 
 }
