@@ -99,7 +99,8 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
         return FileSysReader.readImageData(subtracted);
     }
 
-    private void filterImage(DiffractionFrame image) {
+    private DiffractionFrame filterImage(DiffractionFrame image) {
+        DiffractionFrame filtered = null;
         try {
             int lowerBound = image.getMinValue();
             int upperBound = image.getMaxValue();
@@ -109,10 +110,11 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
             if (!this.upperBoundFilter.getText().isEmpty())
                 upperBound = Integer.parseInt(this.upperBoundFilter.getText().trim());
 
-            DataMasking.maskImage(image, lowerBound, upperBound);
+            filtered = DataMasking.maskImage(image, lowerBound, upperBound);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return filtered;
     }
 
     private void openDirectoryInFileExplorerWindow(String directoryPath) {
@@ -158,10 +160,10 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
             }
 
             if (baseImage != null && backgroundImage != null) {
-                DiffractionFrame result = DataSubtraction.subtractImages(backgroundImage, baseImage);
-                this.filterImage(result);
-                String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + result.getIdentifier() + FileExtensions.DEFAULT;
-                FileSysWriter.writeImageData(new File(filePath), result, FileTypes.TIFF_32_BIT_INT);
+                DiffractionFrame subtracted = DataSubtraction.subtractImages(backgroundImage, baseImage);
+                DiffractionFrame filtered = this.filterImage(subtracted);
+                String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + filtered.getIdentifier() + FileExtensions.DEFAULT;
+                FileSysWriter.writeImageData(new File(filePath), filtered, FileTypes.TIFF_32_BIT_INT);
             }
         });
     }
@@ -181,7 +183,7 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
     @Override
     protected void setDefaults() {
         String rootDefault = "(Unspecified)";
-        LabelExt.update(rootPath, rootDefault, null);
+        LabelExt.update(this.rootPath, rootDefault, null);
         this.diffractionImagePath.getController().setHeader("Image(s) Selected for Correction");
         this.backgroundImagePath.getController().setHeader("Background Image");
     }
