@@ -102,10 +102,12 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public void renderFrame(DiffractionFrame image, GradientRamp ramp, BoundedMask mask, Boolean isAdaptive) throws IOException {
-        DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
-        this.getImageViewport().setSmooth(false);
-        this.getImageViewport().setImage(marImageGraph.renderDataAsImage(ramp, mask, isAdaptive));
-        this.cachedImage = image;
+        if (image != null) {
+            DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
+            this.getImageViewport().setSmooth(false);
+            this.getImageViewport().setImage(marImageGraph.renderDataAsImage(ramp, mask, isAdaptive));
+            this.cachedImage = image;
+        }
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
