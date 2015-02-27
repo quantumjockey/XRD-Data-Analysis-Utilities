@@ -27,22 +27,22 @@ public class DiffractionFrameWorkspace extends TitledPane {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public DiffractionFrameWorkspaceController getController() {
-        return (DiffractionFrameWorkspaceController) markupContainer.getController();
+        return (DiffractionFrameWorkspaceController) this.markupContainer.getController();
     }
 
     public void renderImage(DiffractionFrame image) throws IOException {
-        getController().renderImageData(image);
+        this.getController().renderImageData(image);
     }
 
     public void renderImageFromFile(PathWrapper filePath) throws IOException {
-        getController().renderImageFromFile(filePath);
+        this.getController().renderImageFromFile(filePath);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameWorkspaceController.class, MARKUP_FILE);
-        markupContainer.load();
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameWorkspaceController.class, MARKUP_FILE);
+        this.markupContainer.load();
     }
 
 }

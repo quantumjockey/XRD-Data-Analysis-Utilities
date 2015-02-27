@@ -24,14 +24,14 @@ public class SingleImageCorrection extends VBox {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public SingleImageCorrectionController getController() {
-        return (SingleImageCorrectionController) markupContainer.getController();
+        return (SingleImageCorrectionController) this.markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        markupContainer = MarkupInitializerMacro.createInitializer(this, SingleImageCorrectionController.class, MARKUP_FILE);
-        markupContainer.load();
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, SingleImageCorrectionController.class, MARKUP_FILE);
+        this.markupContainer.load();
     }
 
 }

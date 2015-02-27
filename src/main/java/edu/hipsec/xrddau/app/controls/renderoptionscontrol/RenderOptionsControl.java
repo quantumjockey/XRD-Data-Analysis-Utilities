@@ -24,14 +24,14 @@ public class RenderOptionsControl extends VBox {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public RenderOptionsControlController getController() {
-        return (RenderOptionsControlController) markupContainer.getController();
+        return (RenderOptionsControlController) this.markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        markupContainer = MarkupInitializerMacro.createInitializer(this, RenderOptionsControlController.class, MARKUP_FILE);
-        markupContainer.load();
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, RenderOptionsControlController.class, MARKUP_FILE);
+        this.markupContainer.load();
     }
 
 }

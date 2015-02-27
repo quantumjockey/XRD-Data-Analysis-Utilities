@@ -24,14 +24,14 @@ public class DiffractionFramePalette extends HBox {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public DiffractionFramePaletteController getController() {
-        return (DiffractionFramePaletteController) markupContainer.getController();
+        return (DiffractionFramePaletteController) this.markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFramePaletteController.class, MARKUP_FILE);
-        markupContainer.load();
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFramePaletteController.class, MARKUP_FILE);
+        this.markupContainer.load();
     }
 
 }

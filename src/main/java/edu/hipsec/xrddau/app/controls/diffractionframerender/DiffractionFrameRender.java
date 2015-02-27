@@ -24,14 +24,14 @@ public class DiffractionFrameRender extends GridPane {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public DiffractionFrameRenderController getController() {
-        return (DiffractionFrameRenderController) markupContainer.getController();
+        return (DiffractionFrameRenderController) this.markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameRenderController.class, MARKUP_FILE);
-        markupContainer.load();
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameRenderController.class, MARKUP_FILE);
+        this.markupContainer.load();
     }
 
 }

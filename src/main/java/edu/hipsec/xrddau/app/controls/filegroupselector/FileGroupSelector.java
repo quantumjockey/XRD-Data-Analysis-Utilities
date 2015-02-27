@@ -24,14 +24,14 @@ public class FileGroupSelector extends VBox {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public FileGroupSelectorController getController() {
-        return (FileGroupSelectorController) markupContainer.getController();
+        return (FileGroupSelectorController) this.markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        markupContainer = MarkupInitializerMacro.createInitializer(this, FileGroupSelectorController.class, MARKUP_FILE);
-        markupContainer.load();
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, FileGroupSelectorController.class, MARKUP_FILE);
+        this.markupContainer.load();
     }
 
 }

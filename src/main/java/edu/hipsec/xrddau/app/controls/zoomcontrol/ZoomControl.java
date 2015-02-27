@@ -24,14 +24,14 @@ public class ZoomControl extends VBox {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public ZoomControlController getController() {
-        return (ZoomControlController) markupContainer.getController();
+        return (ZoomControlController) this.markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        markupContainer = MarkupInitializerMacro.createInitializer(this, ZoomControlController.class, MARKUP_FILE);
-        markupContainer.load();
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, ZoomControlController.class, MARKUP_FILE);
+        this.markupContainer.load();
     }
 
 }

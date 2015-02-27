@@ -24,14 +24,14 @@ public class DoubleAdjuster extends VBox {
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
     public DoubleAdjusterController getController() {
-        return (DoubleAdjusterController) markupContainer.getController();
+        return (DoubleAdjusterController) this.markupContainer.getController();
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        markupContainer = MarkupInitializerMacro.createInitializer(this, DoubleAdjusterController.class, MARKUP_FILE);
-        markupContainer.load();
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DoubleAdjusterController.class, MARKUP_FILE);
+        this.markupContainer.load();
     }
 
 }
