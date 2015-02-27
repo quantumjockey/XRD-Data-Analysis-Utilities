@@ -52,16 +52,19 @@ public class DataExportControlController extends MarkupControllerBase {
 
     public void exportImageWithAttributes(DiffractionFrame image, String imageType, int maskLb, int maskUb) {
 
+        DiffractionFrame exported;
         FileSaveChooserWrapper dialog = new FileSaveChooserWrapper("Save to...");
         boolean isMasked = (image.getMaxValue() != maskUb || image.getMinValue() != maskLb);
 
         if (isMasked)
-            DataMasking.maskImage(image, maskLb, maskUb);
+            exported = DataMasking.maskImage(image, maskLb, maskUb);
+        else
+            exported = image;
 
-        dialog.setInitialFileName(image.getIdentifier());
+        dialog.setInitialFileName(exported.getIdentifier());
         dialog.setFileType(new FileChooser.ExtensionFilter(imageType, "*" + FileExtensions.DEFAULT));
         File destination = dialog.getSaveDirectory();
-        FileSysWriter.writeImageData(destination, image, imageType);
+        FileSysWriter.writeImageData(destination, exported, imageType);
     }
 
     public void updateSelections(ArrayList<ActionDelegate<Void>> selections) {
