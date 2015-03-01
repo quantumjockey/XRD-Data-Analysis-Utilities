@@ -1,5 +1,6 @@
 package edu.hipsec.xrdtiffvisualization;
 
+import edu.hipsec.xrdtiffoperations.datamapping.TwoDimensionalDoubleMapping;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
@@ -22,7 +23,7 @@ public class DiffractionFrameVisualizer {
 
     public DiffractionFrameVisualizer(DiffractionFrame imageData) {
         this.data = imageData;
-        this.valueOffset = scaleImageZero();
+        this.valueOffset = this.data.scaleImageZero();
     }
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
@@ -38,12 +39,42 @@ public class DiffractionFrameVisualizer {
         return displayed;
     }
 
+    public Image renderDataAsGradientMapping(GradientRamp ramp) {
+        WritableImage displayed = new WritableImage(this.data.getWidth(), this.data.getHeight());
+        GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
+
+        TwoDimensionalDoubleMapping gradientMapping
+                = new TwoDimensionalDoubleMapping(this.data.getHeight(), this.data.getWidth());
+
+        this.data.cycleFramePixels((y, x) ->
+                gradientMapping.setMapCoordinate(y, x, discernAverageIntensityShift(y, x)));
+
+        double maxValue = gradientMapping.getMaxValue();
+
+        gradientMapping.cycleMap((y, x) -> {
+            double coefficient = (gradientMapping.get(y,x) + this.valueOffset) / (maxValue + this.valueOffset);
+            displayed.getPixelWriter().setColor(x, y, colorRamp.getRampColorValue(coefficient));
+        });
+
+        return displayed;
+    }
+
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private void renderImageViaColorRamp(PixelWriter writer, int maxValue, GradientRamp ramp) throws IOException {
-        GradientRamp colorRamp;
+    private double discernAverageIntensityShift(int y, int x) {
+        int primarySum = 0;
+        int baseVal = this.data.getIntensityMapValue(y, x);
 
-        colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
+        for (int i = y - 1; i <= y + 1; i++)
+            for (int j = x - 1; j <= x + 1; j++)
+                if (i < this.data.getHeight() && i >= 0 && j < this.data.getWidth() && j >= 0)
+                    primarySum += this.data.getIntensityMapValue(i, j) - baseVal;
+
+        return (double) primarySum / 8.0;
+    }
+
+    private void renderImageViaColorRamp(PixelWriter writer, int maxValue, GradientRamp ramp) throws IOException {
+        GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
 
         this.data.cycleFramePixels((y, x) -> {
             int value = this.data.getIntensityMapValue(y, x);
@@ -53,11 +84,9 @@ public class DiffractionFrameVisualizer {
     }
 
     private void renderImageWithMask(PixelWriter writer, int maxValue, GradientRamp ramp, BoundedMask mask, boolean adaptive) throws IOException {
-        GradientRamp colorRamp;
+        GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
 
-        colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
-
-        this.valueOffset = (adaptive) ? mask.getLowerBound() : this.scaleImageZero();
+        this.valueOffset = (adaptive) ? mask.getLowerBound() : this.data.scaleImageZero();
 
         this.data.cycleFramePixels((y, x) -> {
             int value = this.data.getIntensityMapValue(y, x);
@@ -68,10 +97,6 @@ public class DiffractionFrameVisualizer {
                 writer.setColor(x, y, colorRamp.getRampColorValue(coefficient));
             }
         });
-    }
-
-    private int scaleImageZero() {
-        return Math.abs(this.data.getMinValue());
     }
 
 }
