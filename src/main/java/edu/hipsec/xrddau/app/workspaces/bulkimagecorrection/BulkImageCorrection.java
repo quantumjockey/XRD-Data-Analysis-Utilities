@@ -1,21 +1,10 @@
 package edu.hipsec.xrddau.app.workspaces.bulkimagecorrection;
 
+import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.workspaces.bulkimagecorrection.components.BulkImageCorrectionController;
-import javafx.scene.layout.VBox;
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
-public class BulkImageCorrection extends VBox {
-
-    /////////// Fields //////////////////////////////////////////////////////////////////////
-
-    private MarkupInitializer markupContainer;
-
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public BulkImageCorrection() {
-        initializeComponents();
-    }
+public class BulkImageCorrection extends VBoxComplement {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -23,11 +12,11 @@ public class BulkImageCorrection extends VBox {
         return (BulkImageCorrectionController) this.markupContainer.getController();
     }
 
-    /////////// Private Methods /////////////////////////////////////////////////////////////
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
 
-    private void initializeComponents() {
+    @Override
+    protected void initializeComponents() {
         this.markupContainer = MarkupInitializerMacro.createInitializer(this, BulkImageCorrectionController.class);
-        this.markupContainer.load();
     }
 
 }

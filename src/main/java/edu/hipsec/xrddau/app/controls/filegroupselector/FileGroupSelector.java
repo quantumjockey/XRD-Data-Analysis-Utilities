@@ -1,21 +1,10 @@
 package edu.hipsec.xrddau.app.controls.filegroupselector;
 
+import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.controls.filegroupselector.components.FileGroupSelectorController;
-import javafx.scene.layout.VBox;
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
-public class FileGroupSelector extends VBox {
-
-    /////////// Fields //////////////////////////////////////////////////////////////////////
-
-    private MarkupInitializer markupContainer;
-
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public FileGroupSelector() {
-        initializeComponents();
-    }
+public class FileGroupSelector extends VBoxComplement {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -23,11 +12,11 @@ public class FileGroupSelector extends VBox {
         return (FileGroupSelectorController) this.markupContainer.getController();
     }
 
-    /////////// Private Methods /////////////////////////////////////////////////////////////
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
 
-    private void initializeComponents() {
+    @Override
+    protected void initializeComponents() {
         this.markupContainer = MarkupInitializerMacro.createInitializer(this, FileGroupSelectorController.class);
-        this.markupContainer.load();
     }
 
 }

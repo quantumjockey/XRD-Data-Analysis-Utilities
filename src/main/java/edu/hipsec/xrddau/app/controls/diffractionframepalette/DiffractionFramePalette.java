@@ -1,21 +1,10 @@
 package edu.hipsec.xrddau.app.controls.diffractionframepalette;
 
+import com.quantumjockey.mvvmbase.markup.scene.layout.HBoxComplement;
 import edu.hipsec.xrddau.app.controls.diffractionframepalette.components.DiffractionFramePaletteController;
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
-import javafx.scene.layout.HBox;
 
-public class DiffractionFramePalette extends HBox {
-
-    /////////// Fields //////////////////////////////////////////////////////////////////////
-
-    private MarkupInitializer markupContainer;
-
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public DiffractionFramePalette() {
-        initializeComponents();
-    }
+public class DiffractionFramePalette extends HBoxComplement {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -23,11 +12,11 @@ public class DiffractionFramePalette extends HBox {
         return (DiffractionFramePaletteController) this.markupContainer.getController();
     }
 
-    /////////// Private Methods /////////////////////////////////////////////////////////////
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
 
-    private void initializeComponents() {
+    @Override
+    protected void initializeComponents() {
         this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFramePaletteController.class);
-        this.markupContainer.load();
     }
 
 }

@@ -1,21 +1,10 @@
 package edu.hipsec.xrddau.app.controls.valueadjuster;
 
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
+import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.controls.valueadjuster.components.ValueAdjusterController;
-import javafx.scene.layout.VBox;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
-public class ValueAdjuster extends VBox {
-
-    /////////// Fields //////////////////////////////////////////////////////////////////////
-
-    private MarkupInitializer markupContainer;
-
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public ValueAdjuster() {
-        initializeComponents();
-    }
+public class ValueAdjuster extends VBoxComplement {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -23,11 +12,11 @@ public class ValueAdjuster extends VBox {
         return (ValueAdjusterController) this.markupContainer.getController();
     }
 
-    /////////// Private Methods /////////////////////////////////////////////////////////////
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
 
-    private void initializeComponents() {
+    @Override
+    protected void initializeComponents() {
         this.markupContainer = MarkupInitializerMacro.createInitializer(this, ValueAdjusterController.class);
-        this.markupContainer.load();
     }
 
 }

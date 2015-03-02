@@ -1,21 +1,10 @@
 package edu.hipsec.xrddau.app.controls.maskoptionscontrol;
 
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
+import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.controls.maskoptionscontrol.components.MaskOptionsControlController;
-import javafx.scene.layout.VBox;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
-public class MaskOptionsControl extends VBox {
-
-    /////////// Fields //////////////////////////////////////////////////////////////////////
-
-    private MarkupInitializer markupContainer;
-
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public MaskOptionsControl() {
-        initializeComponents();
-    }
+public class MaskOptionsControl extends VBoxComplement {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -23,11 +12,11 @@ public class MaskOptionsControl extends VBox {
         return (MaskOptionsControlController) this.markupContainer.getController();
     }
 
-    /////////// Private Methods /////////////////////////////////////////////////////////////
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
 
-    private void initializeComponents() {
+    @Override
+    protected void initializeComponents() {
         this.markupContainer = MarkupInitializerMacro.createInitializer(this, MaskOptionsControlController.class);
-        this.markupContainer.load();
     }
 
 }

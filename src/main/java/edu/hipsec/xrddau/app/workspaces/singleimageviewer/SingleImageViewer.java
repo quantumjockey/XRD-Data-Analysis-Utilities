@@ -1,21 +1,10 @@
 package edu.hipsec.xrddau.app.workspaces.singleimageviewer;
 
+import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.workspaces.singleimageviewer.components.SingleImageViewerController;
-import javafx.scene.layout.VBox;
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
-public class SingleImageViewer extends VBox {
-
-    /////////// Fields //////////////////////////////////////////////////////////////////////
-
-    private MarkupInitializer markupContainer;
-
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public SingleImageViewer() {
-        initializeComponents();
-    }
+public class SingleImageViewer extends VBoxComplement {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -23,11 +12,11 @@ public class SingleImageViewer extends VBox {
         return (SingleImageViewerController) this.markupContainer.getController();
     }
 
-    /////////// Private Methods /////////////////////////////////////////////////////////////
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
 
-    private void initializeComponents() {
+    @Override
+    protected void initializeComponents() {
         this.markupContainer = MarkupInitializerMacro.createInitializer(this, SingleImageViewerController.class);
-        this.markupContainer.load();
     }
 
 }

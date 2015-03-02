@@ -1,24 +1,13 @@
 package edu.hipsec.xrddau.app.controls.diffractionframeworkspace;
 
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
+import com.quantumjockey.mvvmbase.markup.scene.control.TitledPaneComplement;
 import edu.hipsec.xrddau.app.controls.diffractionframeworkspace.components.DiffractionFrameWorkspaceController;
-import javafx.scene.control.TitledPane;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 import com.quantumjockey.paths.PathWrapper;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import java.io.IOException;
 
-public class DiffractionFrameWorkspace extends TitledPane {
-
-    /////////// Fields //////////////////////////////////////////////////////////////////////
-
-    private MarkupInitializer markupContainer;
-
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public DiffractionFrameWorkspace() {
-        initializeComponents();
-    }
+public class DiffractionFrameWorkspace extends TitledPaneComplement {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -34,11 +23,11 @@ public class DiffractionFrameWorkspace extends TitledPane {
         this.getController().renderImageFromFile(filePath);
     }
 
-    /////////// Private Methods /////////////////////////////////////////////////////////////
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
 
-    private void initializeComponents() {
+    @Override
+    protected void initializeComponents() {
         this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameWorkspaceController.class);
-        this.markupContainer.load();
     }
 
 }

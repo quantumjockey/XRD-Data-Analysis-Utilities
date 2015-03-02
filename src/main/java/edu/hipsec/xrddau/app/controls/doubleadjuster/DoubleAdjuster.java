@@ -1,21 +1,10 @@
 package edu.hipsec.xrddau.app.controls.doubleadjuster;
 
+import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.controls.doubleadjuster.components.DoubleAdjusterController;
-import javafx.scene.layout.VBox;
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializer;
 import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
-public class DoubleAdjuster extends VBox {
-
-    /////////// Fields //////////////////////////////////////////////////////////////////////
-
-    private MarkupInitializer markupContainer;
-
-    /////////// Constructors ////////////////////////////////////////////////////////////////
-
-    public DoubleAdjuster() {
-        initializeComponents();
-    }
+public class DoubleAdjuster extends VBoxComplement {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -23,11 +12,11 @@ public class DoubleAdjuster extends VBox {
         return (DoubleAdjusterController) this.markupContainer.getController();
     }
 
-    /////////// Private Methods /////////////////////////////////////////////////////////////
+    /////////// Protected Methods ///////////////////////////////////////////////////////////
 
-    private void initializeComponents() {
+    @Override
+    protected void initializeComponents() {
         this.markupContainer = MarkupInitializerMacro.createInitializer(this, DoubleAdjusterController.class);
-        this.markupContainer.load();
     }
 
 }
