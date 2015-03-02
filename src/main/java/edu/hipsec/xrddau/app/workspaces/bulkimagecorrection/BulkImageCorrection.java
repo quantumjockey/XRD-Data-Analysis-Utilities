@@ -2,7 +2,6 @@ package edu.hipsec.xrddau.app.workspaces.bulkimagecorrection;
 
 import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.workspaces.bulkimagecorrection.components.BulkImageCorrectionController;
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class BulkImageCorrection extends VBoxComplement {
 
@@ -16,7 +15,7 @@ public class BulkImageCorrection extends VBoxComplement {
 
     @Override
     protected void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, BulkImageCorrectionController.class);
+        this.intializeMarkup(this, BulkImageCorrectionController.class);
     }
 
 }

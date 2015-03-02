@@ -2,7 +2,6 @@ package edu.hipsec.xrddau.app.controls.diffractionframeworkspace;
 
 import com.quantumjockey.mvvmbase.markup.scene.control.TitledPaneComplement;
 import edu.hipsec.xrddau.app.controls.diffractionframeworkspace.components.DiffractionFrameWorkspaceController;
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 import com.quantumjockey.paths.PathWrapper;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import java.io.IOException;
@@ -27,7 +26,7 @@ public class DiffractionFrameWorkspace extends TitledPaneComplement {
 
     @Override
     protected void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameWorkspaceController.class);
+        this.intializeMarkup(this, DiffractionFrameWorkspaceController.class);
     }
 
 }

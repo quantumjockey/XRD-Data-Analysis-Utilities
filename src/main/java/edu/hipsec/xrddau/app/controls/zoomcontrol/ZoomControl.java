@@ -2,7 +2,6 @@ package edu.hipsec.xrddau.app.controls.zoomcontrol;
 
 import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.controls.zoomcontrol.components.ZoomControlController;
-import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class ZoomControl extends VBoxComplement {
 
@@ -16,7 +15,7 @@ public class ZoomControl extends VBoxComplement {
 
     @Override
     protected void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, ZoomControlController.class);
+        this.intializeMarkup(this, ZoomControlController.class);
     }
 
 }
