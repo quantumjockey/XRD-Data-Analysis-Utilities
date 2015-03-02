@@ -7,10 +7,6 @@ import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class BulkImageCorrection extends VBox {
 
-    /////////// Constants ///////////////////////////////////////////////////////////////////
-
-    private final String MARKUP_FILE = "BulkImageCorrectionView.fxml";
-
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MarkupInitializer markupContainer;
@@ -30,7 +26,7 @@ public class BulkImageCorrection extends VBox {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, BulkImageCorrectionController.class, MARKUP_FILE);
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, BulkImageCorrectionController.class);
         this.markupContainer.load();
     }
 

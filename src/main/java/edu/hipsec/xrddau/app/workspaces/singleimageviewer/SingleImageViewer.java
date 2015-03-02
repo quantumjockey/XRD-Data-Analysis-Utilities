@@ -7,10 +7,6 @@ import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class SingleImageViewer extends VBox {
 
-    /////////// Constants ///////////////////////////////////////////////////////////////////
-
-    private final String MARKUP_FILE = "SingleImageViewerView.fxml";
-
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MarkupInitializer markupContainer;
@@ -30,7 +26,7 @@ public class SingleImageViewer extends VBox {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, SingleImageViewerController.class, MARKUP_FILE);
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, SingleImageViewerController.class);
         this.markupContainer.load();
     }
 

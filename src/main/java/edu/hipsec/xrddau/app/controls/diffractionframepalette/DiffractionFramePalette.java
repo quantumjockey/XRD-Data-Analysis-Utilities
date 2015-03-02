@@ -7,10 +7,6 @@ import javafx.scene.layout.HBox;
 
 public class DiffractionFramePalette extends HBox {
 
-    /////////// Constants ///////////////////////////////////////////////////////////////////
-
-    private final String MARKUP_FILE = "DiffractionFramePaletteView.fxml";
-
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MarkupInitializer markupContainer;
@@ -30,7 +26,7 @@ public class DiffractionFramePalette extends HBox {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFramePaletteController.class, MARKUP_FILE);
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFramePaletteController.class);
         this.markupContainer.load();
     }
 

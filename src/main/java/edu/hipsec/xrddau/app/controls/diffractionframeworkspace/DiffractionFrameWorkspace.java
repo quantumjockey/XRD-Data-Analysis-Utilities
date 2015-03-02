@@ -10,10 +10,6 @@ import java.io.IOException;
 
 public class DiffractionFrameWorkspace extends TitledPane {
 
-    /////////// Constants ///////////////////////////////////////////////////////////////////
-
-    private final String MARKUP_FILE = "DiffractionFrameWorkspaceView.fxml";
-
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MarkupInitializer markupContainer;
@@ -41,7 +37,7 @@ public class DiffractionFrameWorkspace extends TitledPane {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameWorkspaceController.class, MARKUP_FILE);
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameWorkspaceController.class);
         this.markupContainer.load();
     }
 

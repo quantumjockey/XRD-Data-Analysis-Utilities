@@ -7,10 +7,6 @@ import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class DataExportControl extends VBox {
 
-    /////////// Constants ///////////////////////////////////////////////////////////////////
-
-    private final String MARKUP_FILE = "DataExportControlView.fxml";
-
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MarkupInitializer markupContainer;
@@ -30,7 +26,7 @@ public class DataExportControl extends VBox {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DataExportControlController.class, MARKUP_FILE);
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DataExportControlController.class);
         this.markupContainer.load();
     }
 

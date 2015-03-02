@@ -7,10 +7,6 @@ import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class MaskOptionsControl extends VBox {
 
-    /////////// Constants ///////////////////////////////////////////////////////////////////
-
-    private final String MARKUP_FILE = "MaskOptionsControlView.fxml";
-
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MarkupInitializer markupContainer;
@@ -30,7 +26,7 @@ public class MaskOptionsControl extends VBox {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, MaskOptionsControlController.class, MARKUP_FILE);
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, MaskOptionsControlController.class);
         this.markupContainer.load();
     }
 

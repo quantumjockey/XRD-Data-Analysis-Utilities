@@ -7,10 +7,6 @@ import javafx.scene.layout.GridPane;
 
 public class DiffractionFrameRender extends GridPane {
 
-    /////////// Constants ///////////////////////////////////////////////////////////////////
-
-    private final String MARKUP_FILE = "DiffractionFrameRenderView.fxml";
-
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MarkupInitializer markupContainer;
@@ -30,7 +26,7 @@ public class DiffractionFrameRender extends GridPane {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameRenderController.class, MARKUP_FILE);
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, DiffractionFrameRenderController.class);
         this.markupContainer.load();
     }
 

@@ -7,10 +7,6 @@ import com.quantumjockey.mvvmbase.markup.initialization.MarkupInitializerMacro;
 
 public class ValueAdjuster extends VBox {
 
-    /////////// Constants ///////////////////////////////////////////////////////////////////
-
-    private final String MARKUP_FILE = "ValueAdjusterView.fxml";
-
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     private MarkupInitializer markupContainer;
@@ -30,7 +26,7 @@ public class ValueAdjuster extends VBox {
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void initializeComponents() {
-        this.markupContainer = MarkupInitializerMacro.createInitializer(this, ValueAdjusterController.class, MARKUP_FILE);
+        this.markupContainer = MarkupInitializerMacro.createInitializer(this, ValueAdjusterController.class);
         this.markupContainer.load();
     }
 
