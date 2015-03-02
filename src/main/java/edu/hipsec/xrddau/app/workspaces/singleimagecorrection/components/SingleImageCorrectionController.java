@@ -8,7 +8,7 @@ import com.quantumjockey.paths.PathWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import com.quantumjockey.mvvmbase.controls.initialization.LabelExt;
+import com.quantumjockey.mvvmbase.controls.initialization.LabelInitializer;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.math.DataSubtraction;
@@ -49,7 +49,7 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
         ChangeListener<TreeItem<String>> subtractedChanged = this.createSubtractedListener();
         this. backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
 
-        LabelExt.update(this.rootPath, root, root);
+        LabelInitializer.update(this.rootPath, root, root);
 
         try {
             this.diffractionImage = FileSysReader.readImageData(this.availableFiles.get(this.diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
@@ -132,7 +132,7 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
     @Override
     protected void setDefaults() {
         String rootDefault = "(Unspecified)";
-        LabelExt.update(this.rootPath, rootDefault, null);
+        LabelInitializer.update(this.rootPath, rootDefault, null);
         this.diffractionImagePath.getController().setHeader("Inspected Image:");
         this.backgroundImagePath.getController().setHeader("Background Image:");
     }

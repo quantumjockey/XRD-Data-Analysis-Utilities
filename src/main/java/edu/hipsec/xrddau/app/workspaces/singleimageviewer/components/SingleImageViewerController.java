@@ -6,7 +6,7 @@ import edu.hipsec.xrddau.app.workspaces.WorkspaceController;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import com.quantumjockey.mvvmbase.controls.initialization.LabelExt;
+import com.quantumjockey.mvvmbase.controls.initialization.LabelInitializer;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import com.quantumjockey.paths.PathWrapper;
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class SingleImageViewerController extends MarkupControllerBase implements
         ChangeListener<TreeItem<String>> selectedChanged = this.createListener(this.diffractionImageViewport);
         this.diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
 
-        LabelExt.update(this.rootPath, root, root);
+        LabelInitializer.update(this.rootPath, root, root);
 
         try {
             this.diffractionImageViewport.renderImageFromFile(this.availableFiles.get(this.diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
@@ -92,7 +92,7 @@ public class SingleImageViewerController extends MarkupControllerBase implements
     @Override
     protected void setDefaults() {
         String rootDefault = "(Unspecified)";
-        LabelExt.update(this.rootPath, rootDefault, null);
+        LabelInitializer.update(this.rootPath, rootDefault, null);
         this.diffractionImagePath.getController().setHeader("Image Selected for Viewing");
     }
 

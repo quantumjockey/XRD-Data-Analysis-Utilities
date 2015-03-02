@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tooltip;
 import com.quantumjockey.mvvmbase.action.ActionDelegate;
-import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxExt;
+import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxInitializer;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import javafx.stage.FileChooser;
 import java.io.File;
@@ -74,7 +74,7 @@ public class DataExportControlController extends MarkupControllerBase {
             temp.add(item.getIdentifier());
             this.options.add(item);
         });
-        ChoiceBoxExt.populate(this.exportOptions, temp, null);
+        ChoiceBoxInitializer.populate(this.exportOptions, temp, null);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////

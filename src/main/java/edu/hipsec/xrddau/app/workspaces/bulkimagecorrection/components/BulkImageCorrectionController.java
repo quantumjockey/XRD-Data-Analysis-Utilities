@@ -6,7 +6,7 @@ import edu.hipsec.xrddau.app.filesystem.FileSysReader;
 import edu.hipsec.xrddau.app.workspaces.WorkspaceController;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import com.quantumjockey.mvvmbase.controls.initialization.LabelExt;
+import com.quantumjockey.mvvmbase.controls.initialization.LabelInitializer;
 import com.quantumjockey.mvvmbase.dialogs.AlertWindow;
 import com.quantumjockey.dialogs.DirectoryChooserWrapper;
 import javafx.fxml.FXML;
@@ -74,7 +74,7 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
         this.availableFiles.forEach((item) -> temp.add(item.getPathTail()));
         this.diffractionImagePath.getController().populateTree(temp, root, SelectionMode.MULTIPLE, null);
         this.backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, null);
-        LabelExt.update(this.rootPath, root, root);
+        LabelInitializer.update(this.rootPath, root, root);
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
@@ -183,7 +183,7 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
     @Override
     protected void setDefaults() {
         String rootDefault = "(Unspecified)";
-        LabelExt.update(this.rootPath, rootDefault, null);
+        LabelInitializer.update(this.rootPath, rootDefault, null);
         this.diffractionImagePath.getController().setHeader("Image(s) Selected for Correction");
         this.backgroundImagePath.getController().setHeader("Background Image");
     }

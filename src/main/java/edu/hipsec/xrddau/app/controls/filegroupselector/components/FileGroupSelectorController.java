@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import com.quantumjockey.mvvmbase.controls.factories.SelectableGroupTreeCellFctry;
-import com.quantumjockey.mvvmbase.controls.initialization.TreeViewExt;
+import com.quantumjockey.mvvmbase.controls.initialization.TreeViewInitializer;
 import com.quantumjockey.mvvmbase.icons.IconLibrary;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import java.util.ArrayList;
@@ -89,9 +89,9 @@ public class FileGroupSelectorController extends MarkupControllerBase {
         }
 
         if (mode == SelectionMode.MULTIPLE)
-            TreeViewExt.populateTree(this.fileSelection, root, mode, false, (f) -> new SelectableGroupTreeCellFctry(), selectionChangedEvent);
+            TreeViewInitializer.populateTree(this.fileSelection, root, mode, false, (f) -> new SelectableGroupTreeCellFctry(), selectionChangedEvent);
         else
-            TreeViewExt.populateTree(this.fileSelection, root, mode, false, null, selectionChangedEvent);
+            TreeViewInitializer.populateTree(this.fileSelection, root, mode, false, null, selectionChangedEvent);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////

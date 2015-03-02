@@ -6,7 +6,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.util.converter.NumberStringConverter;
-import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxExt;
+import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxInitializer;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -128,13 +128,13 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     private void initializeImageTypes() {
         ArrayList<String> imageTypeList = new ArrayList<>();
         this.imageTypes.forEach(imageTypeList::add);
-        ChoiceBoxExt.populate(this.availableImageTypes, imageTypeList, null);
+        ChoiceBoxInitializer.populate(this.availableImageTypes, imageTypeList, null);
     }
 
     private void initializeRamps() {
         ArrayList<String> rampList = new ArrayList<>();
         this.ramps.forEach((item) -> rampList.add(item.tag));
-        ChoiceBoxExt.populate(this.availableRamps, rampList, null);
+        ChoiceBoxInitializer.populate(this.availableRamps, rampList, null);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
