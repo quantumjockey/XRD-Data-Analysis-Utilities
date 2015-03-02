@@ -6,13 +6,9 @@ import com.quantumjockey.paths.PathWrapper;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import java.io.IOException;
 
-public class DiffractionFrameWorkspace extends TitledPaneComplement {
+public class DiffractionFrameWorkspace extends TitledPaneComplement<DiffractionFrameWorkspaceController> {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
-
-    public DiffractionFrameWorkspaceController getController() {
-        return (DiffractionFrameWorkspaceController) this.markupContainer.getController();
-    }
 
     public void renderImage(DiffractionFrame image) throws IOException {
         this.getController().renderImageData(image);

@@ -3,13 +3,7 @@ package edu.hipsec.xrddau.app.controls.renderoptionscontrol;
 import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.controls.renderoptionscontrol.components.RenderOptionsControlController;
 
-public class RenderOptionsControl extends VBoxComplement {
-
-    /////////// Public Methods //////////////////////////////////////////////////////////////
-
-    public RenderOptionsControlController getController() {
-        return (RenderOptionsControlController) this.markupContainer.getController();
-    }
+public class RenderOptionsControl extends VBoxComplement<RenderOptionsControlController> {
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
