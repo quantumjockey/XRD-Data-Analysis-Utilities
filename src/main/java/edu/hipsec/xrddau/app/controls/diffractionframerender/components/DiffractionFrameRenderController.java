@@ -4,6 +4,7 @@ import com.quantumjockey.colorramps.GradientRamp;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import com.quantumjockey.paths.SystemAttributes;
 import edu.hipsec.xrdtiffvisualization.DiffractionFrameVisualizer;
+import edu.hipsec.xrdtiffvisualization.ImageTypes;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -103,10 +104,9 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
 
     public void renderFrame(DiffractionFrame image, GradientRamp ramp, BoundedMask mask, Boolean isAdaptive) throws IOException {
         if (image != null) {
-            DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image);
+            DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image, ImageTypes.FALSE_COLOR_MAPPING);
             this.getImageViewport().setSmooth(false);
-            //this.getImageViewport().setImage(marImageGraph.renderDataAsFalseColorMapping(ramp, mask, isAdaptive));
-            this.getImageViewport().setImage(marImageGraph.renderDataAsGradientMapping(ramp));
+            this.getImageViewport().setImage(marImageGraph.renderDataMapping(ramp, mask, isAdaptive));
             this.cachedImage = image;
         }
     }
