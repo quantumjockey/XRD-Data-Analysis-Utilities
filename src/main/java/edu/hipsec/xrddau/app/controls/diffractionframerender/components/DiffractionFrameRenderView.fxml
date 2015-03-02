@@ -14,7 +14,7 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <ScrollPane fx:id="scrollViewport" prefHeight="600.0" prefWidth="600.0" pannable="true" GridPane.rowIndex="0">
+        <ScrollPane fx:id="scrollViewport" prefHeight="650.0" prefWidth="650.0" pannable="true" GridPane.rowIndex="0">
             <ImageView fx:id="imageViewport" pickOnBounds="true" preserveRatio="true" />
         </ScrollPane>
         <Label fx:id="pixelTrack" GridPane.rowIndex="1" prefHeight="30"/>
