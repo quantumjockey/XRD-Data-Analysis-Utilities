@@ -4,6 +4,7 @@ import edu.hipsec.xrdtiffvisualization.ImageTypes;
 import javafx.beans.property.*;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.util.converter.NumberStringConverter;
 import com.quantumjockey.mvvmbase.controls.initialization.ChoiceBoxExt;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
@@ -18,6 +19,9 @@ import java.util.ArrayList;
 public class RenderOptionsControlController extends MarkupControllerBase {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
+
+    @FXML
+    private HBox adaptiveRenderControl;
 
     @FXML
     private CheckBox adaptiveRendering;
@@ -162,7 +166,13 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setListeners() {
-        ChangeListener<Number> onSelectedImageTypeChanged = (observable, oldValue, newValue) -> setActiveImageType(this.imageTypes.get(newValue.intValue()));
+        ChangeListener<Number> onSelectedImageTypeChanged = (observable, oldValue, newValue) -> {
+            setActiveImageType(this.imageTypes.get(newValue.intValue()));
+            if (this.getActiveImageType().equals(ImageTypes.GRADIENT_MAPPING))
+                this.adaptiveRenderControl.setDisable(true);
+            else
+                this.adaptiveRenderControl.setDisable(false);
+        };
         ChangeListener<Number> onSelectedRampChanged = (observable, oldValue, newValue) -> setActiveRamp(this.ramps.get(newValue.intValue()));
         this.availableImageTypes.getSelectionModel().selectedIndexProperty().addListener(onSelectedImageTypeChanged);
         this.availableRamps.getSelectionModel().selectedIndexProperty().addListener(onSelectedRampChanged);
