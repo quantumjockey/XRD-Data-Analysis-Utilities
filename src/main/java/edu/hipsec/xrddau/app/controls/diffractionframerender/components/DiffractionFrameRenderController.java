@@ -4,7 +4,6 @@ import com.quantumjockey.colorramps.GradientRamp;
 import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
 import com.quantumjockey.paths.SystemAttributes;
 import edu.hipsec.xrdtiffvisualization.DiffractionFrameVisualizer;
-import edu.hipsec.xrdtiffvisualization.ImageTypes;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -20,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
-
 import java.io.IOException;
 
 public class DiffractionFrameRenderController extends MarkupControllerBase {
@@ -102,9 +100,9 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
-    public void renderFrame(DiffractionFrame image, GradientRamp ramp, BoundedMask mask, Boolean isAdaptive) throws IOException {
+    public void renderFrame(DiffractionFrame image, GradientRamp ramp, BoundedMask mask, Boolean isAdaptive, String imageType) throws IOException {
         if (image != null) {
-            DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image, ImageTypes.FALSE_COLOR_MAPPING);
+            DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image, imageType);
             this.getImageViewport().setSmooth(false);
             this.getImageViewport().setImage(marImageGraph.renderDataMapping(ramp, mask, isAdaptive));
             this.cachedImage = image;
@@ -139,10 +137,10 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
                 double max = this.getMaxZoom();
                 double min = this.getMinZoom();
                 if (event.getButton() == MouseButton.SECONDARY) {
-                    double newValue = currentZoom - AUTO_ZOOM_INCREMENT;
+                    double newValue = currentZoom - this.AUTO_ZOOM_INCREMENT;
                     this.setZoomLevel((newValue < min) ? min : newValue);
                 } else {
-                    double newValue = currentZoom + AUTO_ZOOM_INCREMENT;
+                    double newValue = currentZoom + this.AUTO_ZOOM_INCREMENT;
                     this.setZoomLevel((newValue > max) ? max : newValue);
                 }
             }

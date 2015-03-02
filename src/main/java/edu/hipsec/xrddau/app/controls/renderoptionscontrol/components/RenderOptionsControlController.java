@@ -1,5 +1,6 @@
 package edu.hipsec.xrddau.app.controls.renderoptionscontrol.components;
 
+import edu.hipsec.xrdtiffvisualization.ImageTypes;
 import javafx.beans.property.*;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -11,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.paint.Color;
 import com.quantumjockey.colorramps.GradientRamp;
-
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -26,11 +26,29 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     private ChoiceBox<String> availableRamps;
 
     @FXML
+    private ChoiceBox<String> availableImageTypes;
+
+    @FXML
     private Label scaleOffsetDisplay;
 
+    private ArrayList<String> imageTypes;
     private ArrayList<GradientRamp> ramps;
 
     /////////// Properties //////////////////////////////////////////////////////////////////
+
+    private StringProperty activeImageType = new SimpleStringProperty();
+
+    public final String getActiveImageType() {
+        return this.activeImageType.get();
+    }
+
+    public final void setActiveImageType(String activeImageType) {
+        this.activeImageType.set(activeImageType);
+    }
+
+    public StringProperty activeImageTypeProperty() {
+        return this.activeImageType;
+    }
 
     private ObjectProperty<GradientRamp> activeRamp = new SimpleObjectProperty<>();
 
@@ -82,6 +100,13 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
+    private void createImageTypes() {
+        this.imageTypes = new ArrayList<>();
+        this.imageTypes.add(ImageTypes.FALSE_COLOR_MAPPING);
+        this.imageTypes.add(ImageTypes.GRADIENT_MAPPING);
+        this.setActiveImageType(imageTypes.get(0));
+    }
+
     private void createRamps() {
         this.ramps = new ArrayList<>();
         this.ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.BLUE, Color.LIGHTBLUE, Color.LIGHTGREEN, Color.BEIGE, Color.BISQUE, Color.ORANGE, Color.MAGENTA, Color.LIGHTPINK, Color.WHITE}, "Fit2D Ramp"));
@@ -94,6 +119,12 @@ public class RenderOptionsControlController extends MarkupControllerBase {
         this.ramps.add(new GradientRamp(new Color[]{Color.BLACK, Color.WHITE}, "Grayscale Ramp"));
         this.ramps.add(new GradientRamp(new Color[]{Color.WHITE, Color.BLACK}, "Inverse Grayscale Ramp"));
         setActiveRamp(ramps.get(0));
+    }
+
+    private void initializeImageTypes() {
+        ArrayList<String> imageTypeList = new ArrayList<>();
+        this.imageTypes.forEach(imageTypeList::add);
+        ChoiceBoxExt.populate(this.availableImageTypes, imageTypeList, null);
     }
 
     private void initializeRamps() {
@@ -118,7 +149,9 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     @Override
     protected void setDefaults() {
         this.adaptiveRendering.setSelected(false);
+        this.createImageTypes();
         this.createRamps();
+        this.initializeImageTypes();
         this.initializeRamps();
     }
 
@@ -129,8 +162,10 @@ public class RenderOptionsControlController extends MarkupControllerBase {
 
     @Override
     protected void setListeners() {
-        ChangeListener<Number> onSelectedChanged = (observable, oldValue, newValue) -> setActiveRamp(this.ramps.get(newValue.intValue()));
-        this.availableRamps.getSelectionModel().selectedIndexProperty().addListener(onSelectedChanged);
+        ChangeListener<Number> onSelectedImageTypeChanged = (observable, oldValue, newValue) -> setActiveImageType(this.imageTypes.get(newValue.intValue()));
+        ChangeListener<Number> onSelectedRampChanged = (observable, oldValue, newValue) -> setActiveRamp(this.ramps.get(newValue.intValue()));
+        this.availableImageTypes.getSelectionModel().selectedIndexProperty().addListener(onSelectedImageTypeChanged);
+        this.availableRamps.getSelectionModel().selectedIndexProperty().addListener(onSelectedRampChanged);
     }
 
 }

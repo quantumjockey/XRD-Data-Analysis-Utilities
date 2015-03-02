@@ -42,6 +42,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
 
     private DiffractionFrame cachedImage;
     private GradientRamp selectedRamp;
+    private String selectedImageType;
 
     /////////// Public Methods //////////////////////////////////////////////////////////////
 
@@ -79,7 +80,8 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
                         this.maskOptions.getController().getLowerBound(),
                         this.maskOptions.getController().getUpperBound(),
                         this.maskOptions.getController().getMaskHue()),
-                isAdaptive
+                isAdaptive,
+                this.selectedImageType
         );
     }
 
@@ -130,7 +132,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
             int size = (image.getHeight() >= image.getWidth()) ? image.getHeight() : image.getWidth();
             double viewportSize = this.imageRender.getController().getScrollViewport().getWidth() - 2;
             double scale = viewportSize / (double) size;
-            this.imageZoom.getController().setZoomBounds(scale, DEFAULT_ZOOM_MAX);
+            this.imageZoom.getController().setZoomBounds(scale, this.DEFAULT_ZOOM_MAX);
             this.imageZoom.getController().setZoomLevel(scale);
         }
     }
@@ -154,6 +156,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
         this.updatePixelScale(this.cachedImage);
         this.exportOptions.getController().updateSelections(this.createExportSelections());
         this.selectedRamp = this.renderOptions.getController().getActiveRamp();
+        this.selectedImageType = this.renderOptions.getController().getActiveImageType();
     }
 
     @Override
@@ -176,6 +179,15 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
 
         ChangeListener<Color> onHueChange = (observable, oldValue, newValue) -> {
             try {
+                this.renderFrameMapping(this.cachedImage, this.renderOptions.getController().getAdaptiveRender());
+            } catch (IOException ex) {
+                System.out.println("Image render error!");
+            }
+        };
+
+        ChangeListener<String> onImageTypeChange = (observable, oldValue, newValue) -> {
+            try {
+                this.selectedImageType = newValue;
                 this.renderFrameMapping(this.cachedImage, this.renderOptions.getController().getAdaptiveRender());
             } catch (IOException ex) {
                 System.out.println("Image render error!");
@@ -207,6 +219,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
             }
         };
 
+        this.renderOptions.getController().activeImageTypeProperty().addListener(onImageTypeChange);
         this.renderOptions.getController().activeRampProperty().addListener(onRampChange);
         this.renderOptions.getController().adaptiveRenderProperty().addListener(onAdaptiveRenderingChange);
         this.maskOptions.getController().lowerBoundProperty().addListener(onScaleChange);
