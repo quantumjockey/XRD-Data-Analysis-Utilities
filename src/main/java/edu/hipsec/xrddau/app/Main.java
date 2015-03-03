@@ -10,7 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        WindowInitializer init = new WindowInitializer("mainwindow/MainWindowView.fxml", new MainWindowController(), this.getClass());
+        String resourcesRoot = "mainwindow/MainWindow";
+        WindowInitializer init = new WindowInitializer(resourcesRoot + "View.fxml", new MainWindowController(), this.getClass());
+        init.appendCssStyles(resourcesRoot + "Styles.css", this.getClass());
         primaryStage.setTitle("XRD Data Analysis Utilities - " + SystemAttributes.OS_NAME);
         primaryStage.setScene(init.getScene());
         if (SystemAttributes.OS_NAME.contains("Windows")) {
