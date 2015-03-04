@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import edu.hipsec.xrddau.app.controls.valueadjuster.ValueAdjuster?>
 <?import javafx.geometry.Insets?>
 
-<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.controls.maskoptionscontrol.components.MaskOptionsControlController">
+<fx:root type="javafx.scene.layout.VBox" styleClass="vbox-5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.controls.maskoptionscontrol.components.MaskOptionsControlController">
     <children>
         <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" layoutX="150.0" layoutY="10.0" text="High-Pass Mask">
             <content>
@@ -40,7 +39,4 @@
             </children>
         </HBox>
     </children>
-    <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-    </padding>
 </fx:root>

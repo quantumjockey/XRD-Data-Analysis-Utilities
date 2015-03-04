@@ -21,7 +21,7 @@
             <children>
                 <FileGroupSelector fx:id="diffractionImagePath" VBox.vgrow="ALWAYS" />
                 <FileGroupSelector fx:id="backgroundImagePath" VBox.vgrow="ALWAYS" />
-                <VBox alignment="TOP_CENTER" spacing="5.0">
+                <VBox alignment="TOP_CENTER" styleClass="vbox-5">
                     <children>
                         <HBox alignment="CENTER_RIGHT" spacing="5.0">
                             <children>
@@ -37,9 +37,6 @@
                         </HBox>
                         <Button onAction="#subtractImageGroup" text="Subtract Selected Images" />
                     </children>
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
                 </VBox>
             </children>
         </HBox>

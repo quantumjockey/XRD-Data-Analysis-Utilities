@@ -38,14 +38,11 @@
                 </ScrollPane>
                 <ScrollPane vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" prefWidth="400">
                     <content>
-                        <VBox alignment="TOP_CENTER" spacing="5.0">
+                        <VBox alignment="TOP_CENTER" styleClass="vbox-5">
                             <children>
                                 <FileGroupSelector fx:id="diffractionImagePath"/>
                                 <FileGroupSelector fx:id="backgroundImagePath" />
                             </children>
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </padding>
                         </VBox>
                     </content>
                     <tooltip>

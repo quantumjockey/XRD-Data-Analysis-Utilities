@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -14,7 +13,7 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <ScrollPane fx:id="scrollViewport" prefHeight="650.0" prefWidth="650.0" pannable="true" GridPane.rowIndex="0">
+        <ScrollPane fx:id="scrollViewport" pannable="true" GridPane.rowIndex="0" styleClass="render-window">
             <ImageView fx:id="imageViewport" pickOnBounds="true" preserveRatio="true" />
         </ScrollPane>
         <Label fx:id="pixelTrack" GridPane.rowIndex="1" prefHeight="30"/>
