@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import edu.hipsec.xrddau.app.controls.filegroupselector.FileGroupSelector?>
 
 <fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.workspaces.bulkimagecorrection.components.BulkImageCorrectionController">
     <children>
-        <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
+        <HBox styleClass="hbox-7" VBox.vgrow="NEVER">
             <children>
                 <Label text="Root Path:" />
                 <Label fx:id="rootPath" />
             </children>
-            <padding>
-                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-            </padding>
         </HBox>
         <HBox spacing="5.0" VBox.Vgrow="ALWAYS">
             <children>
                 <FileGroupSelector fx:id="diffractionImagePath" VBox.vgrow="ALWAYS" />
                 <FileGroupSelector fx:id="backgroundImagePath" VBox.vgrow="ALWAYS" />
-                <VBox alignment="TOP_CENTER" styleClass="vbox-5">
+                <VBox styleClass="vbox-5-raised">
                     <children>
-                        <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                        <HBox styleClass="hbox-5">
                             <children>
                                 <Label text="High-Pass Mask:" />
-                                <TextField fx:id="lowerBoundFilter" prefWidth="225" />
+                                <TextField fx:id="lowerBoundFilter" />
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                        <HBox styleClass="hbox-5">
                             <children>
                                 <Label text="Low-Pass Mask:" />
-                                <TextField fx:id="upperBoundFilter" prefWidth="225" />
+                                <TextField fx:id="upperBoundFilter" />
                             </children>
                         </HBox>
                         <Button onAction="#subtractImageGroup" text="Subtract Selected Images" />

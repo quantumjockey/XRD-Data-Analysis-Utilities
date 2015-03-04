@@ -3,36 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import edu.hipsec.xrddau.app.controls.valueadjuster.ValueAdjuster?>
-<?import javafx.geometry.Insets?>
 
 <fx:root type="javafx.scene.layout.VBox" styleClass="vbox-5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.controls.maskoptionscontrol.components.MaskOptionsControlController">
     <children>
-        <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" layoutX="150.0" layoutY="10.0" text="High-Pass Mask">
+        <TitledPane>
             <content>
                 <ValueAdjuster fx:id="minBound" />
             </content>
-            <padding>
-                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-            </padding>
         </TitledPane>
-        <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Low-Pass Mask">
+        <TitledPane text="Low-Pass Mask">
             <content>
                 <ValueAdjuster fx:id="maxBound" />
             </content>
-            <padding>
-                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-            </padding>
         </TitledPane>
-        <HBox alignment="CENTER" spacing="5.0">
+        <HBox styleClass="hbox-5">
             <children>
                 <Label text="Sticky Mask:" />
                 <CheckBox fx:id="enableStickyBounds" />
             </children>
-            <padding>
-                <Insets bottom="5.0" top="5.0" />
-            </padding>
         </HBox>
-        <HBox alignment="CENTER_RIGHT" spacing="5.0">
+        <HBox styleClass="hbox-5">
             <children>
                 <Label text="Overlay Hue:" />
                 <ColorPicker fx:id="overlayHue" />

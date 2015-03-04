@@ -6,9 +6,9 @@
 
 <fx:root type="javafx.scene.layout.VBox" styleClass="vbox-5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.controls.dataexportcontrol.components.DataExportControlController">
     <children>
-        <HBox alignment="CENTER" spacing="2.0">
+        <HBox styleClass="hbox-2">
             <ChoiceBox fx:id="exportOptions" />
-            <Button mnemonicParsing="false" onAction="#exportImage" text="Export" />
+            <Button onAction="#exportImage" text="Export" />
         </HBox>
     </children>
 </fx:root>

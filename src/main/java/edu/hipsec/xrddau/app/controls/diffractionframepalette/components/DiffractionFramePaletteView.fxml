@@ -11,18 +11,18 @@
 <fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.controls.diffractionframepalette.components.DiffractionFramePaletteController">
     <children>
         <DiffractionFrameRender fx:id="imageRender" />
-        <VBox alignment="CENTER" styleClass="vbox-5">
+        <VBox styleClass="vbox-5">
             <children>
-               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Image Zoom">
+               <TitledPane text="Image Zoom">
                    <ZoomControl fx:id="imageZoom" />
                </TitledPane>
-               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Masking">
+               <TitledPane text="Masking">
                    <MaskOptionsControl fx:id="maskOptions" />
                </TitledPane>
-               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Rendering">
+               <TitledPane text="Rendering">
                    <RenderOptionsControl fx:id="renderOptions" />
                </TitledPane>
-               <TitledPane alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" text="Data Export">
+               <TitledPane text="Data Export">
                    <DataExportControl fx:id="exportOptions" />
                </TitledPane>
             </children>
