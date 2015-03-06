@@ -1,6 +1,7 @@
 package edu.hipsec.xrdtiffvisualization.engine;
 
 import com.quantumjockey.colorramps.GradientRamp;
+import edu.hipsec.concurrency.BackgroundTask;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffvisualization.engine.base.DataMappingEngine;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
@@ -17,14 +18,16 @@ public class FalseColorMappingEngine extends DataMappingEngine {
     public Image renderData(DiffractionFrame data, GradientRamp ramp, BoundedMask mask, boolean adaptive) {
         WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
 
-        try {
-            if (mask != null)
-                this.renderImageWithMask(data, displayed.getPixelWriter(), data.getMaxValue(), ramp, mask, adaptive);
-            else
-                this.renderImageViaColorRamp(data, displayed.getPixelWriter(), data.getMaxValue(), ramp);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        BackgroundTask.execute(() -> {
+            try {
+                if (mask != null)
+                    this.renderImageWithMask(data, displayed.getPixelWriter(), data.getMaxValue(), ramp, mask, adaptive);
+                else
+                    this.renderImageViaColorRamp(data, displayed.getPixelWriter(), data.getMaxValue(), ramp);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         return displayed;
     }
@@ -34,7 +37,6 @@ public class FalseColorMappingEngine extends DataMappingEngine {
     private void renderImageViaColorRamp(DiffractionFrame data, PixelWriter writer, int maxValue, GradientRamp ramp) throws IOException {
         GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
         final int zeroOffset = data.scaleImageZero();
-
         data.cycleFramePixels((y, x) -> {
             int value = data.getIntensityMapValue(y, x);
             double coefficient = (double) (value + zeroOffset) / (double) (maxValue + zeroOffset);
@@ -44,9 +46,7 @@ public class FalseColorMappingEngine extends DataMappingEngine {
 
     private void renderImageWithMask(DiffractionFrame data, PixelWriter writer, int maxValue, GradientRamp ramp, BoundedMask mask, boolean adaptive) throws IOException {
         GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
-
         final int zeroOffset = (adaptive) ? mask.getLowerBound() : data.scaleImageZero();
-
         data.cycleFramePixels((y, x) -> {
             int value = data.getIntensityMapValue(y, x);
             if (value < mask.getLowerBound() || value > mask.getUpperBound())

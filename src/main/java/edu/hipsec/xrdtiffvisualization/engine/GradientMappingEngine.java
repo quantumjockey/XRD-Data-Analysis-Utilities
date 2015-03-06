@@ -1,11 +1,13 @@
 package edu.hipsec.xrdtiffvisualization.engine;
 
 import com.quantumjockey.colorramps.GradientRamp;
+import edu.hipsec.concurrency.BackgroundTask;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.datamapping.TwoDimensionalDoubleMapping;
 import edu.hipsec.xrdtiffvisualization.engine.base.DataMappingEngine;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
 public class GradientMappingEngine extends DataMappingEngine {
@@ -15,22 +17,7 @@ public class GradientMappingEngine extends DataMappingEngine {
     @Override
     public Image renderData(DiffractionFrame data, GradientRamp ramp, BoundedMask mask, boolean adaptive) {
         WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
-        GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
-        final int zeroOffset = data.scaleImageZero();
-
-        TwoDimensionalDoubleMapping gradientMapping
-                = new TwoDimensionalDoubleMapping(data.getHeight(), data.getWidth());
-
-        data.cycleFramePixels((y, x) ->
-                gradientMapping.setMapCoordinate(y, x, discernAverageIntensityShift(data, y, x)));
-
-        double maxValue = gradientMapping.getMaxValue();
-
-        gradientMapping.cycleMap((y, x) -> {
-            double coefficient = (gradientMapping.get(y, x) + zeroOffset) / (maxValue + zeroOffset);
-            displayed.getPixelWriter().setColor(x, y, colorRamp.getRampColorValue(coefficient));
-        });
-
+        renderImageViaGradientMap(data, displayed.getPixelWriter(), ramp);
         return displayed;
     }
 
@@ -46,6 +33,24 @@ public class GradientMappingEngine extends DataMappingEngine {
                     primarySum += data.getIntensityMapValue(i, j) - baseVal;
 
         return (double) primarySum / 8.0;
+    }
+
+    private void renderImageViaGradientMap(DiffractionFrame data, PixelWriter writer, GradientRamp ramp) {
+        BackgroundTask.execute(() -> {
+            GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
+            final int zeroOffset = data.scaleImageZero();
+
+            TwoDimensionalDoubleMapping gradientMapping = new TwoDimensionalDoubleMapping(data.getHeight(), data.getWidth());
+
+            data.cycleFramePixels((y, x) -> gradientMapping.setMapCoordinate(y, x, discernAverageIntensityShift(data, y, x)));
+
+            double maxValue = gradientMapping.getMaxValue();
+
+            gradientMapping.cycleMap((y, x) -> {
+                double coefficient = (gradientMapping.get(y, x) + zeroOffset) / (maxValue + zeroOffset);
+                writer.setColor(x, y, colorRamp.getRampColorValue(coefficient));
+            });
+        });
     }
 
 }
