@@ -74,7 +74,8 @@ public class DataExportControlController extends MarkupControllerBase {
             temp.add(item.getIdentifier());
             this.options.add(item);
         });
-        ChoiceBoxInitializer.populate(this.exportOptions, temp, null);
+        ChoiceBoxInitializer<String> init = new ChoiceBoxInitializer<>(this.exportOptions);
+        init.populate(temp, null);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////

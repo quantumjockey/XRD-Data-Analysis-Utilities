@@ -74,7 +74,8 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
         this.availableFiles.forEach((item) -> temp.add(item.getPathTail()));
         this.diffractionImagePath.getController().populateTree(temp, root, SelectionMode.MULTIPLE, null);
         this.backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, null);
-        LabelInitializer.update(this.rootPath, root, root);
+        LabelInitializer init = new LabelInitializer(this.rootPath);
+        init.update(root, root);
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
@@ -183,7 +184,8 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
     @Override
     protected void setDefaults() {
         String rootDefault = "(Unspecified)";
-        LabelInitializer.update(this.rootPath, rootDefault, null);
+        LabelInitializer init = new LabelInitializer(this.rootPath);
+        init.update(rootDefault, null);
         this.diffractionImagePath.getController().setHeader("Image(s) Selected for Correction");
         this.backgroundImagePath.getController().setHeader("Background Image");
     }

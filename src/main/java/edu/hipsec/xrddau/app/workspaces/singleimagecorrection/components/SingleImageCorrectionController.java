@@ -47,9 +47,11 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
         this.diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
 
         ChangeListener<TreeItem<String>> subtractedChanged = this.createSubtractedListener();
-        this. backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
+        this.backgroundImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, subtractedChanged);
 
-        LabelInitializer.update(this.rootPath, root, root);
+        LabelInitializer init = new LabelInitializer(this.rootPath);
+        init.update(root, root);
+
 
         try {
             this.diffractionImage = FileSysReader.readImageData(this.availableFiles.get(this.diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
@@ -132,7 +134,8 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
     @Override
     protected void setDefaults() {
         String rootDefault = "(Unspecified)";
-        LabelInitializer.update(this.rootPath, rootDefault, null);
+        LabelInitializer init = new LabelInitializer(this.rootPath);
+        init.update(rootDefault, null);
         this.diffractionImagePath.getController().setHeader("Inspected Image:");
         this.backgroundImagePath.getController().setHeader("Background Image:");
     }

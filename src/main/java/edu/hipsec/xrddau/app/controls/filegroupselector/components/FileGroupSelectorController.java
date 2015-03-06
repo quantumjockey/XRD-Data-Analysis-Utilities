@@ -88,10 +88,11 @@ public class FileGroupSelectorController extends MarkupControllerBase {
             root.getChildren().add(content);
         }
 
+        TreeViewInitializer<String> init = new TreeViewInitializer<>(this.fileSelection);
         if (mode == SelectionMode.MULTIPLE)
-            TreeViewInitializer.populateTree(this.fileSelection, root, mode, false, (f) -> new SelectableGroupTreeCellFactory(), selectionChangedEvent);
+            init.populate(root, mode, false, (f) -> new SelectableGroupTreeCellFactory(), selectionChangedEvent);
         else
-            TreeViewInitializer.populateTree(this.fileSelection, root, mode, false, null, selectionChangedEvent);
+            init.populate(root, mode, false, null, selectionChangedEvent);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////

@@ -128,13 +128,15 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     private void initializeImageTypes() {
         ArrayList<String> imageTypeList = new ArrayList<>();
         this.imageTypes.forEach(imageTypeList::add);
-        ChoiceBoxInitializer.populate(this.availableImageTypes, imageTypeList, null);
+        ChoiceBoxInitializer<String> init = new ChoiceBoxInitializer<>(this.availableImageTypes);
+        init.populate(imageTypeList, null);
     }
 
     private void initializeRamps() {
         ArrayList<String> rampList = new ArrayList<>();
         this.ramps.forEach((item) -> rampList.add(item.tag));
-        ChoiceBoxInitializer.populate(this.availableRamps, rampList, null);
+        ChoiceBoxInitializer<String> init = new ChoiceBoxInitializer<>(this.availableRamps);
+        init.populate(rampList, null);
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////

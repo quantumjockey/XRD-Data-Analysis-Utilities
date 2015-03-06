@@ -37,7 +37,8 @@ public class SingleImageViewerController extends MarkupControllerBase implements
         ChangeListener<TreeItem<String>> selectedChanged = this.createListener(this.diffractionImageViewport);
         this.diffractionImagePath.getController().populateTree(temp, root, SelectionMode.SINGLE, selectedChanged);
 
-        LabelInitializer.update(this.rootPath, root, root);
+        LabelInitializer init = new LabelInitializer(this.rootPath);
+        init.update(root, root);
 
         try {
             this.diffractionImageViewport.renderImageFromFile(this.availableFiles.get(this.diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
@@ -92,7 +93,8 @@ public class SingleImageViewerController extends MarkupControllerBase implements
     @Override
     protected void setDefaults() {
         String rootDefault = "(Unspecified)";
-        LabelInitializer.update(this.rootPath, rootDefault, null);
+        LabelInitializer init = new LabelInitializer(this.rootPath);
+        init.update(rootDefault, null);
         this.diffractionImagePath.getController().setHeader("Image Selected for Viewing");
     }
 
