@@ -44,7 +44,7 @@ public class GradientMappingEngine extends DataMappingEngine {
 
             data.cycleFramePixels((y, x) -> gradientMapping.setMapCoordinate(y, x, discernAverageIntensityShift(data, y, x)));
 
-            double maxValue = gradientMapping.getMaxValue();
+            double maxValue = gradientMapping.getDynamicMaxValue();
 
             gradientMapping.cycleMap((y, x) -> {
                 double coefficient = (gradientMapping.get(y, x) + zeroOffset) / (maxValue + zeroOffset);
