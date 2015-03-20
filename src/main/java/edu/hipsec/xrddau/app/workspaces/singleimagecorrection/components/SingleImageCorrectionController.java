@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.workspaces.singleimagecorrection.components;
 
-import edu.hipsec.xrddau.app.controls.filegroupselector.FileGroupSelector;
+import com.quantumjockey.melya.controls.standard.filegroupselector.FileGroupSelector;
 import edu.hipsec.xrddau.app.controls.diffractionframeworkspace.DiffractionFrameWorkspace;
 import edu.hipsec.xrddau.app.filesystem.FileSysReader;
 import edu.hipsec.xrddau.app.workspaces.WorkspaceController;
@@ -12,7 +12,6 @@ import com.quantumjockey.melya.controls.initialization.LabelInitializer;
 import com.quantumjockey.melya.markup.MarkupControllerBase;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.math.DataSubtraction;
-
 import java.io.IOException;
 import java.util.ArrayList;
 

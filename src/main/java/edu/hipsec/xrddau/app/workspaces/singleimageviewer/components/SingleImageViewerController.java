@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.workspaces.singleimageviewer.components;
 
-import edu.hipsec.xrddau.app.controls.filegroupselector.FileGroupSelector;
+import com.quantumjockey.melya.controls.standard.filegroupselector.FileGroupSelector;
 import edu.hipsec.xrddau.app.controls.diffractionframeworkspace.DiffractionFrameWorkspace;
 import edu.hipsec.xrddau.app.workspaces.WorkspaceController;
 import javafx.beans.value.ChangeListener;

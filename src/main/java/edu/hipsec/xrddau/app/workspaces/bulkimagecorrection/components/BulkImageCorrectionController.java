@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.workspaces.bulkimagecorrection.components;
 
-import edu.hipsec.xrddau.app.controls.filegroupselector.FileGroupSelector;
+import com.quantumjockey.melya.controls.standard.filegroupselector.FileGroupSelector;
 import edu.hipsec.xrddau.app.filesystem.FileSysWriter;
 import edu.hipsec.xrddau.app.filesystem.FileSysReader;
 import edu.hipsec.xrddau.app.workspaces.WorkspaceController;
