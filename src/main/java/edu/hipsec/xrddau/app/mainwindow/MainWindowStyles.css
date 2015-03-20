@@ -1,31 +1,3 @@
-.grid-pane-2 {
-    -fx-padding: 2;
-}
-
-.hbox-2 {
-    -fx-alignment: CENTER;
-    -fx-padding: 2;
-    -fx-spacing: 5;
-}
-
-.hbox-5 {
-    -fx-alignment: CENTER;
-    -fx-padding: 5;
-    -fx-spacing: 5;
-}
-
-.hbox-7 {
-    -fx-alignment: CENTER;
-    -fx-padding: 7;
-    -fx-spacing: 5;
-}
-
-.label-highlight {
-    -fx-alignment: CENTER;
-    -fx-padding: 7;
-    -fx-spacing: 5;
-}
-
 .line-chart {
     -fx-pref-height: 600px;
     -fx-pref-width: 800px;
@@ -34,32 +6,6 @@
 .render-window {
     -fx-pref-height: 650px;
     -fx-pref-width: 650px;
-}
-
-.slider {
-    -fx-padding: 2 13 2 13;
-}
-
-.text-field {
-    -fx-pref-width: 100;
-}
-
-.titled-pane {
-    -fx-alignment: CENTER;
-    -fx-animated: false;
-    -fx-collapsible: false;
-    -fx-content-display: CENTER;
-    -fx-padding: 2;
-}
-
-.tree-view {
-    -fx-pref-width: 600;
-}
-
-.vbox-5 {
-    -fx-alignment: CENTER;
-    -fx-padding: 5;
-    -fx-spacing: 5;
 }
 
 .vbox-5-raised {
