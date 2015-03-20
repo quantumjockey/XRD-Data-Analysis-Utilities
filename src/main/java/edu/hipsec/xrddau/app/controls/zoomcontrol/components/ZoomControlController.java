@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.controls.zoomcontrol.components;
 
-import edu.hipsec.xrddau.app.controls.doubleadjuster.DoubleAdjuster;
+import com.quantumjockey.melya.controls.standard.doubleadjuster.DoubleAdjuster;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
