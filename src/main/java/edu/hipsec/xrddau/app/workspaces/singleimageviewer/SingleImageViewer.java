@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.workspaces.singleimageviewer;
 
-import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
+import com.quantumjockey.melya.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.workspaces.singleimageviewer.components.SingleImageViewerController;
 
 public class SingleImageViewer extends VBoxComplement<SingleImageViewerController> {

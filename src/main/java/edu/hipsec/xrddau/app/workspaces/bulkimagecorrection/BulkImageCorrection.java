@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.workspaces.bulkimagecorrection;
 
-import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
+import com.quantumjockey.melya.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.workspaces.bulkimagecorrection.components.BulkImageCorrectionController;
 
 public class BulkImageCorrection extends VBoxComplement<BulkImageCorrectionController> {

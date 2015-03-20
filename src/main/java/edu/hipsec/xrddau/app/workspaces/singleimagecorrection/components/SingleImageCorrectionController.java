@@ -8,8 +8,8 @@ import com.quantumjockey.paths.PathWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import com.quantumjockey.mvvmbase.controls.initialization.LabelInitializer;
-import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.melya.controls.initialization.LabelInitializer;
+import com.quantumjockey.melya.markup.MarkupControllerBase;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.math.DataSubtraction;
 

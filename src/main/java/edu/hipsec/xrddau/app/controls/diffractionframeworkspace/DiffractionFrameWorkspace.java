@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.controls.diffractionframeworkspace;
 
-import com.quantumjockey.mvvmbase.markup.scene.control.TitledPaneComplement;
+import com.quantumjockey.melya.markup.scene.control.TitledPaneComplement;
 import edu.hipsec.xrddau.app.controls.diffractionframeworkspace.components.DiffractionFrameWorkspaceController;
 import com.quantumjockey.paths.PathWrapper;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;

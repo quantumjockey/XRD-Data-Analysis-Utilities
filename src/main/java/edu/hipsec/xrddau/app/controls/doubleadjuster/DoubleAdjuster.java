@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.controls.doubleadjuster;
 
-import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
+import com.quantumjockey.melya.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.controls.doubleadjuster.components.DoubleAdjusterController;
 
 public class DoubleAdjuster extends VBoxComplement<DoubleAdjusterController> {

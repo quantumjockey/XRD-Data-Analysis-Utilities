@@ -4,7 +4,7 @@ import edu.hipsec.xrddau.app.controls.diffractionframepalette.DiffractionFramePa
 import edu.hipsec.xrddau.app.filesystem.FileSysReader;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.melya.markup.MarkupControllerBase;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;

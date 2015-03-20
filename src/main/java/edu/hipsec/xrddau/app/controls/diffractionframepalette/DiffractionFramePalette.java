@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.controls.diffractionframepalette;
 
-import com.quantumjockey.mvvmbase.markup.scene.layout.HBoxComplement;
+import com.quantumjockey.melya.markup.scene.layout.HBoxComplement;
 import edu.hipsec.xrddau.app.controls.diffractionframepalette.components.DiffractionFramePaletteController;
 
 public class DiffractionFramePalette extends HBoxComplement<DiffractionFramePaletteController> {

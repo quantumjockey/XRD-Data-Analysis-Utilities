@@ -4,7 +4,7 @@ import edu.hipsec.xrddau.app.controls.doubleadjuster.DoubleAdjuster;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
-import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.melya.markup.MarkupControllerBase;
 
 public class ZoomControlController extends MarkupControllerBase {
 

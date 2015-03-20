@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.controls.valueadjuster;
 
-import com.quantumjockey.mvvmbase.markup.scene.layout.VBoxComplement;
+import com.quantumjockey.melya.markup.scene.layout.VBoxComplement;
 import edu.hipsec.xrddau.app.controls.valueadjuster.components.ValueAdjusterController;
 
 public class ValueAdjuster extends VBoxComplement<ValueAdjusterController> {

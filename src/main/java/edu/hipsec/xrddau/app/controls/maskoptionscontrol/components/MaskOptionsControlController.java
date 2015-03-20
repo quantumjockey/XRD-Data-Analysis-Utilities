@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.controls.maskoptionscontrol.components;
 
-import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.melya.markup.MarkupControllerBase;
 import edu.hipsec.xrddau.app.controls.valueadjuster.ValueAdjuster;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;

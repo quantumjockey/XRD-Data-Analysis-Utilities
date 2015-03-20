@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.controls.valueadjuster.components;
 
-import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.melya.markup.MarkupControllerBase;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;

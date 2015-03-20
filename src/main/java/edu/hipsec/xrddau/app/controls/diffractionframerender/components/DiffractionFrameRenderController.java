@@ -1,7 +1,7 @@
 package edu.hipsec.xrddau.app.controls.diffractionframerender.components;
 
 import com.quantumjockey.colorramps.GradientRamp;
-import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.melya.markup.MarkupControllerBase;
 import com.quantumjockey.paths.SystemAttributes;
 import edu.hipsec.xrdtiffvisualization.DiffractionFrameVisualizer;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;

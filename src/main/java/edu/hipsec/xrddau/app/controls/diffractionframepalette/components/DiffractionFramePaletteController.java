@@ -1,8 +1,8 @@
 package edu.hipsec.xrddau.app.controls.diffractionframepalette.components;
 
 import com.quantumjockey.colorramps.GradientRamp;
-import com.quantumjockey.mvvmbase.action.ActionDelegate;
-import com.quantumjockey.mvvmbase.markup.MarkupControllerBase;
+import com.quantumjockey.melya.action.ActionDelegate;
+import com.quantumjockey.melya.markup.MarkupControllerBase;
 import edu.hipsec.xrddau.app.controls.dataexportcontrol.DataExportControl;
 import edu.hipsec.xrddau.app.controls.diffractionframerender.DiffractionFrameRender;
 import edu.hipsec.xrddau.app.controls.maskoptionscontrol.MaskOptionsControl;
