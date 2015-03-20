@@ -6,7 +6,7 @@
 
 <fx:root type="javafx.scene.layout.VBox" styleClass="vbox-5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.controls.maskoptionscontrol.components.MaskOptionsControlController">
     <children>
-        <TitledPane>
+        <TitledPane text="High-Pass Mask">
             <content>
                 <ValueAdjuster fx:id="minBound" />
             </content>
