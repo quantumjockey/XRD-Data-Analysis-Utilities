@@ -27,6 +27,7 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
     /////////// Constants ///////////////////////////////////////////////////////////////////
 
     private final double AUTO_ZOOM_INCREMENT = 0.5;
+    private final double DEFAULT_ZOOM_MAX = 6.0;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -109,16 +110,36 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
             DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image, imageType);
             this.getImageViewport().setSmooth(false);
             this.getImageViewport().setImage(marImageGraph.renderDataMapping(ramp, mask, isAdaptive));
+            this.updateZoomScale(image);
             this.cachedImage = image;
         }
     }
+
+    /////////// Private Methods /////////////////////////////////////////////////////////////
 
     public void setZoomBounds(double min, double max) {
         this.imageZoom.getController().setLimiters(min, max);
     }
 
+    private void setZoomDefaults(){
+        double increment = 0.05;
+        this.setZoomBounds(increment, 2.0);
+        this.setZoomIncrement(increment);
+        this.setZoomLevel(1.0);
+    }
+
     public void setZoomIncrement(double increment) {
         this.imageZoom.getController().setIncrement(increment);
+    }
+
+    private void updateZoomScale(DiffractionFrame image) {
+        if (image != null) {
+            int size = (image.getHeight() >= image.getWidth()) ? image.getHeight() : image.getWidth();
+            double viewportSize = this.getScrollViewport().getWidth() - 2;
+            double scale = viewportSize / (double) size;
+            this.setZoomBounds(scale, this.DEFAULT_ZOOM_MAX);
+            this.setZoomLevel(scale);
+        }
     }
 
     /////////// Protected Methods ///////////////////////////////////////////////////////////
@@ -138,9 +159,7 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
     @Override
     protected void setDefaults() {
         this.getPixelTrack().setFont(Font.font(null, FontWeight.BOLD, 13));
-        this.setZoomBounds(0.05, 2.0);
-        this.setZoomIncrement(0.05);
-        this.setZoomLevel(1.0);
+        this.setZoomDefaults();
     }
 
     @Override

@@ -7,7 +7,6 @@ import edu.hipsec.xrddau.app.controls.dataexportcontrol.DataExportControl;
 import edu.hipsec.xrddau.app.controls.diffractionframerender.DiffractionFrameRender;
 import edu.hipsec.xrddau.app.controls.maskoptionscontrol.MaskOptionsControl;
 import edu.hipsec.xrddau.app.controls.renderoptionscontrol.RenderOptionsControl;
-import edu.hipsec.xrddau.app.controls.zoomcontrol.ZoomControl;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.imagemodel.FileTypes;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
@@ -18,10 +17,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class DiffractionFramePaletteController extends MarkupControllerBase {
-
-    /////////// Constants ///////////////////////////////////////////////////////////////////
-
-    private final double DEFAULT_ZOOM_MAX = 6.0;
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
@@ -36,9 +31,6 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
 
     @FXML
     private DataExportControl exportOptions;
-
-    @FXML
-    private ZoomControl imageZoom;
 
     private DiffractionFrame cachedImage;
     private GradientRamp selectedRamp;
@@ -70,11 +62,9 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
         this.cachedImage = image;
         this.renderFrameMapping(image, this.renderOptions.getController().getAdaptiveRender());
         this.updatePixelScale(image);
-        this.updateZoomScale(image);
     }
 
     public void renderFrameMapping(DiffractionFrame image, boolean isAdaptive) throws IOException {
-
         this.imageRender.getController().renderFrame(image, this.selectedRamp,
                 new BoundedMask(
                         this.maskOptions.getController().getLowerBound(),
@@ -127,16 +117,6 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
             this.renderOptions.getController().setOffset(Math.abs(image.getMinValue()));
     }
 
-    private void updateZoomScale(DiffractionFrame image) {
-        if (image != null) {
-            int size = (image.getHeight() >= image.getWidth()) ? image.getHeight() : image.getWidth();
-            double viewportSize = this.imageRender.getController().getScrollViewport().getWidth() - 2;
-            double scale = viewportSize / (double) size;
-            this.imageZoom.getController().setZoomBounds(scale, this.DEFAULT_ZOOM_MAX);
-            this.imageZoom.getController().setZoomLevel(scale);
-        }
-    }
-
     /////////// Protected Methods /////////////////////////////////////////////////////////////
 
     @Override
@@ -146,9 +126,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-        this.imageZoom.getController().maxZoomProperty().bindBidirectional(this.imageRender.getController().maxZoomProperty());
-        this.imageZoom.getController().minZoomProperty().bindBidirectional(this.imageRender.getController().minZoomProperty());
-        this.imageZoom.getController().zoomLevelProperty().bindBidirectional(this.imageRender.getController().zoomLevelProperty());
+
     }
 
     @Override

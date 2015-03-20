@@ -4,7 +4,6 @@
 <?import edu.hipsec.xrddau.app.controls.diffractionframerender.DiffractionFrameRender?>
 <?import edu.hipsec.xrddau.app.controls.maskoptionscontrol.MaskOptionsControl?>
 <?import edu.hipsec.xrddau.app.controls.renderoptionscontrol.RenderOptionsControl?>
-<?import edu.hipsec.xrddau.app.controls.zoomcontrol.ZoomControl?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 
@@ -13,9 +12,6 @@
         <DiffractionFrameRender fx:id="imageRender" />
         <VBox styleClass="vbox-5">
             <children>
-               <TitledPane text="Image Zoom">
-                   <ZoomControl fx:id="imageZoom" />
-               </TitledPane>
                <TitledPane text="Masking">
                    <MaskOptionsControl fx:id="maskOptions" />
                </TitledPane>
