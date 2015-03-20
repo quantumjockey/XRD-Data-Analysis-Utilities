@@ -1,6 +1,7 @@
 package edu.hipsec.xrddau.app.controls.diffractionframerender.components;
 
 import com.quantumjockey.colorramps.GradientRamp;
+import com.quantumjockey.melya.controls.standard.doubleadjuster.DoubleAdjuster;
 import com.quantumjockey.melya.markup.MarkupControllerBase;
 import com.quantumjockey.paths.SystemAttributes;
 import edu.hipsec.xrdtiffvisualization.DiffractionFrameVisualizer;
@@ -31,6 +32,9 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
 
     @FXML
     private ImageView imageViewport;
+
+    @FXML
+    private DoubleAdjuster imageZoom;
 
     @FXML
     private Label pixelTrack;
@@ -109,6 +113,14 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
         }
     }
 
+    public void setZoomBounds(double min, double max) {
+        this.imageZoom.getController().setLimiters(min, max);
+    }
+
+    public void setZoomIncrement(double increment) {
+        this.imageZoom.getController().setIncrement(increment);
+    }
+
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
@@ -118,14 +130,17 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
 
     @Override
     protected void setBindings() {
-
+        zoomLevelProperty().bindBidirectional(this.imageZoom.getController().displayedValueProperty());
+        maxZoomProperty().bindBidirectional(this.imageZoom.getController().maxValueProperty());
+        minZoomProperty().bindBidirectional(this.imageZoom.getController().minValueProperty());
     }
 
     @Override
     protected void setDefaults() {
         this.getPixelTrack().setFont(Font.font(null, FontWeight.BOLD, 13));
-        this.setMaxZoom(4);
-        this.setMinZoom(1);
+        this.setZoomBounds(0.05, 2.0);
+        this.setZoomIncrement(0.05);
+        this.setZoomLevel(1.0);
     }
 
     @Override

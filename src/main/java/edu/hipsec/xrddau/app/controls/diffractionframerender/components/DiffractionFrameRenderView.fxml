@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import com.quantumjockey.melya.controls.standard.doubleadjuster.DoubleAdjuster?>
 
 <fx:root styleClass="grid-pane-2" type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.controls.diffractionframerender.components.DiffractionFrameRenderController">
     <columnConstraints>
@@ -12,9 +13,14 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <ScrollPane fx:id="scrollViewport" pannable="true" GridPane.rowIndex="0" styleClass="render-window">
-            <ImageView fx:id="imageViewport" pickOnBounds="true" preserveRatio="true" />
-        </ScrollPane>
-        <Label fx:id="pixelTrack" GridPane.rowIndex="1" prefHeight="30"/>
+        <VBox>
+            <children>
+                <ScrollPane fx:id="scrollViewport" pannable="true" GridPane.rowIndex="0" styleClass="render-window">
+                    <ImageView fx:id="imageViewport" pickOnBounds="true" preserveRatio="true" />
+                </ScrollPane>
+                <DoubleAdjuster fx:id="imageZoom" />
+                <Label fx:id="pixelTrack" GridPane.rowIndex="1" prefHeight="30"/>
+            </children>
+        </VBox>
     </children>
 </fx:root>
