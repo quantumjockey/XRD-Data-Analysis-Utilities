@@ -93,11 +93,6 @@ public class MaskOptionsControlController extends MarkupControllerBase {
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls() {
-
-    }
-
-    @Override
     protected void setBindings() {
         this.stickyBoundsProperty().bindBidirectional(this.enableStickyBounds.selectedProperty());
         this.upperBoundProperty().bindBidirectional(this.maxBound.getController().displayedValueProperty());

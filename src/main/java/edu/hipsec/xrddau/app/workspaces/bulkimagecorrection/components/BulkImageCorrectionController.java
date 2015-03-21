@@ -172,11 +172,6 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls() {
-
-    }
-
-    @Override
     protected void setBindings() {
 
     }

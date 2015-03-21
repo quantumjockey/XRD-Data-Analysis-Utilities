@@ -81,11 +81,6 @@ public class SingleImageViewerController extends MarkupControllerBase implements
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls() {
-
-    }
-
-    @Override
     protected void setBindings() {
 
     }

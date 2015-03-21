@@ -65,11 +65,6 @@ public class MainWindowController extends WindowControllerBase {
     /////////// Protected Methods /////////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls() {
-
-    }
-
-    @Override
     protected void performInitializationTasks() {
 
     }

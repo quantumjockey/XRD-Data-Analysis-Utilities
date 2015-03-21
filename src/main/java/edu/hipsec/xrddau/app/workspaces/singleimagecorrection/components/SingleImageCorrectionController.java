@@ -121,11 +121,6 @@ public class SingleImageCorrectionController extends MarkupControllerBase implem
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls() {
-
-    }
-
-    @Override
     protected void setBindings() {
 
     }

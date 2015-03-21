@@ -120,11 +120,6 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
     /////////// Protected Methods /////////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls() {
-
-    }
-
-    @Override
     protected void setBindings() {
 
     }

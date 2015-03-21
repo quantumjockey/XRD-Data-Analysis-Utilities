@@ -87,11 +87,6 @@ public class DataExportControlController extends MarkupControllerBase {
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls() {
-
-    }
-
-    @Override
     protected void setBindings() {
 
     }

@@ -212,11 +212,6 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls() {
-
-    }
-
-    @Override
     protected void setBindings() {
         zoomLevelProperty().bindBidirectional(this.imageZoom.getController().displayedValueProperty());
         maxZoomProperty().bindBidirectional(this.imageZoom.getController().maxValueProperty());

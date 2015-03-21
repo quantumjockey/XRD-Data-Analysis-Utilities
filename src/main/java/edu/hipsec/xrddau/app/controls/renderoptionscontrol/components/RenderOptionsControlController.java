@@ -142,11 +142,6 @@ public class RenderOptionsControlController extends MarkupControllerBase {
     /////////// Protected Methods ///////////////////////////////////////////////////////////
 
     @Override
-    protected void createCustomControls() {
-
-    }
-
-    @Override
     protected void setBindings() {
         this.adaptiveRendering.selectedProperty().bindBidirectional(this.adaptiveRenderProperty());
         this.scaleOffsetDisplay.textProperty().bindBidirectional(this.scaleOffsetProperty(), new NumberStringConverter(NumberFormat.getNumberInstance()));
