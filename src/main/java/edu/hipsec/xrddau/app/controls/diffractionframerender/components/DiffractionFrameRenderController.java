@@ -116,13 +116,14 @@ public class DiffractionFrameRenderController extends MarkupControllerBase {
     }
 
     public void setZoomBounds(double min, double max) {
-        double maxVal = (max < 0) ? this.DEFAULT_ZOOM_MAX : max;
+        double maxVal = (max <= 0) ? this.DEFAULT_ZOOM_MAX : max;
         double minVal = (min < 0) ? 0 : min;
         this.imageZoom.getController().setLimiters(minVal, maxVal);
     }
 
     public void setZoomIncrement(double increment) {
-        this.imageZoom.getController().setIncrement(increment);
+        double incrementVal = (increment <= 0) ? this.AUTO_ZOOM_INCREMENT : increment;
+        this.imageZoom.getController().setIncrement(incrementVal);
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
