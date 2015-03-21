@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import edu.hipsec.xrddau.app.controls.dataexportcontrol.DataExportControl?>
-<?import edu.hipsec.xrddau.app.controls.diffractionframerender.DiffractionFrameRender?>
 <?import edu.hipsec.xrddau.app.controls.maskoptionscontrol.MaskOptionsControl?>
 <?import edu.hipsec.xrddau.app.controls.renderoptionscontrol.RenderOptionsControl?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
+<?import com.quantumjockey.melya.controls.standard.zoomableimageview.ZoomableImageView?>
 
 <fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.hipsec.xrddau.app.controls.diffractionframepalette.components.DiffractionFramePaletteController">
     <children>
-        <DiffractionFrameRender fx:id="imageRender" />
+        <ZoomableImageView fx:id="imageRender" />
         <VBox styleClass="vbox-5">
             <children>
                <TitledPane text="Masking">

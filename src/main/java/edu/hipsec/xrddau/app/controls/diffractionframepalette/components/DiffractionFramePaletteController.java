@@ -2,13 +2,14 @@ package edu.hipsec.xrddau.app.controls.diffractionframepalette.components;
 
 import com.quantumjockey.colorramps.GradientRamp;
 import com.quantumjockey.melya.action.ActionDelegate;
+import com.quantumjockey.melya.controls.standard.zoomableimageview.ZoomableImageView;
 import com.quantumjockey.melya.markup.MarkupControllerBase;
 import edu.hipsec.xrddau.app.controls.dataexportcontrol.DataExportControl;
-import edu.hipsec.xrddau.app.controls.diffractionframerender.DiffractionFrameRender;
 import edu.hipsec.xrddau.app.controls.maskoptionscontrol.MaskOptionsControl;
 import edu.hipsec.xrddau.app.controls.renderoptionscontrol.RenderOptionsControl;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.imagemodel.FileTypes;
+import edu.hipsec.xrdtiffvisualization.DiffractionFrameVisualizer;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -21,7 +22,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     @FXML
-    private DiffractionFrameRender imageRender;
+    private ZoomableImageView imageRender;
 
     @FXML
     private MaskOptionsControl maskOptions;
@@ -65,13 +66,17 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
     }
 
     public void renderFrameMapping(DiffractionFrame image, boolean isAdaptive) throws IOException {
-        this.imageRender.getController().renderFrame(image, this.selectedRamp,
-                new BoundedMask(
-                        this.maskOptions.getController().getLowerBound(),
-                        this.maskOptions.getController().getUpperBound(),
-                        this.maskOptions.getController().getMaskHue()),
-                isAdaptive,
-                this.selectedImageType
+
+        DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image, this.selectedImageType);
+        this.imageRender.getController().render(
+                marImageGraph.renderDataMapping(
+                        this.selectedRamp,
+                        new BoundedMask(
+                                this.maskOptions.getController().getLowerBound(),
+                                this.maskOptions.getController().getUpperBound(),
+                                this.maskOptions.getController().getMaskHue()),
+                        isAdaptive
+                )
         );
     }
 
