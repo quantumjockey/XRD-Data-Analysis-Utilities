@@ -17,7 +17,6 @@ public class FalseColorMappingEngine extends DataMappingEngine {
     @Override
     public Image renderData(DiffractionFrame data, GradientRamp ramp, BoundedMask mask, boolean adaptive) {
         WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
-
         BackgroundTask.execute(() -> {
             try {
                 if (mask != null)
@@ -28,14 +27,13 @@ public class FalseColorMappingEngine extends DataMappingEngine {
                 ex.printStackTrace();
             }
         });
-
         return displayed;
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
     private void renderImageViaColorRamp(DiffractionFrame data, PixelWriter writer, int maxValue, GradientRamp ramp) throws IOException {
-        GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
+        GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(this.DEFAULT_RAMP)) : ramp;
         final int zeroOffset = data.scaleImageZero();
         data.cycleFramePixels((y, x) -> {
             int value = data.getIntensityMapValue(y, x);
@@ -45,7 +43,7 @@ public class FalseColorMappingEngine extends DataMappingEngine {
     }
 
     private void renderImageWithMask(DiffractionFrame data, PixelWriter writer, int maxValue, GradientRamp ramp, BoundedMask mask, boolean adaptive) throws IOException {
-        GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
+        GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(this.DEFAULT_RAMP)) : ramp;
         final int zeroOffset = (adaptive) ? mask.getLowerBound() : data.scaleImageZero();
         data.cycleFramePixels((y, x) -> {
             int value = data.getIntensityMapValue(y, x);

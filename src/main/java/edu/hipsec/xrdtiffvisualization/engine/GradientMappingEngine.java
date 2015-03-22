@@ -17,7 +17,7 @@ public class GradientMappingEngine extends DataMappingEngine {
     @Override
     public Image renderData(DiffractionFrame data, GradientRamp ramp, BoundedMask mask, boolean adaptive) {
         WritableImage displayed = new WritableImage(data.getWidth(), data.getHeight());
-        renderImageViaGradientMap(data, displayed.getPixelWriter(), ramp);
+        this.renderImageViaGradientMap(data, displayed.getPixelWriter(), ramp);
         return displayed;
     }
 
@@ -37,12 +37,12 @@ public class GradientMappingEngine extends DataMappingEngine {
 
     private void renderImageViaGradientMap(DiffractionFrame data, PixelWriter writer, GradientRamp ramp) {
         BackgroundTask.execute(() -> {
-            GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(DEFAULT_RAMP)) : ramp;
+            GradientRamp colorRamp = (ramp == null) ? (new GradientRamp(this.DEFAULT_RAMP)) : ramp;
             final int zeroOffset = data.scaleImageZero();
 
             TwoDimensionalDoubleMapping gradientMapping = new TwoDimensionalDoubleMapping(data.getHeight(), data.getWidth());
 
-            data.cycleFramePixels((y, x) -> gradientMapping.setMapCoordinate(y, x, discernAverageIntensityShift(data, y, x)));
+            data.cycleFramePixels((y, x) -> gradientMapping.setMapCoordinate(y, x, this.discernAverageIntensityShift(data, y, x)));
 
             double maxValue = gradientMapping.getDynamicMaxValue();
 

@@ -11,7 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tooltip;
-import com.quantumjockey.melya.action.ActionDelegate;
+import com.quantumjockey.melya.action.ActionViewModel;
 import com.quantumjockey.melya.controls.initialization.ChoiceBoxInitializer;
 import com.quantumjockey.melya.markup.MarkupControllerBase;
 import javafx.stage.FileChooser;
@@ -25,21 +25,21 @@ public class DataExportControlController extends MarkupControllerBase {
     @FXML
     private ChoiceBox<String> exportOptions;
 
-    private ArrayList<ActionDelegate<Void>> options;
+    private ArrayList<ActionViewModel<Void>> options;
 
     /////////// Properties //////////////////////////////////////////////////////////////////
 
-    private ObjectProperty<ActionDelegate> selected = new SimpleObjectProperty<>();
+    private ObjectProperty<ActionViewModel> selected = new SimpleObjectProperty<>();
 
-    public final ActionDelegate getSelected() {
+    public final ActionViewModel getSelected() {
         return this.selected.get();
     }
 
-    public final void setSelected(ActionDelegate selected) {
+    public final void setSelected(ActionViewModel selected) {
         this.selected.set(selected);
     }
 
-    public ObjectProperty<ActionDelegate> selectedProperty() {
+    public ObjectProperty<ActionViewModel> selectedProperty() {
         return this.selected;
     }
 
@@ -67,7 +67,7 @@ public class DataExportControlController extends MarkupControllerBase {
         FileSysWriter.writeImageData(destination, exported, imageType);
     }
 
-    public void updateSelections(ArrayList<ActionDelegate<Void>> selections) {
+    public void updateSelections(ArrayList<ActionViewModel<Void>> selections) {
         ArrayList<String> temp = new ArrayList<>();
         this.options.clear();
         selections.forEach((item) -> {

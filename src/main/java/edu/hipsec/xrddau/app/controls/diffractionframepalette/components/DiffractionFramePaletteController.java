@@ -1,7 +1,7 @@
 package edu.hipsec.xrddau.app.controls.diffractionframepalette.components;
 
 import com.quantumjockey.colorramps.GradientRamp;
-import com.quantumjockey.melya.action.ActionDelegate;
+import com.quantumjockey.melya.action.ActionViewModel;
 import com.quantumjockey.melya.controls.standard.zoomableimageview.ZoomableImageView;
 import com.quantumjockey.melya.markup.MarkupControllerBase;
 import edu.hipsec.xrddau.app.controls.dataexportcontrol.DataExportControl;
@@ -82,10 +82,10 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
 
     /////////// Private Methods /////////////////////////////////////////////////////////////
 
-    private ArrayList<ActionDelegate<Void>> createExportSelections() {
-        ArrayList<ActionDelegate<Void>> exportActions = new ArrayList<>();
-        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_INT, this::exportThirtyTwoBitIntImage));
-        exportActions.add(new ActionDelegate<>(FileTypes.TIFF_32_BIT_FLOAT, this::exportThirtyTwoBitFloatImage));
+    private ArrayList<ActionViewModel<Void>> createExportSelections() {
+        ArrayList<ActionViewModel<Void>> exportActions = new ArrayList<>();
+        exportActions.add(new ActionViewModel<>(FileTypes.TIFF_32_BIT_INT, this::exportThirtyTwoBitIntImage));
+        exportActions.add(new ActionViewModel<>(FileTypes.TIFF_32_BIT_FLOAT, this::exportThirtyTwoBitFloatImage));
         return exportActions;
     }
 
@@ -135,6 +135,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
         this.exportOptions.getController().updateSelections(this.createExportSelections());
         this.selectedRamp = this.renderOptions.getController().getActiveRamp();
         this.selectedImageType = this.renderOptions.getController().getActiveImageType();
+        this.imageRender.getController().addToCaption((y, x) -> "Intensity: " + this.cachedImage.getIntensityMapValue(y, x));
     }
 
     @Override
