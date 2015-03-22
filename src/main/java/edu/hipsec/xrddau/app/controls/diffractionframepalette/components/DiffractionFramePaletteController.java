@@ -66,18 +66,19 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
     }
 
     public void renderFrameMapping(DiffractionFrame image, boolean isAdaptive) throws IOException {
-
-        DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image, this.selectedImageType);
-        this.imageRender.getController().render(
-                marImageGraph.renderDataMapping(
-                        this.selectedRamp,
-                        new BoundedMask(
-                                this.maskOptions.getController().getLowerBound(),
-                                this.maskOptions.getController().getUpperBound(),
-                                this.maskOptions.getController().getMaskHue()),
-                        isAdaptive
-                )
-        );
+        if (image != null) {
+            DiffractionFrameVisualizer marImageGraph = new DiffractionFrameVisualizer(image, this.selectedImageType);
+            this.imageRender.getController().render(
+                    marImageGraph.renderDataMapping(
+                            this.selectedRamp,
+                            new BoundedMask(
+                                    this.maskOptions.getController().getLowerBound(),
+                                    this.maskOptions.getController().getUpperBound(),
+                                    this.maskOptions.getController().getMaskHue()),
+                            isAdaptive
+                    )
+            );
+        }
     }
 
     /////////// Private Methods /////////////////////////////////////////////////////////////

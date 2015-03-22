@@ -40,8 +40,11 @@ public class SingleImageViewerController extends MarkupControllerBase implements
         LabelInitializer init = new LabelInitializer(this.rootPath);
         init.update(root, root);
 
+        int selectedImageRow = this.diffractionImagePath.getController().getSelectionModel().getSelectedIndex();
+        PathWrapper selectedImagePath = this.availableFiles.get(selectedImageRow);
+
         try {
-            this.diffractionImageViewport.renderImageFromFile(this.availableFiles.get(this.diffractionImagePath.getController().getSelectionModel().getSelectedIndex()));
+            this.diffractionImageViewport.renderImageFromFile(selectedImagePath);
         } catch (IOException ex) {
             System.out.println("Image file could not be rendered!");
         }
