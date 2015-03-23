@@ -19,6 +19,10 @@ import java.util.ArrayList;
 
 public class DiffractionFramePaletteController extends MarkupControllerBase {
 
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
+    private final String RENDER_ERROR_MESSAGE = "Image render error!";
+
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     @FXML
@@ -110,6 +114,22 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
         return null;
     }
 
+    private void updateFrameLoad() {
+        try {
+            this.loadFrameData(this.cachedImage);
+        } catch (IOException ex) {
+            System.out.println(this.RENDER_ERROR_MESSAGE);
+        }
+    }
+
+    private void updateFrameRender() {
+        try {
+            this.renderFrameMapping(this.cachedImage, this.renderOptions.getController().getAdaptiveRender());
+        } catch (IOException ex) {
+            System.out.println(this.RENDER_ERROR_MESSAGE);
+        }
+    }
+
     private void updateMaskLimiters(DiffractionFrame image) {
         int max = image.getMaxValue();
         int min = image.getMinValue();
@@ -148,56 +168,26 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
     protected void setListeners() {
 
         ChangeListener<Boolean> onAdaptiveRenderingChange = (observable, oldValue, newValue) -> {
-            try {
-                if (newValue)
-                    this.maskOptions.getController().setMaskHue(this.renderOptions.getController().getActiveRamp().getRampColorValue(0.0));
-                this.renderFrameMapping(this.cachedImage, newValue);
-            } catch (IOException ex) {
-                System.out.println("Image render error!");
-            }
+            if (newValue)
+                this.maskOptions.getController().setMaskHue(this.renderOptions.getController().getActiveRamp().getRampColorValue(0.0));
+            this.updateFrameRender();
         };
 
-        ChangeListener<Color> onHueChange = (observable, oldValue, newValue) -> {
-            try {
-                this.renderFrameMapping(this.cachedImage, this.renderOptions.getController().getAdaptiveRender());
-            } catch (IOException ex) {
-                System.out.println("Image render error!");
-            }
-        };
+        ChangeListener<Color> onHueChange = (observable, oldValue, newValue) -> this.updateFrameRender();
 
         ChangeListener<String> onImageTypeChange = (observable, oldValue, newValue) -> {
-            try {
-                this.selectedImageType = newValue;
-                this.renderFrameMapping(this.cachedImage, this.renderOptions.getController().getAdaptiveRender());
-            } catch (IOException ex) {
-                System.out.println("Image render error!");
-            }
+            this.selectedImageType = newValue;
+            this.updateFrameRender();
         };
 
         ChangeListener<GradientRamp> onRampChange = (observable, oldValue, newValue) -> {
-            try {
-                this.selectedRamp = newValue;
-                this.renderFrameMapping(this.cachedImage, this.renderOptions.getController().getAdaptiveRender());
-            } catch (IOException ex) {
-                System.out.println("Image render error!");
-            }
+            this.selectedRamp = newValue;
+            this.updateFrameRender();
         };
 
-        ChangeListener<Number> onScaleChange = (observable, oldValue, newValue) -> {
-            try {
-                this.renderFrameMapping(this.cachedImage, this.renderOptions.getController().getAdaptiveRender());
-            } catch (IOException ex) {
-                System.out.println("Image render error!");
-            }
-        };
+        ChangeListener<Number> onScaleChange = (observable, oldValue, newValue) -> this.updateFrameRender();
 
-        ChangeListener<Boolean> onStickyBoundsChange = (observable, oldValue, newValue) -> {
-            try {
-                this.loadFrameData(this.cachedImage);
-            } catch (IOException ex) {
-                System.out.println("Image render error!");
-            }
-        };
+        ChangeListener<Boolean> onStickyBoundsChange = (observable, oldValue, newValue) -> this.updateFrameLoad();
 
         this.renderOptions.getController().activeImageTypeProperty().addListener(onImageTypeChange);
         this.renderOptions.getController().activeRampProperty().addListener(onRampChange);
