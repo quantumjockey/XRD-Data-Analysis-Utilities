@@ -12,15 +12,15 @@
         <ZoomableImageView fx:id="imageRender" />
         <VBox styleClass="vbox-5">
             <children>
-               <TitledPane text="Masking">
+                <TitledPane text="Masking">
                    <MaskOptionsControl fx:id="maskOptions" />
-               </TitledPane>
-               <TitledPane text="Rendering">
+                </TitledPane>
+                <TitledPane text="Rendering">
                    <RenderOptionsControl fx:id="renderOptions" />
-               </TitledPane>
-               <TitledPane text="Data Export">
+                </TitledPane>
+                <TitledPane text="Data Export">
                    <DataExportControl fx:id="exportOptions" />
-               </TitledPane>
+                </TitledPane>
             </children>
         </VBox>
     </children>
