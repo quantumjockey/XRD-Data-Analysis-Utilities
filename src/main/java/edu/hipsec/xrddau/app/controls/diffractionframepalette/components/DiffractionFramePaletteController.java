@@ -49,6 +49,7 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
         int priorUpperBnd = this.maskOptions.getController().getUpperBound();
 
         this.updateMaskLimiters(image);
+        this.imageRender.getController().resetRotation();
 
         if (this.cachedImage != null) {
             int priorMax, priorMin;
@@ -95,6 +96,8 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
     }
 
     private Void exportThirtyTwoBitIntImage() {
+        double rotation = this.imageRender.getController().getImageRotation();
+        this.cachedImage.rotate(rotation);
         this.exportOptions.getController().exportImageWithAttributes(
                 this.cachedImage,
                 FileTypes.TIFF_32_BIT_INT,
@@ -105,6 +108,8 @@ public class DiffractionFramePaletteController extends MarkupControllerBase {
     }
 
     private Void exportThirtyTwoBitFloatImage() {
+        double rotation = this.imageRender.getController().getImageRotation();
+        this.cachedImage.rotate(rotation);
         this.exportOptions.getController().exportImageWithAttributes(
                 this.cachedImage,
                 FileTypes.TIFF_32_BIT_FLOAT,
