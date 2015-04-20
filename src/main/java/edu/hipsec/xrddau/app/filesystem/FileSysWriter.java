@@ -1,7 +1,7 @@
 package edu.hipsec.xrddau.app.filesystem;
 
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
-import edu.hipsec.xrdtiffoperations.imagemodel.martiff.MARTiffImage;
+import edu.hipsec.xrdtiffoperations.datamodel.mardetector.martiff.MARTiffImage;
 import edu.hipsec.xrdtiffoperations.filehandling.io.TiffWriter;
 import java.io.File;
 

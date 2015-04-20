@@ -3,7 +3,7 @@ package edu.hipsec.xrddau.app.controls.dataexportcontrol.components;
 import com.quantumjockey.dialogs.FileSaveChooserWrapper;
 import edu.hipsec.xrddau.app.filesystem.FileSysWriter;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
-import edu.hipsec.xrdtiffoperations.imagemodel.FileExtensions;
+import edu.hipsec.xrdtiffoperations.constants.FileExtensions;
 import edu.hipsec.xrdtiffoperations.math.DataMasking;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

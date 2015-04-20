@@ -8,7 +8,7 @@ import edu.hipsec.xrddau.app.controls.dataexportcontrol.DataExportControl;
 import edu.hipsec.xrddau.app.controls.maskoptionscontrol.MaskOptionsControl;
 import edu.hipsec.xrddau.app.controls.renderoptionscontrol.RenderOptionsControl;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
-import edu.hipsec.xrdtiffoperations.imagemodel.FileTypes;
+import edu.hipsec.xrdtiffoperations.constants.FileTypes;
 import edu.hipsec.xrdtiffvisualization.DiffractionFrameVisualizer;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
 import javafx.beans.value.ChangeListener;

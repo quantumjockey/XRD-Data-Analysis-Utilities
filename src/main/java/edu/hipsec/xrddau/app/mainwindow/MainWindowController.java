@@ -11,7 +11,7 @@ import com.quantumjockey.paths.SystemAttributes;
 import javafx.fxml.FXML;
 import com.quantumjockey.paths.PathWrapper;
 import com.quantumjockey.paths.filters.FilterWrapper;
-import edu.hipsec.xrdtiffoperations.imagemodel.FileExtensions;
+import edu.hipsec.xrdtiffoperations.constants.FileExtensions;
 import java.io.*;
 import java.util.*;
 
