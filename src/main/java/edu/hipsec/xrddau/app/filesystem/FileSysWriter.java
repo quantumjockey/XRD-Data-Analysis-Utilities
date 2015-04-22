@@ -1,8 +1,8 @@
 package edu.hipsec.xrddau.app.filesystem;
 
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
-import edu.hipsec.xrdtiffoperations.datamodel.mardetector.martiff.MARTiffImage;
-import edu.hipsec.xrdtiffoperations.filehandling.io.TiffWriter;
+import edu.hipsec.xrdtiffoperations.file.martiff.MARTiffImage;
+import edu.hipsec.xrdtiffoperations.file.martiff.io.TiffWriter;
 import java.io.File;
 
 public class FileSysWriter {

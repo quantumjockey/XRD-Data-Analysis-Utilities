@@ -3,7 +3,7 @@ package edu.hipsec.xrdtiffvisualization.engine;
 import com.quantumjockey.colorramps.GradientRamp;
 import edu.hipsec.concurrency.BackgroundTask;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
-import edu.hipsec.xrdtiffoperations.datamapping.TwoDimensionalDoubleMapping;
+import edu.hipsec.xrdtiffoperations.data.mapping.TwoDimensionalDoubleMapping;
 import edu.hipsec.xrdtiffvisualization.engine.base.DataMappingEngine;
 import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
 import javafx.scene.image.Image;

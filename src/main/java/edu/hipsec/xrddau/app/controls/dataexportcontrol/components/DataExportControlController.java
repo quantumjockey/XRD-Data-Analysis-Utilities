@@ -4,7 +4,7 @@ import com.quantumjockey.dialogs.FileSaveChooserWrapper;
 import edu.hipsec.xrddau.app.filesystem.FileSysWriter;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.constants.FileExtensions;
-import edu.hipsec.xrdtiffoperations.math.DataMasking;
+import edu.hipsec.xrdtiffoperations.data.math.DataMasking;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;

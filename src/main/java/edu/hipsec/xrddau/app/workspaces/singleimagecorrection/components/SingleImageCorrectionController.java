@@ -11,7 +11,7 @@ import javafx.scene.control.*;
 import com.quantumjockey.melya.controls.initialization.LabelInitializer;
 import com.quantumjockey.melya.markup.MarkupControllerBase;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
-import edu.hipsec.xrdtiffoperations.math.DataSubtraction;
+import edu.hipsec.xrdtiffoperations.data.math.DataSubtraction;
 import java.io.IOException;
 import java.util.ArrayList;
 
