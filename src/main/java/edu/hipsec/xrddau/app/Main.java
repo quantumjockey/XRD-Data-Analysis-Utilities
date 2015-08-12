@@ -13,9 +13,9 @@ public class Main extends Application {
         String resourcesRoot = "mainwindow/MainWindow";
         WindowInitializer init = new WindowInitializer(resourcesRoot + "View.fxml", new MainWindowController(), this.getClass());
         init.appendCssStyles(resourcesRoot + "Styles.css", this.getClass());
-        primaryStage.setTitle("XRD Data Analysis Utilities - " + SystemAttributes.OS_NAME);
+        primaryStage.setTitle("XRD Data Analysis Utilities - " + SystemAttributes.OSName());
         primaryStage.setScene(init.getScene());
-        if (SystemAttributes.OS_NAME.contains("Windows")) {
+        if (SystemAttributes.OSName().contains("Windows")) {
             primaryStage.requestFocus();
             primaryStage.setMaximized(true);
         }

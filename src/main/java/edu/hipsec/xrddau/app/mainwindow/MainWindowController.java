@@ -45,7 +45,14 @@ public class MainWindowController extends WindowControllerBase {
 
         if (selectedDirectory != null) {
 
-            availableFiles = DirectoryParser.parseSelectedDirectory(selectedDirectory, new FilterWrapper(new String[]{FileExtensions.DEFAULT, FileExtensions.EXTENDED_DEFAULT, FileExtensions.MAR_2300, FileExtensions.MAR_3450}));
+            availableFiles = new ArrayList<>(
+                    Arrays.asList(DirectoryParser.parseSelectedDirectory(
+                                    selectedDirectory, new FilterWrapper(
+                                            new String[]{FileExtensions.DEFAULT, FileExtensions.EXTENDED_DEFAULT, FileExtensions.MAR_2300, FileExtensions.MAR_3450}
+                                    )
+                            )
+                    )
+            );
 
             if (availableFiles.size() != 0) {
                 String path = selectedDirectory.getPath();
@@ -54,7 +61,7 @@ public class MainWindowController extends WindowControllerBase {
                 this.singleImageViewer.getController().updateControls(availableFiles, path);
             } else {
                 String title = "No Files Found";
-                String message = "No files matching XRD file extension filters have been found in this directory. If files exist in a subdirectory of this   " + SystemAttributes.LINE_SEPARATOR
+                String message = "No files matching XRD file extension filters have been found in this directory. If files exist in a subdirectory of this   " + SystemAttributes.LineSeparator()
                         + "folder, that subdirectory must be explicitly selected in order for files to be parsed appropriately.";
                 AlertWindow emptyDirectoryAlert = new AlertWindow(title, message);
                 emptyDirectoryAlert.show();

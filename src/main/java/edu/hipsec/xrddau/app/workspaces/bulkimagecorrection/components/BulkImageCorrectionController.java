@@ -131,7 +131,7 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
 
         String[] parts = selectedPaths.get(0).getPathTail().split("_");
         String newDirectoryName = parts[0] + "_" + parts[1];
-        String newDestination = basePath + SystemAttributes.FILE_SEPARATOR + newDirectoryName;
+        String newDestination = basePath + SystemAttributes.FileSeparator() + newDirectoryName;
 
         try {
             if (!Files.exists(Paths.get(newDestination)))
@@ -163,7 +163,7 @@ public class BulkImageCorrectionController extends MarkupControllerBase implemen
             if (baseImage != null && backgroundImage != null) {
                 DiffractionFrame subtracted = DataSubtraction.subtractImages(backgroundImage, baseImage);
                 DiffractionFrame filtered = this.filterImage(subtracted);
-                String filePath = newerDestination + SystemAttributes.FILE_SEPARATOR + filtered.getIdentifier() + FileExtensions.DEFAULT;
+                String filePath = newerDestination + SystemAttributes.FileSeparator() + filtered.getIdentifier() + FileExtensions.DEFAULT;
                 FileSysWriter.writeImageData(new File(filePath), filtered, FileTypes.TIFF_32_BIT_INT);
             }
         });
