@@ -3,17 +3,17 @@ package edu.hipsec.xrddau.app.mainwindow;
 import edu.hipsec.xrddau.app.workspaces.bulkimagecorrection.BulkImageCorrection;
 import edu.hipsec.xrddau.app.workspaces.singleimagecorrection.SingleImageCorrection;
 import edu.hipsec.xrddau.app.workspaces.singleimageviewer.SingleImageViewer;
-import com.quantumjockey.dialogs.DirectoryChooserWrapper;
+import com.quantumjockey.filesystem.dialogs.DirectoryChooserWrapper;
 import com.quantumjockey.melya.dialogs.AlertWindow;
 import com.quantumjockey.melya.window.WindowControllerBase;
-import com.quantumjockey.parsers.DirectoryParser;
-import com.quantumjockey.paths.SystemAttributes;
-import javafx.fxml.FXML;
-import com.quantumjockey.paths.PathWrapper;
-import com.quantumjockey.paths.filters.FilterWrapper;
+import com.quantumjockey.filesystem.operators.DirectoryOperator;
+import com.quantumjockey.filesystem.paths.SystemAttributes;
+import com.quantumjockey.filesystem.paths.PathWrapper;
+import com.quantumjockey.filesystem.paths.filters.FilterWrapper;
 import edu.hipsec.xrdtiffoperations.constants.FileExtensions;
 import java.io.*;
 import java.util.*;
+import javafx.fxml.FXML;
 
 public class MainWindowController extends WindowControllerBase {
 
@@ -46,7 +46,7 @@ public class MainWindowController extends WindowControllerBase {
         if (selectedDirectory != null) {
 
             availableFiles = new ArrayList<>(
-                    Arrays.asList(DirectoryParser.parseSelectedDirectory(
+                    Arrays.asList(DirectoryOperator.parseSelectedDirectory(
                                     selectedDirectory, new FilterWrapper(
                                             new String[]{FileExtensions.DEFAULT, FileExtensions.EXTENDED_DEFAULT, FileExtensions.MAR_2300, FileExtensions.MAR_3450}
                                     )

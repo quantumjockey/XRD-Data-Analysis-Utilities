@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.quantumjockey.melya.controls.initialization.LabelInitializer;
 import com.quantumjockey.melya.markup.MarkupControllerBase;
-import com.quantumjockey.paths.PathWrapper;
+import com.quantumjockey.filesystem.paths.PathWrapper;
 import java.io.IOException;
 import java.util.ArrayList;
 

@@ -4,7 +4,7 @@ import com.quantumjockey.melya.controls.standard.filegroupselector.FileGroupSele
 import edu.hipsec.xrddau.app.controls.diffractionframeworkspace.DiffractionFrameWorkspace;
 import edu.hipsec.xrddau.app.filesystem.FileSysReader;
 import edu.hipsec.xrddau.app.workspaces.WorkspaceController;
-import com.quantumjockey.paths.PathWrapper;
+import com.quantumjockey.filesystem.paths.PathWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

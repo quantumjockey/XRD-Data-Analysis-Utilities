@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.filesystem;
 
-import com.quantumjockey.paths.PathWrapper;
+import com.quantumjockey.filesystem.paths.PathWrapper;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.file.martiff.MARTiffImage;
 import edu.hipsec.xrdtiffoperations.file.martiff.io.TiffReader;

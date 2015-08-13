@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.workspaces;
 
-import com.quantumjockey.paths.PathWrapper;
+import com.quantumjockey.filesystem.paths.PathWrapper;
 import java.util.ArrayList;
 
 public interface WorkspaceController {
