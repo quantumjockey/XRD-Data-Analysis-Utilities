@@ -1,8 +1,8 @@
-package edu.hipsec.xrdtiffvisualization.engine.base;
+package edu.hipsec.xrddau.xrdvisualization.engine.base;
 
 import com.quantumjockey.colorramps.GradientRamp;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
-import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
+import edu.hipsec.xrddau.xrdvisualization.masking.BoundedMask;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 

@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.controls.renderoptionscontrol.components;
 
-import edu.hipsec.xrdtiffvisualization.ImageTypes;
+import edu.hipsec.xrddau.xrdvisualization.ImageTypes;
 import javafx.beans.property.*;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;

@@ -1,10 +1,10 @@
-package edu.hipsec.xrdtiffvisualization.engine;
+package edu.hipsec.xrddau.xrdvisualization.engine;
 
 import com.quantumjockey.colorramps.GradientRamp;
 import edu.hipsec.concurrency.BackgroundTask;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
-import edu.hipsec.xrdtiffvisualization.engine.base.DataMappingEngine;
-import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
+import edu.hipsec.xrddau.xrdvisualization.engine.base.DataMappingEngine;
+import edu.hipsec.xrddau.xrdvisualization.masking.BoundedMask;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;

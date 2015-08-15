@@ -1,4 +1,4 @@
-package edu.hipsec.xrdtiffvisualization;
+package edu.hipsec.xrddau.xrdvisualization;
 
 public class ImageTypes {
 

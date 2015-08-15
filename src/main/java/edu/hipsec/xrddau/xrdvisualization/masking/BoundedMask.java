@@ -1,4 +1,4 @@
-package edu.hipsec.xrdtiffvisualization.masking;
+package edu.hipsec.xrddau.xrdvisualization.masking;
 
 
 import javafx.scene.paint.Color;

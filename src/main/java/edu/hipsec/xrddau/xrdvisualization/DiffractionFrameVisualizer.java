@@ -1,9 +1,9 @@
-package edu.hipsec.xrdtiffvisualization;
+package edu.hipsec.xrddau.xrdvisualization;
 
-import edu.hipsec.xrdtiffvisualization.engine.FalseColorMappingEngine;
-import edu.hipsec.xrdtiffvisualization.engine.GradientMappingEngine;
-import edu.hipsec.xrdtiffvisualization.engine.base.DataMappingEngine;
-import edu.hipsec.xrdtiffvisualization.masking.BoundedMask;
+import edu.hipsec.xrddau.xrdvisualization.engine.FalseColorMappingEngine;
+import edu.hipsec.xrddau.xrdvisualization.engine.GradientMappingEngine;
+import edu.hipsec.xrddau.xrdvisualization.engine.base.DataMappingEngine;
+import edu.hipsec.xrddau.xrdvisualization.masking.BoundedMask;
 import javafx.scene.image.*;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import com.quantumjockey.colorramps.GradientRamp;
