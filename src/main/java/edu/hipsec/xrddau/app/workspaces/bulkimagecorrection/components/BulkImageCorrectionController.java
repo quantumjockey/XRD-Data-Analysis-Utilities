@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.quantumjockey.melya.markup.MarkupControllerBase;
 import com.quantumjockey.filesystem.paths.PathWrapper;
-import com.quantumjockey.filesystem.paths.SystemAttributes;
+import com.quantumjockey.filesystem.system.SystemAttributes;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.constants.FileExtensions;
 import edu.hipsec.xrdtiffoperations.constants.FileTypes;
