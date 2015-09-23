@@ -1,7 +1,7 @@
 package edu.hipsec.xrddau.app;
 
 import edu.hipsec.xrddau.app.mainwindow.MainWindowController;
-import com.quantumjockey.filesystem.system.SystemAttributes;
+import com.quantumjockey.system.SystemAttributes;
 import com.quantumjockey.melya.window.initialization.WindowInitializer;
 import javafx.application.Application;
 import javafx.stage.Stage;

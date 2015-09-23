@@ -1,6 +1,6 @@
 package edu.hipsec.xrddau.app.controls.dataexportcontrol.components;
 
-import com.quantumjockey.filesystem.dialogs.FileSaveChooserWrapper;
+import com.quantumjockey.dialogs.FileSaveChooserWrapper;
 import edu.hipsec.xrddau.app.filesystem.FileSysWriter;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrdtiffoperations.constants.FileExtensions;

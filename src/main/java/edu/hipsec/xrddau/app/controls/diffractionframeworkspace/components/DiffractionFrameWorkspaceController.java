@@ -8,7 +8,7 @@ import com.quantumjockey.melya.markup.MarkupControllerBase;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
-import com.quantumjockey.filesystem.paths.PathWrapper;
+import com.quantumjockey.paths.PathWrapper;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 
 public class DiffractionFrameWorkspaceController extends MarkupControllerBase {

@@ -1,15 +1,15 @@
 package edu.hipsec.xrddau.app.mainwindow;
 
-import com.quantumjockey.filesystem.search.FileSearcher;
+import com.quantumjockey.files.search.FileSearcher;
 import edu.hipsec.xrddau.app.workspaces.bulkimagecorrection.BulkImageCorrection;
 import edu.hipsec.xrddau.app.workspaces.singleimagecorrection.SingleImageCorrection;
 import edu.hipsec.xrddau.app.workspaces.singleimageviewer.SingleImageViewer;
-import com.quantumjockey.filesystem.dialogs.DirectoryChooserWrapper;
+import com.quantumjockey.dialogs.DirectoryChooserWrapper;
 import com.quantumjockey.melya.dialogs.AlertWindow;
 import com.quantumjockey.melya.window.WindowControllerBase;
-import com.quantumjockey.filesystem.paths.PathWrapper;
-import com.quantumjockey.filesystem.paths.filters.FilterWrapper;
-import com.quantumjockey.filesystem.system.SystemAttributes;
+import com.quantumjockey.paths.PathWrapper;
+import com.quantumjockey.paths.filters.FilterWrapper;
+import com.quantumjockey.system.SystemAttributes;
 import edu.hipsec.xrdtiffoperations.constants.FileExtensions;
 import java.io.*;
 import java.util.*;
