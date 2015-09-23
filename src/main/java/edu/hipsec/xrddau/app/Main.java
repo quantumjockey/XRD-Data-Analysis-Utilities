@@ -1,8 +1,8 @@
 package edu.hipsec.xrddau.app;
 
-import edu.hipsec.xrddau.app.mainwindow.MainWindowController;
+import com.quantumjockey.melya.application.ApplicationScaffold;
 import com.quantumjockey.system.SystemAttributes;
-import com.quantumjockey.melya.window.initialization.WindowInitializer;
+import edu.hipsec.xrddau.app.mainwindow.MainWindowController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -10,15 +10,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         String resourcesRoot = "mainwindow/MainWindow";
-        WindowInitializer init = new WindowInitializer(resourcesRoot + "View.fxml", new MainWindowController(), this.getClass());
-        init.appendCssStyles(resourcesRoot + "Styles.css", this.getClass());
-        primaryStage.setTitle("XRD Data Analysis Utilities - " + SystemAttributes.OSName());
-        primaryStage.setScene(init.getScene());
-        if (SystemAttributes.OSName().contains("Windows")) {
-            primaryStage.requestFocus();
-            primaryStage.setMaximized(true);
-        }
+
+        ApplicationScaffold.createWithResourcesRoot(
+                primaryStage,
+                resourcesRoot,
+                "XRD Data Analysis Utilities - " + SystemAttributes.OSName(),
+                null,
+                new MainWindowController(),
+                this.getClass(),
+                () -> {
+                    if (SystemAttributes.OSName().contains("Windows")) {
+                        primaryStage.requestFocus();
+                        primaryStage.setMaximized(true);
+                    }
+                });
+
         primaryStage.show();
     }
 
@@ -26,5 +34,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
