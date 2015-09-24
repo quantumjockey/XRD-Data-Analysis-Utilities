@@ -8,7 +8,7 @@ This project has three purposes:
 2.  To construct a set of tools to help me execute the goals of my Master's Thesis project.
 3.  To learn Java and the patterns recommended by Oracle and the Java developer community for use with JavaFX applications in a production environment.
 
-Though the tool is in a useful state right now, a myriad of features (and documentation) will be added over the course of the next few weeks.
+Though the tool is in a useful state right now, a myriad of features (and documentation) will be added over the course of the coming months.
 
 # Notes
 
