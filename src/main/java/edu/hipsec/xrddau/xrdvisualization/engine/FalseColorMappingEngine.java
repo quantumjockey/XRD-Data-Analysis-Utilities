@@ -1,7 +1,7 @@
 package edu.hipsec.xrddau.xrdvisualization.engine;
 
 import com.quantumjockey.colorramps.GradientRamp;
-import edu.hipsec.concurrency.BackgroundTask;
+import com.quantumjockey.melya.concurrency.BackgroundTask;
 import edu.hipsec.xrdtiffoperations.data.DiffractionFrame;
 import edu.hipsec.xrddau.xrdvisualization.engine.base.DataMappingEngine;
 import edu.hipsec.xrddau.xrdvisualization.masking.BoundedMask;
