@@ -10,6 +10,10 @@ This project has three purposes:
 
 Though the tool is in a useful state right now, a myriad of features (and documentation) will be added over the course of the next few weeks.
 
+# Notes
+
+This project was initially scaffolded with the JavaFX application packager in IntelliJ 13. Neither ANT nor Maven have been configured in a manner tht successfully instantiates the JavaFX Runtime and allows the application to run properly when cloned to other machines/environments. Work is being done to remedy this, and a solution for building without a configuration attached directly to IntelliJ or any other development tool will be available soon.
+
 # Requirements
 
 In order to begin development with this repository, the JDK and the latest release for Java 8 should be installed on your machine.
@@ -23,15 +27,19 @@ If the JDK and/or Java 8 is/are not installed on your machine:
 
 Your development environment is now ready for Java.
 
+As of JDK 8, JavaFX runtime jars are available to the Java Runtime Environment without the need for explicitly defining JavaFX as a dependency in any build file or dependencies list..
+
 # Dependencies
 
-Note that this project currently has four dependencies:
+Note that this project currently has four module dependencies:
 
-1. [filesystemhelper](https://github.com/quantumjockey/filesystemhelper)
-2. [gradientswatch](https://github.com/quantumjockey/gradientswatch)
-3. [mvvmhelper](https://github.com/quantumjockey/mvvmhelper)
-4. [xrdfileoperations](https://github.com/quantumjockey/xrdfileoperations)
+1. [footplate](https://github.com/quantumjockey/footplate) - For managing application files and system properties.
+2. [gradientswatch](https://github.com/quantumjockey/gradientswatch) - For data visualization (graphics).
+3. [melyaframework](https://github.com/quantumjockey/melyaframework) - For application scaffolding, GUI management, and utilization of JavaFX features.
+4. [xrdfileoperations](https://github.com/quantumjockey/xrdfileoperations) - For reading crystallographic file formats and analyzing the data contained therein.
 
 Be sure to clone these repositories and reconfigure the application's project structure prior to working with the code.
+
+These modules are still not complete from a production standpoint and, though usable, require much more testing before being posted publicly on Maven or an organizational GitHub profile.
 
 Stay tuned for updates!
